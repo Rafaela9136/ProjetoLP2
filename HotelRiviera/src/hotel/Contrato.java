@@ -1,8 +1,8 @@
 package hotel;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
 import excecoes.DataInvalidaException;
 
 public class Contrato {
@@ -11,17 +11,17 @@ public class Contrato {
 	private List<Servico> servicos;
 	private Opiniao opiniao;
 	private List<Quarto> quartos;
-	private double contaRestaurante;
-
+	private String cartaoDeCredito;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
-	private float despesasTotais;
+	private Estrategias estrategia;
+	private float despesasAdicionais;
 	private boolean isReserva;
 
 	public Contrato(Hospede hospedeTitular, List<Hospede> acompanhantes,
-			int diaInicial, int mesInicial, int anoInicial, int diaFinal,
-			int mesFinal, int anoFinal, boolean isReserva, List<Quarto> quartos)
-			throws Exception {
+			Estrategias estrategia, int diaInicial, int mesInicial,
+			int anoInicial, int diaFinal, int mesFinal, int anoFinal,
+			boolean isReserva, List<Quarto> quartos) throws Exception {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(acompanhantes);
@@ -38,7 +38,9 @@ public class Contrato {
 		dataCheckOut.set(Calendar.DAY_OF_MONTH, diaFinal);
 
 		if (dataCheckIn.compareTo(dataCheckOut) < 0)
-			throw new Exception();
+			throw new DataInvalidaException();
+		
+		this.estrategia = estrategia;
 		this.hospedeTitular = hospedeTitular;
 		this.acompanhantes = acompanhantes;
 		this.isReserva = isReserva;
@@ -49,15 +51,15 @@ public class Contrato {
 	public boolean getIsReserva() {
 		return isReserva;
 	}// getIsReserva
-	
+
 	public List<Hospede> getAcompanhantes() {
 		return acompanhantes;
 	}// getAcompanhantes
-	
+
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}// getOpiniao
-	
+
 	public List<Quarto> getQuartos() {
 		return quartos;
 	}// getQuartos
@@ -66,29 +68,30 @@ public class Contrato {
 		return dataCheckOut;
 	}// getDataCheckIn
 
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
 	public Calendar getDataCheckOut() {
 		return dataCheckOut;
 	}// getDataCheckOut
 
-	public double getDespesasTotais() {
-		return despesasTotais;
+	public double getDespesasAdicionais() {
+		return despesasAdicionais;
 	}// getDespesasTotais
-	
-	public double getContaRestaurante() {
-		return contaRestaurante;
-	}// getContaRestaurante
 
 	public void setIsReserva(boolean estado) {
 		isReserva = estado;
 	}// setIsReserva
-	
-	public void setDataCheckOut(int dia, int mes, int ano) throws DataInvalidaException {
+
+	public void setDataCheckOut(int dia, int mes, int ano)
+			throws DataInvalidaException {
 		verificaDataCheckOutValida(dia, mes, ano);
 		this.dataCheckOut.set(Calendar.YEAR, ano);
 		this.dataCheckOut.set(Calendar.MONTH, mes);
 		this.dataCheckOut.set(Calendar.DAY_OF_MONTH, dia);
 	}// setDataCheckOut
-	
+
 	public void adicionaServico(Servico servico) {
 		servicos.add(servico);
 	}// adicionaServico
@@ -97,32 +100,39 @@ public class Contrato {
 		return servicos.remove(servico);
 	}// removeServico
 
-	public Servico pesquisaServico(Servico servico) {
+	public Servico pesquisaServico(double precoDoServico) {
 		for (int i = 0; i < servicos.size(); i++) {
-			if (servicos.get(i).equals(servico))
-				return servico;
+			if (servicos.get(i).getPreco() == precoDoServico)
+				return servicos.get(i);
 
 		}// for
 		return null;
 	}// pesquisaServico
-	
-	public void inicializaOpiniao(float nota, String comentario) throws Exception {
+
+	public void inicializaOpiniao(float nota, String comentario)
+			throws Exception {
 		opiniao = new Opiniao(comentario, nota);
 	}// setOpiniao
 
-	// Despesas totais não deve ser somada a conta do restaurante, apenas no final do contrato
+	// Despesas totais nï¿½o deve ser somada a conta do restaurante, apenas no
+	// final do contrato
 	public void adicionaDespesa(float valor) {
-		despesasTotais += valor;
+		despesasAdicionais += valor;
 	}// adicionaDespesa
 
-	public void somaContaRestaurante(double valor) {
-		contaRestaurante += valor;
-	}// contaRestaurante
+	public double calculaValorTotalServicos() {
+		double valor = 0;
+		for (int i = 0; i < getServicos().size(); i++) {
+			valor += getServicos().get(i).getPreco();
+		}// for
+		return valor;
+	}// calculaValorTotalRestaurante
 
 	public double calculaTotalPorEstrategia(Estrategias estrategia) {
-		return (getDespesasTotais() + getContaRestaurante()) * estrategia.getPorcentagem();
+		return (getDespesasAdicionais() + calculaValorTotalServicos())
+				* estrategia.getPorcentagem();
 	} // calcula o total a pagar de acordo com a epoca
-	
+
 	private void verificaParametrosDeDataValidos(int dia, int mes, int ano)
 			throws DataInvalidaException {
 		if (mes > 12)
@@ -138,9 +148,9 @@ public class Contrato {
 		} else if (mes == 2)
 			verificaCasoFevereiro(dia, ano);
 	}// verificaParametrosDeDataValidos
-	
 
-	private void verificaHospedeTitularValido(Hospede hospede) throws NullPointerException {
+	private void verificaHospedeTitularValido(Hospede hospede)
+			throws NullPointerException {
 		if (hospedeTitular == null)
 			throw new NullPointerException();
 	}// verificaHospedeTitularValido
@@ -151,11 +161,12 @@ public class Contrato {
 			throw new NullPointerException();
 	} // verificaAcompanhantesValidos
 
-	private void verificaQuartosValidos(List<Quarto> quartos) throws NullPointerException {
+	private void verificaQuartosValidos(List<Quarto> quartos)
+			throws NullPointerException {
 		if (quartos == null)
 			throw new NullPointerException();
 	}// verificaQuartosValidos
-	
+
 	private void verificaDataCheckOutValida(int dia, int mes, int ano)
 			throws DataInvalidaException {
 		verificaParametrosDeDataValidos(dia, mes, ano);
@@ -167,8 +178,9 @@ public class Contrato {
 		if (dataCheckIn.compareTo(novaDataCheckOut) > 0)
 			throw new DataInvalidaException();
 	}// verificaDataCheckOutValida
-	
-	private void verificaCasoFevereiro(int dia, int ano) throws DataInvalidaException {
+
+	private void verificaCasoFevereiro(int dia, int ano)
+			throws DataInvalidaException {
 		if (ano % 100 == 0) {
 			if (dia > 28)
 				throw new DataInvalidaException();
