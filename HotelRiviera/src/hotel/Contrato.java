@@ -1,27 +1,35 @@
 package hotel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 
 public class Contrato {
-	private Hospede hospedeTitular;
+	public static final boolean CONTRATO_ABERTO = true;
+
 	private List<Hospede> acompanhantes;
-	private List<Servico> servicos;
-	private Opiniao opiniao;
 	private List<Quarto> quartos;
+	private List<Servico> servicos;
+
+	private Hospede hospedeTitular;
+	private Opiniao opiniao;
 	private String cartaoDeCredito;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private Estrategias estrategia;
+
 	private float despesasAdicionais;
 	private boolean isReserva;
+	private boolean isAberto;
 
 	public Contrato(Hospede hospedeTitular, List<Hospede> acompanhantes,
 			Estrategias estrategia, int diaInicial, int mesInicial,
 			int anoInicial, int diaFinal, int mesFinal, int anoFinal,
-			boolean isReserva, List<Quarto> quartos) throws Exception {
+			boolean isReserva, List<Quarto> quartos, List<Servico> servicos)
+			throws Exception {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(acompanhantes);
@@ -39,18 +47,25 @@ public class Contrato {
 
 		if (dataCheckIn.compareTo(dataCheckOut) < 0)
 			throw new DataInvalidaException();
-		
+
 		this.estrategia = estrategia;
 		this.hospedeTitular = hospedeTitular;
-		this.acompanhantes = acompanhantes;
 		this.isReserva = isReserva;
+		this.isAberto = CONTRATO_ABERTO;
+
 		this.quartos = quartos;
+		this.acompanhantes = acompanhantes;
+		this.servicos = servicos;
 
 	}// Construtor
 
 	public boolean getIsReserva() {
 		return isReserva;
 	}// getIsReserva
+	
+	public Estrategias getEstrategia() {
+		return estrategia;
+	}// getEstrategia
 
 	public List<Hospede> getAcompanhantes() {
 		return acompanhantes;
@@ -79,6 +94,14 @@ public class Contrato {
 	public double getDespesasAdicionais() {
 		return despesasAdicionais;
 	}// getDespesasTotais
+
+	public boolean getIsAberto() {
+		return isAberto;
+	}// getIsAberto
+
+	public void setIsAberto(boolean estado) {
+		isAberto = estado;
+	}// setIsAberto
 
 	public void setIsReserva(boolean estado) {
 		isReserva = estado;
@@ -128,9 +151,9 @@ public class Contrato {
 		return valor;
 	}// calculaValorTotalRestaurante
 
-	public double calculaTotalPorEstrategia(Estrategias estrategia) {
+	public double calculaTotalPorEstrategia() {
 		return (getDespesasAdicionais() + calculaValorTotalServicos())
-				* estrategia.getPorcentagem();
+				* getEstrategia().getPorcentagem();
 	} // calcula o total a pagar de acordo com a epoca
 
 	private void verificaParametrosDeDataValidos(int dia, int mes, int ano)
@@ -161,10 +184,12 @@ public class Contrato {
 			throw new NullPointerException();
 	} // verificaAcompanhantesValidos
 
-	private void verificaQuartosValidos(List<Quarto> quartos)
-			throws NullPointerException {
+	private void verificaQuartosValidos(List<Quarto> quartos) throws Exception {
 		if (quartos == null)
 			throw new NullPointerException();
+
+		if (quartos.size() == 0)
+			throw new ContratoSemQuartoException();
 	}// verificaQuartosValidos
 
 	private void verificaDataCheckOutValida(int dia, int mes, int ano)
