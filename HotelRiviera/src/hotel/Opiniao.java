@@ -10,7 +10,7 @@ public class Opiniao {
 	private String comentario;
 	private float nota;
 
-	public Opiniao(String comentario, float nota) throws Exception {
+	public Opiniao(String comentario, float nota) throws NotaInvalidaException, EstouroDeCaracteresException, NullPointerException  {
 		verificaNotaValida(nota);
 		verificaComentarioValido(comentario);
 		this.comentario = comentario;
@@ -56,7 +56,7 @@ public class Opiniao {
 		return "Opiniao [comentario=" + comentario + ", nota=" + nota + "]";
 	}
 
-	private void verificaComentarioValido(String comentario) throws Exception {
+	private void verificaComentarioValido(String comentario) throws NullPointerException, EstouroDeCaracteresException {
 		if (comentario == null)
 			throw new NullPointerException();
 

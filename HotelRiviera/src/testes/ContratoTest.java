@@ -31,7 +31,7 @@ public class ContratoTest {
 
 	@Before
 	public void criaObjetos() throws Exception{
-		hospedeTitular = new  Hospede("nome", c.getInstance());
+//		hospedeTitular = new  Hospede("nome", c.getInstance());
 		hospedes.add(hospedeTitular);
 		quarto = new QuartoExecutivo(false, TipoDeQuarto.EXECUTIVO_SIMPLES);
 		quartos.add(quarto);
