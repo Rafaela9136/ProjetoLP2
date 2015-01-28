@@ -2,6 +2,9 @@ package hotel;
 
 import java.util.Calendar;
 
+import excecoes.CPFInvalidoException;
+import excecoes.DataInvalidaException;
+
 public class Hospede {
 
 	private static final String SET_NAO_MORA_NO_BRASIL = "--";
@@ -24,7 +27,7 @@ public class Hospede {
 	public Hospede(String nome, int diaNascimento, int mesNascimento,
 			int anoNascimento, boolean moraNoBrasil, String pais,
 			Estados estado, String cidade, String endereco, String numero,
-			String CPF) throws Exception {
+			String CPF) throws NullPointerException, CPFInvalidoException, DataInvalidaException {
 		checaParametroValido(nome);
 		verificador = new VerificadorDeData();
 		verificador.verificaParametrosDeDataValidos(diaNascimento, mesNascimento, anoNascimento);
@@ -41,6 +44,7 @@ public class Hospede {
 			checaParametroValido(endereco);
 			checaParametroValido(numero);
 			checaParametroValido(CPF);
+			checaCPF(CPF);
 			this.pais = "Brasil";
 			this.estado = estado;
 			this.cidade = cidade;
@@ -65,10 +69,15 @@ public class Hospede {
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
 	}// Construtor 2
 
-	private void checaParametroValido(String parametro) throws Exception {
+	private void checaParametroValido(String parametro) throws NullPointerException {
 		if (parametro == null)
 			throw new NullPointerException();
 	}// checaNomeValido
+	
+	private void checaCPF(String CPF) throws CPFInvalidoException {
+		if (CPF.contains("^[a-Z]") || CPF.length() != 11)
+			throw new CPFInvalidoException();
+	}// checaCPF
 
 	public String getNome() {
 		return nome;
