@@ -24,18 +24,23 @@ public class Contrato {
 	private float despesasAdicionais;
 	private boolean isReserva;
 	private boolean isAberto;
+	private VerificadorDeData verificador;
 
 	public Contrato(Hospede hospedeTitular, List<Hospede> acompanhantes,
 			Estrategias estrategia, int diaInicial, int mesInicial,
 			int anoInicial, int diaFinal, int mesFinal, int anoFinal,
 			boolean isReserva, List<Quarto> quartos, List<Servico> servicos)
 			throws Exception {
-
+		
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(acompanhantes);
 		verificaQuartosValidos(quartos);
-		verificaParametrosDeDataValidos(diaInicial, mesInicial, anoInicial);
-		verificaParametrosDeDataValidos(diaFinal, mesFinal, anoFinal);
+		
+		verificador = new VerificadorDeData();
+		verificador.verificaParametrosDeDataValidos(diaInicial, mesInicial,
+				anoInicial);
+		verificador.verificaParametrosDeDataValidos(diaFinal, mesFinal,
+				anoFinal);
 
 		dataCheckIn.set(Calendar.YEAR, anoInicial);
 		dataCheckIn.set(Calendar.MONTH, mesInicial);
@@ -62,7 +67,7 @@ public class Contrato {
 	public boolean getIsReserva() {
 		return isReserva;
 	}// getIsReserva
-	
+
 	public Estrategias getEstrategia() {
 		return estrategia;
 	}// getEstrategia
@@ -156,22 +161,6 @@ public class Contrato {
 				* getEstrategia().getPorcentagem();
 	} // calcula o total a pagar de acordo com a epoca
 
-	private void verificaParametrosDeDataValidos(int dia, int mes, int ano)
-			throws DataInvalidaException {
-		if (mes > 12)
-			throw new DataInvalidaException();
-
-		else if (dia > 31)
-			throw new DataInvalidaException();
-
-		else if (dia == 31) {
-			if ((mes % 2 == 0 && mes <= 6) || mes == 9 || mes == 11)
-				throw new DataInvalidaException();
-
-		} else if (mes == 2)
-			verificaCasoFevereiro(dia, ano);
-	}// verificaParametrosDeDataValidos
-
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
 		if (hospedeTitular == null)
@@ -194,7 +183,7 @@ public class Contrato {
 
 	private void verificaDataCheckOutValida(int dia, int mes, int ano)
 			throws DataInvalidaException {
-		verificaParametrosDeDataValidos(dia, mes, ano);
+		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
 
 		Calendar novaDataCheckOut = Calendar.getInstance();
 		novaDataCheckOut.set(Calendar.YEAR, ano);
@@ -203,19 +192,5 @@ public class Contrato {
 		if (dataCheckIn.compareTo(novaDataCheckOut) > 0)
 			throw new DataInvalidaException();
 	}// verificaDataCheckOutValida
-
-	private void verificaCasoFevereiro(int dia, int ano)
-			throws DataInvalidaException {
-		if (ano % 100 == 0) {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		} else if (ano % 4 == 0 || ano % 400 == 0) {
-			if (dia > 29)
-				throw new DataInvalidaException();
-		} else {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		}
-	}// verificaCasoFevereiro
 
 }// Contrato

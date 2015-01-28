@@ -6,29 +6,37 @@ public class Hospede {
 
 	private static final String SET_NAO_MORA_NO_BRASIL = "--";
 	public static final boolean NAO_BRASILEIRO = false;
-	
+
 	String nome;
 	Calendar dataNascimento;
-	
+
 	boolean moraNoBrasil;
-	
+
 	private String pais;
 	private Estados estado;
 	private String cidade;
 	private String endereco;
 	private String numero;
-	
 	private String CPF;
 	
-	public Hospede(String nome, Calendar dataNascimento,
-			boolean moraNoBrasil, String pais, Estados estado,
-			String cidade, String endereco, String numero, String CPF) throws Exception {
+	private VerificadorDeData verificador;
+
+	public Hospede(String nome, int diaNascimento, int mesNascimento,
+			int anoNascimento, boolean moraNoBrasil, String pais,
+			Estados estado, String cidade, String endereco, String numero,
+			String CPF) throws Exception {
 		checaParametroValido(nome);
+		verificador = new VerificadorDeData();
+		verificador.verificaParametrosDeDataValidos(diaNascimento, mesNascimento, anoNascimento);
 		
+		dataNascimento.set(Calendar.DAY_OF_MONTH, diaNascimento);
+		dataNascimento.set(Calendar.MONTH, mesNascimento);
+		dataNascimento.set(Calendar.YEAR, anoNascimento);
+
 		this.nome = nome;
-		this.dataNascimento = dataNascimento;
 		
-		if(moraNoBrasil) {
+
+		if (moraNoBrasil) {
 			checaParametroValido(cidade);
 			checaParametroValido(endereco);
 			checaParametroValido(numero);
@@ -48,19 +56,18 @@ public class Hospede {
 			this.numero = SET_NAO_MORA_NO_BRASIL;
 			this.CPF = SET_NAO_MORA_NO_BRASIL;
 		}// if
-		
+
 	}// Construtor 1
-	
-	public Hospede(String nome, Calendar dataNascimento) throws Exception {
-		this(nome, dataNascimento, NAO_BRASILEIRO,
-				SET_NAO_MORA_NO_BRASIL, Estados.XX,
-				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
+
+	public Hospede(String nome, int diaNascimento, int mesNascimento, int anoNascimento) throws Exception {
+		this(nome, diaNascimento, mesNascimento, anoNascimento, NAO_BRASILEIRO, SET_NAO_MORA_NO_BRASIL,
+				Estados.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
 	}// Construtor 2
-	
+
 	private void checaParametroValido(String parametro) throws Exception {
-		if(parametro == null)
-			throw new NullPointerException ();
+		if (parametro == null)
+			throw new NullPointerException();
 	}// checaNomeValido
 
 	public String getNome() {
@@ -106,7 +113,7 @@ public class Hospede {
 				+ ", estado=" + estado + ", cidade=" + cidade + ", endereco="
 				+ endereco + ", numero=" + numero + ", CPF=" + CPF + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -175,5 +182,5 @@ public class Hospede {
 			return false;
 		return true;
 	}
-	
+
 }// Hospede

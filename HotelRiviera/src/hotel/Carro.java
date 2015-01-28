@@ -17,6 +17,8 @@ public class Carro implements Servico {
 	private Calendar dataInicial;
 	private Calendar dataDeTermino;
 
+	private VerificadorDeData verificador;
+
 	public Carro(PrecoCarro preco, boolean isTanqueCheio, boolean isAssegurado) {
 		this.preco = preco;
 		this.isTanqueCheio = isTanqueCheio;
@@ -34,13 +36,15 @@ public class Carro implements Servico {
 		this(preco, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
-	public void setDataInicial(int dia, int ano, int mes) throws DataInvalidaException {
-		verificaDataValida(dia, mes, ano);
+	public void setDataInicial(int dia, int ano, int mes)
+			throws DataInvalidaException {
+		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
 		dataInicial.set(ano, mes, dia);
 	}// setDataInicial
 
-	public void setDataDeTermino(int ano, int mes, int dia) throws DataInvalidaException {
-		verificaDataValida(dia, mes, ano);
+	public void setDataDeTermino(int ano, int mes, int dia)
+			throws DataInvalidaException {
+		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
 		dataDeTermino.set(ano, mes, dia, 23, 59);
 
 	}// getDataTerminoDoServico
@@ -65,7 +69,6 @@ public class Carro implements Servico {
 	public double getPreco() {
 		return calculaPreco();
 	}// getPreco
-	
 
 	private double calculaPreco() {
 		double preco = 0;
@@ -82,36 +85,6 @@ public class Carro implements Servico {
 		return preco;
 
 	}// calculaPreco
-
-	
-	private void verificaDataValida(int dia, int mes, int ano) throws DataInvalidaException {
-		if(mes > 12)
-			throw new DataInvalidaException();
-
-		else if(dia > 31)
-			throw new DataInvalidaException();
-
-		else if(dia == 31) {
-			if((mes % 2 == 0 && mes <= 6) || mes == 9 || mes == 11)
-				throw new DataInvalidaException();
-
-		} else if(mes == 2)
-			verificaCasoFevereiro(dia, ano);
-	}// verificaDataValida
-	
-	private void verificaCasoFevereiro(int dia, int ano) throws DataInvalidaException {
-		if (ano % 100 == 0) {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		} else if (ano % 4 == 0 || ano % 400 == 0) {
-			if (dia > 29)
-				throw new DataInvalidaException();
-		} else {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		}
-	}// verificaCasoFevereiro
-
 
 	@Override
 	public String toString() {
@@ -161,7 +134,6 @@ public class Carro implements Servico {
 			return false;
 		return true;
 	}
-
 
 }// Carro
 

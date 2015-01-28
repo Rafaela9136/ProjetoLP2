@@ -14,6 +14,8 @@ public class Baba implements Servico {
 	private Calendar inicioDoServico;
 	private Calendar terminoDoServico;
 	private boolean isReserva;
+	
+	private VerificadorDeData verificador;
 
 	public Baba(NomesBaba baba, boolean isReserva) {
 		this.baba = baba;
@@ -22,16 +24,20 @@ public class Baba implements Servico {
 		if(!isReserva)
 			inicioDoServico = Calendar.getInstance();
 		
-	}// Constrkjhjkhkhutor
+	}// Construtor
 	
 	public void setTerminoDoServico(int dia, int mes, int ano, int hora) throws Exception {
-		verificaDataValida(dia, mes, ano);
+		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
 		verificaHoraValida(hora);
+		
+		if(terminoDoServico.compareTo(inicioDoServico) <= 0)
+			throw new DataInvalidaException();
+		
 		terminoDoServico.set(ano, mes, dia, hora, 0);
 	}// setTerminoDoServico
 	
 	public void setInicioDoServico(int dia, int mes, int ano, int hora) throws Exception {
-		verificaDataValida(dia, mes, ano);
+		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
 		verificaHoraValida(hora);
 		inicioDoServico.set(ano, mes, dia, hora, 0);
 	}// setInicioDoServico
@@ -85,34 +91,6 @@ public class Baba implements Servico {
 		if(hora < 0 || hora > 23)
 			throw new HoraInvalidaException();
 	}// verificaHoraValida
-
-	private void verificaDataValida(int dia, int mes, int ano) throws DataInvalidaException {
-		if(mes > 12)
-			throw new DataInvalidaException();
-
-		else if(dia > 31)
-			throw new DataInvalidaException();
-
-		else if(dia == 31) {
-			if((mes % 2 == 0 && mes <= 6) || mes == 9 || mes == 11)
-				throw new DataInvalidaException();
-
-		} else if(mes == 2)
-			verificaCasoFevereiro(dia, ano);
-	}// verificaDataValida
-
-	private void verificaCasoFevereiro(int dia, int ano) throws DataInvalidaException {
-		if (ano % 100 == 0) {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		} else if (ano % 4 == 0 || ano % 400 == 0) {
-			if (dia > 29)
-				throw new DataInvalidaException();
-		} else {
-			if (dia > 28)
-				throw new DataInvalidaException();
-		}
-	}// verificaCasoFevereiro
 
 	@Override
 	public String toString() {
