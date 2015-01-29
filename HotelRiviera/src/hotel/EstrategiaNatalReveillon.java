@@ -1,5 +1,5 @@
 package hotel;
 
-public class EstrategiaNatalReveillon extends EstrategiaAplicavel{
+public class EstrategiaNatalReveillon implements EstrategiaAplicavel{
 
 }

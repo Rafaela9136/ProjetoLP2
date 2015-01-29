@@ -1,30 +1,14 @@
 package hotel;
 
-import java.sql.*;
+import java.util.*;
 
-public abstract class EstrategiaAplicavel {
+public interface EstrategiaAplicavel {
 	
-	private Date dataInicio;
-	private Date dataFim;
-	private Double porcentagemAplicada;
+			
+	public Calendar getDataInicio(); 
 	
-	public Date getDataInicio() {
-		return dataInicio;
-	}
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
-	}
-	public Date getDataFim() {
-		return dataFim;
-	}
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
-	}
-	public Double getPorcentagemAplicada() {
-		return porcentagemAplicada;
-	}
-	public void setPorcentagemAplicada(Double porcentagemAplicada) {
-		this.porcentagemAplicada = porcentagemAplicada;
-	}
+	public Calendar getDataFim();
+	
+	public double aplicaPorcentagem()
 	
 }
