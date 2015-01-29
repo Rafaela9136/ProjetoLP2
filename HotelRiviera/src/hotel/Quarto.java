@@ -25,6 +25,44 @@ public abstract class Quarto implements Servico {
 		return temCamaExtra;
 	}// getTeMCamaExtra
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + MAX_PESSOAS;
+		result = prime * result
+				+ ((frigobar == null) ? 0 : frigobar.hashCode());
+		result = prime * result + (temCamaExtra ? 1231 : 1237);
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Quarto other = (Quarto) obj;
+		if (MAX_PESSOAS != other.MAX_PESSOAS)
+			return false;
+		if (frigobar == null) {
+			if (other.frigobar != null)
+				return false;
+		} else if (!frigobar.equals(other.frigobar))
+			return false;
+		if (temCamaExtra != other.temCamaExtra)
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
+			return false;
+		return true;
+	}
+
 	public double getPrecoFrigobar() {
 		return getFrigobar().getPreco();
 	}// getPrecoFrigobar
