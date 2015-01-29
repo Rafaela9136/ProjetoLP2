@@ -1,7 +1,7 @@
 package hotel;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.ContratoSemQuartoException;
@@ -10,13 +10,12 @@ import excecoes.DataInvalidaException;
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
 
-	private List<Hospede> acompanhantes;
+	private List<String> acompanhantes;
 	private List<Quarto> quartos;
 	private List<Servico> servicos;
 
 	private Hospede hospedeTitular;
 	private Opiniao opiniao;
-	private String cartaoDeCredito;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private Estrategias estrategia;
@@ -26,7 +25,7 @@ public class Contrato {
 	private boolean isAberto;
 	private VerificadorDeData verificador;
 
-	public Contrato(Hospede hospedeTitular, List<Hospede> acompanhantes,
+	public Contrato(Hospede hospedeTitular, List<String> acompanhantes,
 			Estrategias estrategia, int diaInicial, int mesInicial,
 			int anoInicial, int diaFinal, int mesFinal, int anoFinal,
 			boolean isReserva, List<Quarto> quartos, List<Servico> servicos)
@@ -42,15 +41,17 @@ public class Contrato {
 		verificador.verificaParametrosDeDataValidos(diaFinal, mesFinal,
 				anoFinal);
 
+		dataCheckIn = new GregorianCalendar();
 		dataCheckIn.set(Calendar.YEAR, anoInicial);
 		dataCheckIn.set(Calendar.MONTH, mesInicial);
 		dataCheckIn.set(Calendar.DAY_OF_MONTH, diaInicial);
 
+		dataCheckOut = new GregorianCalendar();
 		dataCheckOut.set(Calendar.YEAR, anoFinal);
 		dataCheckOut.set(Calendar.MONTH, mesFinal);
 		dataCheckOut.set(Calendar.DAY_OF_MONTH, diaFinal);
 
-		if (dataCheckIn.compareTo(dataCheckOut) < 0)
+		if (dataCheckIn.compareTo(dataCheckOut) > 0)
 			throw new DataInvalidaException();
 
 		this.estrategia = estrategia;
@@ -72,7 +73,7 @@ public class Contrato {
 		return estrategia;
 	}// getEstrategia
 
-	public List<Hospede> getAcompanhantes() {
+	public List<String> getAcompanhantes() {
 		return acompanhantes;
 	}// getAcompanhantes
 
@@ -163,11 +164,11 @@ public class Contrato {
 
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
-		if (hospedeTitular == null)
+		if (hospede == null)
 			throw new NullPointerException();
 	}// verificaHospedeTitularValido
 
-	private void verificaAcompanhantesValidos(List<Hospede> acompanhantes)
+	private void verificaAcompanhantesValidos(List<String> acompanhantes)
 			throws NullPointerException {
 		if (acompanhantes == null)
 			throw new NullPointerException();

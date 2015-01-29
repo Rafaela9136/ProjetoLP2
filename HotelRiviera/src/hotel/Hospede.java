@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import excecoes.CPFInvalidoException;
 import excecoes.DataInvalidaException;
@@ -31,14 +32,14 @@ public class Hospede {
 		checaParametroValido(nome);
 		verificador = new VerificadorDeData();
 		verificador.verificaParametrosDeDataValidos(diaNascimento, mesNascimento, anoNascimento);
-		
+
+		dataNascimento = new GregorianCalendar();
 		dataNascimento.set(Calendar.DAY_OF_MONTH, diaNascimento);
 		dataNascimento.set(Calendar.MONTH, mesNascimento);
 		dataNascimento.set(Calendar.YEAR, anoNascimento);
 
 		this.nome = nome;
 		
-
 		if (moraNoBrasil) {
 			checaParametroValido(cidade);
 			checaParametroValido(endereco);
@@ -63,7 +64,7 @@ public class Hospede {
 
 	}// Construtor 1
 
-	public Hospede(String nome, int diaNascimento, int mesNascimento, int anoNascimento) throws Exception {
+	public Hospede(String nome, int diaNascimento, int mesNascimento, int anoNascimento) throws NullPointerException, CPFInvalidoException, DataInvalidaException {
 		this(nome, diaNascimento, mesNascimento, anoNascimento, NAO_BRASILEIRO, SET_NAO_MORA_NO_BRASIL,
 				Estados.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
@@ -75,7 +76,7 @@ public class Hospede {
 	}// checaNomeValido
 	
 	private void checaCPF(String CPF) throws CPFInvalidoException {
-		if (CPF.contains("^[a-Z]") || CPF.length() != 11)
+		if (CPF.length() != 11)
 			throw new CPFInvalidoException();
 	}// checaCPF
 
@@ -159,11 +160,6 @@ public class Hospede {
 			if (other.cidade != null)
 				return false;
 		} else if (!cidade.equals(other.cidade))
-			return false;
-		if (dataNascimento == null) {
-			if (other.dataNascimento != null)
-				return false;
-		} else if (!dataNascimento.equals(other.dataNascimento))
 			return false;
 		if (endereco == null) {
 			if (other.endereco != null)

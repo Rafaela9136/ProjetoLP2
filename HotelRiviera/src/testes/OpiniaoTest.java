@@ -34,7 +34,7 @@ public class OpiniaoTest {
 			new Opiniao(COMENT, 15);
 			Assert.fail("Esperava excecao");
 		} catch(NotaInvalidaException e){
-			System.out.println("ok");
+			
 		} catch( EstouroDeCaracteresException  e){
 			fail();
 		} catch (NullPointerException e){
@@ -43,7 +43,6 @@ public class OpiniaoTest {
 			new Opiniao(COMENT, -1);
 			Assert.fail("Esperava excecao");
 		} catch(NotaInvalidaException e){
-			System.out.println("ok");
 		} catch( EstouroDeCaracteresException  e){
 			fail();
 		} catch (NullPointerException e){
@@ -56,14 +55,14 @@ public class OpiniaoTest {
 		} catch( EstouroDeCaracteresException  e){
 			fail();
 		} catch (NullPointerException e){
-			System.out.println("ok");
+			
 		}try {
 			new Opiniao(comentExcessivo, 7);
 			Assert.fail("Esperava excecao");
 		} catch(NotaInvalidaException e){
 			fail();
 		} catch( EstouroDeCaracteresException  e){
-			System.out.println("ok");
+			
 		} catch (NullPointerException e){
 			fail();
 		}

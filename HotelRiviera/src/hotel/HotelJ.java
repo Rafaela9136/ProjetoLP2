@@ -1,21 +1,14 @@
 package hotel;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.BevelBorder;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
