@@ -16,9 +16,4 @@ public class Presidencial extends Quarto {
 	String salaDeJogos = "Sala de jogos";
 	*/
 	
-	@Override
-	public double getPreco() {
-		return getTipoDeQuarto().getPreco();
-	}// getPreco
-	
 }// Presidencial

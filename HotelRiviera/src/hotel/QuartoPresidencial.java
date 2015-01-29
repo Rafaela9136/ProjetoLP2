@@ -15,9 +15,5 @@ public class QuartoPresidencial extends Quarto {
 		return super.toString() + "QuartoPresidencial";
 	}
 
-	@Override
-	public double getPreco() {
-		return getTipoDeQuarto().getPreco();
-	}// getPreco
 
 }// Presidencial

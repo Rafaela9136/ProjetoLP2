@@ -10,15 +10,10 @@ public class QuartoLuxo extends Quarto {
 
 	public static final int MAX_PESSOAS = 3;
 
-	public QuartoLuxo(boolean camaExtra, TipoDeQuarto tipo)
+	public QuartoLuxo(boolean camaExtra, TiposQuartosLuxo tipo)
 			throws CamaExtraException {
 		super(MAX_PESSOAS, camaExtra, tipo);
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public double getPreco() {
-		return getTipoDeQuarto().getPreco();
-	}// getPreco
 
 }// QuartoLuxo

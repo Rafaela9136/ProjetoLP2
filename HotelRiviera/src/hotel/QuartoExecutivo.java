@@ -5,19 +5,10 @@ import excecoes.CamaExtraException;
 public class QuartoExecutivo extends Quarto {
 	public static final int MAX_PESSOAS = 3;
 
-	public QuartoExecutivo(boolean camaExtra, TipoDeQuarto tipo) throws CamaExtraException {
-		super(MAX_PESSOAS, camaExtra, tipo);
-		// TODO Auto-generated constructor stub
+	public QuartoExecutivo(boolean temCamaExtra, TiposQuartosExecutivo tipo)
+			throws CamaExtraException {
+		super(MAX_PESSOAS, temCamaExtra, tipo);
+
 	}// Construtor
-
-	@Override
-	public String toString() {
-		return super.toString() + "QuartoExecutivo";
-	}
-
-	@Override
-	public double getPreco() {
-		return getTipoDeQuarto().getPreco();
-	}// getPreco
 
 }// QuartoExecutivo
