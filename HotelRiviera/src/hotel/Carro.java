@@ -17,8 +17,6 @@ public class Carro implements Servico {
 	private Calendar dataInicial;
 	private Calendar dataDeTermino;
 
-	private VerificadorDeData verificador;
-
 	public Carro(PrecoCarro preco, boolean isTanqueCheio, boolean isAssegurado) {
 		this.preco = preco;
 		this.isTanqueCheio = isTanqueCheio;
@@ -36,16 +34,14 @@ public class Carro implements Servico {
 		this(preco, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
-	public void setDataInicial(int dia, int ano, int mes)
+	public void setDataInicial(Calendar novaDataInicio)
 			throws DataInvalidaException {
-		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
-		dataInicial.set(ano, mes, dia);
+		dataInicial = novaDataInicio;
 	}// setDataInicial
 
-	public void setDataDeTermino(int ano, int mes, int dia)
+	public void setDataDeTermino(Calendar novaDataTermino)
 			throws DataInvalidaException {
-		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
-		dataDeTermino.set(ano, mes, dia, 23, 59);
+		dataDeTermino = novaDataTermino;
 
 	}// getDataTerminoDoServico
 
