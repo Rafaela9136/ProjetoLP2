@@ -8,7 +8,8 @@ import excecoes.HoraInvalidaException;
 public class Baba implements Servico {
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
-	public static final int[] HORAS_DOBRADAS = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+	public static final int[] HORAS_DOBRADAS = { 18, 19, 20, 21, 22, 23, 0, 1,
+		2, 3, 4, 5, 6, 7};
 
 	private NomesBaba baba;
 	private Calendar inicioDoServico;
