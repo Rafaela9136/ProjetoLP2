@@ -21,7 +21,6 @@ public class Hotel {
 			quartosDisponiveis.put(TiposQuartosPresidencial.PRESIDENCIAL, 5);
 		}
 		
-		private double a
 }
 		
 	
