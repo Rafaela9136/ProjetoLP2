@@ -15,8 +15,6 @@ public class Baba implements Servico {
 	private Calendar inicioDoServico;
 	private Calendar terminoDoServico;
 	private boolean isReserva;
-	
-	private VerificadorDeData verificador;
 
 	public Baba(NomesBaba baba, boolean isReserva) {
 		this.baba = baba;
@@ -27,20 +25,19 @@ public class Baba implements Servico {
 		
 	}// Construtor
 	
-	public void setTerminoDoServico(int dia, int mes, int ano, int hora) throws Exception {
-		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
-		verificaHoraValida(hora);
+	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException, DataInvalidaException {
+		// falta verificar se data eh null.
 		
-		if(terminoDoServico.compareTo(inicioDoServico) <= 0)
+		if(novaDataTermino.before(inicioDoServico))
 			throw new DataInvalidaException();
 		
-		terminoDoServico.set(ano, mes, dia, hora, 0);
+		terminoDoServico = novaDataTermino;
 	}// setTerminoDoServico
 	
-	public void setInicioDoServico(int dia, int mes, int ano, int hora) throws Exception {
-		verificador.verificaParametrosDeDataValidos(dia, mes, ano);
-		verificaHoraValida(hora);
-		inicioDoServico.set(ano, mes, dia, hora, 0);
+	public void setInicioDoServico(Calendar novaDataInicio) throws NullPointerException {
+		// falta verificar se data eh null.
+		
+		inicioDoServico = novaDataInicio;
 	}// setInicioDoServico
 
 	public String getNome() {
