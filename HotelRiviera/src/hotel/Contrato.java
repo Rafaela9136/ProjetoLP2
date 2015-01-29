@@ -104,6 +104,10 @@ public class Contrato {
 	public boolean getIsAberto() {
 		return isAberto;
 	}// getIsAberto
+	
+	public Hospede getHospedeTitular() {
+		return hospedeTitular;
+	}// getHospedeTitular
 
 	public void setIsAberto(boolean estado) {
 		isAberto = estado;
