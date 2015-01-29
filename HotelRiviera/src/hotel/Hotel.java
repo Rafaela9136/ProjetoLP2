@@ -20,6 +20,8 @@ public class Hotel {
 			quartosDisponiveis.put(TiposQuartosLuxo.LUXO_TRIPLO, 20);
 			quartosDisponiveis.put(TiposQuartosPresidencial.PRESIDENCIAL, 5);
 		}
+		
+		private double a
 }
 		
 	
