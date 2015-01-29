@@ -33,8 +33,8 @@ public abstract class Quarto implements Servico {
 		return frigobar;
 	}// getFrigobar
 
-	public void setPrecoFrigobar(double valor) throws ValorNegativoException {
-		frigobar.setPreco(valor);
+	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
+		frigobar.somaPreco(valor);
 	}// stPrecoFrigobar
 
 	public TipoDeQuarto getTipo() {

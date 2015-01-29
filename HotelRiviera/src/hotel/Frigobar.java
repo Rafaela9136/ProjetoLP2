@@ -36,10 +36,10 @@ public class Frigobar implements Servico {
 		return preco;
 	}// getPreco
 	
-	public void setPreco(double valor) throws ValorNegativoException {
-		if(valor < 0)
+	public void somaPreco(double valor) throws ValorNegativoException {
+		if(valor + preco < 0)
 			throw new ValorNegativoException();
-		preco = valor;
+		preco += valor;
 	}// setPreco
 
 
