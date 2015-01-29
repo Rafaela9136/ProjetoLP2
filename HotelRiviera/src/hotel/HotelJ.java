@@ -5,25 +5,53 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
+
+import java.awt.EventQueue;
 import java.awt.SystemColor;
+
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
+
 import java.awt.CardLayout;
+
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class HotelJ extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9029353019037585688L;
 	private JPanel hotel;
 
+	/**
+	 * Launch the application
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HotelJ frame = new HotelJ();
+					frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Create the frame.
 	 */
 	public HotelJ() {
+		setResizable(false);
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 706, 603);
+		setBounds(100, 100, 865, 705);
 		hotel = new JPanel();
 		hotel.setBackground(SystemColor.window);
 		hotel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -33,7 +61,7 @@ public class HotelJ extends JFrame {
 		JTabbedPane menuAbas = new JTabbedPane(JTabbedPane.TOP);
 		menuAbas.setForeground(UIManager.getColor("nimbusBase"));
 		menuAbas.setBackground(UIManager.getColor("nimbusBase"));
-		menuAbas.setBounds(0, 0, 690, 564);
+		menuAbas.setBounds(0, 0, 851, 676);
 		hotel.add(menuAbas);
 		
 		JPanel contratos = new JPanel();
@@ -44,7 +72,7 @@ public class HotelJ extends JFrame {
 		JPanel acoes1 = new JPanel();
 		acoes1.setBackground(SystemColor.window);
 		acoes1.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		acoes1.setBounds(227, 12, 446, 505);
+		acoes1.setBounds(227, 12, 607, 625);
 		contratos.add(acoes1);
 		acoes1.setLayout(new CardLayout(0, 0));
 		
@@ -75,7 +103,7 @@ public class HotelJ extends JFrame {
 		
 		JPanel acoes2 = new JPanel();
 		acoes2.setBackground(SystemColor.window);
-		acoes2.setBounds(227, 12, 446, 505);
+		acoes2.setBounds(227, 12, 607, 625);
 		acoes2.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
 		servicos.add(acoes2);
 		acoes2.setLayout(new CardLayout(0, 0));
@@ -101,7 +129,7 @@ public class HotelJ extends JFrame {
 		JPanel acoes3 = new JPanel();
 		acoes3.setBackground(SystemColor.window);
 		acoes3.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		acoes3.setBounds(227, 12, 446, 505);
+		acoes3.setBounds(227, 12, 607, 625);
 		hospedes.add(acoes3);
 		acoes3.setLayout(new CardLayout(0, 0));
 		

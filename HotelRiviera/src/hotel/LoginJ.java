@@ -8,6 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
+import javax.swing.JTextPane;
+import java.awt.Color;
+import javax.swing.UIManager;
+import java.awt.Font;
 
 public class LoginJ extends JFrame {
 
@@ -16,6 +23,10 @@ public class LoginJ extends JFrame {
 	 */
 	private static final long serialVersionUID = 4033714415257302983L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JPasswordField passwordField;
+	private JTextPane txtpnLogin;
+	private JTextPane txtpnSenha;
 
 	/**
 	 * Launch the application.
@@ -39,7 +50,7 @@ public class LoginJ extends JFrame {
 	 */
 	public LoginJ() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 649, 208);
+		setBounds(100, 100, 706, 603);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,7 +67,34 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
-		btnOk.setBounds(499, 126, 117, 25);
+		btnOk.setBounds(425, 382, 117, 25);
 		contentPane.add(btnOk);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(154, 12, 399, 211);
+		contentPane.add(panel);
+		
+		textField = new JTextField();
+		textField.setBounds(275, 308, 227, 25);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(275, 345, 227, 25);
+		contentPane.add(passwordField);
+		
+		txtpnLogin = new JTextPane();
+		txtpnLogin.setFont(new Font("Dialog", Font.PLAIN, 17));
+		txtpnLogin.setBackground(UIManager.getColor("Button.background"));
+		txtpnLogin.setText("Login:");
+		txtpnLogin.setBounds(189, 308, 84, 32);
+		contentPane.add(txtpnLogin);
+		
+		txtpnSenha = new JTextPane();
+		txtpnSenha.setText("Senha:");
+		txtpnSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
+		txtpnSenha.setBackground(UIManager.getColor("Button.background"));
+		txtpnSenha.setBounds(189, 345, 84, 32);
+		contentPane.add(txtpnSenha);
 	}
 }
