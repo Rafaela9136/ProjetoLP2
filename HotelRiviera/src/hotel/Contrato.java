@@ -130,9 +130,9 @@ public class Contrato {
 	}// removeServico
 
 	public Servico pesquisaServico(double precoDoServico) {
-		for (int i = 0; i < servicos.size(); i++) {
-			if (servicos.get(i).getPreco() == precoDoServico)
-				return servicos.get(i);
+		for (Servico servico : servicos) {
+			if (servico.getPreco() == precoDoServico)
+				return servico;
 
 		}// for
 		return null;
@@ -151,8 +151,8 @@ public class Contrato {
 
 	public double calculaValorTotalServicos() {
 		double valor = 0;
-		for (int i = 0; i < getServicos().size(); i++) {
-			valor += getServicos().get(i).getPreco();
+		for (Servico servico : servicos) {
+			valor += servico.getPreco();
 		}// for
 		return valor;
 	}// calculaValorTotalRestaurante
