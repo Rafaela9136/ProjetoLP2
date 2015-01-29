@@ -4,7 +4,9 @@ import java.util.*;
 
 public class Hotel {
 		
-		
+		private double dispesasTotais;
+		private Calendar dataCheckIn;
+		private Calendar dataCheckOut;
 		private List<Contrato> contratosHotel;
 		
 		private Map<TipoDeQuarto, Integer> quartosDisponiveis = new HashMap<TipoDeQuarto, Integer>();
