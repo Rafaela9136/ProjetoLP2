@@ -11,7 +11,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					HotelJ frame = new HotelJ();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

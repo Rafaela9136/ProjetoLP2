@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 
 public class HotelJ extends JFrame {
 
@@ -35,9 +36,8 @@ public class HotelJ extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 9029353019037585688L;
-	private final JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ ;
+	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra;
 	private final JPanel acoes1, acoes2, acoes3, acoes4;
-	private final JCheckBox chckbxCamaExtra;
 	
 	private JPanel hotel;
 	private JTextField textFieldNome;
@@ -48,7 +48,6 @@ public class HotelJ extends JFrame {
 	private JTextField textFieldNumero;
 	private CardLayout layout = new CardLayout();
 	private JTextField textField;
-	private JTextField textField_1;
 	
 	/**
 	 * Create the frame.
@@ -62,7 +61,7 @@ public class HotelJ extends JFrame {
 		setResizable(false);
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 865, 660);
+		setBounds(100, 100, 865, 688);
 		hotel = new JPanel();
 		hotel.setBackground(SystemColor.window);
 		hotel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,9 +72,10 @@ public class HotelJ extends JFrame {
 		menuAbas.setFont(new Font("Verdana", Font.PLAIN, 12));
 		menuAbas.setForeground(UIManager.getColor("nimbusBase"));
 		menuAbas.setBackground(UIManager.getColor("nimbusBase"));
-		menuAbas.setBounds(0, 0, 859, 631);
+		menuAbas.setBounds(0, 0, 859, 659);
 		hotel.add(menuAbas);
 		
+		//Define tela de Contratos
 		JPanel contratos = new JPanel();
 		contratos.setBackground(SystemColor.window);
 		menuAbas.addTab("Contratos", null, contratos, null);
@@ -84,7 +84,7 @@ public class HotelJ extends JFrame {
 		acoes1 = new JPanel();
 		acoes1.setBackground(SystemColor.window);
 		acoes1.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		acoes1.setBounds(227, 12, 607, 573);
+		acoes1.setBounds(227, 12, 607, 606);
 		contratos.add(acoes1);
 		acoes1.setLayout(layout);
 		
@@ -93,6 +93,113 @@ public class HotelJ extends JFrame {
 		acoes1.add(novoContrato, "novoContrato");
 		novoContrato.setLayout(null);
 		
+		//Entrada para os dados do contrato( Dados do hospede, detalhes do quarto)
+		dadosDoContrato(dateMask, cpfMask, novoContrato);
+
+		JPanel pesquisarContrato = new JPanel();
+		pesquisarContrato.setBackground(SystemColor.window);
+		acoes1.add(pesquisarContrato, "pesquisarContrato");
+		
+		JPanel stand = new JPanel();
+		acoes1.add(stand, "stand");
+		layout.show(acoes1, "stand");
+		stand.setBackground(SystemColor.window);
+		// Fim da tela de Contartos
+		
+		JButton btnNovoContrato = new JButton("Novo Contrato");
+		btnNovoContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnNovoContrato.setBounds(24, 41, 180, 43);
+		btnNovoContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(acoes1, "novoContrato");
+			}
+		});
+		contratos.add(btnNovoContrato);
+		
+		JButton btnPesquisarContrato = new JButton("Pesquisar Contrato");
+		btnPesquisarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnPesquisarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnPesquisarContrato.setBounds(24, 105, 180, 43);
+		contratos.add(btnPesquisarContrato);
+		
+		JButton btnNewButton = new JButton("Sair");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnNewButton.setBounds(24, 575, 180, 43);
+		contratos.add(btnNewButton);
+		
+		//Define tela de serviços
+		JPanel servicos = new JPanel();
+		servicos.setBackground(SystemColor.window);
+		menuAbas.addTab("Servi\u00E7os", null, servicos, null);
+		servicos.setLayout(null);
+		
+		acoes2 = new JPanel();
+		acoes2.setBackground(SystemColor.window);
+		acoes2.setBounds(227, 12, 607, 573);
+		acoes2.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
+		servicos.add(acoes2);
+		acoes2.setLayout(new CardLayout(0, 0));
+		
+		JPanel pesquisarServico = new JPanel();
+		pesquisarServico.setBackground(SystemColor.window);
+		acoes2.add(pesquisarServico, "pesquisarServico");
+		
+		JPanel atualizarServico = new JPanel();
+		atualizarServico.setBackground(SystemColor.window);
+		acoes2.add(atualizarServico, "atualizarServico");
+		
+		JPanel adicionarServico = new JPanel();
+		adicionarServico.setBackground(SystemColor.window);
+		acoes2.add(adicionarServico, "adicionarServico");
+		adicionarServico.setLayout(null);
+		// Fim tela de serviços
+		
+		// Define tela de hospede
+		JPanel hospedes = new JPanel();
+		hospedes.setBackground(SystemColor.window);
+		menuAbas.addTab("H\u00F3spedes", null, hospedes, null);
+		hospedes.setLayout(null);
+		
+		acoes3 = new JPanel();
+		acoes3.setBackground(SystemColor.window);
+		acoes3.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
+		acoes3.setBounds(227, 12, 607, 573);
+		hospedes.add(acoes3);
+		acoes3.setLayout(new CardLayout(0, 0));
+		
+		JPanel pesquisarHospede = new JPanel();
+		pesquisarHospede.setBackground(SystemColor.window);
+		acoes3.add(pesquisarHospede, "name_444976330230945");
+		
+		JPanel editarHospede = new JPanel();
+		editarHospede.setBackground(SystemColor.window);
+		acoes3.add(editarHospede, "name_444978562121406");
+		// Fim tela de hospedes
+		
+		// Define tela de opinioes
+		JPanel opinioes = new JPanel();
+		opinioes.setBackground(SystemColor.window);
+		menuAbas.addTab("Opini\u00F5es", null, opinioes, null);
+		opinioes.setLayout(null);
+		
+		acoes4 = new JPanel();
+		acoes4.setBackground(SystemColor.window);
+		acoes4.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
+		acoes4.setBounds(227, 12, 607, 573);
+		opinioes.add(acoes4);
+		// Fim tela de opinioes
+	}
+
+	private void dadosDoContrato(final MaskFormatter dateMask,
+			final MaskFormatter cpfMask, JPanel novoContrato) {
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
 		txtpnDadosDoHspede.setEditable(false);
@@ -223,27 +330,29 @@ public class HotelJ extends JFrame {
 		});
 		
 		JTextPane txtpnDetalhesDoContrato = new JTextPane();
-		txtpnDetalhesDoContrato.setBounds(21, 343, 192, 36);
+		txtpnDetalhesDoContrato.setBounds(22, 363, 192, 36);
 		txtpnDetalhesDoContrato.setText("Detalhes do contrato");
 		txtpnDetalhesDoContrato.setFont(new Font("Verdana", Font.PLAIN, 14));
 		txtpnDetalhesDoContrato.setEditable(false);
 		novoContrato.add(txtpnDetalhesDoContrato);
 		
 		JTextPane txtpnQuarto = new JTextPane();
-		txtpnQuarto.setBounds(32, 391, 85, 28);
+		txtpnQuarto.setBounds(33, 411, 85, 28);
 		txtpnQuarto.setText("Quarto:");
 		txtpnQuarto.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnQuarto.setEditable(false);
 		novoContrato.add(txtpnQuarto);
 		
 		comboBoxQuartoQ = new JComboBox<String>();
-		comboBoxQuartoQ.setBounds(276, 391, 117, 26);
+		comboBoxQuartoQ.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBoxQuartoQ.setBounds(277, 411, 117, 26);
 		comboBoxQuartoQ.setEnabled(false);
 		comboBoxQuartoQ.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Simples", "Duplo", "Triplo"}));
 		novoContrato.add(comboBoxQuartoQ);
 		
 		comboBoxQuarto = new JComboBox<String>();
-		comboBoxQuarto.setBounds(147, 391, 117, 26);
+		comboBoxQuarto.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBoxQuarto.setBounds(148, 411, 117, 26);
 		comboBoxQuarto.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Presidencial", "Luxo", "Executivo"}));
 		novoContrato.add(comboBoxQuarto);
 		comboBoxQuarto.addActionListener(new ActionListener() {
@@ -256,170 +365,86 @@ public class HotelJ extends JFrame {
 		
 		JCheckBox chckbxReserva = new JCheckBox("Reserva");
 		chckbxReserva.setBackground(SystemColor.window);
-		chckbxReserva.setBounds(449, 394, 104, 18);
+		chckbxReserva.setBounds(482, 411, 85, 18);
 		chckbxReserva.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(chckbxReserva);
 		
 		JTextPane txtpnCheckIn = new JTextPane();
-		txtpnCheckIn.setBounds(32, 426, 85, 28);
+		txtpnCheckIn.setBounds(33, 446, 85, 28);
 		txtpnCheckIn.setText("Check In:");
 		txtpnCheckIn.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCheckIn.setEditable(false);
 		novoContrato.add(txtpnCheckIn);
 		
 		JFormattedTextField formattedTextField = new JFormattedTextField(dateMask);
-		formattedTextField.setBounds(148, 429, 117, 28);
+		formattedTextField.setBounds(149, 449, 117, 28);
 		formattedTextField.setFont(new Font("Verdana", Font.PLAIN, 12));
 		formattedTextField.setColumns(10);
 		novoContrato.add(formattedTextField);
 		
 		JTextPane txtpnCheckOut = new JTextPane();
-		txtpnCheckOut.setBounds(32, 466, 85, 28);
+		txtpnCheckOut.setBounds(33, 486, 85, 28);
 		txtpnCheckOut.setText("Check Out:");
 		txtpnCheckOut.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCheckOut.setEditable(false);
 		novoContrato.add(txtpnCheckOut);
 		
 		JFormattedTextField formattedTextField_1 = new JFormattedTextField(dateMask);
-		formattedTextField_1.setBounds(148, 464, 117, 28);
+		formattedTextField_1.setBounds(149, 484, 117, 28);
 		formattedTextField_1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		formattedTextField_1.setColumns(10);
 		novoContrato.add(formattedTextField_1);
 		
 		JTextPane txtpnAcompanhantes = new JTextPane();
-		txtpnAcompanhantes.setBounds(32, 503, 117, 28);
+		txtpnAcompanhantes.setBounds(33, 523, 112, 28);
 		txtpnAcompanhantes.setText("Acompanhantes:");
 		txtpnAcompanhantes.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnAcompanhantes.setEditable(false);
 		novoContrato.add(txtpnAcompanhantes);
 		
 		textField = new JTextField();
-		textField.setBounds(147, 503, 42, 28);
+		textField.setBounds(148, 523, 42, 28);
 		textField.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textField.setColumns(10);
 		novoContrato.add(textField);
 		
-		chckbxCamaExtra = new JCheckBox("Cama extra");
-		chckbxCamaExtra.setBackground(SystemColor.window);
-		chckbxCamaExtra.setEnabled(false);
-		chckbxCamaExtra.setBounds(449, 424, 104, 18);
-		chckbxCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
-		novoContrato.add(chckbxCamaExtra);
-		chckbxCamaExtra.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){ 
-				if(comboBoxQuarto.getSelectedItem().equals("Luxo") || comboBoxQuarto.getSelectedItem().equals("Executivo") ||
-						comboBoxQuartoQ.getSelectedItem().equals("Simples") || comboBoxQuartoQ.getSelectedItem().equals("Duplo")) { 
-					chckbxCamaExtra.setEnabled(true);
-					} 
-				} 
-		});
-		
 		
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(32, 280, 117, 28);
+		textPane.setBounds(32, 280, 112, 28);
 		textPane.setText("Acompanhantes:");
 		textPane.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textPane.setEditable(false);
 		novoContrato.add(textPane);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(147, 278, 420, 28);
-		novoContrato.add(textField_1);
-
-		JPanel pesquisarContrato = new JPanel();
-		pesquisarContrato.setBackground(SystemColor.window);
-		acoes1.add(pesquisarContrato, "pesquisarContrato");
+		JTextPane txtpnCamasExtra = new JTextPane();
+		txtpnCamasExtra.setText("Camas extra:");
+		txtpnCamasExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnCamasExtra.setEditable(false);
+		txtpnCamasExtra.setBounds(336, 523, 107, 28);
+		novoContrato.add(txtpnCamasExtra);
 		
-		JPanel stand = new JPanel();
-		acoes1.add(stand, "stand");
-		layout.show(acoes1, "stand");
-		stand.setBackground(SystemColor.window);
-		
-		JButton btnNovoContrato = new JButton("Novo Contrato");
-		btnNovoContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnNovoContrato.setBounds(24, 41, 180, 43);
-		btnNovoContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.show(acoes1, "novoContrato");
-			}
+		comboBoxCamaExtra = new JComboBox<String>();
+		comboBoxCamaExtra.setEnabled(false);
+		comboBoxCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBoxCamaExtra.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "uma", "duas"}));
+		comboBoxCamaExtra.setBounds(450, 523, 117, 26);
+		novoContrato.add(comboBoxCamaExtra);
+		comboBoxCamaExtra.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){ 
+				if(comboBoxQuarto.getSelectedItem().equals("Presidencial") || comboBoxQuartoQ.getSelectedItem().equals("Simples") || comboBoxQuartoQ.getSelectedItem().equals("Duplo")) { 
+					comboBoxCamaExtra.setEnabled(true);
+					} 
+				} 
 		});
-		contratos.add(btnNovoContrato);
 		
-		JButton btnPesquisarContrato = new JButton("Pesquisar Contrato");
-		btnPesquisarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnPesquisarContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnPesquisarContrato.setBounds(24, 105, 180, 43);
-		contratos.add(btnPesquisarContrato);
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnConfirmar.setBounds(471, 565, 124, 28);
+		novoContrato.add(btnConfirmar);
 		
-		JButton btnNewButton = new JButton("Sair");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnNewButton.setBounds(24, 530, 180, 43);
-		contratos.add(btnNewButton);
-		
-		JPanel servicos = new JPanel();
-		servicos.setBackground(SystemColor.window);
-		menuAbas.addTab("Servi\u00E7os", null, servicos, null);
-		servicos.setLayout(null);
-		
-		acoes2 = new JPanel();
-		acoes2.setBackground(SystemColor.window);
-		acoes2.setBounds(227, 12, 607, 573);
-		acoes2.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		servicos.add(acoes2);
-		acoes2.setLayout(new CardLayout(0, 0));
-		
-		JPanel pesquisarServico = new JPanel();
-		pesquisarServico.setBackground(SystemColor.window);
-		acoes2.add(pesquisarServico, "pesquisarServico");
-		
-		JPanel atualizarServico = new JPanel();
-		atualizarServico.setBackground(SystemColor.window);
-		acoes2.add(atualizarServico, "atualizarServico");
-		
-		JPanel adicionarServico = new JPanel();
-		adicionarServico.setBackground(SystemColor.window);
-		acoes2.add(adicionarServico, "adicionarServico");
-		adicionarServico.setLayout(null);
-		
-		JPanel hospedes = new JPanel();
-		hospedes.setBackground(SystemColor.window);
-		menuAbas.addTab("H\u00F3spedes", null, hospedes, null);
-		hospedes.setLayout(null);
-		
-		acoes3 = new JPanel();
-		acoes3.setBackground(SystemColor.window);
-		acoes3.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		acoes3.setBounds(227, 12, 607, 573);
-		hospedes.add(acoes3);
-		acoes3.setLayout(new CardLayout(0, 0));
-		
-		JPanel pesquisarHospede = new JPanel();
-		pesquisarHospede.setBackground(SystemColor.window);
-		acoes3.add(pesquisarHospede, "name_444976330230945");
-		
-		JPanel editarHospede = new JPanel();
-		editarHospede.setBackground(SystemColor.window);
-		acoes3.add(editarHospede, "name_444978562121406");
-		
-		JPanel opinioes = new JPanel();
-		opinioes.setBackground(SystemColor.window);
-		menuAbas.addTab("Opini\u00F5es", null, opinioes, null);
-		opinioes.setLayout(null);
-		
-		acoes4 = new JPanel();
-		acoes4.setBackground(SystemColor.window);
-		acoes4.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
-		acoes4.setBounds(227, 12, 607, 573);
-		opinioes.add(acoes4);
+		JTextArea textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		textArea.setBounds(147, 280, 420, 73);
+		novoContrato.add(textArea);
 	}
 }
