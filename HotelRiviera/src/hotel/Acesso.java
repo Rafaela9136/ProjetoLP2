@@ -32,7 +32,7 @@ public class Acesso {
 			} else {
 				JOptionPane
 						.showMessageDialog(null,
-								"            Acesso negado!\nUsuário ou Senha incorreto");
+								"          Acesso negado!\nUsuário ou Senha incorreto.");
 				acesso = false;
 			}
 

@@ -356,6 +356,16 @@ public class HotelJ extends JFrame {
 		btnPesquisarContrato.setBounds(24, 105, 180, 43);
 		contratos.add(btnPesquisarContrato);
 		
+		JButton btnNewButton = new JButton("Sair");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnNewButton.setBounds(24, 530, 180, 43);
+		contratos.add(btnNewButton);
+		
 		JPanel servicos = new JPanel();
 		servicos.setBackground(SystemColor.window);
 		menuAbas.addTab("Servi\u00E7os", null, servicos, null);
