@@ -3,7 +3,7 @@ package hotel;
 import java.awt.EventQueue;
 
 public class Principal {
-	
+
 	/**
 	 * Launch the application
 	 */
@@ -12,7 +12,7 @@ public class Principal {
 			public void run() {
 				try {
 					HotelJ frame = new HotelJ();
-					frame.setVisible(true);					
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
