@@ -1,4 +1,4 @@
-package hotel;
+package interfaceGrafica;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -12,8 +12,11 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import javax.swing.JTextPane;
+
 import java.awt.Color;
+
 import javax.swing.UIManager;
+
 import java.awt.Font;
 
 public class LoginJ extends JFrame {

@@ -1,4 +1,4 @@
-package hotel;
+package interfaceGrafica;
 
 import java.awt.EventQueue;
 

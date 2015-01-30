@@ -1,4 +1,4 @@
-package hotel;
+package interfaceGrafica;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -127,15 +127,15 @@ public class HotelJ extends JFrame {
 		btnPesquisarContrato.setBounds(24, 105, 180, 43);
 		contratos.add(btnPesquisarContrato);
 		
-		JButton btnNewButton = new JButton("Sair");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnNewButton.setBounds(24, 575, 180, 43);
-		contratos.add(btnNewButton);
+		btnSair.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnSair.setBounds(24, 575, 180, 43);
+		contratos.add(btnSair);
 		
 		//Define tela de serviços
 		JPanel servicos = new JPanel();
@@ -438,6 +438,13 @@ public class HotelJ extends JFrame {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnConfirmar.setBounds(471, 565, 124, 28);
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){ 
+				AvisoSucesso aviso = new AvisoSucesso();
+				aviso.setVisible(true);
+				layout.show(acoes1, "stand");
+				}
+		});
 		novoContrato.add(btnConfirmar);
 		
 		JTextArea textArea = new JTextArea();
