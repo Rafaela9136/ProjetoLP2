@@ -70,7 +70,7 @@ public class Contrato {
 	}// getQuartos
 
 	public Calendar getDataCheckIn() {
-		return dataCheckOut;
+		return dataCheckIn;
 	}// getDataCheckIn
 
 	public List<Servico> getServicos() {

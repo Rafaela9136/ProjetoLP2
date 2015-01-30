@@ -1,7 +1,6 @@
 package hotel;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import excecoes.CPFInvalidoException;
 import excecoes.DataInvalidaException;
