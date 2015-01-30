@@ -37,6 +37,8 @@ public class HotelJ extends JFrame {
 	 */
 	private static final long serialVersionUID = 9029353019037585688L;
 	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra;
+	private final String[] CAMAS_QNT= new String[] {"(selecionar)", "uma", "duas"}, QUARTOS = new String[] {"(selecionar)", "Presidencial", "Luxo", "Executivo"},
+			TIPO_QUARTOS = new String[] {"(selecionar)", "Simples", "Duplo", "Triplo"};
 	private final JPanel acoes1, acoes2, acoes3, acoes4;
 	
 	private JPanel hotel;
@@ -343,24 +345,34 @@ public class HotelJ extends JFrame {
 		txtpnQuarto.setEditable(false);
 		novoContrato.add(txtpnQuarto);
 		
-		comboBoxQuartoQ = new JComboBox<String>();
+		comboBoxCamaExtra = new JComboBox<String>(CAMAS_QNT);
+		comboBoxCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBoxCamaExtra.setBounds(450, 523, 117, 26);
+		novoContrato.add(comboBoxCamaExtra);
+		
+		comboBoxQuartoQ = new JComboBox<String>(TIPO_QUARTOS);
 		comboBoxQuartoQ.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxQuartoQ.setBounds(277, 411, 117, 26);
 		comboBoxQuartoQ.setEnabled(false);
-		comboBoxQuartoQ.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Simples", "Duplo", "Triplo"}));
 		novoContrato.add(comboBoxQuartoQ);
+		comboBoxQuartoQ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){ 
+				if(comboBoxQuartoQ.getSelectedItem().equals("Triplo")) { 
+					comboBoxCamaExtra.setEnabled(false);
+				}
+			} 
+		});
 		
-		comboBoxQuarto = new JComboBox<String>();
+		comboBoxQuarto = new JComboBox<String>(QUARTOS);
 		comboBoxQuarto.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxQuarto.setBounds(148, 411, 117, 26);
-		comboBoxQuarto.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Presidencial", "Luxo", "Executivo"}));
 		novoContrato.add(comboBoxQuarto);
 		comboBoxQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){ 
 				if(comboBoxQuarto.getSelectedItem().equals("Luxo") || comboBoxQuarto.getSelectedItem().equals("Executivo")) { 
 					comboBoxQuartoQ.setEnabled(true);
-					} 
-				} 
+				}
+			} 
 		});
 		
 		JCheckBox chckbxReserva = new JCheckBox("Reserva");
@@ -422,20 +434,6 @@ public class HotelJ extends JFrame {
 		txtpnCamasExtra.setEditable(false);
 		txtpnCamasExtra.setBounds(336, 523, 107, 28);
 		novoContrato.add(txtpnCamasExtra);
-		
-		comboBoxCamaExtra = new JComboBox<String>();
-		comboBoxCamaExtra.setEnabled(false);
-		comboBoxCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxCamaExtra.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "uma", "duas"}));
-		comboBoxCamaExtra.setBounds(450, 523, 117, 26);
-		novoContrato.add(comboBoxCamaExtra);
-		comboBoxCamaExtra.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){ 
-				if(comboBoxQuarto.getSelectedItem().equals("Presidencial") || comboBoxQuartoQ.getSelectedItem().equals("Simples") || comboBoxQuartoQ.getSelectedItem().equals("Duplo")) { 
-					comboBoxCamaExtra.setEnabled(true);
-					} 
-				} 
-		});
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFont(new Font("Verdana", Font.PLAIN, 12));
