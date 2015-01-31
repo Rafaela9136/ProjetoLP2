@@ -16,6 +16,7 @@ public class Carro implements Servico {
 	private double preco;
 	private Calendar dataInicio;
 	private Calendar dataTermino;
+	private int numDeDias;
 
 	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino,
 			boolean isTanqueCheio, boolean isAssegurado)
@@ -26,14 +27,14 @@ public class Carro implements Servico {
 		this.isAssegurado = isAssegurado;
 		this.dataTermino = dataTermino;
 		preco = 0;
+		numDeDias = 0;
 		dataInicio = new GregorianCalendar();
 
-		if (isTanqueCheio)
-			preco += VALOR_TANQUE_CHEIO;
-		if (isAssegurado)
-			preco += VALOR_ASSEGURADO;
-
 	}// Construtor
+
+	public TipoCarro getTipoDeCarro() {
+		return tipoDeCarro;
+	}
 
 	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino) {
 		this(tipoDeCarro, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
@@ -75,15 +76,23 @@ public class Carro implements Servico {
 	@Override
 	public double getPreco() {
 		calculaPreco();
+		if (isTanqueCheio)
+			preco += VALOR_TANQUE_CHEIO;
+		if (isAssegurado)
+			preco += VALOR_ASSEGURADO;
 		return preco;
 	}// getPreco
 
 	private void calculaPreco() {
+		preco = numeroDeDias() * tipoDeCarro.getPreco();
+	}
+	
+	public int numeroDeDias() {
 		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
 		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
-		preco += (diaFinal - diaInicial) * tipoDeCarro.getPreco();
-
-	}// calculaPreco
+		numDeDias = diaFinal - diaInicial; 
+		return numDeDias;
+	}
 
 	// @Override
 	// public String toString() {

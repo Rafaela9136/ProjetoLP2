@@ -15,7 +15,6 @@ public class CarroTest {
 	Carro carro1, carro2, carro3, carro4;
 	private TipoCarro carroExecutivo = TipoCarro.EXECUTIVO;
 	private TipoCarro carroLuxo = TipoCarro.LUXO;
-	Calendar dataInicio;
 	Calendar dataTermino1 = new GregorianCalendar(2015, 1, 5);
 	Calendar dataTermino2 = new GregorianCalendar(2015, 1, 3);
 	Calendar dataTermino3 = new GregorianCalendar(2015, 1, 12);
@@ -61,6 +60,14 @@ public class CarroTest {
 	}
 
 	@Test
+	public void testaGetTipoDeCarro() {
+		Assert.assertEquals(carro1.getTipoDeCarro(), carroExecutivo);
+		Assert.assertEquals(carro2.getTipoDeCarro(), carroLuxo);
+		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
+		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
+	}
+	
+	@Test
 	public void testaSetDataTermino() throws NullPointerException {
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
 		try {
@@ -72,8 +79,11 @@ public class CarroTest {
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino2);
 
 		Assert.assertEquals(carro3.getDataTermino(), dataTermino3);
-		carro3.setDataDeTermino(dataTermino1);
-		Assert.assertEquals(carro3.getDataTermino(), dataTermino1);
+		carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.DAY_OF_MONTH),
+				15);
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.MONTH), 1);
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.YEAR), 2014);
 
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
 		carro2.setDataDeTermino(dataTermino3);
@@ -82,7 +92,13 @@ public class CarroTest {
 
 	@Test
 	public void testaGetPreco() {
-		
+		Assert.assertEquals(carro1.getIsTanqueCheio(), true);
+		Assert.assertEquals(carro1.getIsAssegurado(), true);
+		Assert.assertEquals(carro1.numeroDeDias(), 5);
+		Assert.assertEquals(carro1.getPreco(), 550, 0.001);
+		carro1.setDataDeTermino(new GregorianCalendar(2014, 1, 10));
+		Assert.assertEquals(carro1.numeroDeDias(), 10);
+		Assert.assertEquals(carro1.getPreco(), 850, 0.001);
 	}
 
 }
