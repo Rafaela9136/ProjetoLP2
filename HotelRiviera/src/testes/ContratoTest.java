@@ -5,7 +5,7 @@ import hotel.Carro;
 import hotel.Contrato;
 import hotel.Estrategias;
 import hotel.Hospede;
-import hotel.PrecoCarro;
+import hotel.TipoCarro;
 import hotel.Quarto;
 import hotel.QuartoExecutivo;
 import hotel.Servico;
@@ -42,7 +42,7 @@ public class ContratoTest {
 //	
 	@Test
 	public void testEditarServicos() {
-		Servico carro = new Carro(PrecoCarro.EXECUTIVO, true, true);
+		Servico carro = new Carro(TipoCarro.EXECUTIVO, true, true);
 		for (int i = 0; i < 5; i++) {
 			contrato1.adicionaServico(carro);
 		}
