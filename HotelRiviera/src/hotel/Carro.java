@@ -3,8 +3,6 @@ package hotel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import excecoes.DataInvalidaException;
-
 public class Carro implements Servico {
 	public static final boolean TANQUE_VAZIO = false;
 	public static final boolean NAO_ASSEGURADO = false;
@@ -14,42 +12,45 @@ public class Carro implements Servico {
 
 	private boolean isTanqueCheio;
 	private boolean isAssegurado;
-	private PrecoCarro preco;
-	private Calendar dataInicial;
-	private Calendar dataDeTermino;
+	private TipoCarro tipoDeCarro;
+	private double preco;
+	private Calendar dataInicio;
+	private Calendar dataTermino;
 
-	public Carro(PrecoCarro preco, boolean isTanqueCheio, boolean isAssegurado) {
-		this.preco = preco;
+	public Carro(TipoCarro tipoDeCarro, boolean isTanqueCheio,
+			boolean isAssegurado) {
+		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
 		this.isAssegurado = isAssegurado;
+		preco = 0;
+		dataInicio = new GregorianCalendar();
 
 		if (isTanqueCheio)
-			this.preco.somaPreco(VALOR_TANQUE_CHEIO);
+			preco += VALOR_TANQUE_CHEIO;
 		if (isAssegurado)
-			this.preco.somaPreco(VALOR_ASSEGURADO);
-		dataInicial = GregorianCalendar.getInstance();
+			preco += VALOR_ASSEGURADO;
 
 	}// Construtor
 
-	public Carro(PrecoCarro preco) {
-		this(preco, TANQUE_VAZIO, NAO_ASSEGURADO);
+	public Carro(TipoCarro tipoDeCarro) {
+		this(tipoDeCarro, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
 	public void setDataInicial(Calendar novaDataInicio) {
-		dataInicial = novaDataInicio;
+		dataInicio = novaDataInicio;
 	}// setDataInicial
 
 	public void setDataDeTermino(Calendar novaDataTermino) {
-		dataDeTermino = novaDataTermino;
+		dataTermino = novaDataTermino;
 
 	}// getDataTerminoDoServico
 
-	public Calendar getDataInicial() {
-		return dataInicial;
+	public Calendar getDataInicio() {
+		return dataInicio;
 	}// getDataInicial
 
-	public Calendar getDataDeTermino() {
-		return dataDeTermino;
+	public Calendar getDataTermino() {
+		return dataTermino;
 	}// getDataDeTermino
 
 	public boolean getIsTanqueCheio() {
@@ -62,73 +63,65 @@ public class Carro implements Servico {
 
 	@Override
 	public double getPreco() {
-		return calculaPreco();
+		calculaPreco();
+		return preco;
 	}// getPreco
 
-	private double calculaPreco() {
-		double preco = 0;
-		if (isTanqueCheio)
-			preco += VALOR_TANQUE_CHEIO;
-		if (isAssegurado)
-			preco += VALOR_ASSEGURADO;
-
-		int diaInicial = getDataInicial().get(Calendar.DAY_OF_YEAR);
-		int diaFinal = getDataDeTermino().get(Calendar.DAY_OF_YEAR);
-
-		preco += (diaFinal - diaInicial) * this.preco.getPreco();
-
-		return preco;
+	private void calculaPreco() {
+		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
+		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
+		preco += (diaFinal - diaInicial) * tipoDeCarro.getPreco();
 
 	}// calculaPreco
 
-	@Override
-	public String toString() {
-		return "Carro [isTanqueCheio=" + isTanqueCheio + ", isAssegurado="
-				+ isAssegurado + ", preco=" + preco + ", dataInicial="
-				+ dataInicial + ", dataDeTermino=" + dataDeTermino + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((dataDeTermino == null) ? 0 : dataDeTermino.hashCode());
-		result = prime * result
-				+ ((dataInicial == null) ? 0 : dataInicial.hashCode());
-		result = prime * result + (isAssegurado ? 1231 : 1237);
-		result = prime * result + (isTanqueCheio ? 1231 : 1237);
-		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Carro other = (Carro) obj;
-		if (dataDeTermino == null) {
-			if (other.dataDeTermino != null)
-				return false;
-		} else if (!dataDeTermino.equals(other.dataDeTermino))
-			return false;
-		if (dataInicial == null) {
-			if (other.dataInicial != null)
-				return false;
-		} else if (!dataInicial.equals(other.dataInicial))
-			return false;
-		if (isAssegurado != other.isAssegurado)
-			return false;
-		if (isTanqueCheio != other.isTanqueCheio)
-			return false;
-		if (preco != other.preco)
-			return false;
-		return true;
-	}
+	// @Override
+	// public String toString() {
+	// return "Carro [isTanqueCheio=" + isTanqueCheio + ", isAssegurado="
+	// + isAssegurado + ", preco=" + preco + ", dataInicial="
+	// + dataInicial + ", dataDeTermino=" + dataDeTermino + "]";
+	// }
+	//
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result
+	// + ((dataDeTermino == null) ? 0 : dataDeTermino.hashCode());
+	// result = prime * result
+	// + ((dataInicial == null) ? 0 : dataInicial.hashCode());
+	// result = prime * result + (isAssegurado ? 1231 : 1237);
+	// result = prime * result + (isTanqueCheio ? 1231 : 1237);
+	// result = prime * result + ((preco == null) ? 0 : preco.hashCode());
+	// return result;
+	// }
+	//
+	// @Override
+	// public boolean equals(Object obj) {
+	// if (this == obj)
+	// return true;
+	// if (obj == null)
+	// return false;
+	// if (getClass() != obj.getClass())
+	// return false;
+	// Carro other = (Carro) obj;
+	// if (dataDeTermino == null) {
+	// if (other.dataDeTermino != null)
+	// return false;
+	// } else if (!dataDeTermino.equals(other.dataDeTermino))
+	// return false;
+	// if (dataInicial == null) {
+	// if (other.dataInicial != null)
+	// return false;
+	// } else if (!dataInicial.equals(other.dataInicial))
+	// return false;
+	// if (isAssegurado != other.isAssegurado)
+	// return false;
+	// if (isTanqueCheio != other.isTanqueCheio)
+	// return false;
+	// if (preco != other.preco)
+	// return false;
+	// return true;
+	// }
 
 }// Carro
 

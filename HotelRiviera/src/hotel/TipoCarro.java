@@ -1,11 +1,11 @@
 package hotel;
 
-public enum PrecoCarro {
+public enum TipoCarro {
 	LUXO(100), EXECUTIVO(60);
 
 	private double preco;
 
-	PrecoCarro(double preco) {
+	TipoCarro(double preco) {
 		this.preco = preco;
 	}// Construtor
 
