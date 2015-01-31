@@ -2,7 +2,6 @@ package hotel;
 
 import excecoes.ValorNegativoException;
 
-
 public class Frigobar implements Servico {
 	private double preco;
 
@@ -35,12 +34,11 @@ public class Frigobar implements Servico {
 	public double getPreco() {
 		return preco;
 	}// getPreco
-	
+
 	public void somaPreco(double valor) throws ValorNegativoException {
-		if(valor + preco < 0)
+		if (valor + preco < 0)
 			throw new ValorNegativoException();
 		preco += valor;
 	}// setPreco
-
 
 }// Frigobar

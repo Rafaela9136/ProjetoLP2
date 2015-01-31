@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import excecoes.DataInvalidaException;
 
@@ -26,7 +27,7 @@ public class Carro implements Servico {
 			this.preco.somaPreco(VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			this.preco.somaPreco(VALOR_ASSEGURADO);
-		dataInicial = Calendar.getInstance();
+		dataInicial = GregorianCalendar.getInstance();
 
 	}// Construtor
 
@@ -34,13 +35,11 @@ public class Carro implements Servico {
 		this(preco, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
-	public void setDataInicial(Calendar novaDataInicio)
-			throws DataInvalidaException {
+	public void setDataInicial(Calendar novaDataInicio) {
 		dataInicial = novaDataInicio;
 	}// setDataInicial
 
-	public void setDataDeTermino(Calendar novaDataTermino)
-			throws DataInvalidaException {
+	public void setDataDeTermino(Calendar novaDataTermino) {
 		dataDeTermino = novaDataTermino;
 
 	}// getDataTerminoDoServico
