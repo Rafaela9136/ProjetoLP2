@@ -17,11 +17,13 @@ public class Carro implements Servico {
 	private Calendar dataInicio;
 	private Calendar dataTermino;
 
-	public Carro(TipoCarro tipoDeCarro, boolean isTanqueCheio,
-			boolean isAssegurado) {
+	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino,
+			boolean isTanqueCheio, boolean isAssegurado) {
+		verificaDataTermino(dataTermino);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
 		this.isAssegurado = isAssegurado;
+		this.dataTermino = dataTermino;
 		preco = 0;
 		dataInicio = new GregorianCalendar();
 
@@ -32,13 +34,18 @@ public class Carro implements Servico {
 
 	}// Construtor
 
-	public Carro(TipoCarro tipoDeCarro) {
-		this(tipoDeCarro, TANQUE_VAZIO, NAO_ASSEGURADO);
+	private void verificaDataTermino(Calendar dataTermino) {
+		if (dataTermino == null)
+			throw new NullPointerException();
+	}
+
+	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino) {
+		this(tipoDeCarro, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
-	public void setDataInicial(Calendar novaDataInicio) {
-		dataInicio = novaDataInicio;
-	}// setDataInicial
+	// public void setDataInicial(Calendar novaDataInicio) {
+	// dataInicio = novaDataInicio;
+	// }// setDataInicial
 
 	public void setDataDeTermino(Calendar novaDataTermino) {
 		dataTermino = novaDataTermino;
