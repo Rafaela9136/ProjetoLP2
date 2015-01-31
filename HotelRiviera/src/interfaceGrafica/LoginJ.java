@@ -40,7 +40,7 @@ public class LoginJ extends JFrame {
 				try {
 					LoginJ frame = new LoginJ();
 					frame.setVisible(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,7 +58,7 @@ public class LoginJ extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -70,34 +70,43 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
-		btnOk.setBounds(425, 382, 117, 25);
+		btnOk.setBounds(214, 385, 117, 25);
 		contentPane.add(btnOk);
-		
+
 		JPanel panel = new JPanel();
-		panel.setBounds(154, 12, 399, 211);
+		panel.setBounds(154, 45, 399, 211);
 		contentPane.add(panel);
-		
+
 		textField = new JTextField();
-		textField.setBounds(275, 308, 227, 25);
+		textField.setBounds(263, 308, 227, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		passwordField = new JPasswordField();
-		passwordField.setBounds(275, 345, 227, 25);
+		passwordField.setBounds(263, 345, 227, 25);
 		contentPane.add(passwordField);
-		
+
 		txtpnLogin = new JTextPane();
 		txtpnLogin.setFont(new Font("Dialog", Font.PLAIN, 17));
 		txtpnLogin.setBackground(UIManager.getColor("Button.background"));
 		txtpnLogin.setText("Login:");
-		txtpnLogin.setBounds(189, 308, 84, 32);
+		txtpnLogin.setBounds(189, 308, 64, 32);
 		contentPane.add(txtpnLogin);
-		
+
 		txtpnSenha = new JTextPane();
 		txtpnSenha.setText("Senha:");
 		txtpnSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
 		txtpnSenha.setBackground(UIManager.getColor("Button.background"));
-		txtpnSenha.setBounds(189, 345, 84, 32);
+		txtpnSenha.setBounds(189, 345, 64, 32);
 		contentPane.add(txtpnSenha);
+
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		btnCancelar.setBounds(364, 385, 117, 25);
+		contentPane.add(btnCancelar);
 	}
 }
