@@ -18,7 +18,8 @@ public class Carro implements Servico {
 	private Calendar dataTermino;
 
 	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino,
-			boolean isTanqueCheio, boolean isAssegurado) {
+			boolean isTanqueCheio, boolean isAssegurado)
+			throws NullPointerException {
 		verificaDataTermino(dataTermino);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
@@ -34,11 +35,6 @@ public class Carro implements Servico {
 
 	}// Construtor
 
-	private void verificaDataTermino(Calendar dataTermino) {
-		if (dataTermino == null)
-			throw new NullPointerException();
-	}
-
 	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino) {
 		this(tipoDeCarro, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
@@ -47,7 +43,15 @@ public class Carro implements Servico {
 	// dataInicio = novaDataInicio;
 	// }// setDataInicial
 
-	public void setDataDeTermino(Calendar novaDataTermino) {
+	private void verificaDataTermino(Calendar dataTermino)
+			throws NullPointerException {
+		if (dataTermino == null)
+			throw new NullPointerException();
+	}
+
+	public void setDataDeTermino(Calendar novaDataTermino)
+			throws NullPointerException {
+		verificaDataTermino(novaDataTermino);
 		dataTermino = novaDataTermino;
 
 	}// getDataTerminoDoServico
