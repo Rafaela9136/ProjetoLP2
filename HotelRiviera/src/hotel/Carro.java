@@ -54,7 +54,6 @@ public class Carro implements Servico {
 			throws NullPointerException {
 		verificaDataTermino(novaDataTermino);
 		dataTermino = novaDataTermino;
-
 	}// getDataTerminoDoServico
 
 	public Calendar getDataInicio() {
@@ -82,16 +81,16 @@ public class Carro implements Servico {
 			preco += VALOR_ASSEGURADO;
 		return preco;
 	}// getPreco
-
-	private void calculaPreco() {
-		preco = numeroDeDias() * tipoDeCarro.getPreco();
-	}
 	
 	public int numeroDeDias() {
 		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
 		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
 		numDeDias = diaFinal - diaInicial; 
 		return numDeDias;
+	}
+	
+	private void calculaPreco() {
+		preco = numeroDeDias() * tipoDeCarro.getPreco();
 	}
 
 	// @Override

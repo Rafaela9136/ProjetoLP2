@@ -24,7 +24,7 @@ public class CarroTest {
 		carro1 = new Carro(carroExecutivo, dataTermino1, true, true);
 		carro2 = new Carro(carroLuxo, dataTermino2, true, false);
 		carro3 = new Carro(carroLuxo, dataTermino3, false, true);
-		carro4 = new Carro(carroExecutivo, dataTermino2);
+		carro4 = new Carro(carroExecutivo, new GregorianCalendar(2014, 2, 2));
 	}
 
 	@Test
@@ -94,11 +94,40 @@ public class CarroTest {
 	public void testaGetPreco() {
 		Assert.assertEquals(carro1.getIsTanqueCheio(), true);
 		Assert.assertEquals(carro1.getIsAssegurado(), true);
+		Assert.assertEquals(carro1.getTipoDeCarro(), carroExecutivo);
 		Assert.assertEquals(carro1.numeroDeDias(), 5);
 		Assert.assertEquals(carro1.getPreco(), 550, 0.001);
 		carro1.setDataDeTermino(new GregorianCalendar(2014, 1, 10));
 		Assert.assertEquals(carro1.numeroDeDias(), 10);
 		Assert.assertEquals(carro1.getPreco(), 850, 0.001);
+		
+		Assert.assertEquals(carro2.getIsTanqueCheio(), true);
+		Assert.assertEquals(carro2.getIsAssegurado(), false);
+		Assert.assertEquals(carro2.getTipoDeCarro(), carroLuxo);
+		Assert.assertEquals(carro2.numeroDeDias(), 3);
+		Assert.assertEquals(carro2.getPreco(), 450, 0.001);
+		carro2.setDataDeTermino(new GregorianCalendar(2014, 1, 27));
+		Assert.assertEquals(carro2.numeroDeDias(), 27);
+		Assert.assertEquals(carro2.getPreco(), 2850, 0.001);
+		
+		Assert.assertEquals(carro3.getIsTanqueCheio(), false);
+		Assert.assertEquals(carro3.getIsAssegurado(), true);
+		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
+		Assert.assertEquals(carro3.numeroDeDias(), 12);
+		Assert.assertEquals(carro3.getPreco(), 1300, 0.001);
+		carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
+		Assert.assertEquals(carro3.numeroDeDias(), 15);
+		Assert.assertEquals(carro3.getPreco(), 1600, 0.001);
+		
+		Assert.assertEquals(carro4.getIsTanqueCheio(), false);
+		Assert.assertEquals(carro4.getIsAssegurado(), false);
+		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
+		Assert.assertEquals(carro4.numeroDeDias(), 30);
+		Assert.assertEquals(carro4.getPreco(), 1800, 0.001);
+		carro4.setDataDeTermino(new GregorianCalendar(2014, 2, 10));
+		Assert.assertEquals(carro4.numeroDeDias(), 38);
+		Assert.assertEquals(carro4.getPreco(), 2280, 0.001);
+
 	}
 
 }
