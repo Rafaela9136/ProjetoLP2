@@ -25,6 +25,7 @@ public class AvisoSucesso extends JFrame {
 	 * Create the frame.
 	 */
 	public AvisoSucesso() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(266, 94, 381, 144);
 		contentPane = new JPanel();
@@ -39,7 +40,7 @@ public class AvisoSucesso extends JFrame {
 				dispose();
 			}
 		});
-		btnOk.setBounds(222, 65, 117, 25);
+		btnOk.setBounds(122, 59, 117, 25);
 		contentPane.add(btnOk);
 		
 		JTextPane txtpnOperaoRealizadaCom = new JTextPane();
