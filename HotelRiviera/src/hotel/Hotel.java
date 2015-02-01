@@ -7,7 +7,7 @@ public class Hotel {
 		private double dispesasTotais;
 		private Calendar dataCheckIn;
 		private Calendar dataCheckOut;
-		private List<Contrato> contratosHotel;
+		private static List<Contrato> contratosHotel;
 		
 		private Map<TipoDeQuarto, Integer> quartosDisponiveis = new HashMap<TipoDeQuarto, Integer>();
 		
@@ -20,7 +20,11 @@ public class Hotel {
 			quartosDisponiveis.put(TiposQuartosLuxo.LUXO_TRIPLO, 20);
 			quartosDisponiveis.put(TiposQuartosPresidencial.PRESIDENCIAL, 5);
 		}
-		
+
+
+		public static List<Contrato> getContratos() {
+			return contratosHotel;
+		}		
 }
 		
 	
