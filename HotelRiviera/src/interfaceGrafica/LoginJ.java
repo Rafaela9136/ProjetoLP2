@@ -10,10 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
 import javax.swing.JTextPane;
-
-import java.awt.Color;
 
 import javax.swing.UIManager;
 
@@ -63,7 +60,7 @@ public class LoginJ extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					HotelJ frame = new HotelJ();
+					HotelF frame = new HotelF();
 					frame.setVisible(true);
 				} catch (Exception e1) {
 					e1.printStackTrace();

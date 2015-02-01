@@ -3,9 +3,6 @@ package testes;
 import static org.junit.Assert.*;
 import hotel.Opiniao;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +19,7 @@ public class OpiniaoTest {
 	private Opiniao opiniao;
 	private final int NOTA = 1;
 	private final String COMENT = "Programacao II Universidade Federal de Campina Grande";
-	private Calendar c = new GregorianCalendar();
-
+	
 	@Before
 	public void criaObjetos() throws EstouroDeCaracteresException,
 			NotaInvalidaException {

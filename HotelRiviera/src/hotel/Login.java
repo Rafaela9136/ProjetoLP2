@@ -1,6 +1,6 @@
 package hotel;
 
-import interfaceGrafica.HotelJ;
+import interfaceGrafica.HotelF;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -74,15 +74,15 @@ public class Login extends JFrame {
 				Acesso cl = new Acesso();
 				cl.Acesso(txtLogin.getText(), txtSenha.getText());
 				if (cl.acesso == true) {
-					HotelJ tl = null;
+					HotelF tl = null;
 					try {
-						tl = new HotelJ();
+						tl = new HotelF();
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
 					tl.show();
 					try {
-						tl.setExtendedState(new HotelJ().MAXIMIZED_BOTH);
+						tl.setExtendedState(new HotelF().MAXIMIZED_BOTH);
 					} catch (ParseException e) {
 						e.printStackTrace();
 					}
