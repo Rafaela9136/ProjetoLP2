@@ -49,6 +49,7 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 706, 603);
 		contentPane = new JPanel();
@@ -84,6 +85,7 @@ public class LoginJ extends JFrame {
 		contentPane.add(passwordField);
 
 		txtpnLogin = new JTextPane();
+		txtpnLogin.setEditable(false);
 		txtpnLogin.setFont(new Font("Dialog", Font.PLAIN, 17));
 		txtpnLogin.setBackground(UIManager.getColor("Button.background"));
 		txtpnLogin.setText("Login:");
@@ -91,6 +93,7 @@ public class LoginJ extends JFrame {
 		contentPane.add(txtpnLogin);
 
 		txtpnSenha = new JTextPane();
+		txtpnSenha.setEditable(false);
 		txtpnSenha.setText("Senha:");
 		txtpnSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
 		txtpnSenha.setBackground(UIManager.getColor("Button.background"));
