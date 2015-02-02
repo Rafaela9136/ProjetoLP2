@@ -7,9 +7,15 @@ public class EstrategiaNatalReveillon implements EstrategiaAplicavel{
 	
 	private final int DIA_INICIO = 15;
 	private final int DIA_FIM = 5;
-	
-	
 	private double porcentagemAAplicar = 1.2; // 20% a mais no valor das despesas totais do cliente.
+	
+	public double getPorcentagemAAplicar() {
+		return porcentagemAAplicar;
+	}
+
+	public void setPorcentagemAAplicar(double porcentagemAAplicar) {
+		this.porcentagemAAplicar = porcentagemAAplicar;
+	}
 
 	@SuppressWarnings("static-access")
 	@Override

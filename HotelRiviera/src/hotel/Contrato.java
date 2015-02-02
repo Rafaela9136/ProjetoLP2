@@ -17,14 +17,14 @@ public class Contrato {
 	private Opiniao opiniao;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
-	private Estrategias estrategia;
+	private EstrategiaAplicavel estrategia;
 
 	private float despesasAdicionais;
 	private boolean isReserva;
 	private boolean isAberto;
 
 	public Contrato(Hospede hospedeTitular, List<String> acompanhantes,
-			Estrategias estrategia, Calendar dataCheckIn,
+			EstrategiaAplicavel estrategia, Calendar dataCheckIn,
 			Calendar dataCheckOut, boolean isReserva, List<Quarto> quartos,
 			List<Servico> servicos) throws Exception {
 
@@ -52,7 +52,7 @@ public class Contrato {
 		return isReserva;
 	}// getIsReserva
 
-	public Estrategias getEstrategia() {
+	public EstrategiaAplicavel getEstrategia() {
 		return estrategia;
 	}// getEstrategia
 
@@ -142,10 +142,10 @@ public class Contrato {
 		return valor;
 	}// calculaValorTotalRestaurante
 
-	public double calculaTotalPorEstrategia() {
+	/*public double calculaTotalPorEstrategia() {
 		return (getDespesasAdicionais() + calculaValorTotalServicos())
 				* getEstrategia().getPorcentagem();
-	} // calcula o total a pagar de acordo com a epoca
+	} // calcula o total a pagar de acordo com a epoca*/  // É o contrato que vai calcular isso? Devia ser o hotel, não?
 
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
