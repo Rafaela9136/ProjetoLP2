@@ -71,6 +71,7 @@ public class LoginJ extends JFrame {
 				try {
 					HotelF frame = new HotelF();
 					frame.setVisible(true);
+					dispose();
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
