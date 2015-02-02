@@ -11,11 +11,9 @@ public abstract class Quarto implements Servico {
 	private boolean temCamaExtra;
 	private TipoDeQuarto tipo;
 
-	public Quarto(int MAX_PESSOAS, boolean temCamaExtra, TipoDeQuarto tipo)
-			throws CamaExtraException {
+	public Quarto(int MAX_PESSOAS, boolean temCamaExtra) throws Exception {
 		if (!tipo.getPodeCamaExtra() && temCamaExtra)
 			throw new CamaExtraException();
-		this.tipo = tipo;
 		this.MAX_PESSOAS = MAX_PESSOAS;
 		this.temCamaExtra = temCamaExtra;
 		frigobar = new Frigobar();
