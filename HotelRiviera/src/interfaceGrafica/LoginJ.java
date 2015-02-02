@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 import java.awt.Font;
+import java.awt.SystemColor;
 
 public class LoginJ extends JFrame {
 
@@ -32,6 +33,11 @@ public class LoginJ extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,13 +57,15 @@ public class LoginJ extends JFrame {
 	public LoginJ() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 706, 603);
+		setBounds(100, 100, 534, 469);
 		contentPane = new JPanel();
+		contentPane.setBackground(SystemColor.window);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 
 		JButton btnOk = new JButton("Ok");
+		btnOk.setBounds(108, 367, 117, 25);
+		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -68,45 +76,46 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
-		btnOk.setBounds(214, 385, 117, 25);
+		contentPane.setLayout(null);
 		contentPane.add(btnOk);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(154, 45, 399, 211);
+		panel.setBounds(73, 27, 399, 231);
 		contentPane.add(panel);
 
 		textField = new JTextField();
-		textField.setBounds(263, 308, 227, 25);
+		textField.setBounds(182, 290, 227, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(263, 345, 227, 25);
+		passwordField.setBounds(182, 327, 227, 25);
 		contentPane.add(passwordField);
 
 		txtpnLogin = new JTextPane();
+		txtpnLogin.setBounds(108, 290, 64, 32);
 		txtpnLogin.setEditable(false);
-		txtpnLogin.setFont(new Font("Dialog", Font.PLAIN, 17));
-		txtpnLogin.setBackground(UIManager.getColor("Button.background"));
+		txtpnLogin.setFont(new Font("Verdana", Font.PLAIN, 16));
+		txtpnLogin.setBackground(SystemColor.activeCaptionBorder);
 		txtpnLogin.setText("Login:");
-		txtpnLogin.setBounds(189, 308, 64, 32);
 		contentPane.add(txtpnLogin);
 
 		txtpnSenha = new JTextPane();
+		txtpnSenha.setBounds(108, 327, 64, 32);
 		txtpnSenha.setEditable(false);
 		txtpnSenha.setText("Senha:");
-		txtpnSenha.setFont(new Font("Dialog", Font.PLAIN, 17));
+		txtpnSenha.setFont(new Font("Verdana", Font.PLAIN, 16));
 		txtpnSenha.setBackground(UIManager.getColor("Button.background"));
-		txtpnSenha.setBounds(189, 345, 64, 32);
 		contentPane.add(txtpnSenha);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(292, 367, 117, 25);
+		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		btnCancelar.setBounds(364, 385, 117, 25);
 		contentPane.add(btnCancelar);
 	}
 }

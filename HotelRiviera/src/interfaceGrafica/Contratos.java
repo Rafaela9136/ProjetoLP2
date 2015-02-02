@@ -28,6 +28,7 @@ import javax.swing.JButton;
 
 import excecoes.CPFInvalidoException;
 import excecoes.DataInvalidaException;
+import javax.swing.JTable;
 
 public class Contratos extends JPanel {
 
@@ -44,6 +45,7 @@ public class Contratos extends JPanel {
 	private JFormattedTextField textFieldData, textFieldCPF, textFieldCheckIn, textFieldCheckOut;
 	private JTextField textFieldNome, textFieldEstado, textFieldCidade, textFieldEndereco, textFieldNumero, textFieldAcompanhantes;
 	private JTextField textFieldPesquisa;
+	private JTextField textField;
 	
 	/**
 	 * Create the panel.
@@ -61,7 +63,7 @@ public class Contratos extends JPanel {
 		// Botoes
 		JButton btnNovoContrato = new JButton("Novo contrato");
 		btnNovoContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnNovoContrato.setBounds(24, 41, 180, 43);
+		btnNovoContrato.setBounds(24, 42, 180, 43);
 		btnNovoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout.show(acoes1, "novoContrato");
@@ -71,13 +73,23 @@ public class Contratos extends JPanel {
 		
 		JButton btnPesquisarContrato = new JButton("Pesquisar contrato");
 		btnPesquisarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnPesquisarContrato.setBounds(24, 105, 180, 43);
+		btnPesquisarContrato.setBounds(24, 168, 180, 43);
 		btnPesquisarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout.show(acoes1, "pesquisarContrato");
 			}
 		});
 		add(btnPesquisarContrato);
+		
+		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
+		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnAtualizarContrato.setBounds(24, 105, 180, 43);
+		btnAtualizarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(acoes1, "atualizarContrato");
+			}
+		});
+		add(btnAtualizarContrato);
 		
 		JButton btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
@@ -89,7 +101,7 @@ public class Contratos extends JPanel {
 		btnSair.setBounds(24, 575, 180, 43);
 		add(btnSair);
 		
-		// Painel de acoes
+		// Paineis de acoes
 		acoes1 = new JPanel();
 		acoes1.setBackground(SystemColor.window);
 		acoes1.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
@@ -107,6 +119,33 @@ public class Contratos extends JPanel {
 		acoes1.add(novoContrato, "novoContrato");
 		novoContrato.setLayout(null);
 		acoes1.add(novoContrato, "novoContrato");
+		
+		JPanel atualizarContrato = new JPanel();
+		atualizarContrato.setBackground(SystemColor.window);
+		acoes1.add(atualizarContrato, "atualizarContrato");
+		atualizarContrato.setLayout(null);
+		
+		JTextPane txtpnContrato = new JTextPane();
+		txtpnContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnContrato.setEditable(false);
+		txtpnContrato.setText("Contrato:");
+		txtpnContrato.setBounds(32, 37, 78, 24);
+		atualizarContrato.add(txtpnContrato);
+		
+		textField = new JTextField();
+		textField.setBounds(122, 35, 328, 28);
+		atualizarContrato.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnConfirmar_1 = new JButton("Confirmar");
+		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnConfirmar_1.setBounds(462, 35, 117, 28);
+		atualizarContrato.add(btnConfirmar_1);
+		
+		JPanel pesquisarContrato = new JPanel();
+		pesquisarContrato.setBackground(SystemColor.window);
+		acoes1.add(pesquisarContrato, "pesquisarContrato");
+		pesquisarContrato.setLayout(null);
 		
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
@@ -391,11 +430,6 @@ public class Contratos extends JPanel {
 		});
 		novoContrato.add(btnConfirmar);
 		
-		JPanel pesquisarContrato = new JPanel();
-		pesquisarContrato.setBackground(SystemColor.window);
-		acoes1.add(pesquisarContrato, "pesquisarContrato");
-		pesquisarContrato.setLayout(null);
-		
 		// Definicoes de pesquisa de contratos
 		JTextPane txtpnPesquisarPor = new JTextPane();
 		txtpnPesquisarPor.setEditable(false);
@@ -461,7 +495,6 @@ public class Contratos extends JPanel {
 			}
 		});
 		pesquisarContrato.add(btnConfirmarPesq);
-
 	}
 
 	private Estados selecionaEstado() {
