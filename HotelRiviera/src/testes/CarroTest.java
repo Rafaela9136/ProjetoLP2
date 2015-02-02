@@ -10,37 +10,43 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecoes.DataInvalidaException;
+
 public class CarroTest {
 
 	Carro carro1, carro2, carro3, carro4;
 	private TipoCarro carroExecutivo = TipoCarro.EXECUTIVO;
 	private TipoCarro carroLuxo = TipoCarro.LUXO;
+	Calendar dataInicio1 = new GregorianCalendar(2015, 0, 31);
+	Calendar dataInicio2 = new GregorianCalendar(2015, 0, 31);
+	Calendar dataInicio3 = new GregorianCalendar(2015, 0, 31);
 	Calendar dataTermino1 = new GregorianCalendar(2015, 1, 5);
 	Calendar dataTermino2 = new GregorianCalendar(2015, 1, 3);
 	Calendar dataTermino3 = new GregorianCalendar(2015, 1, 12);
 
 	@Before
-	public void criaObjetos() {
-		carro1 = new Carro(carroExecutivo, dataTermino1, true, true);
-		carro2 = new Carro(carroLuxo, dataTermino2, true, false);
-		carro3 = new Carro(carroLuxo, dataTermino3, false, true);
-		carro4 = new Carro(carroExecutivo, new GregorianCalendar(2014, 2, 2));
+	public void criaObjetos() throws NullPointerException, DataInvalidaException {
+		carro1 = new Carro(carroExecutivo, dataInicio1, dataTermino1, true,
+				true);
+		carro2 = new Carro(carroLuxo, dataInicio2, dataTermino2, true, false);
+		carro3 = new Carro(carroLuxo, dataInicio3, dataTermino3, false, true);
+		carro4 = new Carro(carroExecutivo, dataInicio2, new GregorianCalendar(
+				2014, 2, 2));
 	}
 
 	@Test
-	public void testaCriaCarro() throws NullPointerException {
-		Calendar data = null;
+	public void testaCriaCarro() throws NullPointerException, DataInvalidaException {
+		Calendar dataNula = null;
 		try {
-			new Carro(carroLuxo, data, true, true);
+			new Carro(carroLuxo, dataNula, dataTermino1, true, true);
 		} catch (NullPointerException e) {
 
 		}
 		try {
-			new Carro(carroExecutivo, null);
+			new Carro(carroExecutivo, dataInicio2, null);
 		} catch (NullPointerException e) {
 
 		}
-
 	}
 
 	@Test
@@ -66,7 +72,7 @@ public class CarroTest {
 		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
 		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
 	}
-	
+
 	@Test
 	public void testaSetDataTermino() throws NullPointerException {
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
@@ -100,7 +106,7 @@ public class CarroTest {
 		carro1.setDataDeTermino(new GregorianCalendar(2014, 1, 10));
 		Assert.assertEquals(carro1.numeroDeDias(), 10);
 		Assert.assertEquals(carro1.getPreco(), 850, 0.001);
-		
+
 		Assert.assertEquals(carro2.getIsTanqueCheio(), true);
 		Assert.assertEquals(carro2.getIsAssegurado(), false);
 		Assert.assertEquals(carro2.getTipoDeCarro(), carroLuxo);
@@ -109,7 +115,7 @@ public class CarroTest {
 		carro2.setDataDeTermino(new GregorianCalendar(2014, 1, 27));
 		Assert.assertEquals(carro2.numeroDeDias(), 27);
 		Assert.assertEquals(carro2.getPreco(), 2850, 0.001);
-		
+
 		Assert.assertEquals(carro3.getIsTanqueCheio(), false);
 		Assert.assertEquals(carro3.getIsAssegurado(), true);
 		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
@@ -118,7 +124,7 @@ public class CarroTest {
 		carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
 		Assert.assertEquals(carro3.numeroDeDias(), 15);
 		Assert.assertEquals(carro3.getPreco(), 1600, 0.001);
-		
+
 		Assert.assertEquals(carro4.getIsTanqueCheio(), false);
 		Assert.assertEquals(carro4.getIsAssegurado(), false);
 		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);

@@ -420,8 +420,6 @@ public class Contratos extends JPanel {
 					erro.setVisible(true);
 				} catch (CPFInvalidoException e1) {
 					erro.setVisible(true);
-				} catch (DataInvalidaException e1) {
-					erro.setVisible(true);
 				}
 				AvisoSucesso aviso = new AvisoSucesso();
 				aviso.setVisible(true);

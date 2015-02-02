@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import excecoes.DataInvalidaException;
 import excecoes.HoraInvalidaException;
@@ -8,7 +9,7 @@ import excecoes.HoraInvalidaException;
 public class Baba implements Servico {
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
-	public static final int[] HORAS_DOBRADAS = { 18, 19, 20, 21, 22, 23, 0, 1,
+	public static final int[] HORAS_DOBRADAS = {18, 19, 20, 21, 22, 23, 0, 1,
 		2, 3, 4, 5, 6, 7};
 
 	private NomesBaba baba;
@@ -20,8 +21,8 @@ public class Baba implements Servico {
 		this.baba = baba;
 		this.isReserva = isReserva;
 		
-		if(!isReserva)
-			inicioDoServico = Calendar.getInstance();
+		if (!isReserva)
+			inicioDoServico = new GregorianCalendar();
 		
 	}// Construtor
 	

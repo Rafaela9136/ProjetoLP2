@@ -3,6 +3,8 @@ package hotel;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import excecoes.DataInvalidaException;
+
 public class Carro implements Servico {
 	public static final boolean TANQUE_VAZIO = false;
 	public static final boolean NAO_ASSEGURADO = false;
@@ -18,17 +20,19 @@ public class Carro implements Servico {
 	private Calendar dataTermino;
 	private int numDeDias;
 
-	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino,
-			boolean isTanqueCheio, boolean isAssegurado)
-			throws NullPointerException {
-		verificaDataTermino(dataTermino);
+	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
+			Calendar dataTermino, boolean isTanqueCheio, boolean isAssegurado)
+			throws NullPointerException, DataInvalidaException {
+		verificaData(dataInicio, dataTermino);
+		verificaDataNula(dataInicio);
+		verificaDataNula(dataTermino);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
 		this.isAssegurado = isAssegurado;
+		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
 		preco = 0;
 		numDeDias = 0;
-		dataInicio = new GregorianCalendar();
 
 	}// Construtor
 
@@ -36,23 +40,21 @@ public class Carro implements Servico {
 		return tipoDeCarro;
 	}
 
-	public Carro(TipoCarro tipoDeCarro, Calendar dataTermino) {
-		this(tipoDeCarro, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
+	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
+			Calendar dataTermino) throws NullPointerException,
+			DataInvalidaException {
+		this(tipoDeCarro, dataInicio, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
-	// public void setDataInicial(Calendar novaDataInicio) {
-	// dataInicio = novaDataInicio;
-	// }// setDataInicial
-
-	private void verificaDataTermino(Calendar dataTermino)
+	public void setDataInicio(Calendar novaDataInicio)
 			throws NullPointerException {
-		if (dataTermino == null)
-			throw new NullPointerException();
-	}
+		verificaDataNula(novaDataInicio);
+		dataInicio = novaDataInicio;
+	}// setDataInicial
 
 	public void setDataDeTermino(Calendar novaDataTermino)
 			throws NullPointerException {
-		verificaDataTermino(novaDataTermino);
+		verificaDataNula(novaDataTermino);
 		dataTermino = novaDataTermino;
 	}// getDataTerminoDoServico
 
@@ -81,14 +83,26 @@ public class Carro implements Servico {
 			preco += VALOR_ASSEGURADO;
 		return preco;
 	}// getPreco
-	
+
 	public int numeroDeDias() {
 		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
 		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
-		numDeDias = diaFinal - diaInicial; 
+		numDeDias = diaFinal - diaInicial;
 		return numDeDias;
 	}
-	
+
+	private void verificaDataNula(Calendar data) throws NullPointerException {
+		if (data == null)
+			throw new NullPointerException();
+	}
+
+	private void verificaData(Calendar dataInicio, Calendar dataTermino)
+			throws DataInvalidaException {
+		if (dataInicio.before(new GregorianCalendar())
+				|| dataTermino.before(dataInicio))
+			throw new DataInvalidaException();
+	}
+
 	private void calculaPreco() {
 		preco = numeroDeDias() * tipoDeCarro.getPreco();
 	}

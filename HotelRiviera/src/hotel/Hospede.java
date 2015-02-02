@@ -3,7 +3,6 @@ package hotel;
 import java.util.Calendar;
 
 import excecoes.CPFInvalidoException;
-import excecoes.DataInvalidaException;
 
 public class Hospede {
 
@@ -24,7 +23,7 @@ public class Hospede {
 
 	public Hospede(String nome, Calendar dataNascimento, boolean moraNoBrasil, String pais,
 			Estados estado, String cidade, String endereco, String numero,
-			String CPF) throws NullPointerException, CPFInvalidoException, DataInvalidaException {
+			String CPF) throws NullPointerException, CPFInvalidoException {
 		
 		checaParametroValido(nome);
 		// falta verificar se a data é null.
@@ -55,7 +54,7 @@ public class Hospede {
 
 	}// Construtor 1
 
-	public Hospede(String nome, Calendar dataNascimento) throws NullPointerException, CPFInvalidoException, DataInvalidaException {
+	public Hospede(String nome, Calendar dataNascimento) throws NullPointerException, CPFInvalidoException {
 		this(nome, dataNascimento, NAO_BRASILEIRO, SET_NAO_MORA_NO_BRASIL,
 				Estados.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
