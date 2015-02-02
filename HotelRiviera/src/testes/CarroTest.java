@@ -17,25 +17,26 @@ public class CarroTest {
 	Carro carro1, carro2, carro3, carro4;
 	private TipoCarro carroExecutivo = TipoCarro.EXECUTIVO;
 	private TipoCarro carroLuxo = TipoCarro.LUXO;
-	Calendar dataInicio1 = new GregorianCalendar(2015, 0, 31);
-	Calendar dataInicio2 = new GregorianCalendar(2015, 0, 31);
-	Calendar dataInicio3 = new GregorianCalendar(2015, 0, 31);
-	Calendar dataTermino1 = new GregorianCalendar(2015, 1, 5);
-	Calendar dataTermino2 = new GregorianCalendar(2015, 1, 3);
-	Calendar dataTermino3 = new GregorianCalendar(2015, 1, 12);
+	Calendar dataInicio1 = new GregorianCalendar(2015, 5, 12);
+	Calendar dataInicio2 = new GregorianCalendar(2015, 5, 17);
+	Calendar dataInicio3 = new GregorianCalendar(2015, 5, 29);
+	Calendar dataTermino1 = new GregorianCalendar(2015, 6, 5);
+	Calendar dataTermino2 = new GregorianCalendar(2015, 6, 1);
+	Calendar dataTermino3 = new GregorianCalendar(2015, 6, 12);
 
 	@Before
-	public void criaObjetos() throws NullPointerException, DataInvalidaException {
+	public void criaObjetos() throws NullPointerException,
+			DataInvalidaException {
 		carro1 = new Carro(carroExecutivo, dataInicio1, dataTermino1, true,
 				true);
 		carro2 = new Carro(carroLuxo, dataInicio2, dataTermino2, true, false);
 		carro3 = new Carro(carroLuxo, dataInicio3, dataTermino3, false, true);
-		carro4 = new Carro(carroExecutivo, dataInicio2, new GregorianCalendar(
-				2014, 2, 2));
+		carro4 = new Carro(carroExecutivo, dataInicio2, dataTermino1);
 	}
 
 	@Test
-	public void testaCriaCarro() throws NullPointerException, DataInvalidaException {
+	public void testaCriaCarro() throws NullPointerException,
+			DataInvalidaException {
 		Calendar dataNula = null;
 		try {
 			new Carro(carroLuxo, dataNula, dataTermino1, true, true);
@@ -43,8 +44,24 @@ public class CarroTest {
 
 		}
 		try {
-			new Carro(carroExecutivo, dataInicio2, null);
+			new Carro(carroExecutivo, dataInicio2, dataNula);
 		} catch (NullPointerException e) {
+
+		}
+		try {
+			new Carro(carroLuxo, dataInicio1, new GregorianCalendar());
+		} catch (DataInvalidaException e) {
+
+		}
+		try {
+			new Carro(carroExecutivo, dataTermino1, dataInicio1);
+		} catch (DataInvalidaException e) {
+
+		}
+		try {
+			new Carro(carroExecutivo, new GregorianCalendar(),
+					new GregorianCalendar(2015, 0, 31), true, true);
+		} catch (DataInvalidaException e) {
 
 		}
 	}
@@ -74,7 +91,14 @@ public class CarroTest {
 	}
 
 	@Test
-	public void testaSetDataTermino() throws NullPointerException {
+	public void testaSetDataInicio() throws NullPointerException,
+			DataInvalidaException {
+
+	}
+
+	@Test
+	public void testaSetDataTermino() throws NullPointerException,
+			DataInvalidaException {
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
 		try {
 			carro1.setDataDeTermino(null);
@@ -85,11 +109,15 @@ public class CarroTest {
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino2);
 
 		Assert.assertEquals(carro3.getDataTermino(), dataTermino3);
-		carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
-		Assert.assertEquals(carro3.getDataTermino().get(Calendar.DAY_OF_MONTH),
-				15);
-		Assert.assertEquals(carro3.getDataTermino().get(Calendar.MONTH), 1);
-		Assert.assertEquals(carro3.getDataTermino().get(Calendar.YEAR), 2014);
+		try {
+			carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
+		} catch (DataInvalidaException e) {
+
+		}
+		Assert.assertNotEquals(
+				carro3.getDataTermino().get(Calendar.DAY_OF_MONTH), 15);
+		Assert.assertNotEquals(carro3.getDataTermino().get(Calendar.MONTH), 1);
+		Assert.assertNotEquals(carro3.getDataTermino().get(Calendar.YEAR), 2014);
 
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
 		carro2.setDataDeTermino(dataTermino3);
@@ -97,7 +125,8 @@ public class CarroTest {
 	}
 
 	@Test
-	public void testaGetPreco() {
+	public void testaGetPreco() throws NullPointerException,
+			DataInvalidaException {
 		Assert.assertEquals(carro1.getIsTanqueCheio(), true);
 		Assert.assertEquals(carro1.getIsAssegurado(), true);
 		Assert.assertEquals(carro1.getTipoDeCarro(), carroExecutivo);

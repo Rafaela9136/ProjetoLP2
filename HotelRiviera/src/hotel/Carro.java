@@ -23,9 +23,9 @@ public class Carro implements Servico {
 	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
 			Calendar dataTermino, boolean isTanqueCheio, boolean isAssegurado)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(dataInicio, dataTermino);
 		verificaDataNula(dataInicio);
 		verificaDataNula(dataTermino);
+		verificaData(dataInicio, dataTermino);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
 		this.isAssegurado = isAssegurado;
@@ -36,43 +36,45 @@ public class Carro implements Servico {
 
 	}// Construtor
 
-	public TipoCarro getTipoDeCarro() {
-		return tipoDeCarro;
-	}
-
 	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
 			Calendar dataTermino) throws NullPointerException,
 			DataInvalidaException {
 		this(tipoDeCarro, dataInicio, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
 	}// Construtor (Default)
 
+	public TipoCarro getTipoDeCarro() {
+		return tipoDeCarro;
+	}
+
 	public void setDataInicio(Calendar novaDataInicio)
-			throws NullPointerException {
+			throws NullPointerException, DataInvalidaException {
+		verificaData(novaDataInicio, dataTermino);
 		verificaDataNula(novaDataInicio);
 		dataInicio = novaDataInicio;
-	}// setDataInicial
+	}
 
 	public void setDataDeTermino(Calendar novaDataTermino)
-			throws NullPointerException {
+			throws NullPointerException, DataInvalidaException {
+		verificaData(dataInicio, novaDataTermino);
 		verificaDataNula(novaDataTermino);
 		dataTermino = novaDataTermino;
-	}// getDataTerminoDoServico
+	}
 
 	public Calendar getDataInicio() {
 		return dataInicio;
-	}// getDataInicial
+	}
 
 	public Calendar getDataTermino() {
 		return dataTermino;
-	}// getDataDeTermino
+	}
 
 	public boolean getIsTanqueCheio() {
 		return isTanqueCheio;
-	}// getIsTanqueCheio
+	}
 
 	public boolean getIsAssegurado() {
 		return isAssegurado;
-	}// getIsAssegurado
+	}
 
 	@Override
 	public double getPreco() {
@@ -82,7 +84,7 @@ public class Carro implements Servico {
 		if (isAssegurado)
 			preco += VALOR_ASSEGURADO;
 		return preco;
-	}// getPreco
+	}
 
 	public int numeroDeDias() {
 		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
