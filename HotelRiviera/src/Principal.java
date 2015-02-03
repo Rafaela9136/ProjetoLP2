@@ -1,6 +1,9 @@
-package interfaceGrafica;
+
+
+import interfaceGrafica.LoginJ;
 
 import java.awt.EventQueue;
+
 import javax.swing.UIManager;
 
 public class Principal {
@@ -13,7 +16,7 @@ public class Principal {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
-		}		
+		}// try-catch	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -21,8 +24,11 @@ public class Principal {
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
-			}
+				}// try-catch
+			}// run
 		});
-	}
-}
+	}// main
+	
+	
+	
+}// Principal
