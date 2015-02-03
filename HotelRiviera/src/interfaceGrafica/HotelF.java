@@ -37,11 +37,8 @@ public class HotelF extends JFrame {
 		
 		Recursos recursos = new Recursos();
 		tabbedPane.addTab("Recursos", null, recursos, null);
-		
-		Pesquisar pesquisar = new Pesquisar();
-		tabbedPane.addTab("Pesquisar", null, pesquisar, null);
-		
+
 		Informacoes info = new Informacoes();
-		tabbedPane.addTab("Informações", null, info, null);
+		tabbedPane.addTab("Informaï¿½ï¿½es", null, info, null);
 	}
 }

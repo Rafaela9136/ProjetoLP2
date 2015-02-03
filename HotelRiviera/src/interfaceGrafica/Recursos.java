@@ -34,6 +34,8 @@ import javax.swing.JToolBar;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.JSeparator;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Recursos extends JPanel {
 
@@ -42,14 +44,15 @@ public class Recursos extends JPanel {
 	 */
 	private static final long serialVersionUID = 8789089620746000252L;
 	
-	private CardLayout layout = new CardLayout();
+	private CardLayout layout = new CardLayout(), layout2 = new CardLayout();
 	private boolean brasileiro = false;
 	private String[] hospedesAcompanhantes;
 	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra;
-	private JPanel acoes1, atualizarContrato;
+	private JPanel acoes1, panel;
 	private JFormattedTextField textFieldData, textFieldCPF, textFieldCheckIn, textFieldCheckOut;
 	private JTextField textFieldNome, textFieldEstado, textFieldCidade, textFieldEndereco, textFieldNumero, textFieldAcompanhantes;
-	private JTextField textField;
+	private JTextField textFieldHospedeTitular;
+	private JTable table;
 	
 	/**
 	 * Create the panel.
@@ -75,12 +78,12 @@ public class Recursos extends JPanel {
 		});
 		add(btnContrato);
 		
-		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
+		JButton btnAtualizarContrato = new JButton("Pesquisar contrato");
 		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnAtualizarContrato.setBounds(24, 105, 180, 43);
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				layout.show(acoes1, "atualizarContrato");
+				layout.show(acoes1, "pesquisarContrato");
 			}
 		});
 		add(btnAtualizarContrato);
@@ -104,13 +107,13 @@ public class Recursos extends JPanel {
 		acoes1.setLayout(layout);
 		
 		JPanel vazio = new JPanel();
-		vazio.setBackground(SystemColor.window);
+		vazio.setBackground(Color.WHITE);
 		acoes1.add(vazio, "vazio");
 		layout.show(acoes1, "vazio");
 		
 		// Novo Contrato
 		JPanel novoContrato = new JPanel();
-		novoContrato.setBackground(SystemColor.window);
+		novoContrato.setBackground(Color.WHITE);
 		acoes1.add(novoContrato, "novoContrato");
 		novoContrato.setLayout(null);
 		acoes1.add(novoContrato, "novoContrato");
@@ -176,6 +179,12 @@ public class Recursos extends JPanel {
 					textFieldEndereco.setEnabled(true);
 					textFieldNumero.setEnabled(true);
 					textFieldCPF.setEnabled(true);
+				} else {
+					textFieldEstado.setEnabled(false);
+					textFieldCidade.setEnabled(false);
+					textFieldEndereco.setEnabled(false);
+					textFieldNumero.setEnabled(false);
+					textFieldCPF.setEnabled(false);
 				}
 			}
 		});
@@ -289,6 +298,8 @@ public class Recursos extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxQuartoQ.getSelectedItem().equals("Triplo")) {
 					comboBoxCamaExtra.setEnabled(false);
+				} else {
+					comboBoxCamaExtra.setEnabled(true);
 				}
 			}
 		});
@@ -303,6 +314,8 @@ public class Recursos extends JPanel {
 				if (comboBoxQuarto.getSelectedItem().equals("Luxo")
 						|| comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 					comboBoxQuartoQ.setEnabled(true);
+				} else {
+					comboBoxQuartoQ.setEnabled(false);
 				}
 			}
 		});
@@ -396,39 +409,99 @@ public class Recursos extends JPanel {
 		});
 		novoContrato.add(btnConfirmar);
 		
+		// Pesquisar Contrato
+		JPanel pesquisarContrato = new JPanel();
+		pesquisarContrato.setBackground(Color.WHITE);
+		acoes1.add(pesquisarContrato, "pesquisarContrato");
+		pesquisarContrato.setLayout(null);
+		
+		JTextPane txtpnHspedeTitular = new JTextPane();
+		txtpnHspedeTitular.setEditable(false);
+		txtpnHspedeTitular.setBounds(24, 26, 78, 21);
+		pesquisarContrato.add(txtpnHspedeTitular);
+		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnHspedeTitular.setText("Hóspede:");
+		
+		textFieldHospedeTitular = new JTextField();
+		textFieldHospedeTitular.setBounds(104, 26, 476, 28);
+		pesquisarContrato.add(textFieldHospedeTitular);
+		textFieldHospedeTitular.setColumns(10);
+		
+		JButton btnConfirmarP = new JButton("Confirmar");
+		btnConfirmarP.setBounds(456, 60, 124, 28);
+		pesquisarContrato.add(btnConfirmarP);
+		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 105, 568, 445);
+		pesquisarContrato.add(scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"H\u00F3spede", "", "Contrato"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, String.class, Object.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(200);
+		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+		scrollPane.setViewportView(table);
+		
 		// Atualizar Contrato
-		atualizarContrato = new JPanel();
-		atualizarContrato.setBackground(SystemColor.window);
+		JPanel atualizarContrato = new JPanel();
+		atualizarContrato.setBackground(Color.WHITE);
 		acoes1.add(atualizarContrato, "atualizarContrato");
 		atualizarContrato.setLayout(null);
 		
-		JTextPane txtpnHspedeTitular = new JTextPane();
-		txtpnHspedeTitular.setBounds(30, 32, 126, 24);
-		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnHspedeTitular.setText("H\u00F3spede Titular:");
-		atualizarContrato.add(txtpnHspedeTitular);
-		
-		textField = new JTextField();
-		textField.setBounds(157, 30, 430, 28);
-		atualizarContrato.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnConfirmarP = new JButton("Confirmar");
-		btnConfirmarP.setBounds(463, 70, 124, 28);
-		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
-		atualizarContrato.add(btnConfirmarP);
-		
 		// Barra de opcoes
 		JToolBar toolBar = new JToolBar();
-		toolBar.setBounds(0, 112, 603, 34);
+		toolBar.setBounds(0, 0, 609, 34);
 		atualizarContrato.add(toolBar);
+		
+		//Acoes atualizar Contrato
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(5, 33, 603, 569);
+		atualizarContrato.add(panel);
+		panel.setLayout(layout2);
+		
+		JPanel editarHospede = new JPanel();
+		editarHospede.setBackground(Color.WHITE);
+		panel.add(editarHospede, "editarHospede");
+		
+		JPanel adicionarServico = new JPanel();
+		adicionarServico.setBackground(Color.WHITE);
+		panel.add(adicionarServico, "adicionarServico");
+		
+		JPanel removerServico = new JPanel();
+		removerServico.setBackground(Color.WHITE);
+		panel.add(removerServico, "removerServico");
+		
+		JPanel fecharContrato = new JPanel();
+		fecharContrato.setBackground(Color.WHITE);
+		panel.add(fecharContrato, "fecharContrato");
 		
 		// Botoes
 		JButton btnEditarDados = new JButton("Editar dados do h\u00F3spede");
 		btnEditarDados.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				layout.show(atualizarContrato, "editarHospede");
+				layout2.show(panel, "editarHospede");
 			}
 		});
 		toolBar.add(btnEditarDados);
@@ -437,7 +510,7 @@ public class Recursos extends JPanel {
 		btnAdicionarServico.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnAdicionarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				layout.show(atualizarContrato, "adicionarServico");
+				layout2.show(panel, "adicionarServico");
 			}
 		});
 		toolBar.add(btnAdicionarServico);
@@ -446,7 +519,7 @@ public class Recursos extends JPanel {
 		btnRemoverServicos.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnRemoverServicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				layout.show(atualizarContrato, "removerServico");
+				layout2.show(panel, "removerServico");
 			}
 		});
 		toolBar.add(btnRemoverServicos);
@@ -455,42 +528,20 @@ public class Recursos extends JPanel {
 		btnFecharContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnFecharContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				layout.show(atualizarContrato, "fecharServico");
+				layout2.show(panel, "fecharServico");
 			}	
 		});
 		toolBar.add(btnFecharContrato);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 110, 603, 2);
-		atualizarContrato.add(separator);
+		JPanel detalhesContrato = new JPanel();
+		detalhesContrato.setBackground(Color.WHITE);
+		acoes1.add(detalhesContrato, "name_6795000182881");
+		detalhesContrato.setLayout(null);
 		
-		// Painei de acoes
-		JPanel editarHospede = new JPanel();
-		editarHospede.setBackground(SystemColor.window);
-		editarHospede.setBounds(0, 145, 603, 457);
-		atualizarContrato.add(editarHospede, "editarHospede");
-		editarHospede.setLayout(null);
-		
-		JPanel adicionarServico = new JPanel();
-		adicionarServico.setBackground(SystemColor.window);
-		adicionarServico.setBounds(0, 145, 603, 457);
-		atualizarContrato.add(adicionarServico, "adicionarServico");
-		adicionarServico.setLayout(null);
-		
-		JPanel removerServico = new JPanel();
-		removerServico.setBackground(SystemColor.window);
-		removerServico.setBounds(0, 145, 603, 457);
-		atualizarContrato.add(removerServico, "removerServico");
-		removerServico.setLayout(null);
-		
-		JPanel fecharContrato = new JPanel();
-		fecharContrato.setBackground(SystemColor.window);
-		fecharContrato.setBounds(0, 145, 603, 457);
-		atualizarContrato.add(fecharContrato, "fecharContrato");
-		fecharContrato.setLayout(null);
-		
-		
-
+		JButton button = new JButton("Atualizar contrato");
+		button.setBounds(446, 565, 145, 25);
+		button.setFont(new Font("Dialog", Font.PLAIN, 12));
+		detalhesContrato.add(button);
 	}
 
 	private Estados selecionaEstado() {

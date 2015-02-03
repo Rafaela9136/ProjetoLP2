@@ -3,14 +3,11 @@ package testes;
 import static org.junit.Assert.*;
 import hotel.Carro;
 import hotel.Contrato;
-import hotel.Estrategias;
 import hotel.Hospede;
 import hotel.TipoCarro;
 import hotel.Quarto;
 import hotel.QuartoExecutivo;
 import hotel.Servico;
-import hotel.TipoDeQuarto;
-import hotel.TiposQuartosExecutivo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,18 +43,18 @@ public class ContratoTest {
 	// 15, 3, 2015, 23, 3, 2015, true, quartos, servicos);
 	// }
 	//
-	@Test
-	public void testEditarServicos() {
-		Servico carro = new Carro(TipoCarro.EXECUTIVO, new GregorianCalendar(
-				2014, 1, 5), true, true);
-		for (int i = 0; i < 5; i++) {
-			contrato1.adicionaServico(carro);
-		}
-		Assert.assertEquals(servicos.size(), 5);
-		for (int i = 0; i < 5; i++) {
-			contrato1.removeServico(carro);
-		}
-		Assert.assertEquals(servicos.size(), 0);
-	}
+//	@Test
+//	public void testEditarServicos() {
+//		Servico carro = new Carro(TipoCarro.EXECUTIVO, new GregorianCalendar(
+//				2014, 1, 5), true, true);
+//		for (int i = 0; i < 5; i++) {
+//			contrato1.adicionaServico(carro);
+//		}
+//		Assert.assertEquals(servicos.size(), 5);
+//		for (int i = 0; i < 5; i++) {
+//			contrato1.removeServico(carro);
+//		}
+//		Assert.assertEquals(servicos.size(), 0);
+//	}
 
 }
