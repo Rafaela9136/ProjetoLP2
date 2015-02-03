@@ -7,6 +7,9 @@ public class SuitePresidencial extends Quarto{
 	private final int MAX_HOSPEDES = 4;
 	private final int TOTAL_DISPONIVEL = 5;
 	
+	public static final String DESCRICAO_PRESIDENCIAL = Quarto.DESCRICAO + "As suítes presidenciais podem comportar até 4 pessoas "
+			+ "em 2 quartos separados e uma sala de jogos e home theater, ideal para famílias em férias.";
+	
 	public SuitePresidencial() {
 		super(TEM_CAMA_EXTRA);	
 	}
@@ -23,5 +26,5 @@ public class SuitePresidencial extends Quarto{
 	public int getTOTAL_DISPONIVEL() {
 		return TOTAL_DISPONIVEL;
 	}
-
+	
 }

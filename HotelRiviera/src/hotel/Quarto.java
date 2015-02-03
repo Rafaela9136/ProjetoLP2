@@ -2,25 +2,15 @@ package hotel;
 
 public abstract class Quarto implements Servico{
 	
-	protected double preco;
-	protected String descricao;	
+	public static final String DESCRICAO = "As acomodações do hotel são todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
 	private boolean temCamaExtra;
-	
-	
+		
 	public Quarto (boolean temCamaExtra) {
 		this.temCamaExtra = temCamaExtra;
 	}
 
 	public abstract double getPreco();
 		
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public boolean isTemCamaExtra() {
 		return temCamaExtra;
 	}
@@ -35,14 +25,13 @@ public abstract class Quarto implements Servico{
 			return false;
 		}	
 		Quarto outro = (Quarto) obj;
-		return this.preco == outro.getPreco();
+		return (this.getPreco() == outro.getPreco() && this.isTemCamaExtra() == outro.isTemCamaExtra());
 	}
 
 	@Override
 	public String toString() {
-		return "Quarto2 [preco=" + preco + ", temCamaExtra=" + temCamaExtra
+		return "Quarto [preco=" + this.getPreco() + ", temCamaExtra=" + temCamaExtra
 				+ "]";
 	}
-	
-	
+		
 }

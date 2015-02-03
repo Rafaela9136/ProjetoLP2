@@ -2,25 +2,42 @@ package hotel;
 
 public class QuartoExecutivo extends Quarto{
 	
-	private TiposDeQuarto tipoDeQuarto;
 	private final double PRECO_EXECUTIVO_SIMPLES = 360.0;
 	private final double PRECO_EXECUTIVO_DUPLO = 385.0;
 	private final double PRECO_EXECUTIVO_TRIPLO = 440.0;
-	 
+	
+	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO + " Os quartos do tipo executivo podem acomodar 1, 2 ou até 3 hóspedes."
+			+ "Camas extras para crianças menores de 9 anos são permitidas em quartos do tipo simples e duplo quando o hóspede solicitar na reserva.";
+	
+	private TiposDeQuarto tipoDeQuarto;
+		 
 	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) {
 		super(temCamaExtra);
 		this.tipoDeQuarto = tipoDeQuarto;
+	}
+		
+	public TiposDeQuarto getTipoDeQuarto() {
+		return tipoDeQuarto;
 	}
 
 	@Override
 	public double getPreco() {
 		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
-			return preco = PRECO_EXECUTIVO_SIMPLES;
+			return PRECO_EXECUTIVO_SIMPLES;
 		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
-			return preco = PRECO_EXECUTIVO_DUPLO;
+			return PRECO_EXECUTIVO_DUPLO;
 		} else {
-			return preco = PRECO_EXECUTIVO_TRIPLO;
+			return PRECO_EXECUTIVO_TRIPLO;
 		}
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof QuartoExecutivo)) {
+			return false;
+		}	
+		QuartoExecutivo outro = (QuartoExecutivo) obj;
+		return super.equals(outro) && this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
+	}
+
 }
