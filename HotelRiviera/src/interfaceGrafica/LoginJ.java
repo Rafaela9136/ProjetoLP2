@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.Color;
 
 public class LoginJ extends JFrame {
 
@@ -60,7 +61,7 @@ public class LoginJ extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 534, 469);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.window);
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 

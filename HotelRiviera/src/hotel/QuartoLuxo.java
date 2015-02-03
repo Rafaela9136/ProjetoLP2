@@ -1,19 +1,25 @@
 package hotel;
 
-import excecoes.CamaExtraException;
+public class QuartoLuxo extends Quarto{
+	
+	private TiposDeQuarto tipoDeQuarto;
+	private final double PRECO_LUXO_SIMPLES = 520.0;
+	private final double PRECO_LUXO_DUPLO = 570.0;
+	private final double PRECO_LUXO_TRIPLO = 620.0;
+	 
+	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) {
+		super(temCamaExtra);
+		this.tipoDeQuarto = tipoDeQuarto;
+	}
 
-public class QuartoLuxo extends Quarto {
 	@Override
-	public String toString() {
-		return super.toString() + "QuartoLuxo";
+	public double getPreco() {
+		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
+			return preco = PRECO_LUXO_SIMPLES;
+		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
+			return preco = PRECO_LUXO_DUPLO;
+		} else {
+			return preco = PRECO_LUXO_TRIPLO;
+		}
 	}
-
-	public static final int MAX_PESSOAS = 3;
-
-	public QuartoLuxo(boolean camaExtra, TiposQuartosLuxo tipo)
-			throws CamaExtraException {
-		super(MAX_PESSOAS, camaExtra, tipo);
-		// TODO Auto-generated constructor stub
-	}
-
-}// QuartoLuxo
+}

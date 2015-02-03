@@ -29,7 +29,7 @@ public class AvisoSucesso extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(266, 94, 381, 144);
 		contentPane = new JPanel();
-		contentPane.setBackground(SystemColor.window);
+		contentPane.setBackground(SystemColor.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
