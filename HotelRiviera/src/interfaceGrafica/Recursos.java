@@ -433,7 +433,7 @@ public class Recursos extends JPanel {
 		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 105, 568, 445);
+		scrollPane.setBounds(20, 105, 568, 478);
 		pesquisarContrato.add(scrollPane);
 		
 		table = new JTable();
