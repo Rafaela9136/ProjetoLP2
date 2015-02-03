@@ -17,12 +17,12 @@ public class CarroTest {
 	Carro carro1, carro2, carro3, carro4;
 	private TipoCarro carroExecutivo = TipoCarro.EXECUTIVO;
 	private TipoCarro carroLuxo = TipoCarro.LUXO;
-	Calendar dataInicio1 = new GregorianCalendar(2015, 5, 12);
-	Calendar dataInicio2 = new GregorianCalendar(2015, 5, 17);
-	Calendar dataInicio3 = new GregorianCalendar(2015, 5, 29);
-	Calendar dataTermino1 = new GregorianCalendar(2015, 6, 5);
-	Calendar dataTermino2 = new GregorianCalendar(2015, 6, 1);
-	Calendar dataTermino3 = new GregorianCalendar(2015, 6, 12);
+	Calendar dataInicio1 = new GregorianCalendar(2015, Calendar.JUNE, 12);
+	Calendar dataInicio2 = new GregorianCalendar(2015, Calendar.JUNE, 17);
+	Calendar dataInicio3 = new GregorianCalendar(2015, Calendar.JUNE, 29);
+	Calendar dataTermino1 = new GregorianCalendar(2015, Calendar.JULY, 5);
+	Calendar dataTermino2 = new GregorianCalendar(2015, Calendar.JULY, 1);
+	Calendar dataTermino3 = new GregorianCalendar(2015, Calendar.JULY, 12);
 
 	@Before
 	public void criaObjetos() throws NullPointerException,
@@ -43,25 +43,30 @@ public class CarroTest {
 		} catch (NullPointerException e) {
 
 		}
+		
 		try {
 			new Carro(carroExecutivo, dataInicio2, dataNula);
 		} catch (NullPointerException e) {
 
 		}
+		
 		try {
 			new Carro(carroLuxo, dataInicio1, new GregorianCalendar());
 		} catch (DataInvalidaException e) {
 
 		}
+		
 		try {
 			new Carro(carroExecutivo, new GregorianCalendar(2015, 8, 14),
 					new GregorianCalendar(2015, 8, 13));
 		} catch (DataInvalidaException e) {
 
 		}
+		
 		try {
 			new Carro(carroExecutivo, new GregorianCalendar(),
-					new GregorianCalendar(2015, 0, 31), true, true);
+					new GregorianCalendar(2015, Calendar.JANUARY, 31), true,
+					true);
 		} catch (DataInvalidaException e) {
 
 		}
@@ -94,6 +99,42 @@ public class CarroTest {
 	@Test
 	public void testaSetDataInicio() throws NullPointerException,
 			DataInvalidaException {
+		Assert.assertEquals(carro2.getDataInicio(), dataInicio2);
+		try {
+			carro2.setDataInicio(null);
+		} catch (NullPointerException e) {
+
+		}
+
+		try {
+			carro2.setDataInicio(new GregorianCalendar(2015, Calendar.JANUARY,
+					31));
+		} catch (DataInvalidaException e) {
+
+		}
+
+		try {
+			carro4.setDataInicio(new GregorianCalendar());
+		} catch (DataInvalidaException e) {
+
+		}
+
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.DAY_OF_MONTH), 12);
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.MONTH), Calendar.JULY);
+		Assert.assertEquals(carro3.getDataTermino().get(Calendar.YEAR), 2015);
+		Calendar novaDataInicio = new GregorianCalendar(2015, Calendar.JULY, 13);
+		Assert.assertTrue(novaDataInicio.after(carro3.getDataTermino()));
+		try {
+			carro3.setDataInicio(novaDataInicio);
+		} catch (DataInvalidaException e) {
+
+		}
+
+		carro2.setDataInicio(new GregorianCalendar(2015, Calendar.MARCH, 17));
+		Assert.assertEquals(carro2.getDataInicio().get(Calendar.MONTH),
+				Calendar.MARCH);
+		Assert.assertEquals(carro2.getDataInicio().get(Calendar.DAY_OF_MONTH),
+				17);
 
 	}
 
@@ -111,7 +152,8 @@ public class CarroTest {
 
 		Assert.assertEquals(carro3.getDataTermino(), dataTermino3);
 		try {
-			carro3.setDataDeTermino(new GregorianCalendar(2014, 1, 15));
+			carro3.setDataDeTermino(new GregorianCalendar(2014,
+					Calendar.FEBRUARY, 15));
 		} catch (DataInvalidaException e) {
 
 		}
