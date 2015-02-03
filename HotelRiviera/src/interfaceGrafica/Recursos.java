@@ -29,8 +29,13 @@ import javax.swing.JButton;
 import excecoes.CPFInvalidoException;
 import excecoes.DataInvalidaException;
 import javax.swing.JTable;
+import javax.swing.JMenuBar;
+import javax.swing.JToolBar;
+import javax.swing.JTabbedPane;
+import java.awt.Color;
+import javax.swing.JSeparator;
 
-public class Contratos extends JPanel {
+public class Recursos extends JPanel {
 
 	/**
 	 * 
@@ -40,18 +45,17 @@ public class Contratos extends JPanel {
 	private CardLayout layout = new CardLayout();
 	private boolean brasileiro = false;
 	private String[] hospedesAcompanhantes;
-	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra, comboBoxEspecifico, comboBoxPesquisa;
-	private JPanel acoes1;
+	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra;
+	private JPanel acoes1, atualizarContrato;
 	private JFormattedTextField textFieldData, textFieldCPF, textFieldCheckIn, textFieldCheckOut;
 	private JTextField textFieldNome, textFieldEstado, textFieldCidade, textFieldEndereco, textFieldNumero, textFieldAcompanhantes;
-	private JTextField textFieldPesquisa;
 	private JTextField textField;
 	
 	/**
 	 * Create the panel.
 	 * @throws ParseException 
 	 */
-	public Contratos() throws ParseException {
+	public Recursos() throws ParseException {
 		
 		final MaskFormatter dateMask = new MaskFormatter("##/##/####");
 		final MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
@@ -61,25 +65,15 @@ public class Contratos extends JPanel {
 		setLayout(null);
 		
 		// Botoes
-		JButton btnNovoContrato = new JButton("Novo contrato");
-		btnNovoContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnNovoContrato.setBounds(24, 42, 180, 43);
-		btnNovoContrato.addActionListener(new ActionListener() {
+		JButton btnContrato = new JButton("Novo contrato");
+		btnContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnContrato.setBounds(24, 42, 180, 43);
+		btnContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout.show(acoes1, "novoContrato");
 			}
 		});
-		add(btnNovoContrato);
-		
-		JButton btnPesquisarContrato = new JButton("Pesquisar contrato");
-		btnPesquisarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnPesquisarContrato.setBounds(24, 168, 180, 43);
-		btnPesquisarContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				layout.show(acoes1, "pesquisarContrato");
-			}
-		});
-		add(btnPesquisarContrato);
+		add(btnContrato);
 		
 		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
 		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -104,7 +98,7 @@ public class Contratos extends JPanel {
 		// Paineis de acoes
 		acoes1 = new JPanel();
 		acoes1.setBackground(SystemColor.window);
-		acoes1.setBorder(new LineBorder(UIManager.getColor("nimbusBase")));
+		acoes1.setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		acoes1.setBounds(227, 12, 607, 606);
 		add(acoes1);
 		acoes1.setLayout(layout);
@@ -114,38 +108,12 @@ public class Contratos extends JPanel {
 		acoes1.add(vazio, "vazio");
 		layout.show(acoes1, "vazio");
 		
+		// Novo Contrato
 		JPanel novoContrato = new JPanel();
 		novoContrato.setBackground(SystemColor.window);
 		acoes1.add(novoContrato, "novoContrato");
 		novoContrato.setLayout(null);
 		acoes1.add(novoContrato, "novoContrato");
-		
-		JPanel atualizarContrato = new JPanel();
-		atualizarContrato.setBackground(SystemColor.window);
-		acoes1.add(atualizarContrato, "atualizarContrato");
-		atualizarContrato.setLayout(null);
-		
-		JTextPane txtpnContrato = new JTextPane();
-		txtpnContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnContrato.setEditable(false);
-		txtpnContrato.setText("Contrato:");
-		txtpnContrato.setBounds(32, 37, 78, 24);
-		atualizarContrato.add(txtpnContrato);
-		
-		textField = new JTextField();
-		textField.setBounds(122, 35, 328, 28);
-		atualizarContrato.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnConfirmar_1 = new JButton("Confirmar");
-		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnConfirmar_1.setBounds(462, 35, 117, 28);
-		atualizarContrato.add(btnConfirmar_1);
-		
-		JPanel pesquisarContrato = new JPanel();
-		pesquisarContrato.setBackground(SystemColor.window);
-		acoes1.add(pesquisarContrato, "pesquisarContrato");
-		pesquisarContrato.setLayout(null);
 		
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
@@ -428,71 +396,101 @@ public class Contratos extends JPanel {
 		});
 		novoContrato.add(btnConfirmar);
 		
-		// Definicoes de pesquisa de contratos
-		JTextPane txtpnPesquisarPor = new JTextPane();
-		txtpnPesquisarPor.setEditable(false);
-		txtpnPesquisarPor.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnPesquisarPor.setText("Pesquisar por:");
-		txtpnPesquisarPor.setBounds(32, 37, 110, 24);
-		pesquisarContrato.add(txtpnPesquisarPor);
+		// Atualizar Contrato
+		atualizarContrato = new JPanel();
+		atualizarContrato.setBackground(SystemColor.window);
+		acoes1.add(atualizarContrato, "atualizarContrato");
+		atualizarContrato.setLayout(null);
 		
-		comboBoxPesquisa = new JComboBox<String>();
-		comboBoxPesquisa.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxPesquisa.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Contrato", "H\u00F3spede"}));
-		comboBoxPesquisa.setBounds(147, 37, 117, 26);
-		pesquisarContrato.add(comboBoxPesquisa);
-		comboBoxPesquisa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (comboBoxPesquisa.getSelectedItem().equals("Hóspede")) {
-					comboBoxEspecifico.setEnabled(true);
-				}
+		JTextPane txtpnHspedeTitular = new JTextPane();
+		txtpnHspedeTitular.setBounds(30, 32, 126, 24);
+		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnHspedeTitular.setText("H\u00F3spede Titular:");
+		atualizarContrato.add(txtpnHspedeTitular);
+		
+		textField = new JTextField();
+		textField.setBounds(157, 30, 430, 28);
+		atualizarContrato.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnConfirmarP = new JButton("Confirmar");
+		btnConfirmarP.setBounds(463, 70, 124, 28);
+		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
+		atualizarContrato.add(btnConfirmarP);
+		
+		// Barra de opcoes
+		JToolBar toolBar = new JToolBar();
+		toolBar.setBounds(0, 112, 603, 34);
+		atualizarContrato.add(toolBar);
+		
+		// Botoes
+		JButton btnEditarDados = new JButton("Editar dados do h\u00F3spede");
+		btnEditarDados.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnEditarDados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(atualizarContrato, "editarHospede");
 			}
 		});
+		toolBar.add(btnEditarDados);
 		
-		textFieldPesquisa = new JTextField();
-		textFieldPesquisa.setBounds(147, 77, 420, 28);
-		pesquisarContrato.add(textFieldPesquisa);
-		textFieldPesquisa.setColumns(10);
-		
-		comboBoxEspecifico = new JComboBox<String>();
-		comboBoxEspecifico.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxEspecifico.setEnabled(false);
-		comboBoxEspecifico.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Nome", "CPF"}));
-		comboBoxEspecifico.setBounds(282, 35, 117, 26);
-		pesquisarContrato.add(comboBoxEspecifico);
-		
-		// Percorre a lista de Contrator ou Hospedes e compara os objetos com as inforcoes dadas
-		JButton btnConfirmarPesq = new JButton("Confirmar");
-		btnConfirmarPesq.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnConfirmarPesq.setBounds(443, 117, 124, 28);
-		btnConfirmarPesq.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Todo esse método de pesquisa precisa ser revisto
-				for (Contrato contrato : Hotel.getContratos()) {
-					if(comboBoxPesquisa.getSelectedItem().equals("Contrato")){
-						if(contrato.toString().equals(textFieldPesquisa.getText())){
-							//definir
-						} 
-					} if (comboBoxPesquisa.getSelectedItem().equals("Hóspede")) {
-						if (comboBoxEspecifico.getSelectedItem().equals("Nome")){
-							if(contrato.getHospedeTitular().getNome().equals(textFieldPesquisa.getText())){
-								// Definir
-							}
-						} if (comboBoxEspecifico.getSelectedItem().equals("CPF")){
-							if(contrato.getHospedeTitular().getCPF().equals(textFieldPesquisa.getText())){
-								//Definir
-							}
-						}
-					}
-				}
-				AvisoErro erro = new AvisoErro();
-				
-				AvisoSucesso aviso = new AvisoSucesso();
-				aviso.setVisible(true);
-				layout.show(acoes1, "vazio");
+		JButton btnAdicionarServico = new JButton("Adicionar servi\u00E7os");
+		btnAdicionarServico.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnAdicionarServico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(atualizarContrato, "adicionarServico");
 			}
 		});
-		pesquisarContrato.add(btnConfirmarPesq);
+		toolBar.add(btnAdicionarServico);
+		
+		JButton btnRemoverServicos = new JButton("Remover servi\u00E7os");
+		btnRemoverServicos.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnRemoverServicos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(atualizarContrato, "removerServico");
+			}
+		});
+		toolBar.add(btnRemoverServicos);
+		
+		JButton btnFecharContrato = new JButton("Fechar contrato");
+		btnFecharContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnFecharContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layout.show(atualizarContrato, "fecharServico");
+			}	
+		});
+		toolBar.add(btnFecharContrato);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 110, 603, 2);
+		atualizarContrato.add(separator);
+		
+		// Painei de acoes
+		JPanel editarHospede = new JPanel();
+		editarHospede.setBackground(SystemColor.window);
+		editarHospede.setBounds(0, 145, 603, 457);
+		atualizarContrato.add(editarHospede, "editarHospede");
+		editarHospede.setLayout(null);
+		
+		JPanel adicionarServico = new JPanel();
+		adicionarServico.setBackground(SystemColor.window);
+		adicionarServico.setBounds(0, 145, 603, 457);
+		atualizarContrato.add(adicionarServico, "adicionarServico");
+		adicionarServico.setLayout(null);
+		
+		JPanel removerServico = new JPanel();
+		removerServico.setBackground(SystemColor.window);
+		removerServico.setBounds(0, 145, 603, 457);
+		atualizarContrato.add(removerServico, "removerServico");
+		removerServico.setLayout(null);
+		
+		JPanel fecharContrato = new JPanel();
+		fecharContrato.setBackground(SystemColor.window);
+		fecharContrato.setBounds(0, 145, 603, 457);
+		atualizarContrato.add(fecharContrato, "fecharContrato");
+		fecharContrato.setLayout(null);
+		
+		
+
 	}
 
 	private Estados selecionaEstado() {

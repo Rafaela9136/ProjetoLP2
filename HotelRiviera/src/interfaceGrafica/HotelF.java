@@ -35,13 +35,13 @@ public class HotelF extends JFrame {
 		tabbedPane.setBounds(0, 0, 872, 659);
 		hotel.add(tabbedPane);
 		
-		Contratos contratos = new Contratos();
-		tabbedPane.addTab("Contratos", null, contratos, null);
+		Recursos recursos = new Recursos();
+		tabbedPane.addTab("Recursos", null, recursos, null);
 		
-		Hospedes hospede = new Hospedes();
-		tabbedPane.addTab("Hóspedes", null, hospede, null);
+		Pesquisar pesquisar = new Pesquisar();
+		tabbedPane.addTab("Pesquisar", null, pesquisar, null);
 		
-		Servicos servicos = new Servicos();
-		tabbedPane.addTab("New tab", null, servicos, null);
+		Informacoes info = new Informacoes();
+		tabbedPane.addTab("Informações", null, info, null);
 	}
 }
