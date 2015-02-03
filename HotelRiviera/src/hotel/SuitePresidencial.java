@@ -1,6 +1,6 @@
 package hotel;
 
-public class SuitePresidencial extends Quarto2{
+public class SuitePresidencial extends Quarto{
 	
 	private final static boolean TEM_CAMA_EXTRA = false;
 	private final double PRECO_SUITE_PRESIDENCIAL = 1200.0;
