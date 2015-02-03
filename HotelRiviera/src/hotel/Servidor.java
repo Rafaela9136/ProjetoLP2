@@ -21,8 +21,31 @@ public class Servidor {
 	}// Construtor
 	
 	private void verificaIPValido(String IP) throws IPInvalidoException {
-		if(IP == null || IP.equals(""))
+		if(IP == null || IP.isEmpty())
 			throw new IPInvalidoException();
+		IP = IP.trim();
+		
+		if(IP.length() > 15)
+			throw new IPInvalidoException();
+		
+		String[] bytesIP = new String[4];
+		
+		String num = "";
+		int quantPontos = 0;
+		final int MAXPONTOS = 3;
+	
+		for (int i = 0; i < IP.length(); i++) {
+			if(IP.charAt(i) == '.') {
+				bytesIP[quantPontos] = num;
+				quantPontos++;
+				num = "";
+				continue;
+			}// if
+			num.concat(String.valueOf(IP.charAt(i)));
+			if(num.length() > 3 || num)
+				throw new IPInvalidoException();
+			
+		}// for
 	}// verificaIPValido
 	
    public static void main(String[] args) throws IOException {
