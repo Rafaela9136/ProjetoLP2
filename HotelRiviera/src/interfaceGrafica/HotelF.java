@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
 
 public class HotelF extends JFrame {
 
@@ -39,6 +40,6 @@ public class HotelF extends JFrame {
 		tabbedPane.addTab("Recursos", null, recursos, null);
 
 		Informacoes info = new Informacoes();
-		tabbedPane.addTab("Informa��es", null, info, null);
+		tabbedPane.addTab("Informações", null, info, null);
 	}
 }

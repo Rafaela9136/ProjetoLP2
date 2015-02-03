@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class LoginJ extends JFrame {
 
