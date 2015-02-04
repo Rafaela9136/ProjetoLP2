@@ -44,7 +44,7 @@ public class Carro implements Servico {
 		dataInicio = novaDataInicio;
 	}
 
-	public void setDataDeTermino(Calendar novaDataTermino)
+	public void setDataTermino(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(dataInicio, novaDataTermino);
 		verificaDataNula(novaDataTermino);
@@ -113,7 +113,7 @@ public class Carro implements Servico {
 			adicionais += "Tanque cheio = R$" + VALOR_TANQUE_CHEIO + "\n";
 		if (isAssegurado)
 			adicionais += "Seguro = R$" + VALOR_DO_SEGURO + "\n";
-		return "Carro " + tipoDeCarro + "\n" + adicionais + "Preço Total = "
+		return "Carro " + tipoDeCarro + "\n" + adicionais + "Preï¿½o Total = "
 				+ getPreco() + "\nNumero de dias: " + numDeDias
 				+ "\nData Inicio = "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"

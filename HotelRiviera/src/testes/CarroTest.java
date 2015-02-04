@@ -167,7 +167,7 @@ public class CarroTest {
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
-		carro2.setDataDeTermino(new GregorianCalendar(2015, Calendar.AUGUST, 20));
+		carro2.setDataTermino(new GregorianCalendar(2015, Calendar.AUGUST, 20));
 		carro2.setDataInicio(new GregorianCalendar(2015, Calendar.AUGUST, 16));
 		Assert.assertEquals(carro2.getDataInicio().get(Calendar.DAY_OF_MONTH),
 				16);
@@ -180,18 +180,35 @@ public class CarroTest {
 	@Test
 	public void testaSetDataTermino() throws NullPointerException,
 			DataInvalidaException {
+		Assert.assertEquals(carro4.getDataInicio().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(carro4.getDataInicio().get(Calendar.MONTH),
+				Calendar.JUNE);
+		Assert.assertEquals(carro4.getDataInicio().get(Calendar.DAY_OF_MONTH),
+				17);
+		Calendar novaDataTermino = new GregorianCalendar(2015, Calendar.JUNE,
+				16);
+		Assert.assertTrue(novaDataTermino.before(carro4.getDataInicio()));
+		try {
+			carro4.setDataTermino(novaDataTermino);
+		} catch (DataInvalidaException e) {
+			Assert.assertTrue(true);
+		}
+
+		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
+		
+		
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
 		try {
-			carro1.setDataDeTermino(null);
+			carro1.setDataTermino(null);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
-		carro1.setDataDeTermino(dataTermino2);
+		carro1.setDataTermino(dataTermino2);
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino2);
 
 		Assert.assertEquals(carro3.getDataTermino(), dataTermino3);
 		try {
-			carro3.setDataDeTermino(new GregorianCalendar(2014,
+			carro3.setDataTermino(new GregorianCalendar(2014,
 					Calendar.FEBRUARY, 15));
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
@@ -202,7 +219,7 @@ public class CarroTest {
 		Assert.assertNotEquals(carro3.getDataTermino().get(Calendar.YEAR), 2014);
 
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
-		carro2.setDataDeTermino(dataTermino3);
+		carro2.setDataTermino(dataTermino3);
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino3);
 	}
 
@@ -214,7 +231,7 @@ public class CarroTest {
 		Assert.assertEquals(carro1.getTipoDeCarro(), carroExecutivo);
 		Assert.assertEquals(carro1.numeroDeDias(), 23);
 		Assert.assertEquals(carro1.getPreco(), 1630, 0.001);
-		carro1.setDataDeTermino(dataTermino3);
+		carro1.setDataTermino(dataTermino3);
 		Assert.assertEquals(carro1.numeroDeDias(), 30);
 		Assert.assertEquals(carro1.getPreco(), 2050, 0.001);
 
@@ -223,7 +240,7 @@ public class CarroTest {
 		Assert.assertEquals(carro2.getTipoDeCarro(), carroLuxo);
 		Assert.assertEquals(carro2.numeroDeDias(), 14);
 		Assert.assertEquals(carro2.getPreco(), 1550, 0.001);
-		carro2.setDataDeTermino(dataTermino1);
+		carro2.setDataTermino(dataTermino1);
 		Assert.assertEquals(carro2.numeroDeDias(), 18);
 		Assert.assertEquals(carro2.getPreco(), 1950, 0.001);
 
@@ -232,7 +249,7 @@ public class CarroTest {
 		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
 		Assert.assertEquals(carro3.numeroDeDias(), 13);
 		Assert.assertEquals(carro3.getPreco(), 1400, 0.001);
-		carro3.setDataDeTermino(new GregorianCalendar(2015, Calendar.JULY, 22));
+		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 22));
 		Assert.assertEquals(carro3.numeroDeDias(), 23);
 		Assert.assertEquals(carro3.getPreco(), 2400, 0.001);
 
@@ -241,7 +258,7 @@ public class CarroTest {
 		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
 		Assert.assertEquals(carro4.numeroDeDias(), 18);
 		Assert.assertEquals(carro4.getPreco(), 1080, 0.001);
-		carro4.setDataDeTermino(new GregorianCalendar(2015, Calendar.JULY, 19));
+		carro4.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 19));
 		Assert.assertEquals(carro4.numeroDeDias(), 32);
 		Assert.assertEquals(carro4.getPreco(), 1920, 0.001);
 	}
