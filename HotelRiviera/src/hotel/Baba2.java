@@ -8,9 +8,8 @@ public class Baba2 implements Servico {
 	
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
-	public static final Integer[] HORAS_DOBRADAS = {18, 19, 20, 21, 22, 23, 0, 1,
-		2, 3, 4, 5, 6, 7};
-	
+	public static final int INICIO_HORA_DOBRADA = 18; // entre 18h e 7h o preco por hora da baba e dobrado.
+	public static final int FIM_HORA_DOBRADA = 7; 
 	
 	private String nome;
 	private Calendar inicioDoServico;
@@ -75,7 +74,11 @@ public class Baba2 implements Servico {
 	}// calculaPreco
 	
 	private boolean verificaSeEHoraDobrada(int hora) {
-		return Arrays.asList(HORAS_DOBRADAS).contains(hora);
+		if (hora >= INICIO_HORA_DOBRADA || hora <= FIM_HORA_DOBRADA) { 
+			return true;
+		} else {
+			return false;
+		}
 	}// verificaSeEHoraDobrada
 	
 	@Override
@@ -83,20 +86,6 @@ public class Baba2 implements Servico {
 		return "Baba [nome=" + nome + ", inicioDoServico=" + inicioDoServico
 				+ ", terminoDoServico=" + terminoDoServico + "]";
 	}
-
-	/*@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((inicioDoServico == null) ? 0 : inicioDoServico.hashCode());
-		result = prime * result + (isReserva ? 1231 : 1237);
-		result = prime * result + ((baba == null) ? 0 : baba.hashCode());
-		result = prime
-				* result
-				+ ((terminoDoServico == null) ? 0 : terminoDoServico.hashCode());
-		return result;
-	}*/
 
 	@Override
 	public boolean equals(Object obj) {
