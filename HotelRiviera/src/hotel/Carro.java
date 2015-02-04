@@ -11,6 +11,7 @@ import excecoes.DataInvalidaException;
 public class Carro implements Servico {
 	public static final double VALOR_TANQUE_CHEIO = 150;
 	public static final double VALOR_DO_SEGURO = 100;
+	public static final int MILISSEGUNDOS_EM_UM_DIA = 86400000;
 
 	private TipoCarro tipoDeCarro;
 	private boolean isTanqueCheio;
@@ -80,9 +81,9 @@ public class Carro implements Servico {
 	}
 
 	public int numeroDeDias() {
-		int diaInicial = getDataInicio().get(Calendar.DAY_OF_YEAR);
-		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
-		numDeDias = diaFinal - diaInicial;
+		long diaInicial = getDataInicio().getTimeInMillis();
+		long diaFinal = getDataTermino().getTimeInMillis();
+		numDeDias = (int) ((diaFinal - diaInicial) / MILISSEGUNDOS_EM_UM_DIA);
 		return numDeDias;
 	}
 
@@ -111,13 +112,13 @@ public class Carro implements Servico {
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "Carro " + tipoDeCarro + "\n" + "Adicionais: "
-				+ Arrays.toString(adicionais.toArray()) + "\nPreco Total = "
+		return "Carro " + tipoDeCarro.getTipoNome() + "\n" + "Adicionais: "
+				+ Arrays.toString(adicionais.toArray()) + "\nPreco Total: R$ "
 				+ getPreco() + "\nNumero de dias: " + numDeDias
-				+ "\nData Inicio = "
+				+ "\nData Inicio: "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
-				+ getDataInicio().get(Calendar.YEAR) + "\nData Termino = "
+				+ getDataInicio().get(Calendar.YEAR) + "\nData Termino: "
 				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
 				+ getDataTermino().get(Calendar.YEAR);
