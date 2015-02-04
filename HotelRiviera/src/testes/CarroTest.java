@@ -38,6 +38,12 @@ public class CarroTest {
 	@Test
 	public void testaCriaCarro() throws NullPointerException,
 			DataInvalidaException {
+		try {
+			new Carro(null, dataInicio3, dataTermino1, false, false);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
 		Calendar dataNula = null;
 		try {
 			new Carro(carroLuxo, dataNula, dataTermino1, true, true);
@@ -69,6 +75,21 @@ public class CarroTest {
 			new Carro(carroExecutivo, new GregorianCalendar(),
 					new GregorianCalendar(2015, Calendar.JANUARY, 31), true,
 					true);
+		} catch (DataInvalidaException e) {
+			Assert.assertTrue(true);
+		}
+
+		try {
+			new Carro(null, null, null, false, false);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		try {
+			new Carro(null, new GregorianCalendar(2015, Calendar.JULY, 2),
+					new GregorianCalendar(2015, Calendar.JULY, 1), true, false);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}

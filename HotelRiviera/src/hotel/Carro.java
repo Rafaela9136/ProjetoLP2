@@ -20,6 +20,7 @@ public class Carro implements Servico {
 	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
 			Calendar dataTermino, boolean isTanqueCheio, boolean isAssegurado)
 			throws NullPointerException, DataInvalidaException {
+		verificaTipoNulo(tipoDeCarro);
 		verificaDataNula(dataInicio);
 		verificaDataNula(dataTermino);
 		verificaData(dataInicio, dataTermino);
@@ -97,6 +98,12 @@ public class Carro implements Servico {
 		if (dataInicio.before(new GregorianCalendar())
 				|| dataTermino.before(dataInicio))
 			throw new DataInvalidaException();
+	}
+
+	private void verificaTipoNulo(TipoCarro tipoDeCarro)
+			throws NullPointerException {
+		if (tipoDeCarro == null)
+			throw new NullPointerException();
 	}
 
 	@Override
