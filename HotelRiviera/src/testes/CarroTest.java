@@ -195,8 +195,7 @@ public class CarroTest {
 		}
 
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
-		
-		
+
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
 		try {
 			carro1.setDataTermino(null);
