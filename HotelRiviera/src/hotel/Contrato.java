@@ -36,6 +36,8 @@ public class Contrato {
 
 		if (dataCheckIn.compareTo(dataCheckOut) > 0)
 			throw new DataInvalidaException();
+		if(estrategia == null)
+			throw new NullPointerException();
 
 		this.estrategia = estrategia;
 		this.hospedeTitular = hospedeTitular;
@@ -145,7 +147,7 @@ public class Contrato {
 	/*public double calculaTotalPorEstrategia() {
 		return (getDespesasAdicionais() + calculaValorTotalServicos())
 				* getEstrategia().getPorcentagem();
-	} // calcula o total a pagar de acordo com a epoca*/  // É o contrato que vai calcular isso? Devia ser o hotel, não?
+	} // calcula o total a pagar de acordo com a epoca*/  // ï¿½ o contrato que vai calcular isso? Devia ser o hotel, nï¿½o?
 
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
