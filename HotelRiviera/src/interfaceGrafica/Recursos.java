@@ -427,7 +427,7 @@ public class Recursos extends JPanel {
 		txtpnHspedeTitular.setBounds(24, 26, 78, 21);
 		pesquisarContrato.add(txtpnHspedeTitular);
 		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnHspedeTitular.setText("Hóspede:");
+		txtpnHspedeTitular.setText("H\u00F3spede:");
 		
 		textFieldHospedeTitular = new JTextField();
 		textFieldHospedeTitular.setBounds(104, 26, 476, 28);
@@ -527,30 +527,32 @@ public class Recursos extends JPanel {
 		scrollPane_1.setViewportView(table_1);
 		
 		JTextPane txtpnServiosContratados = new JTextPane();
-		txtpnServiosContratados.setFont(new Font("Dialog", Font.PLAIN, 14));
-		txtpnServiosContratados.setText("Serviços contratados: ");
+		txtpnServiosContratados.setFont(new Font("Verdana", Font.PLAIN, 14));
+		txtpnServiosContratados.setText("Servi\u00E7os contratados: ");
 		txtpnServiosContratados.setBounds(15, 23, 223, 21);
 		editarServicos.add(txtpnServiosContratados);
 		
 		JTextPane txtpnAdicionarServio = new JTextPane();
 		txtpnAdicionarServio.setEditable(false);
-		txtpnAdicionarServio.setFont(new Font("Dialog", Font.PLAIN, 14));
-		txtpnAdicionarServio.setText("Adicionar serviço:");
+		txtpnAdicionarServio.setFont(new Font("Verdana", Font.PLAIN, 14));
+		txtpnAdicionarServio.setText("Adicionar servi\u00E7o:");
 		txtpnAdicionarServio.setBounds(15, 317, 160, 23);
 		editarServicos.add(txtpnAdicionarServio);
 		
-		JButton btnCancelarServio = new JButton("Cancelar serviço");
-		btnCancelarServio.setFont(new Font("Dialog", Font.PLAIN, 12));
+		JButton btnCancelarServio = new JButton("Cancelar servi\u00E7o");
+		btnCancelarServio.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnCancelarServio.setBounds(436, 278, 145, 25);
 		editarServicos.add(btnCancelarServio);
 		
 		JTextPane txtpnTipoDeServio = new JTextPane();
+		txtpnTipoDeServio.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnTipoDeServio.setEditable(false);
-		txtpnTipoDeServio.setText("Tipo de serviço:");
+		txtpnTipoDeServio.setText("Tipo de servi\u00E7o:");
 		txtpnTipoDeServio.setBounds(15, 345, 113, 21);
 		editarServicos.add(txtpnTipoDeServio);
 		
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"(selecionar)", "Babá", "Carro executivo", "Carro luxo", "Restaurante"}));
 		comboBox_1.setBounds(135, 345, 154, 24);
 		editarServicos.add(comboBox_1);
@@ -562,19 +564,20 @@ public class Recursos extends JPanel {
 		
 		JButton btnConfirmarFechar = new JButton("Confirmar");
 		btnConfirmarFechar.setBounds(432, 531, 145, 25);
-		btnConfirmarFechar.setFont(new Font("Dialog", Font.PLAIN, 12));
+		btnConfirmarFechar.setFont(new Font("Verdana", Font.PLAIN, 12));
 		fecharContrato.add(btnConfirmarFechar);
 		
 		JTextPane txtpnOpiniaoDosHospede = new JTextPane();
-		txtpnOpiniaoDosHospede.setFont(new Font("Dialog", Font.PLAIN, 14));
+		txtpnOpiniaoDosHospede.setFont(new Font("Verdana", Font.PLAIN, 14));
 		txtpnOpiniaoDosHospede.setEditable(false);
-		txtpnOpiniaoDosHospede.setText("Opinião dos hóspede:");
+		txtpnOpiniaoDosHospede.setText("Opini\u00E3o dos h\u00F3spede:");
 		txtpnOpiniaoDosHospede.setBounds(12, 27, 219, 25);
 		fecharContrato.add(txtpnOpiniaoDosHospede);
 		
 		JTextPane txtpnComentario = new JTextPane();
+		txtpnComentario.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnComentario.setEditable(false);
-		txtpnComentario.setText("Comentário:");
+		txtpnComentario.setText("Coment\u00E1rio:");
 		txtpnComentario.setBounds(12, 64, 95, 21);
 		fecharContrato.add(txtpnComentario);
 		
@@ -584,18 +587,20 @@ public class Recursos extends JPanel {
 		fecharContrato.add(textArea);
 		
 		JTextPane textpnAvaliacao = new JTextPane();
+		textpnAvaliacao.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textpnAvaliacao.setEditable(false);
-		textpnAvaliacao.setText("Avaliação:");
+		textpnAvaliacao.setText("Avalia\u00E7\u00E3o:");
 		textpnAvaliacao.setBounds(383, 294, 76, 21);
 		fecharContrato.add(textpnAvaliacao);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
 		comboBox.setBounds(465, 294, 112, 24);
 		fecharContrato.add(comboBox);
 	
 		JButton btnEditarDados = new JButton("Editar dados do h\u00F3spede");
-		btnEditarDados.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnEditarDados.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout2.show(panel, "editarHospede");
@@ -603,8 +608,8 @@ public class Recursos extends JPanel {
 		});
 		toolBar.add(btnEditarDados);
 		
-		JButton btnServicos = new JButton("Editar serviços");
-		btnServicos.setFont(new Font("Dialog", Font.BOLD, 12));
+		JButton btnServicos = new JButton("Editar servi\u00E7os");
+		btnServicos.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnServicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout2.show(panel, "adicionarServico");
@@ -613,7 +618,7 @@ public class Recursos extends JPanel {
 		toolBar.add(btnServicos);
 		
 		JButton btnFecharContrato = new JButton("Fechar contrato");
-		btnFecharContrato.setFont(new Font("Dialog", Font.BOLD, 12));
+		btnFecharContrato.setFont(new Font("Verdana", Font.BOLD, 12));
 		btnFecharContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout2.show(panel, "fecharContrato");
@@ -629,7 +634,7 @@ public class Recursos extends JPanel {
 		
 		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
 		btnAtualizarContrato.setBounds(432, 562, 145, 25);
-		btnAtualizarContrato.setFont(new Font("Dialog", Font.PLAIN, 12));
+		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				layout.show(acoes1, "atualizarContrato");
