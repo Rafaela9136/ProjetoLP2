@@ -11,11 +11,15 @@ public class QuartoExecutivo extends Quarto{
 	
 	private TiposDeQuarto tipoDeQuarto;
 		 
-	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) {
+	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException {
 		super(temCamaExtra);
+		if (tipoDeQuarto == null) {
+			throw new NullPointerException();
+		}
 		this.tipoDeQuarto = tipoDeQuarto;
 	}
-		
+	
+	
 	public TiposDeQuarto getTipoDeQuarto() {
 		return tipoDeQuarto;
 	}

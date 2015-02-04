@@ -1,12 +1,11 @@
 package hotel;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import excecoes.DataInvalidaException;
 import excecoes.HoraInvalidaException;
 
-public class Baba implements Servico {
+public class Baba2 implements Servico {
 	
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
@@ -14,23 +13,18 @@ public class Baba implements Servico {
 		2, 3, 4, 5, 6, 7};
 	
 	
-	private NomesBaba baba;
+	private String nome;
 	private Calendar inicioDoServico;
 	private Calendar terminoDoServico;
-	private boolean isReserva;
-	
-	public Baba(NomesBaba baba, boolean isReserva) {
-		this.baba = baba;
-		this.isReserva = isReserva;
 		
-		if (!isReserva)
-			inicioDoServico = new GregorianCalendar();
-		
+	public Baba2(String nome, Calendar inicioDoServico, Calendar terminoDoServico) {
+		this.nome = nome;
+		this.inicioDoServico = inicioDoServico;
+		this.terminoDoServico = terminoDoServico;		
 	}// Construtor
 	
 	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException, DataInvalidaException {
 		// falta verificar se data eh null.
-		
 		if(novaDataTermino.before(inicioDoServico))
 			throw new DataInvalidaException();
 		
@@ -44,7 +38,7 @@ public class Baba implements Servico {
 	}// setInicioDoServico
 
 	public String getNome() {
-		return baba.getNome();
+		return nome;
 	}// getNome
 
 	@Override
@@ -62,7 +56,7 @@ public class Baba implements Servico {
 	
 
 	private double calculaPreco() {
-		double preco = 0;
+		double preco = 0.0;
 		int horaInicial = inicioDoServico.get(Calendar.HOUR_OF_DAY);
 		int horaFinal = terminoDoServico.get(Calendar.HOUR_OF_DAY);
 
@@ -95,12 +89,11 @@ public class Baba implements Servico {
 
 	@Override
 	public String toString() {
-		return "Baba [nome=" + baba + ", inicioDoServico=" + inicioDoServico
-				+ ", terminoDoServico=" + terminoDoServico + ", isReserva="
-				+ isReserva + "]";
+		return "Baba [nome=" + nome + ", inicioDoServico=" + inicioDoServico
+				+ ", terminoDoServico=" + terminoDoServico + "]";
 	}
 
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -112,32 +105,16 @@ public class Baba implements Servico {
 				* result
 				+ ((terminoDoServico == null) ? 0 : terminoDoServico.hashCode());
 		return result;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (!(obj instanceof Baba2)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Baba other = (Baba) obj;
-		if (inicioDoServico == null) {
-			if (other.inicioDoServico != null)
-				return false;
-		} else if (!inicioDoServico.equals(other.inicioDoServico))
-			return false;
-		if (isReserva != other.isReserva)
-			return false;
-		if (baba != other.baba)
-			return false;
-		if (terminoDoServico == null) {
-			if (other.terminoDoServico != null)
-				return false;
-		} else if (!terminoDoServico.equals(other.terminoDoServico))
-			return false;
-		return true;
+		}
+		Baba outro = (Baba) obj;
+		return (this.nome.equals(outro.getNome()) && this.getInicioDoServico().equals(outro.getInicioDoServico())
+				&& this.getInicioDoServico().equals(outro.getTerminoDoServico()));
 	}
 
 }// Baba

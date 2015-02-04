@@ -12,8 +12,11 @@ public class QuartoLuxo extends Quarto{
 	
 	private TiposDeQuarto tipoDeQuarto;
 	 
-	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) {
+	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException {
 		super(temCamaExtra);
+		if (tipoDeQuarto == null) {
+			throw new NullPointerException();
+		}
 		this.tipoDeQuarto = tipoDeQuarto;
 	}
 	
