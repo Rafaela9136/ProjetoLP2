@@ -3,7 +3,6 @@ package hotel;
 import java.util.*;
 
 import excecoes.DataInvalidaException;
-import excecoes.HoraInvalidaException;
 
 public class Baba2 implements Servico {
 	
@@ -18,22 +17,24 @@ public class Baba2 implements Servico {
 	private Calendar terminoDoServico;
 		
 	public Baba2(String nome, Calendar inicioDoServico, Calendar terminoDoServico) {
+		if (inicioDoServico == null || terminoDoServico == null)
+			throw new NullPointerException();
 		this.nome = nome;
 		this.inicioDoServico = inicioDoServico;
 		this.terminoDoServico = terminoDoServico;		
 	}// Construtor
 	
 	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException, DataInvalidaException {
-		// falta verificar se data eh null.
+		if (novaDataTermino == null)
+			throw new NullPointerException();
 		if(novaDataTermino.before(inicioDoServico))
-			throw new DataInvalidaException();
-		
+			throw new DataInvalidaException();		
 		terminoDoServico = novaDataTermino;
 	}// setTerminoDoServico
 	
 	public void setInicioDoServico(Calendar novaDataInicio) throws NullPointerException {
-		// falta verificar se data eh null.
-		
+		if (novaDataInicio == null)
+			throw new NullPointerException();
 		inicioDoServico = novaDataInicio;
 	}// setInicioDoServico
 
@@ -82,11 +83,6 @@ public class Baba2 implements Servico {
 		return false;
 	}// verificaSeEHoraDobrada
 	
-	private void verificaHoraValida(int hora) throws HoraInvalidaException {
-		if(hora < 0 || hora > 23)
-			throw new HoraInvalidaException();
-	}// verificaHoraValida
-
 	@Override
 	public String toString() {
 		return "Baba [nome=" + nome + ", inicioDoServico=" + inicioDoServico
