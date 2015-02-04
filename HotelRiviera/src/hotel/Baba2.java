@@ -83,8 +83,12 @@ public class Baba2 implements Servico {
 	
 	@Override
 	public String toString() {
-		return "Baba [nome=" + nome + ", inicioDoServico=" + inicioDoServico
-				+ ", terminoDoServico=" + terminoDoServico + "]";
+		return "SERVIÇO BABYSITTER" +
+				"Início do serviço: " + inicioDoServico +
+				"Término do serviço: " + terminoDoServico +
+				"Duração do serviço: " + 
+				"Valor total do serviço: " + getPreco() +
+				"OBS: Das 18 h às 7 horas o valor do serviço é cobrado em dobro.";	
 	}
 
 	@Override
