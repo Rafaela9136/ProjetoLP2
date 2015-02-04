@@ -42,6 +42,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JRadioButton;
 
 public class Recursos extends JPanel {
 
@@ -53,13 +54,12 @@ public class Recursos extends JPanel {
 	private CardLayout layout = new CardLayout(), layout2 = new CardLayout();
 	private boolean brasileiro = false;
 	private String[] hospedesAcompanhantes;
-	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra;
+	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ, comboBoxCamaExtra, comboBoxTipoServico;
 	private JPanel acoes1, panel;
 	private JFormattedTextField textFieldData, textFieldCPF, textFieldCheckIn, textFieldCheckOut;
 	private JTextField textFieldNome, textFieldEstado, textFieldCidade, textFieldEndereco, textFieldNumero, textFieldAcompanhantes;
 	private JTextField textFieldHospedeTitular;
-	private JTable table;
-	private JTable table_1;
+	private JTable table, table_1;
 	
 	/**
 	 * Create the panel.
@@ -108,7 +108,7 @@ public class Recursos extends JPanel {
 		// Paineis de acoes
 		acoes1 = new JPanel();
 		acoes1.setBackground(SystemColor.window);
-		acoes1.setBorder(new LineBorder(SystemColor.activeCaption, 2));
+		acoes1.setBorder(new LineBorder(Color.BLACK, 2));
 		acoes1.setBounds(227, 12, 607, 606);
 		add(acoes1);
 		acoes1.setLayout(layout);
@@ -491,13 +491,14 @@ public class Recursos extends JPanel {
 		editarHospede.setBackground(Color.WHITE);
 		panel.add(editarHospede, "editarHospede");
 		
+		// Edicao de servicos
 		JPanel editarServicos = new JPanel();
 		editarServicos.setBackground(Color.WHITE);
 		panel.add(editarServicos, "adicionarServico");
 		editarServicos.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(15, 56, 566, 210);
+		scrollPane_1.setBounds(15, 56, 566, 223);
 		editarServicos.add(scrollPane_1);
 		
 		table_1 = new JTable();
@@ -536,27 +537,36 @@ public class Recursos extends JPanel {
 		txtpnAdicionarServio.setEditable(false);
 		txtpnAdicionarServio.setFont(new Font("Verdana", Font.PLAIN, 14));
 		txtpnAdicionarServio.setText("Adicionar servi\u00E7o:");
-		txtpnAdicionarServio.setBounds(15, 317, 160, 23);
+		txtpnAdicionarServio.setBounds(15, 330, 160, 23);
 		editarServicos.add(txtpnAdicionarServio);
 		
 		JButton btnCancelarServio = new JButton("Cancelar servi\u00E7o");
 		btnCancelarServio.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnCancelarServio.setBounds(436, 278, 145, 25);
+		btnCancelarServio.setBounds(436, 291, 145, 25);
 		editarServicos.add(btnCancelarServio);
 		
 		JTextPane txtpnTipoDeServio = new JTextPane();
 		txtpnTipoDeServio.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnTipoDeServio.setEditable(false);
 		txtpnTipoDeServio.setText("Tipo de servi\u00E7o:");
-		txtpnTipoDeServio.setBounds(15, 345, 113, 21);
+		txtpnTipoDeServio.setBounds(15, 365, 113, 21);
 		editarServicos.add(txtpnTipoDeServio);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"(selecionar)", "Babá", "Carro executivo", "Carro luxo", "Restaurante"}));
-		comboBox_1.setBounds(135, 345, 154, 24);
-		editarServicos.add(comboBox_1);
+		comboBoxTipoServico = new JComboBox<String>();
+		comboBoxTipoServico.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBoxTipoServico.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Babá", "Carro", "Restaurante"}));
+		comboBoxTipoServico.setBounds(135, 365, 154, 24);
+		comboBoxTipoServico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboBoxTipoServico.getSelectedItem().equals("Carro")){
+					
+				}
+					
+			}
+		});
+		editarServicos.add(comboBoxTipoServico);
 		
+		// Fechar Contrato
 		JPanel fecharContrato = new JPanel();
 		fecharContrato.setBackground(Color.WHITE);
 		panel.add(fecharContrato, "fecharContrato");
@@ -654,6 +664,22 @@ public class Recursos extends JPanel {
 		btnteste.setFont(new Font("Dialog", Font.PLAIN, 12));
 		btnteste.setBounds(51, 160, 145, 25);
 		add(btnteste);
+	}
+
+	private void servicoCarro(JPanel editarServicos) {
+		JComboBox<String> comboBoxTipoCarro = new JComboBox<String>();
+		comboBoxTipoCarro.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Executivo", "Luxo"}));
+		comboBoxTipoCarro.setFont(new Font("Dialog", Font.PLAIN, 12));
+		comboBoxTipoCarro.setBounds(135, 404, 154, 24);
+		editarServicos.add(comboBoxTipoCarro);
+		
+		JRadioButton rdbtnTanqueCheio = new JRadioButton("Tanque cheio");
+		rdbtnTanqueCheio.setBounds(135, 448, 130, 18);
+		editarServicos.add(rdbtnTanqueCheio);
+		
+		JRadioButton rdbtnSeguro = new JRadioButton("Seguro");
+		rdbtnSeguro.setBounds(301, 448, 130, 18);
+		editarServicos.add(rdbtnSeguro);
 	}
 
 	private Estados selecionaEstado() {
