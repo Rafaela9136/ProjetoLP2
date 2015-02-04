@@ -8,7 +8,7 @@ public class Baba2 implements Servico {
 	
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
-	public static final int[] HORAS_DOBRADAS = {18, 19, 20, 21, 22, 23, 0, 1,
+	public static final Integer[] HORAS_DOBRADAS = {18, 19, 20, 21, 22, 23, 0, 1,
 		2, 3, 4, 5, 6, 7};
 	
 	
@@ -75,12 +75,7 @@ public class Baba2 implements Servico {
 	}// calculaPreco
 	
 	private boolean verificaSeEHoraDobrada(int hora) {
-		for (int i = 0; i < HORAS_DOBRADAS.length; i++) {
-			if (hora == HORAS_DOBRADAS[i])
-				return true;
-
-		}// for
-		return false;
+		return Arrays.asList(HORAS_DOBRADAS).contains(hora);
 	}// verificaSeEHoraDobrada
 	
 	@Override

@@ -2,7 +2,7 @@ package hotel;
 
 public abstract class Quarto implements Servico{
 	
-	public static final String DESCRICAO = "As acomodações do hotel são todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
+	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
 	private boolean temCamaExtra;
 		
 	public Quarto (boolean temCamaExtra) {
