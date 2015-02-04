@@ -1,7 +1,10 @@
 package hotel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import excecoes.DataInvalidaException;
 
@@ -12,7 +15,6 @@ public class Carro implements Servico {
 	private TipoCarro tipoDeCarro;
 	private boolean isTanqueCheio;
 	private boolean isAssegurado;
-	private double preco;
 	private Calendar dataInicio;
 	private Calendar dataTermino;
 	private int numDeDias;
@@ -29,7 +31,6 @@ public class Carro implements Servico {
 		this.isAssegurado = isAssegurado;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
-		preco = 0;
 		numDeDias = 0;
 	}
 
@@ -69,7 +70,11 @@ public class Carro implements Servico {
 
 	@Override
 	public double getPreco() {
-		calculaPreco();
+		double preco = numeroDeDias() * tipoDeCarro.getPreco(); // chamada polimorfica
+		if (isTanqueCheio)
+			preco += VALOR_TANQUE_CHEIO;
+		if (isAssegurado)
+			preco += VALOR_DO_SEGURO;
 		return preco;
 	}
 
@@ -78,14 +83,6 @@ public class Carro implements Servico {
 		int diaFinal = getDataTermino().get(Calendar.DAY_OF_YEAR);
 		numDeDias = diaFinal - diaInicial;
 		return numDeDias;
-	}
-
-	private void calculaPreco() {
-		preco = numeroDeDias() * tipoDeCarro.getPreco(); // chamada polimorfica
-		if (isTanqueCheio)
-			preco += VALOR_TANQUE_CHEIO;
-		if (isAssegurado)
-			preco += VALOR_DO_SEGURO;
 	}
 
 	private void verificaDataNula(Calendar data) throws NullPointerException {
@@ -108,12 +105,13 @@ public class Carro implements Servico {
 
 	@Override
 	public String toString() {
-		String adicionais = "Adicionais: ";
+		List<String> adicionais = new ArrayList<String>();
 		if (isTanqueCheio)
-			adicionais += "Tanque cheio = R$" + VALOR_TANQUE_CHEIO + "\n";
+			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
-			adicionais += "Seguro = R$" + VALOR_DO_SEGURO + "\n";
-		return "Carro " + tipoDeCarro + "\n" + adicionais + "Pre�o Total = "
+			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
+		return "Carro " + tipoDeCarro + "\n" + "Adicionais: "
+				+ Arrays.toString(adicionais.toArray()) + "\nPreco Total = "
 				+ getPreco() + "\nNumero de dias: " + numDeDias
 				+ "\nData Inicio = "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"

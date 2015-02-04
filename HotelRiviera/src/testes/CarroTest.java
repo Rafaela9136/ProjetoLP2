@@ -93,6 +93,22 @@ public class CarroTest {
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
+
+		Carro corsa = new Carro(carroExecutivo, dataInicio3, dataTermino1,
+				false, false);
+		Assert.assertEquals(corsa.getTipoDeCarro(), carroExecutivo);
+		Assert.assertEquals(corsa.getDataInicio(), dataInicio3);
+		Assert.assertEquals(corsa.getDataTermino(), dataTermino1);
+		Assert.assertEquals(corsa.getIsTanqueCheio(), false);
+		Assert.assertEquals(corsa.getIsAssegurado(), false);
+
+		Carro ferrari = new Carro(carroLuxo, dataInicio2, dataTermino3, true,
+				true);
+		Assert.assertEquals(ferrari.getTipoDeCarro(), carroLuxo);
+		Assert.assertEquals(ferrari.getDataInicio(), dataInicio2);
+		Assert.assertEquals(ferrari.getDataTermino(), dataTermino3);
+		Assert.assertEquals(ferrari.getIsTanqueCheio(), true);
+		Assert.assertEquals(ferrari.getIsAssegurado(), true);
 	}
 
 	@Test
@@ -194,7 +210,14 @@ public class CarroTest {
 			Assert.assertTrue(true);
 		}
 
+		Assert.assertEquals(carro2.getDataInicio(), dataInicio2);
 		Assert.assertEquals(carro2.getDataTermino(), dataTermino2);
+		Calendar dataAtual = new GregorianCalendar();
+		try {
+			carro2.setDataTermino(dataAtual);
+		} catch (DataInvalidaException e) {
+			Assert.assertTrue(true);
+		}
 
 		Assert.assertEquals(carro1.getDataTermino(), dataTermino1);
 		try {
@@ -260,6 +283,16 @@ public class CarroTest {
 		carro4.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 19));
 		Assert.assertEquals(carro4.numeroDeDias(), 32);
 		Assert.assertEquals(carro4.getPreco(), 1920, 0.001);
+	}
+	
+	@Test
+	public void testaToString() {
+		System.out.println(carro1.toString());
+	}
+	
+	@Test
+	public void testaEquals() {
+		
 	}
 
 }
