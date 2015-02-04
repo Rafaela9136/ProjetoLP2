@@ -7,14 +7,9 @@ public enum TipoCarro {
 
 	TipoCarro(double preco) {
 		this.preco = preco;
-	}// Construtor
+	}
 
 	public double getPreco() {
 		return preco;
-	}// getPreco
-
-	public void somaPreco(double adicional) {
-		preco += adicional;
-	}// somaPreco
-
-}// TipoCarro
+	}
+}

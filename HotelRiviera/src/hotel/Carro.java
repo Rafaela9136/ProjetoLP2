@@ -6,11 +6,8 @@ import java.util.GregorianCalendar;
 import excecoes.DataInvalidaException;
 
 public class Carro implements Servico {
-	public static final boolean TANQUE_VAZIO = false;
-	public static final boolean NAO_ASSEGURADO = false;
-
 	public static final double VALOR_TANQUE_CHEIO = 150;
-	public static final double VALOR_ASSEGURADO = 100;
+	public static final double VALOR_DO_SEGURO = 100;
 
 	private TipoCarro tipoDeCarro;
 	private boolean isTanqueCheio;
@@ -33,14 +30,7 @@ public class Carro implements Servico {
 		this.dataTermino = dataTermino;
 		preco = 0;
 		numDeDias = 0;
-
-	}// Construtor
-
-	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
-			Calendar dataTermino) throws NullPointerException,
-			DataInvalidaException {
-		this(tipoDeCarro, dataInicio, dataTermino, TANQUE_VAZIO, NAO_ASSEGURADO);
-	}// Construtor (Default)
+	}
 
 	public TipoCarro getTipoDeCarro() {
 		return tipoDeCarro;
@@ -90,11 +80,11 @@ public class Carro implements Servico {
 	}
 
 	private void calculaPreco() {
-		preco = numeroDeDias() * tipoDeCarro.getPreco();
+		preco = numeroDeDias() * tipoDeCarro.getPreco(); // chamada polimorfica
 		if (isTanqueCheio)
 			preco += VALOR_TANQUE_CHEIO;
 		if (isAssegurado)
-			preco += VALOR_ASSEGURADO;
+			preco += VALOR_DO_SEGURO;
 	}
 
 	private void verificaDataNula(Calendar data) throws NullPointerException {
@@ -111,10 +101,20 @@ public class Carro implements Servico {
 
 	@Override
 	public String toString() {
-		return "Carro [tipoDeCarro=" + tipoDeCarro + ", isTanqueCheio="
-				+ isTanqueCheio + ", isAssegurado=" + isAssegurado + ", preco="
-				+ preco + ", dataInicio=" + dataInicio + ", dataTermino="
-				+ dataTermino + ", numDeDias=" + numDeDias + "]";
+		String adicionais = "Adicionais: ";
+		if (isTanqueCheio)
+			adicionais += "Tanque cheio = R$" + VALOR_TANQUE_CHEIO + "\n";
+		if (isAssegurado)
+			adicionais += "Seguro = R$" + VALOR_DO_SEGURO + "\n";
+		return "Carro " + tipoDeCarro + "\n" + adicionais + "Preço Total = "
+				+ getPreco() + "\nNumero de dias: " + numDeDias
+				+ "\nData Inicio = "
+				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
+				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
+				+ getDataInicio().get(Calendar.YEAR) + "\nData Termino = "
+				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
+				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
+				+ getDataTermino().get(Calendar.YEAR);
 	}
 
 	// @Override
@@ -146,26 +146,26 @@ public class Carro implements Servico {
 				&& getIsAssegurado() == outroCarro.getIsAssegurado()
 				&& getPreco() == outroCarro.getPreco() && datasIguais);
 
-//		return (getTipoDeCarro().equals(outroCarro.getTipoDeCarro())
-//				&& getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
-//				&& getIsAssegurado() == outroCarro.getIsAssegurado()
-//				&& getPreco() == outroCarro.getPreco()
-//				&& getDataInicio().get(Calendar.YEAR) == outroCarro
-//						.getDataInicio().get(Calendar.YEAR)
-//				&& getDataInicio().get(Calendar.DAY_OF_YEAR) == outroCarro
-//						.getDataInicio().get(Calendar.DAY_OF_YEAR)
-//				&& getDataInicio().get(Calendar.HOUR_OF_DAY) == outroCarro
-//						.getDataInicio().get(Calendar.HOUR_OF_DAY)
-//				&& getDataInicio().get(Calendar.MINUTE) == outroCarro
-//						.getDataInicio().get(Calendar.MINUTE)
-//				&& getDataTermino().get(Calendar.YEAR) == outroCarro
-//						.getDataTermino().get(Calendar.YEAR)
-//				&& getDataTermino().get(Calendar.DAY_OF_YEAR) == outroCarro
-//						.getDataTermino().get(Calendar.DAY_OF_YEAR)
-//				&& getDataTermino().get(Calendar.HOUR_OF_DAY) == outroCarro
-//						.getDataTermino().get(Calendar.HOUR_OF_DAY) && getDataTermino()
-//				.get(Calendar.MINUTE) == outroCarro.getDataTermino().get(
-//				Calendar.MINUTE));
+		// return (getTipoDeCarro().equals(outroCarro.getTipoDeCarro())
+		// && getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
+		// && getIsAssegurado() == outroCarro.getIsAssegurado()
+		// && getPreco() == outroCarro.getPreco()
+		// && getDataInicio().get(Calendar.YEAR) == outroCarro
+		// .getDataInicio().get(Calendar.YEAR)
+		// && getDataInicio().get(Calendar.DAY_OF_YEAR) == outroCarro
+		// .getDataInicio().get(Calendar.DAY_OF_YEAR)
+		// && getDataInicio().get(Calendar.HOUR_OF_DAY) == outroCarro
+		// .getDataInicio().get(Calendar.HOUR_OF_DAY)
+		// && getDataInicio().get(Calendar.MINUTE) == outroCarro
+		// .getDataInicio().get(Calendar.MINUTE)
+		// && getDataTermino().get(Calendar.YEAR) == outroCarro
+		// .getDataTermino().get(Calendar.YEAR)
+		// && getDataTermino().get(Calendar.DAY_OF_YEAR) == outroCarro
+		// .getDataTermino().get(Calendar.DAY_OF_YEAR)
+		// && getDataTermino().get(Calendar.HOUR_OF_DAY) == outroCarro
+		// .getDataTermino().get(Calendar.HOUR_OF_DAY) && getDataTermino()
+		// .get(Calendar.MINUTE) == outroCarro.getDataTermino().get(
+		// Calendar.MINUTE));
 	}
 
 }// Carro

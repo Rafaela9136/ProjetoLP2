@@ -31,7 +31,8 @@ public class CarroTest {
 				true);
 		carro2 = new Carro(carroLuxo, dataInicio2, dataTermino2, true, false);
 		carro3 = new Carro(carroLuxo, dataInicio3, dataTermino3, false, true);
-		carro4 = new Carro(carroExecutivo, dataInicio2, dataTermino1);
+		carro4 = new Carro(carroExecutivo, dataInicio2, dataTermino1, false,
+				false);
 	}
 
 	@Test
@@ -45,20 +46,21 @@ public class CarroTest {
 		}
 
 		try {
-			new Carro(carroExecutivo, dataInicio2, dataNula);
+			new Carro(carroExecutivo, dataInicio2, dataNula, true, false);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
 
 		try {
-			new Carro(carroLuxo, dataInicio1, new GregorianCalendar());
+			new Carro(carroLuxo, dataInicio1, new GregorianCalendar(), false,
+					true);
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
 		try {
 			new Carro(carroExecutivo, new GregorianCalendar(2015, 8, 14),
-					new GregorianCalendar(2015, 8, 13));
+					new GregorianCalendar(2015, 8, 13), true, true);
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
