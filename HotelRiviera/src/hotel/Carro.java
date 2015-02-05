@@ -67,7 +67,7 @@ public class Carro implements Servico {
 
 	@Override
 	public double getPreco() {
-		double preco = numeroDeDias() * tipoDeCarro.getPreco();
+		double preco = getNumeroDeDias() * tipoDeCarro.getPreco();
 		if (isTanqueCheio)
 			preco += VALOR_TANQUE_CHEIO;
 		if (isAssegurado)
@@ -75,11 +75,11 @@ public class Carro implements Servico {
 		return preco;
 	}
 
-	public int numeroDeDias() {
-		long diaInicial = getDataInicio().getTimeInMillis();
-		long diaFinal = getDataTermino().getTimeInMillis();
+	public int getNumeroDeDias() {
+		long tempoInicial = getDataInicio().getTimeInMillis();
+		long tempoFinal = getDataTermino().getTimeInMillis();
 		numDeDias = (int) Math
-				.round(((diaFinal - diaInicial) / MILISSEGUNDOS_EM_UM_DIA));
+				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
 		return numDeDias;
 	}
 

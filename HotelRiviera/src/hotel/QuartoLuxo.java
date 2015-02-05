@@ -9,7 +9,7 @@ public class QuartoLuxo extends Quarto {
 	public static final double PRECO_LUXO_SIMPLES = 520.0;
 	public static final double PRECO_LUXO_DUPLO = 570.0;
 	public static final double PRECO_LUXO_TRIPLO = 620.0;
-
+	
 	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO
 			+ " Os quartos do tipo luxo podem acomodar 1, 2 ou ate 3 hospedes."
 			+ " Sao mais espacosos do que os executivos e contam com home theater. Camas extras para criancas menores de 9 anos sao "
@@ -33,15 +33,17 @@ public class QuartoLuxo extends Quarto {
 
 	@Override
 	public double getPreco() {
+		double precoDoQuarto;
 		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
-			return PRECO_LUXO_SIMPLES;
+			precoDoQuarto =  PRECO_LUXO_SIMPLES;
 		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
-			return PRECO_LUXO_DUPLO;
+			precoDoQuarto = PRECO_LUXO_DUPLO;
 		} else {
-			return PRECO_LUXO_TRIPLO;
-		}
-	}
-
+			precoDoQuarto = PRECO_LUXO_TRIPLO;
+		}// else
+		return precoDoQuarto * getNumeroDeDias() + getFrigobar().getPreco();
+	}// getPreco
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof QuartoLuxo)) {

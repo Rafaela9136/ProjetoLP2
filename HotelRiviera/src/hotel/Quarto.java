@@ -3,6 +3,7 @@ package hotel;
 import java.util.Calendar;
 
 import excecoes.DataInvalidaException;
+import excecoes.ValorNegativoException;
 
 public abstract class Quarto implements Servico {
 
@@ -11,9 +12,13 @@ public abstract class Quarto implements Servico {
 	private boolean temCamaExtra;
 	private Calendar inicioServico;
 	private Calendar terminoServico;
+	
+	private Frigobar frigobar;
 
 	public static final boolean TEM_CAMA_EXTRA = true;
 	public static final boolean NAO_TEM_CAMA_EXTRA = false;
+	
+	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;
 
 	public Quarto(boolean temCamaExtra, Calendar inicioServico,
 			Calendar terminoServico) throws NullPointerException,
@@ -23,11 +28,19 @@ public abstract class Quarto implements Servico {
 		this.temCamaExtra = temCamaExtra;
 		this.inicioServico = inicioServico;
 		this.terminoServico = terminoServico;
-
+		
+		frigobar = new Frigobar();
+		
 	}// Construtor
-
-	public abstract double getPreco();
-
+	
+	public int getNumeroDeDias() {
+		long tempoInicial = getInicioServico().getTimeInMillis();
+		long tempoFinal = getTerminoServico().getTimeInMillis();
+		int numDeDias = (int) Math
+				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
+		return numDeDias;
+	}// getNumeroDias
+	
 	public boolean isTemCamaExtra() {
 		return temCamaExtra;
 	}// isTemCamaExtra
@@ -39,6 +52,10 @@ public abstract class Quarto implements Servico {
 	public Calendar getTerminoServico() {
 		return terminoServico;
 	}// getTerminoServico
+	
+	public Frigobar getFrigobar() {
+		return frigobar;
+	}// getFrigobar
 
 	public void setTemCamaExtra(boolean temCamaExtra) {
 		this.temCamaExtra = temCamaExtra;
@@ -48,6 +65,12 @@ public abstract class Quarto implements Servico {
 		verificaDatasValidas(getInicioServico(), terminoServico);
 		this.terminoServico = terminoServico;
 	}// setInicioServico
+	
+	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
+		if(valor < 0)
+			throw new ValorNegativoException();
+		frigobar.somaPreco(valor);
+	}// somaPrecoFrigobar
 
 	private void verificaDatasValidas(Calendar inicioServico,
 			Calendar terminoServico) throws NullPointerException,
@@ -63,10 +86,13 @@ public abstract class Quarto implements Servico {
 			throw new NullPointerException();
 	}// verificaDataNull
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((frigobar == null) ? 0 : frigobar.hashCode());
 		result = prime * result
 				+ ((inicioServico == null) ? 0 : inicioServico.hashCode());
 		result = prime * result + (temCamaExtra ? 1231 : 1237);
@@ -74,6 +100,7 @@ public abstract class Quarto implements Servico {
 				+ ((terminoServico == null) ? 0 : terminoServico.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -84,6 +111,11 @@ public abstract class Quarto implements Servico {
 		if (getClass() != obj.getClass())
 			return false;
 		Quarto other = (Quarto) obj;
+		if (frigobar == null) {
+			if (other.frigobar != null)
+				return false;
+		} else if (!frigobar.equals(other.frigobar))
+			return false;
 		if (inicioServico == null) {
 			if (other.inicioServico != null)
 				return false;
@@ -99,11 +131,15 @@ public abstract class Quarto implements Servico {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Quarto [temCamaExtra=" + temCamaExtra + ", inicioServico="
-				+ inicioServico + ", terminoServico=" + terminoServico + "]";
+				+ inicioServico + ", terminoServico=" + terminoServico
+				+ ", frigobar=" + frigobar + "]";
 	}
+
+
 
 
 }

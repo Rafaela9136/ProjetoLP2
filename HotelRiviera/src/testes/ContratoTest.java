@@ -70,11 +70,11 @@ public class ContratoTest {
 		this.isAssegurado = true;
 		carro = new Carro(TipoCarro.EXECUTIVO, dataCheckIn, dataCheckOut, isTanqueCheio, isAssegurado);
 		
-		quarto1 = new QuartoExecutivo(Quarto.TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO);
-		quarto2 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
-		quarto3 = new SuitePresidencial();
-		quarto4 = new QuartoExecutivo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES);
-		quarto5 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
+		quarto1 = new QuartoExecutivo(Quarto.TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO, dataCheckIn, dataCheckOut);
+		quarto2 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO, dataCheckIn, dataCheckOut);
+		quarto3 = new SuitePresidencial(dataCheckIn, dataCheckIn);
+		quarto4 = new QuartoExecutivo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckOut);
+		quarto5 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO, dataCheckIn, dataCheckOut);
 
 		acompanhantes.add("Jusefa mulher do vidaloka");
 		acompanhantes.add("Filho do vidaloka");
@@ -87,14 +87,12 @@ public class ContratoTest {
 		servicos.add(quarto2);
 		servicos.add(quarto3);
 		servicos.add(quarto4);
-		servicos.add(quarto5);
 				
 		this.isReserva = true;
 
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);
 
-		contrato1.
 	}// criaObjetos
 	
 	
