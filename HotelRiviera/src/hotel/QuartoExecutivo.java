@@ -2,9 +2,9 @@ package hotel;
 
 public class QuartoExecutivo extends Quarto{
 	
-	private final double PRECO_EXECUTIVO_SIMPLES = 360.0;
-	private final double PRECO_EXECUTIVO_DUPLO = 385.0;
-	private final double PRECO_EXECUTIVO_TRIPLO = 440.0;
+	public static final double PRECO_EXECUTIVO_SIMPLES = 360.0;
+	public static final double PRECO_EXECUTIVO_DUPLO = 385.0;
+	public static final double PRECO_EXECUTIVO_TRIPLO = 440.0;
 	
 	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO + " Os quartos do tipo executivo podem acomodar 1, 2 ou ate 3 hospedes."
 			+ "Camas extras para criancas menores de 9 anos sao permitidas em quartos do tipo simples e duplo quando o hospede solicitar na reserva.";

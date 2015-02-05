@@ -2,9 +2,9 @@ package hotel;
 
 public class QuartoLuxo extends Quarto{
 	
-	private final double PRECO_LUXO_SIMPLES = 520.0;
-	private final double PRECO_LUXO_DUPLO = 570.0;
-	private final double PRECO_LUXO_TRIPLO = 620.0;
+	public static final double PRECO_LUXO_SIMPLES = 520.0;
+	public static final double PRECO_LUXO_DUPLO = 570.0;
+	public static final double PRECO_LUXO_TRIPLO = 620.0;
 	
 	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO + " Os quartos do tipo luxo podem acomodar 1, 2 ou ate 3 hospedes."
 			+ " Sao mais espacosos do que os executivos e contam com home theater. Camas extras para criancas menores de 9 anos sao "
