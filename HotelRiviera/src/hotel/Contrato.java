@@ -5,7 +5,9 @@ import java.util.List;
 
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
+import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
+import excecoes.NotaInvalidaException;
 
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
@@ -111,17 +113,7 @@ public class Contrato {
 		return servicos.remove(servico);
 	}// removeServico
 
-	public Servico pesquisaServico(double precoDoServico) {
-		for (Servico servico : servicos) {
-			if (servico.getPreco() == precoDoServico)
-				return servico;
-
-		}// for
-		return null;
-	}// pesquisaServico
-
-	public void inicializaOpiniao(float nota, String comentario)
-			throws Exception {
+	public void inicializaOpiniao(float nota, String comentario) throws NullPointerException, NotaInvalidaException, EstouroDeCaracteresException {
 		opiniao = new Opiniao(comentario, nota);
 	}// setOpiniao
 
@@ -142,7 +134,7 @@ public class Contrato {
 			valor += servico.getPreco();
 		}// for
 		return valor;
-	}// calculaValorTotalRestaurante
+	}// calculaValorTotalServicos
 
 	/*
 	 * public double calculaTotalPorEstrategia() { return
@@ -156,6 +148,16 @@ public class Contrato {
 		if (hospede == null)
 			throw new NullPointerException();
 	}// verificaHospedeTitularValido
+
+	@Override
+	public String toString() {
+		return "\nContrato \nAcompanhantes: " + acompanhantes + "\nServicos: "
+				+ servicos + "\nHospedeTitular: " + hospedeTitular
+				+ "\nOpiniao: " + opiniao + "\nCheckIn: " + dataCheckIn
+				+ "\nCheckOut: " + dataCheckOut + "\nEstrategia: "
+				+ estrategia + "\nDespesas Adicionais: " + despesasAdicionais
+				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto + "\n";
+	}
 
 	private void verificaAcompanhantesValidos(List<String> acompanhantes)
 			throws NullPointerException {
@@ -195,5 +197,84 @@ public class Contrato {
 			throw new ContratoSemQuartoException();
 
 	}// verificaServicosValido
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((acompanhantes == null) ? 0 : acompanhantes.hashCode());
+		result = prime * result
+				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
+		result = prime * result
+				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
+		result = prime * result + Float.floatToIntBits(despesasAdicionais);
+		result = prime * result
+				+ ((estrategia == null) ? 0 : estrategia.hashCode());
+		result = prime * result
+				+ ((hospedeTitular == null) ? 0 : hospedeTitular.hashCode());
+		result = prime * result + (isAberto ? 1231 : 1237);
+		result = prime * result + (isReserva ? 1231 : 1237);
+		result = prime * result + ((opiniao == null) ? 0 : opiniao.hashCode());
+		result = prime * result
+				+ ((servicos == null) ? 0 : servicos.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contrato other = (Contrato) obj;
+		if (acompanhantes == null) {
+			if (other.acompanhantes != null)
+				return false;
+		} else if (!acompanhantes.equals(other.acompanhantes))
+			return false;
+		if (dataCheckIn == null) {
+			if (other.dataCheckIn != null)
+				return false;
+		} else if (!dataCheckIn.equals(other.dataCheckIn))
+			return false;
+		if (dataCheckOut == null) {
+			if (other.dataCheckOut != null)
+				return false;
+		} else if (!dataCheckOut.equals(other.dataCheckOut))
+			return false;
+		if (Float.floatToIntBits(despesasAdicionais) != Float
+				.floatToIntBits(other.despesasAdicionais))
+			return false;
+		if (estrategia == null) {
+			if (other.estrategia != null)
+				return false;
+		} else if (!estrategia.equals(other.estrategia))
+			return false;
+		if (hospedeTitular == null) {
+			if (other.hospedeTitular != null)
+				return false;
+		} else if (!hospedeTitular.equals(other.hospedeTitular))
+			return false;
+		if (isAberto != other.isAberto)
+			return false;
+		if (isReserva != other.isReserva)
+			return false;
+		if (opiniao == null) {
+			if (other.opiniao != null)
+				return false;
+		} else if (!opiniao.equals(other.opiniao))
+			return false;
+		if (servicos == null) {
+			if (other.servicos != null)
+				return false;
+		} else if (!servicos.equals(other.servicos))
+			return false;
+		return true;
+	}
+	
+	
 
 }// Contrato

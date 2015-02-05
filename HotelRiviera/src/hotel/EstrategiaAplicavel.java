@@ -10,4 +10,12 @@ public interface EstrategiaAplicavel {
 	
 	public double aplicaPorcentagem(double despesasTotais);
 	
+	@Override
+	public boolean equals(Object obj);
+	
+	@Override
+	public int hashCode();
+	
+	@Override
+	public String toString();
 }

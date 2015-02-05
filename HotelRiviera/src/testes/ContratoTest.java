@@ -215,17 +215,10 @@ public class ContratoTest {
 		Assert.assertEquals(servicos.get(servicos.size() - 1), quarto5);
 
 	}// testAdicionaServico
-
+	
 	@Test
-	public void testRemoveServico() {
-		contrato1.removeServico(quarto4);
-		Assert.assertFalse(contrato1.getServicos().contains(quarto4));
-		try {
-			contrato1.adicionaServico(quarto4);
-		} catch (FrigobarEmListServicosException e) {
-			Assert.fail("Nao deveria ter lancado excecao");
-		}// try-catch
-
-	}// testRemoveServico
+	public void testEquals() {
+		
+	}// testEquals
 
 }// ContratoTest
