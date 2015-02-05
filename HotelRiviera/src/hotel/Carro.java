@@ -23,9 +23,7 @@ public class Carro implements Servico {
 	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
 			Calendar dataTermino, boolean isTanqueCheio, boolean isAssegurado)
 			throws NullPointerException, DataInvalidaException {
-		verificaTipoNulo(tipoDeCarro);
-		verificaDataNula(dataInicio);
-		verificaDataNula(dataTermino);
+		verificaTipo(tipoDeCarro);
 		verificaData(dataInicio, dataTermino);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
@@ -42,14 +40,12 @@ public class Carro implements Servico {
 	public void setDataInicio(Calendar novaDataInicio)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(novaDataInicio, dataTermino);
-		verificaDataNula(novaDataInicio);
 		dataInicio = novaDataInicio;
 	}
 
 	public void setDataTermino(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(dataInicio, novaDataTermino);
-		verificaDataNula(novaDataTermino);
 		dataTermino = novaDataTermino;
 	}
 
@@ -71,8 +67,7 @@ public class Carro implements Servico {
 
 	@Override
 	public double getPreco() {
-		double preco = numeroDeDias() * tipoDeCarro.getPreco(); // não é chamada
-																// polimorfica
+		double preco = numeroDeDias() * tipoDeCarro.getPreco();
 		if (isTanqueCheio)
 			preco += VALOR_TANQUE_CHEIO;
 		if (isAssegurado)
@@ -87,19 +82,16 @@ public class Carro implements Servico {
 		return numDeDias;
 	}
 
-	private void verificaDataNula(Calendar data) throws NullPointerException {
-		if (data == null)
-			throw new NullPointerException();
-	}
-
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
 			throws DataInvalidaException {
+		if (dataInicio == null || dataTermino == null)
+			throw new NullPointerException();
 		if (dataInicio.before(new GregorianCalendar())
 				|| dataTermino.before(dataInicio))
 			throw new DataInvalidaException();
 	}
 
-	private void verificaTipoNulo(TipoCarro tipoDeCarro)
+	private void verificaTipo(TipoCarro tipoDeCarro)
 			throws NullPointerException {
 		if (tipoDeCarro == null)
 			throw new NullPointerException();
@@ -112,10 +104,10 @@ public class Carro implements Servico {
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "Carro " + tipoDeCarro.getTipoNome() + "\n" + "Adicionais: "
-				+ Arrays.toString(adicionais.toArray()) + "\nPreco Total: R$ "
-				+ getPreco() + "\nNumero de dias: " + numDeDias
-				+ "\nData Inicio: "
+		return "SERVIÃ‡O CARRO" + "\nTipo: " + tipoDeCarro.getTipoNome() + "\n"
+				+ "Adicionais: " + Arrays.toString(adicionais.toArray())
+				+ "\nPreco Total: R$ " + getPreco() + "\nDuraÃ§Ã£o: "
+				+ numDeDias + " dias" + "\nData Inicio: "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
 				+ getDataInicio().get(Calendar.YEAR) + "\nData Termino: "

@@ -12,37 +12,30 @@ public class Baba implements Servico {
 	public static final int INICIO_HORA_DOBRADA = 18; // entre 18h e 7h o preco por hora da baba e dobrado.
 	public static final int FIM_HORA_DOBRADA = 7; 
 	
-	private String nome;
 	private Calendar inicioDoServico;
 	private Calendar terminoDoServico;
 		
-	public Baba(String nome, Calendar inicioDoServico, Calendar terminoDoServico) throws NullPointerException, NomeVazioException{
-		if (nome == null || inicioDoServico == null || terminoDoServico == null)
-			throw new NullPointerException();
-		if (nome.isEmpty()) 
-			throw new NomeVazioException();
-		this.nome = nome;
+	public Baba(Calendar inicioDoServico, Calendar terminoDoServico) throws NullPointerException {
+		verificaData(inicioDoServico);
+		verificaData(terminoDoServico);
 		this.inicioDoServico = inicioDoServico;
 		this.terminoDoServico = terminoDoServico;		
 	}// Construtor
-	
-	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException, DataInvalidaException {
-		if (novaDataTermino == null)
+
+	private void verificaData(Calendar data) {
+		if (data == null)
 			throw new NullPointerException();
-		if(novaDataTermino.before(inicioDoServico))
-			throw new DataInvalidaException();	
+	}
+	
+	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException  {
+		verificaData(novaDataTermino);	
 		terminoDoServico = novaDataTermino;
 	}// setTerminoDoServico
 	
 	public void setInicioDoServico(Calendar novaDataInicio) throws NullPointerException {
-		if (novaDataInicio == null)
-			throw new NullPointerException();
+		verificaData(novaDataInicio);
 		inicioDoServico = novaDataInicio;
 	}// setInicioDoServico
-
-	public String getNome() {
-		return nome;
-	}// getNome
 
 	@Override
 	public double getPreco() {
@@ -100,8 +93,8 @@ public class Baba implements Servico {
 			return false;
 		}
 		Baba outro = (Baba) obj;
-		return (this.nome.equals(outro.getNome()) && this.getInicioDoServico().equals(outro.getInicioDoServico())
-				&& this.getInicioDoServico().equals(outro.getTerminoDoServico()));
+		return (getInicioDoServico().equals(outro.getInicioDoServico())
+				&& getInicioDoServico().equals(outro.getTerminoDoServico()));
 	}
 
 }// Baba

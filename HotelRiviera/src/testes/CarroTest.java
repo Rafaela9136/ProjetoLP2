@@ -305,50 +305,54 @@ public class CarroTest {
 	public void testaToString() throws NullPointerException, DataInvalidaException {
 		Assert.assertEquals(
 				carro1.toString(),
-				"Carro Executivo\n"
+				"SERVIÇO CARRO\n"
+				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1630.0\n"
-				+ "Numero de dias: 23\n"
+				+ "Duração: 23 dias\n"
 				+ "Data Inicio: 12/6/2015\n"
 				+ "Data Termino: 5/7/2015");
 		carro1.setDataInicio(new GregorianCalendar(2015, Calendar.JUNE, 17));
 		Assert.assertEquals(
 				carro1.toString(),
-				"Carro Executivo\n"
+				"SERVIÇO CARRO\n"
+				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1330.0\n"
-				+ "Numero de dias: 18\n"
+				+ "Duração: 18 dias\n"
 				+ "Data Inicio: 17/6/2015\n"
 				+ "Data Termino: 5/7/2015");
 		carro1.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 15));
 		Assert.assertEquals(
 				carro1.toString(),
-				"Carro Executivo\n"
+				"SERVIÇO CARRO\n"
+				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1930.0\n"
-				+ "Numero de dias: 28\n"
+				+ "Duração: 28 dias\n"
 				+ "Data Inicio: 17/6/2015\n"
 				+ "Data Termino: 15/7/2015");
 		
 		Assert.assertEquals(
 				carro3.toString(),
-				"Carro Luxo\n"
+				"SERVIÇO CARRO\n"
+				+ "Tipo: Luxo\n"
 				+ "Adicionais: [Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1400.0\n"
-				+ "Numero de dias: 13\n"
+				+ "Duração: 13 dias\n"
 				+ "Data Inicio: 29/6/2015\n"
 				+ "Data Termino: 12/7/2015");
 		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 29));
 		carro3.setDataInicio(new GregorianCalendar(2015, Calendar.JULY, 3));
 		Assert.assertEquals(
 				carro3.toString(),
-				"Carro Luxo\n"
+				"SERVIÇO CARRO\n"
+				+ "Tipo: Luxo\n"
 				+ "Adicionais: [Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 2700.0\n"
-				+ "Numero de dias: 26\n"
+				+ "Duração: 26 dias\n"
 				+ "Data Inicio: 3/7/2015\n"
 				+ "Data Termino: 29/7/2015");
-		System.out.println(carro4.toString());
 	}
 
 	@Test
