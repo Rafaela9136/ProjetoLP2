@@ -51,12 +51,12 @@ public class Recursos extends JPanel {
 	 */
 	private static final long serialVersionUID = 8789089620746000252L;
 
-	private CardLayout layout = new CardLayout(), layout2 = new CardLayout();
+	private CardLayout layout = new CardLayout(), layout2 = new CardLayout(), layout3 = new CardLayout();
 	private boolean brasileiro = false;
 	private String[] hospedesAcompanhantes;
 	private JComboBox<String> comboBoxPaises, comboBoxQuarto, comboBoxQuartoQ,
 			comboBoxCamaExtra, comboBoxTipoServico;
-	private JPanel acoes1, panel, editarServicos;
+	private JPanel acoes1, panel, painelDeServico;
 	private JFormattedTextField textFieldData, textFieldCPF, textFieldCheckIn,
 			textFieldCheckOut;
 	private JTextField textFieldNome, textFieldEstado, textFieldCidade,
@@ -109,6 +109,7 @@ public class Recursos extends JPanel {
 		btnSair.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnSair.setBounds(24, 575, 180, 43);
 		add(btnSair);
+		//**
 
 		// Paineis de acoes
 		acoes1 = new JPanel();
@@ -122,6 +123,7 @@ public class Recursos extends JPanel {
 		vazio.setBackground(Color.WHITE);
 		acoes1.add(vazio, "vazio");
 		layout.show(acoes1, "vazio");
+		//**
 
 		// Novo Contrato
 		JPanel novoContrato = new JPanel();
@@ -458,12 +460,8 @@ public class Recursos extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				AvisoErro erro = new AvisoErro();
 				try {
-					Hospede novoHospede = new Hospede(textFieldNome.getText(),
-							Calendar.getInstance(), brasileiro,
-							(String) comboBoxPaises.getSelectedItem(),
-							selecionaEstado(), textFieldCidade.getText(),
-							textFieldEndereco.getText(), textFieldNumero
-									.getText(), textFieldCPF.getText());
+					Hospede novoHospede = new Hospede(textFieldNome.getText(), Calendar.getInstance(), brasileiro, (String) comboBoxPaises.getSelectedItem(),
+							selecionaEstado(), textFieldCidade.getText(), textFieldEndereco.getText(), textFieldNumero.getText(), textFieldCPF.getText());
 
 					// Contrato novoContrato = new Contrato(novoHospede,
 					// hospedesAcompanhantes, );
@@ -478,7 +476,8 @@ public class Recursos extends JPanel {
 			}
 		});
 		novoContrato.add(btnConfirmar);
-
+        //**
+		
 		// Pesquisar Contrato
 		JPanel pesquisarContrato = new JPanel();
 		pesquisarContrato.setBackground(Color.WHITE);
@@ -526,6 +525,7 @@ public class Recursos extends JPanel {
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
 		scrollPane.setViewportView(table);
+		//**
 
 		// Atualizar Contrato
 		JPanel atualizarContrato = new JPanel();
@@ -550,7 +550,7 @@ public class Recursos extends JPanel {
 		panel.add(editarHospede, "editarHospede");
 
 		// Edicao de servicos
-		editarServicos = new JPanel();
+		JPanel editarServicos = new JPanel();
 		editarServicos.setBackground(Color.WHITE);
 		panel.add(editarServicos, "adicionarServico");
 		editarServicos.setLayout(null);
@@ -605,6 +605,7 @@ public class Recursos extends JPanel {
 		txtpnTipoDeServico.setBounds(15, 365, 113, 21);
 		editarServicos.add(txtpnTipoDeServico);
 
+		// Escolhe o tipo e paineis de opcao
 		comboBoxTipoServico = new JComboBox<String>();
 		comboBoxTipoServico.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxTipoServico
@@ -613,10 +614,13 @@ public class Recursos extends JPanel {
 		comboBoxTipoServico.setBounds(135, 365, 154, 24);
 		comboBoxTipoServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (comboBoxTipoServico.getSelectedItem().equals("Carro")) {
-					acoesCarro();
+				if(comboBoxTipoServico.getSelectedItem().equals("Carro")){
+					layout3.show(painelDeServico, "servicoCarro");
+				} if(comboBoxTipoServico.getSelectedItem().equals("Babá")){
+					layout3.show(painelDeServico, "servicoBaba");
+				} if(comboBoxTipoServico.getSelectedItem().equals("Restaurante")){
+					layout3.show(painelDeServico, "servicoRestaurante");
 				}
-
 			}
 		});
 		editarServicos.add(comboBoxTipoServico);
@@ -644,6 +648,52 @@ public class Recursos extends JPanel {
 				dateMask);
 		formattedTextFieldDataF.setBounds(374, 398, 136, 27);
 		editarServicos.add(formattedTextFieldDataF);
+		
+		painelDeServico = new JPanel();
+		painelDeServico.setBounds(6, 435, 576, 113);
+		editarServicos.add(painelDeServico);
+		painelDeServico.setLayout(layout3);
+		
+		JPanel vazio2 = new JPanel();
+		vazio2.setBackground(Color.WHITE);
+		painelDeServico.add(vazio2, "vazio");
+		
+		// Carro
+		JPanel servicoCarro = new JPanel();
+		servicoCarro.setBackground(Color.WHITE);
+		painelDeServico.add(servicoCarro, "servicoCarro");
+		servicoCarro.setLayout(null);
+		
+		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Executivo", "Luxo"}));
+		comboBox_1.setBounds(131, 4, 151, 25);
+		servicoCarro.add(comboBox_1);
+		
+		JRadioButton rdbtnTanqueCheio = new JRadioButton("Tanque cheio");
+		rdbtnTanqueCheio.setBounds(131, 43, 151, 18);
+		servicoCarro.add(rdbtnTanqueCheio);
+		
+		JRadioButton rdbtnSeguro = new JRadioButton("Seguro");
+		rdbtnSeguro.setBounds(298, 43, 151, 18);
+		servicoCarro.add(rdbtnSeguro);
+		
+		JTextPane txtpnTipoDeCarro = new JTextPane();
+		txtpnTipoDeCarro.setText("Tipo de carro:");
+		txtpnTipoDeCarro.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtpnTipoDeCarro.setEditable(false);
+		txtpnTipoDeCarro.setBounds(6, 6, 113, 21);
+		servicoCarro.add(txtpnTipoDeCarro);
+		
+		// Baba
+		JPanel servicoBaba = new JPanel();
+		servicoBaba.setBackground(Color.WHITE);
+		painelDeServico.add(servicoBaba, "servicoBaba");
+		
+		// Restaurante
+		JPanel edicaoRestaurante = new JPanel();
+		edicaoRestaurante.setBackground(Color.WHITE);
+		painelDeServico.add(edicaoRestaurante, "servicoRestaurante");
+		//**
 
 		// Fechar Contrato
 		JPanel fecharContrato = new JPanel();
@@ -744,10 +794,6 @@ public class Recursos extends JPanel {
 		btnteste.setFont(new Font("Dialog", Font.PLAIN, 12));
 		btnteste.setBounds(51, 160, 145, 25);
 		add(btnteste);
-	}
-
-	private void acoesCarro() {
-
 	}
 
 	private Estados selecionaEstado() {
