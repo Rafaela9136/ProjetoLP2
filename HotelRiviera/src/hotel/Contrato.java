@@ -100,7 +100,10 @@ public class Contrato {
 		dataCheckOut = novaData;
 	}// setDataCheckOut
 
-	public void adicionaServico(Servico servico) {
+	public void adicionaServico(Servico servico)
+			throws FrigobarEmListServicosException {
+		if (servico instanceof Frigobar)
+			throw new FrigobarEmListServicosException();
 		servicos.add(servico);
 	}// adicionaServico
 
@@ -131,6 +134,11 @@ public class Contrato {
 	public double calculaValorTotalServicos() {
 		double valor = 0;
 		for (Servico servico : servicos) {
+			if (servico instanceof Quarto) {
+				valor += servico.getPreco();
+				valor += ((Quarto) servico).getFrigobar().getPreco();
+				continue;
+			}// if
 			valor += servico.getPreco();
 		}// for
 		return valor;
