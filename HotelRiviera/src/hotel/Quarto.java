@@ -3,7 +3,6 @@ package hotel;
 import java.util.Calendar;
 
 import excecoes.DataInvalidaException;
-import excecoes.ValorNegativoException;
 
 public abstract class Quarto implements Servico {
 
@@ -65,12 +64,6 @@ public abstract class Quarto implements Servico {
 		verificaDatasValidas(getInicioServico(), terminoServico);
 		this.terminoServico = terminoServico;
 	}// setInicioServico
-	
-	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
-		if(valor < 0)
-			throw new ValorNegativoException();
-		frigobar.somaPreco(valor);
-	}// somaPrecoFrigobar
 
 	private void verificaDatasValidas(Calendar inicioServico,
 			Calendar terminoServico) throws NullPointerException,
