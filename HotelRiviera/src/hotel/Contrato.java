@@ -165,9 +165,9 @@ public class Contrato {
 	}// verificaDataValida
 
 	private void verificaDataNull(Calendar data) throws NullPointerException {
-		if (dataCheckIn == null || dataCheckOut == null)
+		if (data == null)
 			throw new NullPointerException();
-	}
+	}// verificaDataNull
 
 	private void verificaServicosValido(List<Servico> servicos)
 			throws ContratoSemQuartoException, NullPointerException,

@@ -1,30 +1,33 @@
 package hotel;
 
-public class SuitePresidencial extends Quarto{
-	
-	private final static boolean TEM_CAMA_EXTRA = false;
-	private final double PRECO_SUITE_PRESIDENCIAL = 1200.0;
-	private final int MAX_HOSPEDES = 4;
-	private final int TOTAL_DISPONIVEL = 5;
-	
-	public static final String DESCRICAO_PRESIDENCIAL = Quarto.DESCRICAO + "As suites presidenciais podem comportar ate 4 pessoas "
+import java.util.Calendar;
+
+import excecoes.DataInvalidaException;
+
+public class SuitePresidencial extends Quarto {
+
+	public static final boolean PERMITE_CAMA_EXTRA = false;
+	public static final double PRECO_SUITE_PRESIDENCIAL = 1200.0;
+
+	public static final int MAX_HOSPEDES = 4;
+	public static final int TOTAL_DISPONIVEL = 5;
+
+	public static final String DESCRICAO_PRESIDENCIAL = Quarto.DESCRICAO
+			+ "As suites presidenciais podem comportar ate 4 pessoas "
 			+ "em 2 quartos separados e uma sala de jogos e home theater, ideal para familias em ferias.";
-	
-	public SuitePresidencial() {
-		super(TEM_CAMA_EXTRA);	
-	}
+
+	public SuitePresidencial(Calendar inicioServico, Calendar terminoServico)
+			throws NullPointerException, DataInvalidaException {
+		super(PERMITE_CAMA_EXTRA, inicioServico, terminoServico);
+	}// Construtor
 
 	@Override
 	public double getPreco() {
 		return PRECO_SUITE_PRESIDENCIAL;
-	}
-	
-	public int getMAX_HOSPEDES() {
-		return MAX_HOSPEDES;
-	}
+	}// getPreco
 
-	public int getTOTAL_DISPONIVEL() {
-		return TOTAL_DISPONIVEL;
-	}
-	
+	private double calculaPreco() {
+		return 0;
+	}// calculaPreco
+
 }

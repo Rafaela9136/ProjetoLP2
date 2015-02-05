@@ -1,25 +1,31 @@
 package hotel;
 
-public class QuartoExecutivo extends Quarto{
-	
+import java.util.Calendar;
+
+import excecoes.DataInvalidaException;
+
+public class QuartoExecutivo extends Quarto {
+
 	public static final double PRECO_EXECUTIVO_SIMPLES = 360.0;
 	public static final double PRECO_EXECUTIVO_DUPLO = 385.0;
 	public static final double PRECO_EXECUTIVO_TRIPLO = 440.0;
-	
-	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO + " Os quartos do tipo executivo podem acomodar 1, 2 ou ate 3 hospedes."
+
+	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO
+			+ " Os quartos do tipo executivo podem acomodar 1, 2 ou ate 3 hospedes."
 			+ "Camas extras para criancas menores de 9 anos sao permitidas em quartos do tipo simples e duplo quando o hospede solicitar na reserva.";
-	
+
 	private TiposDeQuarto tipoDeQuarto;
-		 
-	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException {
-		super(temCamaExtra);
+
+	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto,
+			Calendar inicioServico, Calendar terminoServico)
+			throws NullPointerException, DataInvalidaException {
+		super(temCamaExtra, inicioServico, terminoServico);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
 		}
 		this.tipoDeQuarto = tipoDeQuarto;
 	}
-	
-	
+
 	public TiposDeQuarto getTipoDeQuarto() {
 		return tipoDeQuarto;
 	}
@@ -34,14 +40,15 @@ public class QuartoExecutivo extends Quarto{
 			return PRECO_EXECUTIVO_TRIPLO;
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof QuartoExecutivo)) {
 			return false;
-		}	
+		}
 		QuartoExecutivo outro = (QuartoExecutivo) obj;
-		return super.equals(outro) && this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
+		return super.equals(outro)
+				&& this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
 	}
 
 }
