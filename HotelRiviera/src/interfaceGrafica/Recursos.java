@@ -681,7 +681,7 @@ public class Recursos extends JPanel {
 		txtpnTipoDeCarro.setText("Tipo de carro:");
 		txtpnTipoDeCarro.setFont(new Font("Dialog", Font.PLAIN, 12));
 		txtpnTipoDeCarro.setEditable(false);
-		txtpnTipoDeCarro.setBounds(6, 6, 113, 21);
+		txtpnTipoDeCarro.setBounds(8, 6, 113, 21);
 		servicoCarro.add(txtpnTipoDeCarro);
 		
 		// Baba
