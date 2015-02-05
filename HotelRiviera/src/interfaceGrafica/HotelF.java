@@ -25,7 +25,7 @@ public class HotelF extends JFrame {
 		setResizable(false);
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 865, 688);
+		setBounds(100, 100, 865, 687);
 		hotel = new JPanel();
 		hotel.setBackground(UIManager.getColor("Button.light"));
 		hotel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -33,7 +33,7 @@ public class HotelF extends JFrame {
 		hotel.setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 872, 659);
+		tabbedPane.setBounds(0, 0, 872, 662);
 		hotel.add(tabbedPane);
 		
 		Recursos recursos = new Recursos();
