@@ -11,7 +11,7 @@ import excecoes.DataInvalidaException;
 public class Carro implements Servico {
 	public static final double VALOR_TANQUE_CHEIO = 150;
 	public static final double VALOR_DO_SEGURO = 100;
-	public static final int MILISSEGUNDOS_EM_UM_DIA = 86400000;
+	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;
 
 	private TipoCarro tipoDeCarro;
 	private boolean isTanqueCheio;
@@ -78,7 +78,8 @@ public class Carro implements Servico {
 	public int numeroDeDias() {
 		long diaInicial = getDataInicio().getTimeInMillis();
 		long diaFinal = getDataTermino().getTimeInMillis();
-		numDeDias = (int) ((diaFinal - diaInicial) / MILISSEGUNDOS_EM_UM_DIA);
+		numDeDias = (int) Math
+				.round(((diaFinal - diaInicial) / MILISSEGUNDOS_EM_UM_DIA));
 		return numDeDias;
 	}
 
@@ -106,14 +107,18 @@ public class Carro implements Servico {
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
 		return "SERVIÇO CARRO" + "\nTipo: " + tipoDeCarro.getTipoNome() + "\n"
 				+ "Adicionais: " + Arrays.toString(adicionais.toArray())
-				+ "\nPreco Total: R$ " + getPreco() + "\nDuração: "
-				+ numDeDias + " dias" + "\nData Inicio: "
+				+ "\nPreco Total: R$ " + getPreco() + "\nDuração: " + numDeDias
+				+ " dias" + "\nData Inicio: "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
-				+ getDataInicio().get(Calendar.YEAR) + "\nData Termino: "
+				+ getDataInicio().get(Calendar.YEAR) + " às "
+				+ getDataInicio().get(Calendar.HOUR_OF_DAY) + ":"
+				+ getDataInicio().get(Calendar.MINUTE) + "\nData Termino: "
 				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
-				+ getDataTermino().get(Calendar.YEAR);
+				+ getDataTermino().get(Calendar.YEAR) + " às "
+				+ getDataTermino().get(Calendar.HOUR_OF_DAY) + ":"
+				+ getDataTermino().get(Calendar.MINUTE);
 	}
 
 	// @Override
@@ -135,37 +140,11 @@ public class Carro implements Servico {
 		if (!(obj instanceof Carro))
 			return false;
 		Carro outroCarro = (Carro) obj;
-		boolean datasIguais = false;
-		if (getDataInicio().compareTo(outroCarro.getDataInicio()) == 0
-				&& getDataTermino().compareTo(outroCarro.getDataTermino()) == 0) {
-			datasIguais = true;
-		}
 		return (getTipoDeCarro().equals(outroCarro.getTipoDeCarro())
 				&& getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
 				&& getIsAssegurado() == outroCarro.getIsAssegurado()
-				&& getPreco() == outroCarro.getPreco() && datasIguais);
-
-		// return (getTipoDeCarro().equals(outroCarro.getTipoDeCarro())
-		// && getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
-		// && getIsAssegurado() == outroCarro.getIsAssegurado()
-		// && getPreco() == outroCarro.getPreco()
-		// && getDataInicio().get(Calendar.YEAR) == outroCarro
-		// .getDataInicio().get(Calendar.YEAR)
-		// && getDataInicio().get(Calendar.DAY_OF_YEAR) == outroCarro
-		// .getDataInicio().get(Calendar.DAY_OF_YEAR)
-		// && getDataInicio().get(Calendar.HOUR_OF_DAY) == outroCarro
-		// .getDataInicio().get(Calendar.HOUR_OF_DAY)
-		// && getDataInicio().get(Calendar.MINUTE) == outroCarro
-		// .getDataInicio().get(Calendar.MINUTE)
-		// && getDataTermino().get(Calendar.YEAR) == outroCarro
-		// .getDataTermino().get(Calendar.YEAR)
-		// && getDataTermino().get(Calendar.DAY_OF_YEAR) == outroCarro
-		// .getDataTermino().get(Calendar.DAY_OF_YEAR)
-		// && getDataTermino().get(Calendar.HOUR_OF_DAY) == outroCarro
-		// .getDataTermino().get(Calendar.HOUR_OF_DAY) && getDataTermino()
-		// .get(Calendar.MINUTE) == outroCarro.getDataTermino().get(
-		// Calendar.MINUTE));
+				&& getPreco() == outroCarro.getPreco()
+				&& getDataInicio().equals(outroCarro.getDataInicio()) && getDataTermino()
+				.equals(outroCarro.getDataTermino()));
 	}
-
-}// Carro
-
+}

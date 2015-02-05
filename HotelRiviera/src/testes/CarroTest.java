@@ -17,12 +17,12 @@ public class CarroTest {
 	Carro carro1, carro2, carro3, carro4;
 	private TipoCarro carroExecutivo = TipoCarro.EXECUTIVO;
 	private TipoCarro carroLuxo = TipoCarro.LUXO;
-	Calendar dataInicio1 = new GregorianCalendar(2015, Calendar.JUNE, 12);
-	Calendar dataInicio2 = new GregorianCalendar(2015, Calendar.JUNE, 17);
-	Calendar dataInicio3 = new GregorianCalendar(2015, Calendar.JUNE, 29);
-	Calendar dataTermino1 = new GregorianCalendar(2015, Calendar.JULY, 5);
-	Calendar dataTermino2 = new GregorianCalendar(2015, Calendar.JULY, 1);
-	Calendar dataTermino3 = new GregorianCalendar(2015, Calendar.JULY, 12);
+	Calendar dataInicio1 = new GregorianCalendar(2015, Calendar.JUNE, 12, 15, 12);
+	Calendar dataInicio2 = new GregorianCalendar(2015, Calendar.JUNE, 17, 13, 51);
+	Calendar dataInicio3 = new GregorianCalendar(2015, Calendar.JUNE, 29, 10, 1);
+	Calendar dataTermino1 = new GregorianCalendar(2015, Calendar.JULY, 5, 22, 27);
+	Calendar dataTermino2 = new GregorianCalendar(2015, Calendar.JULY, 1, 9, 14);
+	Calendar dataTermino3 = new GregorianCalendar(2015, Calendar.JULY, 12, 7, 32);
 
 	@Before
 	public void criaObjetos() throws NullPointerException,
@@ -287,7 +287,7 @@ public class CarroTest {
 		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
 		Assert.assertEquals(carro3.numeroDeDias(), 13);
 		Assert.assertEquals(carro3.getPreco(), 1400, 0.001);
-		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 22));
+		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 22, 13, 50));
 		Assert.assertEquals(carro3.numeroDeDias(), 23);
 		Assert.assertEquals(carro3.getPreco(), 2400, 0.001);
 
@@ -296,13 +296,14 @@ public class CarroTest {
 		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
 		Assert.assertEquals(carro4.numeroDeDias(), 18);
 		Assert.assertEquals(carro4.getPreco(), 1080, 0.001);
-		carro4.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 19));
+		carro4.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 19, 10, 20));
 		Assert.assertEquals(carro4.numeroDeDias(), 32);
 		Assert.assertEquals(carro4.getPreco(), 1920, 0.001);
 	}
 
 	@Test
 	public void testaToString() throws NullPointerException, DataInvalidaException {
+		System.out.println(carro1.toString());
 		Assert.assertEquals(
 				carro1.toString(),
 				"SERVIÇO CARRO\n"
