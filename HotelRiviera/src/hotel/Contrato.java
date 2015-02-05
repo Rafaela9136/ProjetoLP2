@@ -5,12 +5,12 @@ import java.util.List;
 
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
+import excecoes.FrigobarEmListServicosException;
 
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
 
 	private List<String> acompanhantes;
-	private List<Quarto> quartos;
 	private List<Servico> servicos;
 
 	private Hospede hospedeTitular;
@@ -25,18 +25,16 @@ public class Contrato {
 
 	public Contrato(Hospede hospedeTitular, List<String> acompanhantes,
 			EstrategiaAplicavel estrategia, Calendar dataCheckIn,
-			Calendar dataCheckOut, boolean isReserva, List<Quarto> quartos,
-			List<Servico> servicos) throws Exception {
+			Calendar dataCheckOut, boolean isReserva, List<Servico> servicos)
+			throws NullPointerException, ContratoSemQuartoException,
+			FrigobarEmListServicosException, DataInvalidaException {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(acompanhantes);
-		verificaQuartosValidos(quartos);
-		verificaData(dataCheckIn);
-		verificaData(dataCheckOut);
+		verificaServicosValido(servicos);
+		verificaDatasValidas(dataCheckIn, dataCheckOut);
 
-		if (dataCheckIn.compareTo(dataCheckOut) > 0)
-			throw new DataInvalidaException();
-		if(estrategia == null)
+		if (estrategia == null)
 			throw new NullPointerException();
 
 		this.estrategia = estrategia;
@@ -44,7 +42,6 @@ public class Contrato {
 		this.isReserva = isReserva;
 		this.isAberto = CONTRATO_ABERTO;
 
-		this.quartos = quartos;
 		this.acompanhantes = acompanhantes;
 		this.servicos = servicos;
 
@@ -65,10 +62,6 @@ public class Contrato {
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}// getOpiniao
-
-	public List<Quarto> getQuartos() {
-		return quartos;
-	}// getQuartos
 
 	public Calendar getDataCheckIn() {
 		return dataCheckIn;
@@ -102,9 +95,8 @@ public class Contrato {
 		isReserva = estado;
 	}// setIsReserva
 
-	public void setDataCheckOut(Calendar novaData)
-			throws NullPointerException {
-		verificaData(novaData);
+	public void setDataCheckOut(Calendar novaData) throws NullPointerException {
+		verificaDataNull(novaData);
 		dataCheckOut = novaData;
 	}// setDataCheckOut
 
@@ -144,10 +136,12 @@ public class Contrato {
 		return valor;
 	}// calculaValorTotalRestaurante
 
-	/*public double calculaTotalPorEstrategia() {
-		return (getDespesasAdicionais() + calculaValorTotalServicos())
-				* getEstrategia().getPorcentagem();
-	} // calcula o total a pagar de acordo com a epoca*/  // � o contrato que vai calcular isso? Devia ser o hotel, n�o?
+	/*
+	 * public double calculaTotalPorEstrategia() { return
+	 * (getDespesasAdicionais() + calculaValorTotalServicos())
+	 * getEstrategia().getPorcentagem(); } // calcula o total a pagar de acordo
+	 * com a epoca
+	 */// � o contrato que vai calcular isso? Devia ser o hotel, n�o?
 
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
@@ -161,17 +155,37 @@ public class Contrato {
 			throw new NullPointerException();
 	} // verificaAcompanhantesValidos
 
-	private void verificaQuartosValidos(List<Quarto> quartos) throws Exception {
-		if (quartos == null)
-			throw new NullPointerException();
+	private void verificaDatasValidas(Calendar dataCheckIn,
+			Calendar dataCheckOut) throws NullPointerException,
+			DataInvalidaException {
+		verificaDataNull(dataCheckIn);
+		verificaDataNull(dataCheckOut);
+		if (dataCheckIn.compareTo(dataCheckOut) > 0)
+			throw new DataInvalidaException();
+	}// verificaDataValida
 
-		if (quartos.size() == 0)
-			throw new ContratoSemQuartoException();
-	}// verificaQuartosValidos
-
-	private void verificaData(Calendar data) throws NullPointerException {
-		if (data == null)
+	private void verificaDataNull(Calendar data) throws NullPointerException {
+		if (dataCheckIn == null || dataCheckOut == null)
 			throw new NullPointerException();
 	}
+
+	private void verificaServicosValido(List<Servico> servicos)
+			throws ContratoSemQuartoException, NullPointerException,
+			FrigobarEmListServicosException {
+		if (servicos == null)
+			throw new NullPointerException();
+
+		int quantQuartos = 0;
+		for (int i = 0; i < servicos.size(); i++) {
+			if (servicos.get(i) instanceof Quarto)
+				quantQuartos++;
+			if (servicos.get(i) instanceof Frigobar)
+				throw new FrigobarEmListServicosException();
+
+		}// for
+		if (quantQuartos == 0)
+			throw new ContratoSemQuartoException();
+
+	}// verificaServicosValido
 
 }// Contrato

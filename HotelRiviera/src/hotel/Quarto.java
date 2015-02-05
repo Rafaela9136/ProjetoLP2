@@ -4,6 +4,8 @@ public abstract class Quarto implements Servico{
 	
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
 	private boolean temCamaExtra;
+	public static final boolean TEM_CAMA_EXTRA = true;
+	public static final boolean NAO_TEM_CAMA_EXTRA = false;
 		
 	public Quarto (boolean temCamaExtra) {
 		this.temCamaExtra = temCamaExtra;
