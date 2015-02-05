@@ -1,50 +1,47 @@
 package hotel;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import excecoes.DataInvalidaException;
-import excecoes.HoraInvalidaException;
+import excecoes.NomeVazioException;
 
 public class Baba implements Servico {
 	
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
-	public static final int[] HORAS_DOBRADAS = {18, 19, 20, 21, 22, 23, 0, 1,
-		2, 3, 4, 5, 6, 7};
+	public static final int INICIO_HORA_DOBRADA = 18; // entre 18h e 7h o preco por hora da baba e dobrado.
+	public static final int FIM_HORA_DOBRADA = 7; 
 	
-	
-	private NomesBaba baba;
+	private String nome;
 	private Calendar inicioDoServico;
 	private Calendar terminoDoServico;
-	private boolean isReserva;
-	
-	public Baba(NomesBaba baba, boolean isReserva) {
-		this.baba = baba;
-		this.isReserva = isReserva;
 		
-		if (!isReserva)
-			inicioDoServico = new GregorianCalendar();
-		
+	public Baba(String nome, Calendar inicioDoServico, Calendar terminoDoServico) throws NullPointerException, NomeVazioException{
+		if (nome == null || inicioDoServico == null || terminoDoServico == null)
+			throw new NullPointerException();
+		if (nome.isEmpty()) 
+			throw new NomeVazioException();
+		this.nome = nome;
+		this.inicioDoServico = inicioDoServico;
+		this.terminoDoServico = terminoDoServico;		
 	}// Construtor
 	
 	public void setTerminoDoServico(Calendar novaDataTermino) throws NullPointerException, DataInvalidaException {
-		// falta verificar se data eh null.
-		
+		if (novaDataTermino == null)
+			throw new NullPointerException();
 		if(novaDataTermino.before(inicioDoServico))
-			throw new DataInvalidaException();
-		
+			throw new DataInvalidaException();	
 		terminoDoServico = novaDataTermino;
 	}// setTerminoDoServico
 	
 	public void setInicioDoServico(Calendar novaDataInicio) throws NullPointerException {
-		// falta verificar se data eh null.
-		
+		if (novaDataInicio == null)
+			throw new NullPointerException();
 		inicioDoServico = novaDataInicio;
 	}// setInicioDoServico
 
 	public String getNome() {
-		return baba.getNome();
+		return nome;
 	}// getNome
 
 	@Override
@@ -62,7 +59,7 @@ public class Baba implements Servico {
 	
 
 	private double calculaPreco() {
-		double preco = 0;
+		double preco = 0.0;
 		int horaInicial = inicioDoServico.get(Calendar.HOUR_OF_DAY);
 		int horaFinal = terminoDoServico.get(Calendar.HOUR_OF_DAY);
 
@@ -80,64 +77,31 @@ public class Baba implements Servico {
 	}// calculaPreco
 	
 	private boolean verificaSeEHoraDobrada(int hora) {
-		for (int i = 0; i < HORAS_DOBRADAS.length; i++) {
-			if (hora == HORAS_DOBRADAS[i])
-				return true;
-
-		}// for
-		return false;
+		if (hora >= INICIO_HORA_DOBRADA || hora <= FIM_HORA_DOBRADA) { 
+			return true;
+		} else {
+			return false;
+		}
 	}// verificaSeEHoraDobrada
 	
-	private void verificaHoraValida(int hora) throws HoraInvalidaException {
-		if(hora < 0 || hora > 23)
-			throw new HoraInvalidaException();
-	}// verificaHoraValida
-
 	@Override
 	public String toString() {
-		return "Baba [nome=" + baba + ", inicioDoServico=" + inicioDoServico
-				+ ", terminoDoServico=" + terminoDoServico + ", isReserva="
-				+ isReserva + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((inicioDoServico == null) ? 0 : inicioDoServico.hashCode());
-		result = prime * result + (isReserva ? 1231 : 1237);
-		result = prime * result + ((baba == null) ? 0 : baba.hashCode());
-		result = prime
-				* result
-				+ ((terminoDoServico == null) ? 0 : terminoDoServico.hashCode());
-		return result;
+		return "SERVIÇO BABYSITTER" +
+				"Início do serviço: " + inicioDoServico +
+				"Término do serviço: " + terminoDoServico +
+				"Duração do serviço: " + 
+				"Valor total do serviço: " + getPreco() +
+				"OBS: Das 18 h às 7 horas o valor do serviço é cobrado em dobro.";	
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (!(obj instanceof Baba)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Baba other = (Baba) obj;
-		if (inicioDoServico == null) {
-			if (other.inicioDoServico != null)
-				return false;
-		} else if (!inicioDoServico.equals(other.inicioDoServico))
-			return false;
-		if (isReserva != other.isReserva)
-			return false;
-		if (baba != other.baba)
-			return false;
-		if (terminoDoServico == null) {
-			if (other.terminoDoServico != null)
-				return false;
-		} else if (!terminoDoServico.equals(other.terminoDoServico))
-			return false;
-		return true;
+		}
+		Baba outro = (Baba) obj;
+		return (this.nome.equals(outro.getNome()) && this.getInicioDoServico().equals(outro.getInicioDoServico())
+				&& this.getInicioDoServico().equals(outro.getTerminoDoServico()));
 	}
 
 }// Baba

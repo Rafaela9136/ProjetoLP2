@@ -71,7 +71,7 @@ public class Carro implements Servico {
 
 	@Override
 	public double getPreco() {
-		double preco = numeroDeDias() * tipoDeCarro.getPreco(); // chamada
+		double preco = numeroDeDias() * tipoDeCarro.getPreco(); // não é chamada
 																// polimorfica
 		if (isTanqueCheio)
 			preco += VALOR_TANQUE_CHEIO;
