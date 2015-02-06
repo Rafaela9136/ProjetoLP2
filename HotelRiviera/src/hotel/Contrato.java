@@ -11,6 +11,7 @@ import excecoes.NotaInvalidaException;
 
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
+	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;
 
 	private List<String> acompanhantes;
 	private List<Servico> servicos;
@@ -106,6 +107,8 @@ public class Contrato {
 			throws FrigobarEmListServicosException {
 		if (servico instanceof Frigobar)
 			throw new FrigobarEmListServicosException();
+		
+		if(servico instanceof Quarto)
 		servicos.add(servico);
 	}// adicionaServico
 
@@ -122,13 +125,22 @@ public class Contrato {
 	public void adicionaDespesa(float valor) {
 		despesasAdicionais += valor;
 	}// adicionaDespesa
+	
+	public int getNumeroDeDias() {
+		long tempoInicial = getDataCheckIn().getTimeInMillis();
+		long tempoFinal = getDataCheckOut().getTimeInMillis();
+		int numDeDias = (int) Math
+				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
+		return numDeDias;
+	}
 
 	public double calculaValorTotalServicos() {
 		double valor = 0;
 		for (Servico servico : servicos) {
 			if (servico instanceof Quarto) {
-				valor += servico.getPreco();
-				valor += ((Quarto) servico).getFrigobar().getPreco();
+				Quarto umQuarto = (Quarto) servico;
+				valor += umQuarto.getPreco() * getNumeroDeDias();
+				valor += umQuarto.getFrigobar().getPreco();
 				continue;
 			}// if
 			valor += servico.getPreco();

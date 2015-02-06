@@ -1,5 +1,5 @@
 package excecoes;
 
-public class ContratoSemQuartoException extends Exception {
+public class ContratoSemQuartoException extends QuartoException {
 
 }
