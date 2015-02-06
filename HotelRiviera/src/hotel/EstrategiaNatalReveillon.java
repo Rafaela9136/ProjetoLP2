@@ -3,7 +3,7 @@ package hotel;
 import java.util.*;
 
 
-public class EstrategiaNatalReveillon implements EstrategiaAplicavel{
+public class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 	
 	private final int DIA_INICIO = 15;
 	private final int DIA_FIM = 5;
