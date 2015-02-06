@@ -7,29 +7,12 @@ public abstract class Quarto implements Servico{
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
 	
 	private boolean CamaExtra;
-	private Calendar inicioHospedagem;
-	private Calendar fimHospedagem;
+	private Frigobar frigobar;
 	
 	public Quarto (boolean temCamaExtra) {
 		this.CamaExtra = temCamaExtra;
 	}
 		
-	public Calendar getInicioHospedagem() {
-		return inicioHospedagem;
-	}
-
-	public void setInicioHospedagem(Calendar novoInicioHospedagem){
-		this.inicioHospedagem = novoInicioHospedagem;
-	}
-
-	public Calendar getFimHospedagem() {
-		return fimHospedagem;
-	}
-
-	public void setFimHospedagem(Calendar novoFimHospedagem) {
-		this.fimHospedagem = novoFimHospedagem;
-	}
-	
 	public abstract double getPreco();
 		
 	public boolean isTemCamaExtra() {
@@ -53,6 +36,10 @@ public abstract class Quarto implements Servico{
 	public String toString() {
 		return "Quarto [preco=" + this.getPreco() + ", temCamaExtra=" + CamaExtra
 				+ "]";
+	}
+
+	public Frigobar getFrigobar() {
+		return frigobar;
 	}
 		
 }
