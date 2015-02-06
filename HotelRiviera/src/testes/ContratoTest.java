@@ -25,6 +25,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecoes.AddQuartoContratoException;
 import excecoes.CPFInvalidoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
@@ -32,6 +33,9 @@ import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
 
 public class ContratoTest {
+	public static final boolean NAO_TEM_CAMA_EXTRA = false;
+	public static final boolean TEM_CAMA_EXTRA = true;
+
 	private Contrato contrato1;
 	private Contrato contrato2;
 
@@ -72,15 +76,11 @@ public class ContratoTest {
 		carro = new Carro(TipoCarro.EXECUTIVO, dataCheckIn, dataCheckOut,
 				isTanqueCheio, isAssegurado);
 
-		quarto1 = new QuartoExecutivo(Quarto.TEM_CAMA_EXTRA,
-				TiposDeQuarto.DUPLO, dataCheckIn, dataCheckOut);
-		quarto2 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA,
-				TiposDeQuarto.TRIPLO, dataCheckIn, dataCheckOut);
-		quarto3 = new SuitePresidencial(dataCheckIn, dataCheckIn);
-		quarto4 = new QuartoExecutivo(Quarto.NAO_TEM_CAMA_EXTRA,
-				TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckOut);
-		quarto5 = new QuartoLuxo(Quarto.NAO_TEM_CAMA_EXTRA,
-				TiposDeQuarto.TRIPLO, dataCheckIn, dataCheckOut);
+		quarto1 = new QuartoExecutivo(TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO);
+		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
+		quarto3 = new SuitePresidencial();
+		quarto4 = new QuartoExecutivo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES);
+		quarto5 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
 
 		acompanhantes.add("Jusefa mulher do vidaloka");
 		acompanhantes.add("Filho do vidaloka");
@@ -200,7 +200,8 @@ public class ContratoTest {
 	}// testCriaContrato
 
 	@Test
-	public void testAdicionaServico() throws FrigobarEmListServicosException {
+	public void testAdicionaServico() throws FrigobarEmListServicosException,
+			AddQuartoContratoException {
 		Frigobar frigobar1 = new Frigobar();
 
 		try {
@@ -208,17 +209,44 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
 
+		} catch (AddQuartoContratoException e) {
+			Assert.fail("Excecao errada");
 		}// try-catch
-		contrato1.adicionaServico(quarto5);
-		List<Servico> servicos = contrato1.getServicos();
-		Assert.assertTrue(servicos.get(servicos.size() - 1) instanceof Quarto);
-		Assert.assertEquals(servicos.get(servicos.size() - 1), quarto5);
+		try {
+			contrato1.adicionaServico(quarto5);
+			Assert.fail("Deveria ter lancado AddQuartoContratoException");
+		} catch (AddQuartoContratoException e) {
+
+		} catch (FrigobarEmListServicosException e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+
+		contrato1.adicionaServico(carro);
+		Assert.assertTrue(contrato1.getServicos()
+				.get(contrato1.getServicos().size() - 1).equals(carro));
 
 	}// testAdicionaServico
-	
+
 	@Test
-	public void testEquals() {
-		
+	public void testCalculaValorTotalServicos() throws NullPointerException,
+			ContratoSemQuartoException, FrigobarEmListServicosException,
+			DataInvalidaException {
+
+
+	}// testCalculaValorTotalServicos
+
+	@Test
+	public void testEquals() throws NullPointerException,
+			ContratoSemQuartoException, FrigobarEmListServicosException,
+			DataInvalidaException {
+		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertTrue(contrato1.equals(contrato2));
+
 	}// testEquals
 
 }// ContratoTest

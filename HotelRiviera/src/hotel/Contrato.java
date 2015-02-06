@@ -3,6 +3,7 @@ package hotel;
 import java.util.Calendar;
 import java.util.List;
 
+import excecoes.AddQuartoContratoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
@@ -104,11 +105,12 @@ public class Contrato {
 	}// setDataCheckOut
 
 	public void adicionaServico(Servico servico)
-			throws FrigobarEmListServicosException {
+			throws FrigobarEmListServicosException, AddQuartoContratoException {
 		if (servico instanceof Frigobar)
 			throw new FrigobarEmListServicosException();
-		
-		if(servico instanceof Quarto)
+
+		if (servico instanceof Quarto)
+			throw new AddQuartoContratoException();
 		servicos.add(servico);
 	}// adicionaServico
 
@@ -116,7 +118,9 @@ public class Contrato {
 		return servicos.remove(servico);
 	}// removeServico
 
-	public void inicializaOpiniao(float nota, String comentario) throws NullPointerException, NotaInvalidaException, EstouroDeCaracteresException {
+	public void inicializaOpiniao(float nota, String comentario)
+			throws NullPointerException, NotaInvalidaException,
+			EstouroDeCaracteresException {
 		opiniao = new Opiniao(comentario, nota);
 	}// setOpiniao
 
@@ -125,7 +129,7 @@ public class Contrato {
 	public void adicionaDespesa(float valor) {
 		despesasAdicionais += valor;
 	}// adicionaDespesa
-	
+
 	public int getNumeroDeDias() {
 		long tempoInicial = getDataCheckIn().getTimeInMillis();
 		long tempoFinal = getDataCheckOut().getTimeInMillis();
@@ -166,9 +170,10 @@ public class Contrato {
 		return "\nContrato \nAcompanhantes: " + acompanhantes + "\nServicos: "
 				+ servicos + "\nHospedeTitular: " + hospedeTitular
 				+ "\nOpiniao: " + opiniao + "\nCheckIn: " + dataCheckIn
-				+ "\nCheckOut: " + dataCheckOut + "\nEstrategia: "
-				+ estrategia + "\nDespesas Adicionais: " + despesasAdicionais
-				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto + "\n";
+				+ "\nCheckOut: " + dataCheckOut + "\nEstrategia: " + estrategia
+				+ "\nDespesas Adicionais: " + despesasAdicionais
+				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
+				+ "\n";
 	}
 
 	private void verificaAcompanhantesValidos(List<String> acompanhantes)
@@ -286,7 +291,5 @@ public class Contrato {
 			return false;
 		return true;
 	}
-	
-	
 
 }// Contrato
