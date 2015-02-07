@@ -68,7 +68,7 @@ public class ContratoTest {
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento);
 		estrategia = new EstrategiaNatalReveillon();
 		dataCheckIn = new GregorianCalendar(2015, 4, 15);
-		dataCheckOut = new GregorianCalendar(2015, 5, 15);
+		dataCheckOut = new GregorianCalendar(2015, 4, 20);
 		baba = new Baba(dataCheckIn, dataCheckOut);
 
 		this.isTanqueCheio = true;

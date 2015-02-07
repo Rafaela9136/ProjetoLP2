@@ -3,12 +3,12 @@ package hotel;
 import java.util.*;
 
 public interface EstrategiaAplicavel {
+	
+	public double getPorcentagemAAplicar();
 				
 	public Calendar getDataInicio(); 
 	
 	public Calendar getDataFim();
-	
-	public double aplicaPorcentagem(double despesasTotais);
 	
 	@Override
 	public boolean equals(Object obj);

@@ -149,7 +149,7 @@ public class Contrato {
 			}// if
 			valor += servico.getPreco();
 		}// for
-		return valor;
+		return valor * estrategia.getPorcentagemAAplicar();
 	}// calculaValorTotalServicos
 
 	/*
