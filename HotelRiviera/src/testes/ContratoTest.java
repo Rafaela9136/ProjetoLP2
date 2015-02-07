@@ -231,6 +231,20 @@ public class ContratoTest {
 	public void testCalculaValorTotalServicos() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException {
+		servicos = new ArrayList<Servico>();
+		
+		servicos.add(carro);
+		servicos.add(baba);
+
+		servicos.add(quarto1);
+		servicos.add(quarto2);
+		servicos.add(quarto3);
+		servicos.add(quarto4);
+		System.out.println(dataCheckIn.getTime());
+		System.out.println(dataCheckOut.getTime());
+		
+		Assert.assertEquals(contrato1.getServicos().get(0).getPreco(), 550, 0.05);
+		Assert.assertEquals(contrato1.getServicos().get(1).getPreco(), 4550, 0.05);
 		Assert.assertEquals(21750, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos

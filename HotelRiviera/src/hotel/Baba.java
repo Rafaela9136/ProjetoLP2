@@ -50,12 +50,24 @@ public class Baba implements Servico {
 		return terminoDoServico;
 	}// getTerminoDoServico
 	
+	public int getNumeroDeDias() {
+		long tempoInicial = inicioDoServico.getTimeInMillis();
+		long tempoFinal = terminoDoServico.getTimeInMillis();
+		int numDeDias = (int) Math
+				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
+		return numDeDias;
+	}// getNumeroDeDias
+	
 
 	private double calculaPreco() {
 		double preco = 0.0;
 		int horaInicial = inicioDoServico.get(Calendar.HOUR_OF_DAY);
 		int horaFinal = terminoDoServico.get(Calendar.HOUR_OF_DAY);
-
+		
+		int quantDias = getNumeroDeDias();
+		
+		for(int i = 0; i < quantDias; i++) {
+			
 		while (horaInicial != horaFinal) {
 			if (verificaSeEHoraDobrada(horaInicial))
 				preco += VALOR_HORA_DOBRADA;
@@ -66,6 +78,7 @@ public class Baba implements Servico {
 			if (horaInicial == 24)
 				horaInicial = 0;
 		}// while
+		}// for
 		return preco;
 	}// calculaPreco
 	
