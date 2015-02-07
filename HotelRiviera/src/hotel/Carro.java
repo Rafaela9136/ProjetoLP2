@@ -61,7 +61,7 @@ public class Carro implements Servico {
 		this.isAssegurado = isAssegurado;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
-		numDeDias = 0;
+		
 	}
 
 	/**

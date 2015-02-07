@@ -11,6 +11,7 @@ public abstract class Quarto implements Servico{
 	
 	public Quarto (boolean temCamaExtra) {
 		this.CamaExtra = temCamaExtra;
+		frigobar = new Frigobar();
 	}
 		
 	public abstract double getPreco();
