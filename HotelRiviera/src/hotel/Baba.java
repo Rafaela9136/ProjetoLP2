@@ -1,9 +1,20 @@
 package hotel;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import excecoes.DataInvalidaException;
 
+/**
+ * Classe de um servico de Babysitter do Hotel. Pode ser contratado de acordo
+ * com a disponibilidade das babas em um determinado periodo que vai ser
+ * escolhido pelo cliente. O servico funciona 24hrs por dia e seu valor entre
+ * 18:00 e 7:00 eh de R$ 50 e de R$ 25 nas demais horas do dia.
+ * 
+ * @author Grupo
+ * @version 1.0
+ *
+ */
 public class Baba implements Servico {
 
 	public static final double VALOR_HORA = 25;
@@ -18,6 +29,19 @@ public class Baba implements Servico {
 	private Calendar dataTermino;
 	private int numDeHoras;
 
+	/**
+	 * Cria o servico de Babysitter com uma data inicial e uma data de termino.
+	 * 
+	 * @param dataInicio
+	 *            A data de inicio.
+	 * @param dataTermino
+	 *            A data de termino.
+	 * @throws NullPointerException
+	 *             Caso alguma das datas tenha valor nulo.
+	 * @throws DataInvalidaException
+	 *             Caso a data inicial seja antes da data atual ou a data de
+	 *             termino seja antes da data de inicio.
+	 */
 	public Baba(Calendar dataInicio, Calendar dataTermino)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(dataInicio, dataTermino);
@@ -26,18 +50,45 @@ public class Baba implements Servico {
 		numDeHoras = 0;
 	}
 
+	/**
+	 * Altera a data de termino do servico.
+	 * 
+	 * @param novaDataTermino
+	 *            A nova data de termino.
+	 * @throws NullPointerException
+	 *             Caso a nova data tenha valor nulo.
+	 * @throws DataInvalidaException
+	 *             Caso a nova data de termino seja antes da data de inicio.
+	 */
 	public void setTerminoDoServico(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(dataInicio, novaDataTermino);
 		dataTermino = novaDataTermino;
 	}
 
+	/**
+	 * Altera a data de inicio do servico.
+	 * 
+	 * @param novaDataInicio
+	 *            A nova data de inicio.
+	 * @throws NullPointerException
+	 *             Caso a nova data tenha valor nulo.
+	 * @throws DataInvalidaException
+	 *             Caso a nova data de inicio seja antes da data atual ou seja
+	 *             depois da data de termino.
+	 */
 	public void setInicioDoServico(Calendar novaDataInicio)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(novaDataInicio, dataTermino);
 		dataInicio = novaDataInicio;
 	}
 
+	/**
+	 * Realiza o calculo do preco do servico de acordo com a quantidade de
+	 * horas.
+	 * 
+	 * @return O preco final do servico.
+	 */
 	@Override
 	public double getPreco() {
 		double preco = 0;
@@ -57,14 +108,30 @@ public class Baba implements Servico {
 		return preco;
 	}
 
+	/**
+	 * Retorna a data de inicio do servico.
+	 * 
+	 * @return A data inicial.
+	 */
 	public Calendar getDataInicio() {
 		return dataInicio;
 	}
 
+	/**
+	 * Retorna data de termino do servico.
+	 * 
+	 * @return A data final.
+	 */
 	public Calendar getDataTermino() {
 		return dataTermino;
 	}
 
+	/**
+	 * Calcula e retorna a quantidade de horas do servico, a partir da diferenca
+	 * em milissegundos da data final e data inicial.
+	 * 
+	 * @return O numero de horas do servico.
+	 */
 	public int getNumeroDeHoras() {
 		long tempoInicial = dataInicio.getTimeInMillis();
 		long tempoFinal = dataTermino.getTimeInMillis();
@@ -90,6 +157,12 @@ public class Baba implements Servico {
 			throw new DataInvalidaException();
 	}
 
+	/**
+	 * Retorna uma representacao em String do servico contratado contendo o
+	 * preco total, a duracao em horas, datas e horas finais e iniciais.
+	 * 
+	 * @return String contendo todas as informacoes do servico.
+	 */
 	@Override
 	public String toString() {
 		return "SERVICO BABYSITTER\n" + "Preco Total: R$ " + getPreco()
@@ -108,6 +181,12 @@ public class Baba implements Servico {
 				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
+	/**
+	 * Verifica se dois servicos de Babas sao iguais, apartir de suas datas e
+	 * precos.
+	 * 
+	 * @return True caso sejam iguais ou False caso contrario.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Baba)) {
