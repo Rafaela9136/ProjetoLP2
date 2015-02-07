@@ -22,6 +22,7 @@ public class Contrato {
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private EstrategiaAplicavel estrategia;
+	private Frigobar frigobar;
 
 	private float despesasAdicionais;
 	private boolean isReserva;
@@ -45,9 +46,12 @@ public class Contrato {
 		this.hospedeTitular = hospedeTitular;
 		this.isReserva = isReserva;
 		this.isAberto = CONTRATO_ABERTO;
+		this.dataCheckIn = dataCheckIn;
+		this.dataCheckOut = dataCheckOut;
 
 		this.acompanhantes = hospedesAcompanhantes;
 		this.servicos = servicos;
+		this.frigobar = new Frigobar();
 
 	}// Construtor
 
@@ -136,7 +140,7 @@ public class Contrato {
 		int numDeDias = (int) Math
 				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
 		return numDeDias;
-	}
+	}// getNumeroDeDias
 
 	public double calculaValorTotalServicos() {
 		double valor = 0;

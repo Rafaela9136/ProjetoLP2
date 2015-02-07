@@ -67,8 +67,8 @@ public class ContratoTest {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento);
 		estrategia = new EstrategiaNatalReveillon();
-		dataCheckIn = new GregorianCalendar(2015, 4, 15);
-		dataCheckOut = new GregorianCalendar(2015, 4, 20);
+		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
+		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		baba = new Baba(dataCheckIn, dataCheckOut);
 
 		this.isTanqueCheio = true;
@@ -231,7 +231,7 @@ public class ContratoTest {
 	public void testCalculaValorTotalServicos() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException {
-
+		Assert.assertEquals(21750, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos
 
@@ -239,6 +239,8 @@ public class ContratoTest {
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException {
+		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
+		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);
 
