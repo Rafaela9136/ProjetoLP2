@@ -1,15 +1,6 @@
 package visual;
 
-import hotel.Conector;
-import hotel.Contrato;
-import hotel.EstrategiaAplicavel;
-import hotel.Hospede;
-import hotel.Hotel;
-import hotel.Quarto;
-import hotel.QuartoExecutivo;
-import hotel.QuartoLuxo;
-import hotel.Servico;
-import hotel.SuitePresidencial;
+import hotel.*;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -203,14 +194,20 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnHspedeTitular.setText("H\u00F3spede:");
 
-		JTextField textFieldHospedeTitular = new JTextField();
+		final JTextField textFieldHospedeTitular = new JTextField();
 		textFieldHospedeTitular.setBounds(104, 26, 476, 28);
 		pesquisarContrato.add(textFieldHospedeTitular);
 		textFieldHospedeTitular.setColumns(10);
 
 		JButton btnConfirmarP = new JButton("Confirmar");
 		btnConfirmarP.setBounds(435, 60, 145, 28);
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Contrato> contratoPesquisado = Hotel.pesquisaContrato(textFieldHospedeTitular.getText());
+			}
+		});
 		pesquisarContrato.add(btnConfirmarP);
+		
 		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
 		
 		// tabela de contratos
@@ -239,6 +236,7 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 
 	@SuppressWarnings("serial")
 	private void contratosExistentes(JPanel pesquisarContrato) {
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 105, 568, 478);
 		pesquisarContrato.add(scrollPane);
@@ -262,6 +260,7 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 		table.getColumnModel().getColumn(0).setPreferredWidth(200);
 		table.getColumnModel().getColumn(1).setPreferredWidth(100);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+
 		scrollPane.setViewportView(table);
 	}
 
@@ -496,7 +495,7 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 		txtpnNome.setText("Nome:");
 		novoContrato.add(txtpnNome);
 
-		JTextField textFieldNome = new JTextField();
+		textFieldNome = new JTextField();
 		textFieldNome.setBounds(147, 74, 420, 28);
 		textFieldNome.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldNome);
@@ -511,7 +510,7 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 		novoContrato.add(txtpnNascimento);
 
 		dateMask.setPlaceholderCharacter(' ');
-		JFormattedTextField textFieldData = new JFormattedTextField(dateMask);
+		textFieldData = new JFormattedTextField(dateMask);
 		textFieldData.setBounds(147, 110, 117, 28);
 		textFieldData.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldData.setColumns(10);
