@@ -1,4 +1,4 @@
-package interfaceGrafica;
+package visual;
 
 import java.text.ParseException;
 
@@ -22,10 +22,11 @@ public class HotelF extends JFrame {
 	 * @throws ParseException 
 	 */
 	public HotelF() throws ParseException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(HotelF.class.getResource("/resources/hotelRiviera.png")));
 		setResizable(false);
 		setTitle("Hotel Riviera Campina");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 865, 687);
+		setBounds(100, 100, 855, 687);
 		hotel = new JPanel();
 		hotel.setBackground(UIManager.getColor("Button.light"));
 		hotel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,6 +41,6 @@ public class HotelF extends JFrame {
 		tabbedPane.addTab("Recursos", null, recursos, null);
 
 		Informacoes info = new Informacoes();
-		tabbedPane.addTab("Informações", null, info, null);
+		tabbedPane.addTab("Informa\u00E7\u00F5es", null, info, null);
 	}
 }

@@ -1,4 +1,4 @@
-package interfaceGrafica;
+package visual;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -18,6 +18,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class LoginJ extends JFrame {
 
@@ -30,6 +32,7 @@ public class LoginJ extends JFrame {
 	private JPasswordField passwordField;
 	private JTextPane txtpnLogin;
 	private JTextPane txtpnSenha;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -58,16 +61,17 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/hotelRiviera.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 534, 469);
+		setBounds(100, 100, 464, 413);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
 		JButton btnOk = new JButton("Ok");
-		btnOk.setBounds(108, 367, 117, 25);
+		btnOk.setBounds(79, 322, 117, 25);
 		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -83,21 +87,17 @@ public class LoginJ extends JFrame {
 		contentPane.setLayout(null);
 		contentPane.add(btnOk);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(73, 27, 399, 231);
-		contentPane.add(panel);
-
 		textField = new JTextField();
-		textField.setBounds(182, 290, 227, 25);
+		textField.setBounds(153, 245, 227, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(182, 327, 227, 25);
+		passwordField.setBounds(153, 282, 227, 25);
 		contentPane.add(passwordField);
 
 		txtpnLogin = new JTextPane();
-		txtpnLogin.setBounds(108, 290, 64, 32);
+		txtpnLogin.setBounds(79, 245, 64, 32);
 		txtpnLogin.setEditable(false);
 		txtpnLogin.setFont(new Font("Verdana", Font.PLAIN, 16));
 		txtpnLogin.setBackground(SystemColor.activeCaptionBorder);
@@ -105,7 +105,7 @@ public class LoginJ extends JFrame {
 		contentPane.add(txtpnLogin);
 
 		txtpnSenha = new JTextPane();
-		txtpnSenha.setBounds(108, 327, 64, 32);
+		txtpnSenha.setBounds(79, 282, 64, 32);
 		txtpnSenha.setEditable(false);
 		txtpnSenha.setText("Senha:");
 		txtpnSenha.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -113,7 +113,7 @@ public class LoginJ extends JFrame {
 		contentPane.add(txtpnSenha);
 
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(292, 367, 117, 25);
+		btnCancelar.setBounds(263, 322, 117, 25);
 		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -121,5 +121,10 @@ public class LoginJ extends JFrame {
 			}
 		});
 		contentPane.add(btnCancelar);
+		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(LoginJ.class.getResource("/resources/hotelRiviera.png")));
+		lblNewLabel.setBounds(50, 20, 359, 215);
+		contentPane.add(lblNewLabel);
 	}
 }

@@ -27,14 +27,14 @@ public class Contrato {
 	private boolean isReserva;
 	private boolean isAberto;
 
-	public Contrato(Hospede hospedeTitular, List<String> acompanhantes,
+	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
 			EstrategiaAplicavel estrategia, Calendar dataCheckIn,
 			Calendar dataCheckOut, boolean isReserva, List<Servico> servicos)
 			throws NullPointerException, ContratoSemQuartoException,
 			FrigobarEmListServicosException, DataInvalidaException {
 
 		verificaHospedeTitularValido(hospedeTitular);
-		verificaAcompanhantesValidos(acompanhantes);
+		verificaAcompanhantesValidos(hospedesAcompanhantes);
 		verificaServicosValido(servicos);
 		verificaDatasValidas(dataCheckIn, dataCheckOut);
 
@@ -46,7 +46,7 @@ public class Contrato {
 		this.isReserva = isReserva;
 		this.isAberto = CONTRATO_ABERTO;
 
-		this.acompanhantes = acompanhantes;
+		this.acompanhantes = hospedesAcompanhantes;
 		this.servicos = servicos;
 
 	}// Construtor
@@ -176,9 +176,9 @@ public class Contrato {
 				+ "\n";
 	}
 
-	private void verificaAcompanhantesValidos(List<String> acompanhantes)
+	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)
 			throws NullPointerException {
-		if (acompanhantes == null)
+		if (hospedesAcompanhantes == null)
 			throw new NullPointerException();
 	} // verificaAcompanhantesValidos
 

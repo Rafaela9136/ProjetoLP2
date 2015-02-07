@@ -1,4 +1,4 @@
-package interfaceGrafica;
+package visual;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +14,7 @@ import javax.swing.JTextPane;
 
 import java.awt.Font;
 
-public class AvisoErro extends JFrame {
+public class AvisoSucesso extends JFrame {
 
 	/**
 	 */
@@ -24,7 +24,7 @@ public class AvisoErro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AvisoErro() {
+	public AvisoSucesso() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(266, 94, 381, 144);
@@ -43,12 +43,12 @@ public class AvisoErro extends JFrame {
 		btnOk.setBounds(122, 59, 117, 25);
 		contentPane.add(btnOk);
 		
-		JTextPane txtpnErro = new JTextPane();
-		txtpnErro.setEditable(false);
-		txtpnErro.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnErro.setText("Algo parece errado, tente novamente.");
-		txtpnErro.setBounds(63, 29, 225, 25);
-		contentPane.add(txtpnErro);
+		JTextPane txtpnOperaoRealizadaCom = new JTextPane();
+		txtpnOperaoRealizadaCom.setEditable(false);
+		txtpnOperaoRealizadaCom.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnOperaoRealizadaCom.setText("Opera\u00E7\u00E3o realizada com sucesso!");
+		txtpnOperaoRealizadaCom.setBounds(63, 29, 225, 25);
+		contentPane.add(txtpnOperaoRealizadaCom);
 	}
 
 }
