@@ -67,8 +67,15 @@ public class ContratoTest {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento);
 		estrategia = new EstrategiaNatalReveillon();
-		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
-		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
+		// Usada para settar as datas de teste, para que os testes continuem funcionando sem importar
+		// o tempo que faca que o teste foi criado 
+		Calendar momentoAgr = new GregorianCalendar();
+		dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
+		dataCheckOut = new GregorianCalendar(dataCheckIn.get(Calendar.YEAR),
+				dataCheckIn.get(Calendar.MONTH),
+				dataCheckIn.get(Calendar.MONTH) + 6);
 		baba = new Baba(dataCheckIn, dataCheckOut);
 
 		this.isTanqueCheio = true;
@@ -197,6 +204,16 @@ public class ContratoTest {
 
 		}// try-catch
 
+		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
+
+		try {
+			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+					dataCheckIn, dataCheckOut, isReserva, this.servicos);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
+		} catch (DataInvalidaException e) {
+
+		}// try-catch
+
 	}// testCriaContrato
 
 	@Test
@@ -232,7 +249,7 @@ public class ContratoTest {
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException {
 		servicos = new ArrayList<Servico>();
-		
+
 		servicos.add(carro);
 		servicos.add(baba);
 
@@ -240,14 +257,16 @@ public class ContratoTest {
 		servicos.add(quarto2);
 		servicos.add(quarto3);
 		servicos.add(quarto4);
-		System.out.println(dataCheckIn.getTime());
-		System.out.println(dataCheckOut.getTime());
-		
-		Assert.assertEquals(contrato1.getServicos().get(0).getPreco(), 550, 0.05);
-		System.out.println(contrato1.getServicos().get(1));
-		System.out.println(contrato1.getServicos().get(1).getPreco());
-		Assert.assertEquals(contrato1.getServicos().get(1).getPreco(), 4625, 0.05);
-		Assert.assertEquals(21750, contrato1.calculaValorTotalServicos(), 0.5);
+
+		Calendar dataInicio = new GregorianCalendar();
+		Calendar dataTermino = new GregorianCalendar(
+				dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH),
+				dataInicio.get(Calendar.DAY_OF_MONTH) + 5);
+
+		Carro carro2 = new Carro(TipoCarro.LUXO, dataInicio, dataTermino,
+				isTanqueCheio, isAssegurado);
+
+		Assert.assertEquals(21600, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos
 

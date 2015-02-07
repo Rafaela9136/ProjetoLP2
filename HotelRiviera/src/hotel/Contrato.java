@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.AddQuartoContratoException;
@@ -22,7 +23,6 @@ public class Contrato {
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private EstrategiaAplicavel estrategia;
-	private Frigobar frigobar;
 
 	private float despesasAdicionais;
 	private boolean isReserva;
@@ -51,7 +51,6 @@ public class Contrato {
 
 		this.acompanhantes = hospedesAcompanhantes;
 		this.servicos = servicos;
-		this.frigobar = new Frigobar();
 
 	}// Construtor
 
@@ -103,10 +102,15 @@ public class Contrato {
 		isReserva = estado;
 	}// setIsReserva
 
-	public void setDataCheckOut(Calendar novaData) throws NullPointerException {
-		verificaDataNull(novaData);
+	public void setDataCheckOut(Calendar novaData) throws NullPointerException, DataInvalidaException {
+		verificaDatasValidas(dataCheckIn, novaData);
 		dataCheckOut = novaData;
 	}// setDataCheckOut
+	
+	public void setDataCheckIn(Calendar novaData) throws NullPointerException, DataInvalidaException {
+		verificaDatasValidas(novaData, dataCheckOut);
+		dataCheckIn = novaData;
+	}// setDataCheckIn
 
 	public void adicionaServico(Servico servico)
 			throws FrigobarEmListServicosException, AddQuartoContratoException {
@@ -191,6 +195,11 @@ public class Contrato {
 			DataInvalidaException {
 		verificaDataNull(dataCheckIn);
 		verificaDataNull(dataCheckOut);
+		
+		if (dataCheckIn.before(new GregorianCalendar())
+				|| dataCheckOut.before(dataCheckIn))
+			throw new DataInvalidaException();
+		
 		if (dataCheckIn.compareTo(dataCheckOut) > 0)
 			throw new DataInvalidaException();
 	}// verificaDataValida
