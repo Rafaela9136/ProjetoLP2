@@ -3,9 +3,9 @@ package hotel;
 public enum TiposDeQuarto {
 	SIMPLES(1, 5, true), DUPLO(2, 15, true), TRIPLO(3, 20, false);
 	
-	private final int MAX_HOSPEDES;
-	private final int TOTAL_DISPONIVEL;
-	private final boolean PERMITE_CAMA_EXTRA;
+	private int MAX_HOSPEDES;
+	private int TOTAL_DISPONIVEL;
+	private boolean PERMITE_CAMA_EXTRA;
 	
 	private TiposDeQuarto(int MAX_HOSPEDES, int TOTAL_DISPONIVEL, boolean PERMITE_CAMA_EXTRA) {
 		this.MAX_HOSPEDES = MAX_HOSPEDES;
