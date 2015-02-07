@@ -113,18 +113,18 @@ public class CarroTest {
 		Carro carrao = new Carro(carroLuxo, new GregorianCalendar(2015,
 				Calendar.DECEMBER, 24), new GregorianCalendar(2016,
 				Calendar.JANUARY, 5), false, false);
-		Assert.assertEquals(carrao.numeroDeDias(), 12);
+		Assert.assertEquals(carrao.getNumeroDeDias(), 12);
 		Assert.assertEquals(carrao.getPreco(), 1200, 0.0001);
 
 		Carro carrinho = new Carro(carroLuxo, new GregorianCalendar(2015,
 				Calendar.OCTOBER, 29), new GregorianCalendar(2015,
 				Calendar.OCTOBER, 30), false, false);
-		Assert.assertEquals(carrinho.numeroDeDias(), 1);
+		Assert.assertEquals(carrinho.getNumeroDeDias(), 1);
 
 		Carro carro = new Carro(carroLuxo, new GregorianCalendar(2015,
 				Calendar.NOVEMBER, 12), new GregorianCalendar(2015,
 				Calendar.NOVEMBER, 12), false, false);
-		Assert.assertEquals(carro.numeroDeDias(), 0);
+		Assert.assertEquals(carro.getNumeroDeDias(), 0);
 	}
 
 	@Test
@@ -267,93 +267,92 @@ public class CarroTest {
 		Assert.assertEquals(carro1.getIsTanqueCheio(), true);
 		Assert.assertEquals(carro1.getIsAssegurado(), true);
 		Assert.assertEquals(carro1.getTipoDeCarro(), carroExecutivo);
-		Assert.assertEquals(carro1.numeroDeDias(), 23);
+		Assert.assertEquals(carro1.getNumeroDeDias(), 23);
 		Assert.assertEquals(carro1.getPreco(), 1630, 0.001);
 		carro1.setDataTermino(dataTermino3);
-		Assert.assertEquals(carro1.numeroDeDias(), 30);
+		Assert.assertEquals(carro1.getNumeroDeDias(), 30);
 		Assert.assertEquals(carro1.getPreco(), 2050, 0.001);
 
 		Assert.assertEquals(carro2.getIsTanqueCheio(), true);
 		Assert.assertEquals(carro2.getIsAssegurado(), false);
 		Assert.assertEquals(carro2.getTipoDeCarro(), carroLuxo);
-		Assert.assertEquals(carro2.numeroDeDias(), 14);
+		Assert.assertEquals(carro2.getNumeroDeDias(), 14);
 		Assert.assertEquals(carro2.getPreco(), 1550, 0.001);
 		carro2.setDataTermino(dataTermino1);
-		Assert.assertEquals(carro2.numeroDeDias(), 18);
+		Assert.assertEquals(carro2.getNumeroDeDias(), 18);
 		Assert.assertEquals(carro2.getPreco(), 1950, 0.001);
 
 		Assert.assertEquals(carro3.getIsTanqueCheio(), false);
 		Assert.assertEquals(carro3.getIsAssegurado(), true);
 		Assert.assertEquals(carro3.getTipoDeCarro(), carroLuxo);
-		Assert.assertEquals(carro3.numeroDeDias(), 13);
+		Assert.assertEquals(carro3.getNumeroDeDias(), 13);
 		Assert.assertEquals(carro3.getPreco(), 1400, 0.001);
 		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 22, 13, 50));
-		Assert.assertEquals(carro3.numeroDeDias(), 23);
+		Assert.assertEquals(carro3.getNumeroDeDias(), 23);
 		Assert.assertEquals(carro3.getPreco(), 2400, 0.001);
 
 		Assert.assertEquals(carro4.getIsTanqueCheio(), false);
 		Assert.assertEquals(carro4.getIsAssegurado(), false);
 		Assert.assertEquals(carro4.getTipoDeCarro(), carroExecutivo);
-		Assert.assertEquals(carro4.numeroDeDias(), 18);
+		Assert.assertEquals(carro4.getNumeroDeDias(), 18);
 		Assert.assertEquals(carro4.getPreco(), 1080, 0.001);
 		carro4.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 19, 10, 20));
-		Assert.assertEquals(carro4.numeroDeDias(), 32);
+		Assert.assertEquals(carro4.getNumeroDeDias(), 32);
 		Assert.assertEquals(carro4.getPreco(), 1920, 0.001);
 	}
 
 	@Test
 	public void testaToString() throws NullPointerException, DataInvalidaException {
-		System.out.println(carro1.toString());
 		Assert.assertEquals(
 				carro1.toString(),
-				"SERVIÇO CARRO\n"
+				"SERVICO CARRO\n"
 				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1630.0\n"
-				+ "Duração: 23 dias\n"
-				+ "Data Inicio: 12/6/2015\n"
-				+ "Data Termino: 5/7/2015");
-		carro1.setDataInicio(new GregorianCalendar(2015, Calendar.JUNE, 17));
+				+ "Duracao: 23 dias\n"
+				+ "Data Inicio: 12/6/2015 as 15:12\n"
+				+ "Data Termino: 5/7/2015 as 22:27");
+		carro1.setDataInicio(new GregorianCalendar(2015, Calendar.JUNE, 17, 20, 16));
 		Assert.assertEquals(
 				carro1.toString(),
-				"SERVIÇO CARRO\n"
+				"SERVICO CARRO\n"
 				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1330.0\n"
-				+ "Duração: 18 dias\n"
-				+ "Data Inicio: 17/6/2015\n"
-				+ "Data Termino: 5/7/2015");
-		carro1.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 15));
+				+ "Duracao: 18 dias\n"
+				+ "Data Inicio: 17/6/2015 as 20:16\n"
+				+ "Data Termino: 5/7/2015 as 22:27");
+		carro1.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 15, 14, 53));
 		Assert.assertEquals(
 				carro1.toString(),
-				"SERVIÇO CARRO\n"
+				"SERVICO CARRO\n"
 				+ "Tipo: Executivo\n"
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1930.0\n"
-				+ "Duração: 28 dias\n"
-				+ "Data Inicio: 17/6/2015\n"
-				+ "Data Termino: 15/7/2015");
+				+ "Duracao: 28 dias\n"
+				+ "Data Inicio: 17/6/2015 as 20:16\n"
+				+ "Data Termino: 15/7/2015 as 14:53");
 		
 		Assert.assertEquals(
 				carro3.toString(),
-				"SERVIÇO CARRO\n"
+				"SERVICO CARRO\n"
 				+ "Tipo: Luxo\n"
 				+ "Adicionais: [Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1400.0\n"
-				+ "Duração: 13 dias\n"
-				+ "Data Inicio: 29/6/2015\n"
-				+ "Data Termino: 12/7/2015");
-		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 29));
-		carro3.setDataInicio(new GregorianCalendar(2015, Calendar.JULY, 3));
+				+ "Duracao: 13 dias\n"
+				+ "Data Inicio: 29/6/2015 as 10:01\n" // ta ficando 10:1 <<< corrigir
+				+ "Data Termino: 12/7/2015 as 7:32");
+		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 29, 9, 30));
+		carro3.setDataInicio(new GregorianCalendar(2015, Calendar.JULY, 3, 10, 10));
 		Assert.assertEquals(
 				carro3.toString(),
-				"SERVIÇO CARRO\n"
+				"SERVICO CARRO\n"
 				+ "Tipo: Luxo\n"
 				+ "Adicionais: [Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 2700.0\n"
-				+ "Duração: 26 dias\n"
-				+ "Data Inicio: 3/7/2015\n"
-				+ "Data Termino: 29/7/2015");
+				+ "Duracao: 26 dias\n"
+				+ "Data Inicio: 3/7/2015 as 10:10\n"
+				+ "Data Termino: 29/7/2015 as 9:30");
 	}
 
 	@Test
