@@ -244,7 +244,9 @@ public class ContratoTest {
 		System.out.println(dataCheckOut.getTime());
 		
 		Assert.assertEquals(contrato1.getServicos().get(0).getPreco(), 550, 0.05);
-		Assert.assertEquals(contrato1.getServicos().get(1).getPreco(), 4550, 0.05);
+		System.out.println(contrato1.getServicos().get(1));
+		System.out.println(contrato1.getServicos().get(1).getPreco());
+		Assert.assertEquals(contrato1.getServicos().get(1).getPreco(), 4625, 0.05);
 		Assert.assertEquals(21750, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos

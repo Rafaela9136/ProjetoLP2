@@ -85,7 +85,7 @@ public class Baba implements Servico {
 	}// calculaPreco
 
 	private boolean verificaSeEHoraDobrada(int hora) {
-		if (hora >= INICIO_HORA_DOBRADA || hora <= FIM_HORA_DOBRADA) {
+		if (hora >= INICIO_HORA_DOBRADA || hora < FIM_HORA_DOBRADA) {
 			return true;
 		} else {
 			return false;
