@@ -68,19 +68,18 @@ public class Baba implements Servico {
 
 	private double calculaPreco() {
 		double preco = 0;
-		int horaInicial = inicioDoServico.get(Calendar.HOUR_OF_DAY);
-		int horaFinal = terminoDoServico.get(Calendar.HOUR_OF_DAY);
+		int hora = inicioDoServico.get(Calendar.HOUR_OF_DAY);
 
 		for (int i = 0; i < getNumeroDeHoras(); i++) {
-			if (verificaSeEHoraDobrada(horaInicial))
+			if (verificaSeEHoraDobrada(hora))
 				preco += VALOR_HORA_DOBRADA;
 			else
 				preco += VALOR_HORA;
 
-			if (horaInicial == 23)
-				horaInicial = 0;
+			if (hora == 23)
+				hora = 0;
 			else
-				horaInicial++;
+				hora++;
 		}
 		return preco;
 	}// calculaPreco
