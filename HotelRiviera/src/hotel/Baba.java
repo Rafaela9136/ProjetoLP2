@@ -3,7 +3,6 @@ package hotel;
 import java.util.*;
 
 import excecoes.DataInvalidaException;
-import excecoes.NomeVazioException;
 
 public class Baba implements Servico {
 
@@ -15,60 +14,34 @@ public class Baba implements Servico {
 	public static final int FIM_HORA_DOBRADA = 7;
 	private static final double MILISSEGUNDOS_EM_UMA_HORA = 3600000;
 
-	private Calendar inicioDoServico;
-	private Calendar terminoDoServico;
+	private Calendar dataInicio;
+	private Calendar dataTermino;
 	private int numDeHoras;
 
-	public Baba(Calendar inicioDoServico, Calendar terminoDoServico)
-			throws NullPointerException {
-		verificaData(inicioDoServico);
-		verificaData(terminoDoServico);
-		this.inicioDoServico = inicioDoServico;
-		this.terminoDoServico = terminoDoServico;
+	public Baba(Calendar dataInicio, Calendar dataTermino)
+			throws NullPointerException, DataInvalidaException {
+		verificaData(dataInicio, dataTermino);
+		this.dataInicio = dataInicio;
+		this.dataTermino = dataTermino;
 		numDeHoras = 0;
-	}// Construtor
-
-	private void verificaData(Calendar data) {
-		if (data == null)
-			throw new NullPointerException();
 	}
 
 	public void setTerminoDoServico(Calendar novaDataTermino)
-			throws NullPointerException {
-		verificaData(novaDataTermino);
-		terminoDoServico = novaDataTermino;
-	}// setTerminoDoServico
+			throws NullPointerException, DataInvalidaException {
+		verificaData(dataInicio, novaDataTermino);
+		dataTermino = novaDataTermino;
+	}
 
 	public void setInicioDoServico(Calendar novaDataInicio)
-			throws NullPointerException {
-		verificaData(novaDataInicio);
-		inicioDoServico = novaDataInicio;
-	}// setInicioDoServico
+			throws NullPointerException, DataInvalidaException {
+		verificaData(novaDataInicio, dataTermino);
+		dataInicio = novaDataInicio;
+	}
 
 	@Override
 	public double getPreco() {
-		return calculaPreco();
-	}// getPreco
-
-	public Calendar getInicioDoServico() {
-		return inicioDoServico;
-	}// getInicioDoServico
-
-	public Calendar getTerminoDoServico() {
-		return terminoDoServico;
-	}// getTerminoDoServico
-
-	public int getNumeroDeHoras() {
-		long tempoInicial = inicioDoServico.getTimeInMillis();
-		long tempoFinal = terminoDoServico.getTimeInMillis();
-		numDeHoras = (int) Math
-				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UMA_HORA));
-		return numDeHoras;
-	}// getNumeroDeDias
-
-	private double calculaPreco() {
 		double preco = 0;
-		int hora = inicioDoServico.get(Calendar.HOUR_OF_DAY);
+		int hora = dataInicio.get(Calendar.HOUR_OF_DAY);
 
 		for (int i = 0; i < getNumeroDeHoras(); i++) {
 			if (verificaSeEHoraDobrada(hora))
@@ -82,7 +55,23 @@ public class Baba implements Servico {
 				hora++;
 		}
 		return preco;
-	}// calculaPreco
+	}
+
+	public Calendar getDataInicio() {
+		return dataInicio;
+	}
+
+	public Calendar getDataTermino() {
+		return dataTermino;
+	}
+
+	public int getNumeroDeHoras() {
+		long tempoInicial = dataInicio.getTimeInMillis();
+		long tempoFinal = dataTermino.getTimeInMillis();
+		numDeHoras = (int) Math
+				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UMA_HORA));
+		return numDeHoras;
+	}
 
 	private boolean verificaSeEHoraDobrada(int hora) {
 		if (hora >= INICIO_HORA_DOBRADA || hora < FIM_HORA_DOBRADA) {
@@ -90,19 +79,33 @@ public class Baba implements Servico {
 		} else {
 			return false;
 		}
-	}// verificaSeEHoraDobrada
+	}
+
+	private void verificaData(Calendar dataInicio, Calendar dataTermino)
+			throws NullPointerException, DataInvalidaException {
+		if (dataInicio == null || dataTermino == null)
+			throw new NullPointerException();
+		if (dataInicio.before(new GregorianCalendar())
+				|| dataTermino.before(dataInicio))
+			throw new DataInvalidaException();
+	}
 
 	@Override
 	public String toString() {
-		return "SERVIÇO BABYSITTER"
-				+ "Início do serviço: "
-				+ inicioDoServico
-				+ "Término do serviço: "
-				+ terminoDoServico
-				+ "Duração do serviço: "
-				+ "Valor total do serviço: "
-				+ getPreco()
-				+ "OBS: Das 18 h às 7 horas o valor do serviço é cobrado em dobro.";
+		return "SERVICO BABYSITTER\n" + "Preco Total: R$ " + getPreco()
+				+ "\nDuracao: " + getNumeroDeHoras() + " horas"
+				+ "\nData Inicio: "
+				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
+				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
+				+ getDataInicio().get(Calendar.YEAR) + " as "
+				+ getDataInicio().get(Calendar.HOUR_OF_DAY) + ":"
+				+ getDataInicio().get(Calendar.MINUTE) + "\nData Termino: "
+				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
+				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
+				+ getDataTermino().get(Calendar.YEAR) + " as "
+				+ getDataTermino().get(Calendar.HOUR_OF_DAY) + ":"
+				+ getDataTermino().get(Calendar.MINUTE)
+				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
 	@Override
@@ -110,9 +113,10 @@ public class Baba implements Servico {
 		if (!(obj instanceof Baba)) {
 			return false;
 		}
-		Baba outro = (Baba) obj;
-		return (getInicioDoServico().equals(outro.getInicioDoServico()) && getInicioDoServico()
-				.equals(outro.getTerminoDoServico()));
+		Baba outra = (Baba) obj;
+		return (getPreco() == outra.getPreco()
+				&& getDataInicio().equals(outra.getDataInicio()) && getDataTermino()
+				.equals(outra.getDataTermino()));
 	}
 
 }// Baba

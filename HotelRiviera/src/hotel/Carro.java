@@ -61,7 +61,6 @@ public class Carro implements Servico {
 		this.isAssegurado = isAssegurado;
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
-		
 	}
 
 	/**
@@ -176,7 +175,7 @@ public class Carro implements Servico {
 	}
 
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
-			throws DataInvalidaException {
+			throws NullPointerException, DataInvalidaException {
 		if (dataInicio == null || dataTermino == null)
 			throw new NullPointerException();
 		if (dataInicio.before(new GregorianCalendar())
@@ -207,7 +206,7 @@ public class Carro implements Servico {
 		return "SERVICO CARRO" + "\nTipo: " + tipoDeCarro.getTipoNome() + "\n"
 				+ "Adicionais: " + Arrays.toString(adicionais.toArray())
 				+ "\nPreco Total: R$ " + getPreco() + "\nDuracao: "
-				+ numDeDias + " dias" + "\nData Inicio: "
+				+ getNumeroDeDias() + " dias" + "\nData Inicio: "
 				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
 				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
 				+ getDataInicio().get(Calendar.YEAR) + " as "
