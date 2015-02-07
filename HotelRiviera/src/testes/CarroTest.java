@@ -303,6 +303,10 @@ public class CarroTest {
 
 	@Test
 	public void testaToString() throws NullPointerException, DataInvalidaException {
+		Calendar d1 = new GregorianCalendar(2015, 1, 2, 7, 0);
+		Calendar d2 = new GregorianCalendar(2015, 1, 3, 20, 0);
+		System.out.println(d1.getTimeInMillis());
+		System.out.println(d2.getTimeInMillis());
 		Assert.assertEquals(
 				carro1.toString(),
 				"SERVICO CARRO\n"
