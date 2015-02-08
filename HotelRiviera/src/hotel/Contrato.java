@@ -260,40 +260,23 @@ public class Contrato {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Contrato other = (Contrato) obj;
-		if (acompanhantes == null) {
-			if (other.acompanhantes != null)
-				return false;
-		} else if (!acompanhantes.equals(other.acompanhantes))
+		if (!acompanhantes.equals(other.acompanhantes))
 			return false;
-		if (dataCheckIn == null) {
-			if (other.dataCheckIn != null)
-				return false;
-		} else if (!dataCheckIn.equals(other.dataCheckIn))
+		if (!dataCheckIn.equals(other.dataCheckIn))
 			return false;
-		if (dataCheckOut == null) {
-			if (other.dataCheckOut != null)
-				return false;
-		} else if (!dataCheckOut.equals(other.dataCheckOut))
+		if (!dataCheckOut.equals(other.dataCheckOut))
 			return false;
 		if (Float.floatToIntBits(despesasAdicionais) != Float
 				.floatToIntBits(other.despesasAdicionais))
 			return false;
-		if (estrategia == null) {
-			if (other.estrategia != null)
-				return false;
-		} else if (!estrategia.equals(other.estrategia))
+		if (!estrategia.equals(other.estrategia))
 			return false;
-		if (hospedeTitular == null) {
-			if (other.hospedeTitular != null)
-				return false;
-		} else if (!hospedeTitular.equals(other.hospedeTitular))
+		if (!hospedeTitular.equals(other.hospedeTitular))
 			return false;
 		if (isAberto != other.isAberto)
 			return false;
@@ -304,12 +287,10 @@ public class Contrato {
 				return false;
 		} else if (!opiniao.equals(other.opiniao))
 			return false;
-		if (servicos == null) {
-			if (other.servicos != null)
-				return false;
-		} else if (!servicos.equals(other.servicos))
+		if (!servicos.equals(other.servicos))
 			return false;
 		return true;
-	}
+	}// equals
 
+	
 }// Contrato

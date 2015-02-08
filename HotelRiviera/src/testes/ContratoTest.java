@@ -7,6 +7,7 @@ import hotel.ContaRestaurante;
 import hotel.Contrato;
 import hotel.EstrategiaAplicavel;
 import hotel.EstrategiaNatalReveillon;
+import hotel.EstrategiaSaoJoaoPremium;
 import hotel.Frigobar;
 import hotel.Hospede;
 import hotel.QuartoLuxo;
@@ -338,11 +339,77 @@ public class ContratoTest {
 	@Test
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
-			DataInvalidaException {
+			DataInvalidaException, CPFInvalidoException,
+			AddQuartoContratoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertTrue(contrato1.equals(contrato2));
+
+		Calendar dataNascimento2 = new GregorianCalendar(1500, 6, 9);
+		Hospede hospedeTitular2 = new Hospede("Jao da lenha", dataNascimento2);
+
+		contrato2 = new Contrato(hospedeTitular2, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
+
+		acompanhantes.add("Mais um");
+
+		List<String> acompanhantes2 = new ArrayList<String>();
+		contrato2 = new Contrato(hospedeTitular, acompanhantes2, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
+
+		estrategia = new EstrategiaSaoJoaoPremium();
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
+
+		estrategia = new EstrategiaNatalReveillon();
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertTrue(contrato1.equals(contrato2));
+
+		final boolean NAO_RESERVA = false;
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, NAO_RESERVA, servicos);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertTrue(contrato1.equals(contrato2));
+
+		List<Servico> servicos2 = new ArrayList<Servico>();
+
+		servicos2.add(quarto5);
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos2);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
+
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+				dataCheckIn, dataCheckOut, isReserva, servicos);
+
+		Assert.assertTrue(contrato1.equals(contrato2));
+
+		contrato2.adicionaDespesa(500);
+
+		Assert.assertFalse(contrato1.equals(contrato2));
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);
