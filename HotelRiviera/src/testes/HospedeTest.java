@@ -1,7 +1,7 @@
 package testes;
 
 import static org.junit.Assert.fail;
-import hotel.Estados;
+import hotel.Estado;
 import hotel.Hospede;
 
 import java.util.Calendar;
@@ -22,7 +22,7 @@ public class HospedeTest {
 	@Before
 	public void CriaObjetos() throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException {
-		hospede1 = new Hospede("nome", data, true, "pais", Estados.RO,
+		hospede1 = new Hospede("nome", data, true, "pais", Estado.RO,
 				"cidade", "endereco", "numero", "12345678911");
 		hospede2 = new Hospede("nome", data);
 	}
@@ -30,7 +30,7 @@ public class HospedeTest {
 	@Test
 	public void testConstrutorCompleto() {
 		try {
-			new Hospede(null, data, true, "pais", Estados.RO, "cidade",
+			new Hospede(null, data, true, "pais", Estado.RO, "cidade",
 					"endereco", "numero", "12345678911");
 			Assert.fail("Esperava excecao");
 		} catch (CPFInvalidoException e) {
@@ -39,7 +39,7 @@ public class HospedeTest {
 
 		}
 		try {
-			new Hospede("nome", data, true, "pais", Estados.RO, "cidade",
+			new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
 					"endereco", "numero", "234");
 			Assert.fail("Esperava excecao");
 		} catch (CPFInvalidoException e) {
@@ -48,7 +48,7 @@ public class HospedeTest {
 			fail();
 		}
 		try {
-			new Hospede("nome", data, true, "pais", Estados.RO, "cidade",
+			new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
 					"endereco", "numero", "1234567891011");
 			Assert.fail("Esperava excecao");
 		} catch (CPFInvalidoException e) {
@@ -62,33 +62,33 @@ public class HospedeTest {
 	public void testEquals() throws NullPointerException, CPFInvalidoException,
 			DataInvalidaException {
 		Hospede hospede;
-		hospede = new Hospede("Claudio", data, true, "pais", Estados.RO,
+		hospede = new Hospede("Claudio", data, true, "pais", Estado.RO,
 				"cidade", "endereco", "numero", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, false, "pais", Estados.RO,
+		hospede = new Hospede("nome", data, false, "pais", Estado.RO,
 				"cidade", "endereco", "numero", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.AC, "cidade",
+		hospede = new Hospede("nome", data, true, "pais", Estado.AC, "cidade",
 				"endereco", "numero", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.AC,
+		hospede = new Hospede("nome", data, true, "pais", Estado.AC,
 				"Campina Grande", "endereco", "numero", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.RO, "cidade",
+		hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
 				"R Manoel Morais", "numero", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.AC, "cidade",
+		hospede = new Hospede("nome", data, true, "pais", Estado.AC, "cidade",
 				"endereco", "529", "12345678911");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.RO, "cidade",
+		hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
 				"endereco", "numero", "12345678910");
 		Assert.assertFalse(hospede1.equals(hospede));
-		hospede = new Hospede("nome", data, true, "pais", Estados.RO, "cidade",
+		hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
 				"endereco", "numero", "12345678911");
 		Assert.assertTrue(hospede1.equals(hospede));
 		Assert.assertFalse(hospede2.equals(hospede));
 		hospede = new Hospede("nome", data, false, SET_NAO_MORA_NO_BRASIL,
-				Estados.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
+				Estado.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
 		Assert.assertTrue(hospede2.equals(hospede));
 	}
