@@ -1,6 +1,5 @@
 package testes;
 
-import static org.junit.Assert.*;
 import hotel.Baba;
 import hotel.Carro;
 import hotel.ContaRestaurante;
