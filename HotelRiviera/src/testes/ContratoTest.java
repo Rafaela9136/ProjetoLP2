@@ -31,6 +31,7 @@ import excecoes.AddQuartoContratoException;
 import excecoes.CPFInvalidoException;
 import excecoes.CamaExtraException;
 import excecoes.CartaoInvalidoException;
+import excecoes.ComentarioVazioException;
 import excecoes.ContratoFechadoException;
 import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
@@ -314,7 +315,7 @@ public class ContratoTest {
 	@Test
 	public void testSetIsAberto() throws ContratoFechadoException,
 			ContratoSemOpiniaoException, NullPointerException,
-			NotaInvalidaException, EstouroDeCaracteresException {
+			NotaInvalidaException, EstouroDeCaracteresException, ComentarioVazioException {
 		final boolean FECHADO = false;
 		final boolean ABERTO = true;
 		try {
