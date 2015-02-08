@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.AddQuartoContratoException;
+import excecoes.ComentarioVazioException;
 import excecoes.ContratoFechadoException;
 import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
@@ -245,10 +246,11 @@ public class Contrato {
 	 * @throws NullPointerException
 	 * @throws NotaInvalidaException
 	 * @throws EstouroDeCaracteresException
+	 * @throws ComentarioVazioException 
 	 */
 	public void inicializaOpiniao(float nota, String comentario)
 			throws NullPointerException, NotaInvalidaException,
-			EstouroDeCaracteresException {
+			EstouroDeCaracteresException, ComentarioVazioException {
 		opiniao = new Opiniao(comentario, nota);
 	}// setOpiniao
 

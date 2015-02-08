@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecoes.ComentarioVazioException;
 import excecoes.EstouroDeCaracteresException;
 import excecoes.NotaInvalidaException;
 
@@ -22,7 +23,7 @@ public class OpiniaoTest {
 	
 	@Before
 	public void criaObjetos() throws EstouroDeCaracteresException,
-			NotaInvalidaException {
+			NotaInvalidaException, NullPointerException, ComentarioVazioException {
 		opiniao = new Opiniao(COMENT, NOTA);
 	}
 
@@ -33,41 +34,42 @@ public class OpiniaoTest {
 			Assert.fail("Esperava excecao");
 		} catch (NotaInvalidaException e) {
 
-		} catch (EstouroDeCaracteresException e) {
+		} catch (Exception e) {
 			fail();
-		} catch (NullPointerException e) {
+		}// try-catch
+		try {
+			new Opiniao("", 6);
+			Assert.fail("Esperava excecao");
+		} catch (ComentarioVazioException e) {
+
+		} catch (Exception e) {
 			fail();
-		}
+		}// try-catch
 		try {
 			new Opiniao(COMENT, -1);
 			Assert.fail("Esperava excecao");
 		} catch (NotaInvalidaException e) {
-		} catch (EstouroDeCaracteresException e) {
+		} catch (Exception e) {
 			fail();
-		} catch (NullPointerException e) {
-			fail();
-		}
+		}// try-catch
 		try {
 			new Opiniao(null, NOTA);
 			Assert.fail("Esperava excecao");
-		} catch (NotaInvalidaException e) {
-			fail();
-		} catch (EstouroDeCaracteresException e) {
-			fail();
 		} catch (NullPointerException e) {
 
-		}
+		} catch (Exception e) {
+			
+		}// try-catch
+		
 		try {
 			new Opiniao(comentExcessivo, 7);
 			Assert.fail("Esperava excecao");
-		} catch (NotaInvalidaException e) {
-			fail();
 		} catch (EstouroDeCaracteresException e) {
 
-		} catch (NullPointerException e) {
-			fail();
-		}
-	}
+		} catch (Exception e) {
+			
+		}// try-catch
+	}// TestOpiniaoConstrutor
 
 	@Test
 	public void testEquals() throws Exception {
