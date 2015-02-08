@@ -1,7 +1,5 @@
 package hotel;
 
-import java.util.Calendar;
-
 public abstract class Quarto implements Servico{
 	
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";	
@@ -38,7 +36,7 @@ public abstract class Quarto implements Servico{
 		return "Quarto [preco=" + this.getPreco() + ", temCamaExtra=" + CamaExtra
 				+ "]";
 	}
-
+	
 	public Frigobar getFrigobar() {
 		return frigobar;
 	}

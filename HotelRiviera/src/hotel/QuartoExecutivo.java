@@ -1,5 +1,7 @@
 package hotel;
 
+import excecoes.CamaExtraException;
+
 public class QuartoExecutivo extends Quarto{
 	
 	public static final double DIARIA_EXECUTIVO_SIMPLES = 360.0;
@@ -11,11 +13,13 @@ public class QuartoExecutivo extends Quarto{
 	
 	private TiposDeQuarto tipoDeQuarto;
 		 
-	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException {
+	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException, CamaExtraException {
 		super(temCamaExtra);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
-		}
+		} else if(!tipoDeQuarto.isPERMITE_CAMA_EXTRA())
+			throw new CamaExtraException();
+		
 		this.tipoDeQuarto = tipoDeQuarto;
 	}
 	

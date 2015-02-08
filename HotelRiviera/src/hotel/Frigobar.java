@@ -17,8 +17,6 @@ public class Frigobar implements Servico {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
@@ -34,7 +32,12 @@ public class Frigobar implements Servico {
 	public double getPreco() {
 		return preco;
 	}// getPreco
-
+	/**
+	 * @see nothing Metodo responsavel por somar algum valor ao preco do frigobar. E possivel somar valores negativos
+	 * para que caso o usuario adicione algum valor errado ele possa consertar.
+	 * @param valor Valor a ser somado
+	 * @throws ValorNegativoException Lanca excecao quando a soma do preco e o valor e menor que zero.
+	 */
 	public void somaPreco(double valor) throws ValorNegativoException {
 		if (valor + preco < 0)
 			throw new ValorNegativoException();
