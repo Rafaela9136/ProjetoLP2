@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import excecoes.CPFInvalidoException;
+import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
 import excecoes.StringVaziaException;
 
@@ -15,14 +16,13 @@ public class Hospede {
 	private String nome, pais, cidade, logradouro, numero, cpf,
 			cartaoDeCredito;
 	private Calendar dataNascimento;
-	private boolean moraNoBrasil;
 	private Estado estado;
 
-	public Hospede(String nome, Calendar dataNascimento, boolean moraNoBrasil,
-			String pais, Estado estado, String cidade, String logradouro,
-			String numero, String cpf, String cartaoDeCredito)
-			throws NullPointerException, CPFInvalidoException,
-			DataInvalidaException, StringVaziaException {
+	public Hospede(String nome, Calendar dataNascimento, String pais,
+			Estado estado, String cidade, String logradouro, String numero,
+			String cpf, String cartaoDeCredito) throws NullPointerException,
+			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CartaoInvalidoException {
 		verificaStringVazia(nome);
 		verificaData(dataNascimento);
 		verificaStringVazia(pais);
@@ -30,8 +30,9 @@ public class Hospede {
 		verificaStringVazia(cidade);
 		verificaStringVazia(logradouro);
 		verificaStringVazia(numero);
-		verificaCPF(cpf);
-		verificaStringVazia(cartaoDeCredito);
+		if (pais.toLowerCase().equals("brasil"))
+			verificaCPF(cpf);
+		verificaCartao(cartaoDeCredito);
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.pais = pais;
@@ -45,9 +46,10 @@ public class Hospede {
 
 	public Hospede(String nome, Calendar dataNascimento, String cartaoDeCredito)
 			throws NullPointerException, CPFInvalidoException,
-			DataInvalidaException, StringVaziaException {
-		this(nome, dataNascimento, NAO_BRASILEIRO, SET_NAO_MORA_NO_BRASIL,
-				Estado.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
+			DataInvalidaException, StringVaziaException,
+			CartaoInvalidoException {
+		this(nome, dataNascimento, SET_NAO_MORA_NO_BRASIL, Estado.XX,
+				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL, cartaoDeCredito);
 	}// Construtor 2
 
@@ -65,10 +67,6 @@ public class Hospede {
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
-	}
-
-	public boolean isMoraNoBrasil() {
-		return moraNoBrasil;
 	}
 
 	public String getPais() {
@@ -110,7 +108,9 @@ public class Hospede {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(String cpf) throws NullPointerException,
+			CPFInvalidoException, StringVaziaException {
+		verificaCPF(cpf);
 		this.cpf = cpf;
 	}
 
@@ -138,7 +138,7 @@ public class Hospede {
 	private void verificaCPF(String cpf) throws NullPointerException,
 			CPFInvalidoException, StringVaziaException {
 		verificaStringVazia(cpf);
-		if (cpf.length() != 11)
+		if (cpf.trim().length() != 11)
 			throw new CPFInvalidoException();
 	}
 
@@ -149,12 +149,19 @@ public class Hospede {
 			throw new StringVaziaException();
 	}
 
+	private void verificaCartao(String numCartao) throws NullPointerException,
+			CartaoInvalidoException, StringVaziaException {
+		verificaStringVazia(numCartao);
+		if (numCartao.trim().length() != 16)
+			throw new CartaoInvalidoException();
+	}
+
 	@Override
 	public String toString() {
 		return "Hospede [nome=" + nome + ", dataNascimento=" + dataNascimento
-				+ ", moraNoBrasil=" + moraNoBrasil + ", pais=" + pais
-				+ ", estado=" + estado + ", cidade=" + cidade + ", endereco="
-				+ logradouro + ", numero=" + numero + ", CPF=" + cpf + "]";
+				+ ", pais=" + pais + ", estado=" + estado + ", cidade="
+				+ cidade + ", endereco=" + logradouro + ", numero=" + numero
+				+ ", CPF=" + cpf + "]";
 	}
 
 	@Override
