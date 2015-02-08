@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import excecoes.AddQuartoContratoException;
+import excecoes.ContratoFechadoException;
+import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
@@ -94,7 +96,12 @@ public class Contrato {
 		return hospedeTitular;
 	}// getHospedeTitular
 
-	public void setIsAberto(boolean estado) {
+	public void setIsAberto(boolean estado) throws ContratoFechadoException, ContratoSemOpiniaoException {
+		if(!isAberto)
+			throw new ContratoFechadoException();
+		
+		if(!estado && opiniao == null)
+			throw new ContratoSemOpiniaoException();
 		isAberto = estado;
 	}// setIsAberto
 

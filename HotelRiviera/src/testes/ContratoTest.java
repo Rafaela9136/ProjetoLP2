@@ -3,6 +3,7 @@ package testes;
 import static org.junit.Assert.*;
 import hotel.Baba;
 import hotel.Carro;
+import hotel.ContaRestaurante;
 import hotel.Contrato;
 import hotel.EstrategiaAplicavel;
 import hotel.EstrategiaNatalReveillon;
@@ -27,10 +28,15 @@ import org.junit.Test;
 
 import excecoes.AddQuartoContratoException;
 import excecoes.CPFInvalidoException;
+import excecoes.ContratoFechadoException;
+import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
+import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
+import excecoes.NotaInvalidaException;
+import excecoes.ValorNegativoException;
 
 public class ContratoTest {
 	public static final boolean NAO_TEM_CAMA_EXTRA = false;
@@ -45,6 +51,7 @@ public class ContratoTest {
 	private EstrategiaAplicavel estrategia;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
+	private Calendar momentoAgr;
 	private boolean isReserva;
 	private List<Servico> servicos;
 	private Baba baba;
@@ -67,15 +74,16 @@ public class ContratoTest {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento);
 		estrategia = new EstrategiaNatalReveillon();
-		// Usada para settar as datas de teste, para que os testes continuem funcionando sem importar
-		// o tempo que faca que o teste foi criado 
-		Calendar momentoAgr = new GregorianCalendar();
+		// Usada para settar as datas de teste, para que os testes continuem
+		// funcionando sem importar
+		// o tempo que faca que o teste foi criado
+		momentoAgr = new GregorianCalendar();
 		dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
 		dataCheckOut = new GregorianCalendar(dataCheckIn.get(Calendar.YEAR),
 				dataCheckIn.get(Calendar.MONTH),
-				dataCheckIn.get(Calendar.MONTH) + 6);
+				dataCheckIn.get(Calendar.DAY_OF_MONTH) + 5);
 		baba = new Baba(dataCheckIn, dataCheckOut);
 
 		this.isTanqueCheio = true;
@@ -117,6 +125,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		try {
@@ -125,6 +135,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado ");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		try {
@@ -133,6 +145,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		try {
@@ -141,6 +155,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		try {
@@ -149,6 +165,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		try {
@@ -157,6 +175,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		dataCheckIn.set(Calendar.MONTH, 6);
@@ -167,6 +187,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		dataCheckIn.set(Calendar.MONTH, 4);
@@ -179,6 +201,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		servicos.add(baba);
@@ -189,6 +213,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		servicos.remove(0);
@@ -202,6 +228,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
@@ -212,6 +240,8 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
 	}// testCriaContrato
@@ -226,15 +256,15 @@ public class ContratoTest {
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
 
-		} catch (AddQuartoContratoException e) {
-			Assert.fail("Excecao errada");
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 		try {
 			contrato1.adicionaServico(quarto5);
 			Assert.fail("Deveria ter lancado AddQuartoContratoException");
 		} catch (AddQuartoContratoException e) {
 
-		} catch (FrigobarEmListServicosException e) {
+		} catch (Exception e) {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
@@ -245,20 +275,14 @@ public class ContratoTest {
 	}// testAdicionaServico
 
 	@Test
-	public void testCalculaValorTotalServicos() throws NullPointerException,
-			ContratoSemQuartoException, FrigobarEmListServicosException,
-			DataInvalidaException {
-		servicos = new ArrayList<Servico>();
+	public void testCalculaValorTotalServicos() throws ValorNegativoException,
+			NullPointerException, DataInvalidaException {
+		Assert.assertEquals(21600, contrato1.calculaValorTotalServicos(), 0.5);
 
-		servicos.add(carro);
-		servicos.add(baba);
+		Calendar dataInicio = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR), Calendar.MONTH,
+				Calendar.DAY_OF_MONTH + 1);
 
-		servicos.add(quarto1);
-		servicos.add(quarto2);
-		servicos.add(quarto3);
-		servicos.add(quarto4);
-
-		Calendar dataInicio = new GregorianCalendar();
 		Calendar dataTermino = new GregorianCalendar(
 				dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH),
 				dataInicio.get(Calendar.DAY_OF_MONTH) + 5);
@@ -266,9 +290,50 @@ public class ContratoTest {
 		Carro carro2 = new Carro(TipoCarro.LUXO, dataInicio, dataTermino,
 				isTanqueCheio, isAssegurado);
 
-		Assert.assertEquals(21600, contrato1.calculaValorTotalServicos(), 0.5);
+		servicos.add(carro2);
+
+		Assert.assertEquals(22500, contrato1.calculaValorTotalServicos(), 0.5);
+
+		Baba baba2 = new Baba(dataInicio, dataTermino);
+
+		servicos.add(baba2);
+
+		Assert.assertEquals(28050, contrato1.calculaValorTotalServicos(), 0.5);
+		ContaRestaurante conta = new ContaRestaurante(1000);
+
+		servicos.add(conta);
+
+		Assert.assertEquals(29250, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos
+
+	@Test
+	public void testSetIsAberto() throws ContratoFechadoException,
+			ContratoSemOpiniaoException, NullPointerException,
+			NotaInvalidaException, EstouroDeCaracteresException {
+		final boolean FECHADO = false;
+		final boolean ABERTO = true;
+		try {
+			contrato1.setIsAberto(FECHADO);
+			Assert.fail("Deveria ter lancado ContratoSemOpiniaoException");
+		} catch (ContratoSemOpiniaoException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+
+		contrato1.inicializaOpiniao(6, "Eh meio paia o hotel");
+		contrato1.setIsAberto(FECHADO);
+
+		try {
+			contrato1.setIsAberto(ABERTO);
+			Assert.fail("Deveria ter lancado ContratoFechadoException");
+		} catch (ContratoFechadoException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+	}// testSetIsAberto
 
 	@Test
 	public void testEquals() throws NullPointerException,

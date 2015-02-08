@@ -8,7 +8,7 @@ public class ContaRestaurante implements Servico {
 	private Calendar data;
 	private double valor;
 
-	public ContaRestaurante(double valor) throws Exception {
+	public ContaRestaurante(double valor) throws ValorNegativoException {
 		verificaValorValido(valor);
 		this.valor = valor;
 		data = Calendar.getInstance();
