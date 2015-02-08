@@ -33,7 +33,7 @@ public class QuartoExecutivo extends Quarto{
 		super(temCamaExtra);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
-		} else if(!tipoDeQuarto.isPERMITE_CAMA_EXTRA())
+		} else if(!tipoDeQuarto.isPERMITE_CAMA_EXTRA() && temCamaExtra == true)
 			throw new CamaExtraException();
 		
 		this.tipoDeQuarto = tipoDeQuarto;
