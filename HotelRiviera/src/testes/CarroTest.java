@@ -3,7 +3,6 @@ package testes;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import hotel.Baba;
 import hotel.Carro;
 import hotel.TipoCarro;
 
@@ -304,6 +303,7 @@ public class CarroTest {
 
 	@Test
 	public void testaToString() throws NullPointerException, DataInvalidaException {
+		System.out.println(carro3.toString());
 		Assert.assertEquals(
 				carro1.toString(),
 				"SERVICO CARRO\n"

@@ -15,6 +15,7 @@ import excecoes.DataInvalidaException;
  * Seguro inclusos no servico.
  * 
  * @author Grupo
+ * @version 1.0
  *
  */
 public class Carro implements Servico {
