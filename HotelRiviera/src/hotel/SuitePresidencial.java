@@ -29,5 +29,22 @@ public class SuitePresidencial extends Quarto{
 	public double getPreco() {
 		return DIARIA_SUITE_PRESIDENCIAL;
 	}
+	
+	/**
+	 * Compara duas suites presidenciais e informa se se sao iguais ou nao.
+	 * 
+	 * @return true se os quartos comparados forem iguais.
+	 * OBS: Dois quartos do tipo suite presidencial serao sempre iguais. O metodo so retornara false se o  objeto passado 
+	 * como parametro nao for do tipo SuitePresidencial.
+	 * 
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof SuitePresidencial)) {
+			return false;
+		}
+		SuitePresidencial outro = (SuitePresidencial) obj;
+		return super.equals(outro);
+	}
 		
 }
