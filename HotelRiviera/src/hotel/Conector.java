@@ -19,10 +19,10 @@ public class Conector {
 			return null;
 	}
 	
-	public static Estados selecionaEstado(String estadoDado) {
-		for (int i = 0; i < Estados.values().length; i++) {
-			if (Estados.values()[i].equals(estadoDado))
-				return Estados.values()[i];
+	public static Estado selecionaEstado(String estadoDado) {
+		for (int i = 0; i < Estado.values().length; i++) {
+			if (Estado.values()[i].equals(estadoDado))
+				return Estado.values()[i];
 		}
 		return null;
 	}
