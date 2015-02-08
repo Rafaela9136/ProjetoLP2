@@ -1,5 +1,7 @@
 package visual;
 
+import hotel.Informacoes;
+
 import java.text.ParseException;
 
 import javax.swing.JFrame;
@@ -7,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
+
 import java.awt.Toolkit;
 
 public class HotelF extends JFrame {

@@ -2,18 +2,34 @@ package hotel;
 
 import excecoes.CamaExtraException;
 
+/**
+ * Representa um quarto do tipo luxo. Os quartos luxos podem ser simples(1 hospede),
+ * duplo (2 hospedes) ou triplo (tres hospedes).
+ * 
+ */
 public class QuartoLuxo extends Quarto{
 	
 	public static final double DIARIA_LUXO_SIMPLES = 520.0;
 	public static final double DIARIA_LUXO_DUPLO = 570.0;
 	public static final double DIARIA_LUXO_TRIPLO = 620.0;
-	
+		
 	public static final String DESCRICAO_EXECUTIVO = Quarto.DESCRICAO + " Os quartos do tipo luxo podem acomodar 1, 2 ou ate 3 hospedes."
 			+ " Sao mais espacosos do que os executivos e contam com home theater. Camas extras para criancas menores de 9 anos sao "
 			+ "permitidas em quartos do tipo simples e duplo quando o hospede solicitar na reserva.";
 	
 	private TiposDeQuarto tipoDeQuarto;
-	 
+	
+	/**
+	 * Construtor da classe QuartoLuxo.
+	 * 
+	 * @param camaExtra
+	 * 			Um boolean que indica se o cliente solicitou uma cama extra para o quarto.
+	 * @param tipoDeQuarto
+	 * 			indica o tipo de quarto (simples, duplo ou triplo). Cada tipo tem suas especificacoes.
+	 * @throws NullPointerException 
+	 * 			Quando o objeto referente ao tipoDeQuarto é null.
+	 * 
+	 */
 	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException, CamaExtraException {
 		super(temCamaExtra);
 		if (tipoDeQuarto == null) {
@@ -23,10 +39,21 @@ public class QuartoLuxo extends Quarto{
 		this.tipoDeQuarto = tipoDeQuarto;
 	}
 	
+	/**
+	 * Informa a categoria do quarto (simples, duplo, triplo).
+	 * 
+	 * @return a categoria do quarto (simples, duplo, triplo).
+	 * 		
+	 */
 	public TiposDeQuarto getTipoDeQuarto() {
 		return tipoDeQuarto;
 	}
-
+	
+	/**
+	 * Informa o preco da diaria do quarto de acordo com o tipo de quarto, sendo o simples o mais barato e o triplo o mais caro.
+	 * 
+	 * @return O preco da diario do quarto.
+	 */
 	@Override
 	public double getPreco() {
 		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
@@ -38,6 +65,12 @@ public class QuartoLuxo extends Quarto{
 		}
 	}
 	
+	/**
+	 * Compara dois objetos QuartoLuxo e informa se sao iguais ou nao.
+	 * Dois quartos Luxos são iguais se forem iguais no preco, na solicitacao de cama extra e no tipo (simples, duplo ou triplo).
+	 * 
+	 * @return true se os quartos forem iguais.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof QuartoLuxo)) {
