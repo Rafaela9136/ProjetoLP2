@@ -1,11 +1,9 @@
 package testes;
 
-import hotel.Estado;
-import hotel.Hospede;
+import hotel.*;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +18,6 @@ import excecoes.StringVaziaException;
 public class HospedeTest {
 
 	private Hospede hospede1, hospede2, hospede3;
-	private static final String SET_NAO_MORA_NO_BRASIL = "--";
 	private Calendar data1 = new GregorianCalendar(1980, Calendar.MARCH, 20),
 			data2 = new GregorianCalendar(1974, Calendar.OCTOBER, 13),
 			data3 = new GregorianCalendar(1987, Calendar.DECEMBER, 5);

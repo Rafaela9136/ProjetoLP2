@@ -39,6 +39,7 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
+import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.ValorNegativoException;
 
@@ -74,7 +75,7 @@ public class ContratoTest {
 	public void criaObjetos() throws NullPointerException,
 			CPFInvalidoException, ContratoSemQuartoException,
 			FrigobarEmListServicosException, DataInvalidaException,
-			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException {
+			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException, StringInvalidaException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento, "0123456789999999");
 		estrategia = new EstrategiaNatalReveillon();
@@ -343,7 +344,7 @@ public class ContratoTest {
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException, CPFInvalidoException,
-			AddQuartoContratoException, StringVaziaException, CartaoInvalidoException {
+			AddQuartoContratoException, StringVaziaException, CartaoInvalidoException, StringInvalidaException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,

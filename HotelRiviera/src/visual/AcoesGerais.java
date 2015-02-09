@@ -23,6 +23,7 @@ import excecoes.CartaoInvalidoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.FrigobarEmListServicosException;
+import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 
 import java.awt.Color;
@@ -31,7 +32,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.List;
 
 public class AcoesGerais extends JPanel {
@@ -164,6 +164,8 @@ public class AcoesGerais extends JPanel {
 					erro.setVisible(true);
 				} catch (CartaoInvalidoException e1) {
 					erro.setVisible(true);
+				} catch (StringInvalidaException e1) {
+					erro.setVisible(true);
 				}
 			}
 		});
@@ -202,20 +204,20 @@ public class AcoesGerais extends JPanel {
 		pesquisarContrato.setLayout(null);
 		
 		// pesquisa
-		JTextPane txtpnHspedeTitular = new JTextPane();
-		txtpnHspedeTitular.setEditable(false);
-		txtpnHspedeTitular.setBounds(24, 26, 78, 21);
-		pesquisarContrato.add(txtpnHspedeTitular);
-		txtpnHspedeTitular.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnHspedeTitular.setText("H\u00F3spede:");
+		JTextPane txtpnContratos = new JTextPane();
+		txtpnContratos.setEditable(false);
+		txtpnContratos.setBounds(22, 26, 92, 28);
+		pesquisarContrato.add(txtpnContratos);
+		txtpnContratos.setFont(new Font("Verdana", Font.PLAIN, 14));
+		txtpnContratos.setText("Contratos:");
 
 		final JTextField textFieldHospedeTitular = new JTextField();
-		textFieldHospedeTitular.setBounds(104, 26, 476, 28);
+		textFieldHospedeTitular.setBounds(100, 96, 333, 28);
 		pesquisarContrato.add(textFieldHospedeTitular);
 		textFieldHospedeTitular.setColumns(10);
 
 		JButton btnConfirmarP = new JButton("Confirmar");
-		btnConfirmarP.setBounds(435, 60, 145, 28);
+		btnConfirmarP.setBounds(443, 95, 145, 28);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Contrato> contratoPesquisado = Hotel.pesquisaContrato(textFieldHospedeTitular.getText());
@@ -227,6 +229,27 @@ public class AcoesGerais extends JPanel {
 		
 		// tabela de contratos
 		contratosExistentes(pesquisarContrato);
+		
+		JTextPane txtpnHspede = new JTextPane();
+		txtpnHspede.setText("H\u00F3spede:");
+		txtpnHspede.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnHspede.setEditable(false);
+		txtpnHspede.setBounds(22, 98, 78, 28);
+		pesquisarContrato.add(txtpnHspede);
+		
+		JTextPane txtpnSituaoDoContrato = new JTextPane();
+		txtpnSituaoDoContrato.setText("Situa\u00E7\u00E3o do contrato:");
+		txtpnSituaoDoContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnSituaoDoContrato.setEditable(false);
+		txtpnSituaoDoContrato.setBounds(22, 65, 152, 28);
+		pesquisarContrato.add(txtpnSituaoDoContrato);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Verdana", Font.PLAIN, 12));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"(selecionar)", "Aberto", "Fechado", "Reserva"}));
+		comboBox.setBounds(175, 64, 117, 26);
+		pesquisarContrato.add(comboBox);
+		//**
 		
 		// Detalhes
 		JPanel detalhesContrato = new JPanel();
@@ -253,30 +276,8 @@ public class AcoesGerais extends JPanel {
 	private void contratosExistentes(JPanel pesquisarContrato) {
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 105, 568, 478);
+		scrollPane.setBounds(20, 138, 568, 445);
 		pesquisarContrato.add(scrollPane);
-
-		JTable table = new JTable();
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"H\u00F3spede", "", "Contrato" }) {
-			Class[] columnTypes = new Class[] { String.class, String.class,
-					Object.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-
-			boolean[] columnEditables = new boolean[] { false, false, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(200);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-
-		scrollPane.setViewportView(table);
 	}
 
 	private void barraOpcoes(final JPanel panel, JPanel atualizarContrato) {
@@ -470,7 +471,7 @@ public class AcoesGerais extends JPanel {
 		final JComboBox<String> comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Afeganist\u00E3o", "\u00C1frica do Sul", "Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila", "Ant\u00E1rctida", "Ar\u00E1bia Saudita", "Arctic Ocean", "Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba", "Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria", "Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados", "B\u00E9lgica", "Belize", "Bermudas", "Bielorr\u00FAssia", "Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana", "Brasil", "Bulg\u00E1ria", "Cabo Verde", "Camar\u00F5es", "Camboja", "Canad\u00E1", "Cazaquist\u00E3o", "Chade", "Chile", "China", "Chipre", "Col\u00F4mbia", "Comores", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Cro\u00E1cia", "Cuba", "Dinamarca", "Dom\u00EDnica", "Egipto", "Equador", "Eslov\u00E1quia", "Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia", "Eti\u00F3pia", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a", "Ge\u00F3rgia", "Granada", "Gr\u00E9cia", "Guatemala", "Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial", "Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "I\u00E9men", "\u00CDndia", "Indian Ocean", "Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda", "Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica", "Jap\u00E3o", "Jord\u00E2nia", "Kuwait", "Let\u00F3nia", "L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Litu\u00E2nia", "Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar", "Mal\u00E1sia", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia", "M\u00E9xico", "Mo\u00E7ambique", "Mold\u00E1via", "M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro", "Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria", "Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia", "Pacific Ocean", "Pa\u00EDses Baixos", "Panam\u00E1", "Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paraguai", "Peru", "Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia", "Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o", "Reino Unido", "Rep\u00FAblica Centro-Africana", "Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana", "Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa", "Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura", "S\u00EDria", "Som\u00E1lia", "Sud\u00E3o", "Su\u00E9cia", "Su\u00ED\u00E7a", "Suriname", "Tail\u00E2ndia", "Taiwan", "Tajiquist\u00E3o", "Tanz\u00E2nia", "Tun\u00EDsia", "Turquemenist\u00E3o", "Turquia", "Ucr\u00E2nia", "Uganda", "Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o", "Vaticano", "Venezuela", "Vietname", "Z\u00E2mbia", "Zimbabu\u00E9"}));
-		comboBoxPaises.setBounds(147, 142, 117, 28);
+		comboBoxPaises.setBounds(147, 142, 117, 26);
 		novoContrato.add(comboBoxPaises);
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
