@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import excecoes.CPFInvalidoException;
 import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
+import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 
 public class Hospede {
@@ -22,14 +23,14 @@ public class Hospede {
 			Estado estado, String cidade, String logradouro, String numero,
 			String cpf, String cartaoDeCredito) throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException {
-		verificaStringVazia(nome);
+			CartaoInvalidoException, StringInvalidaException {
+		verificaStringValida(nome);
 		verificaData(dataNascimento);
-		verificaStringVazia(pais);
+		verificaStringValida(pais);
 		verificaParametroNulo(estado);
-		verificaStringVazia(cidade);
-		verificaStringVazia(logradouro);
-		verificaStringVazia(numero);
+		verificaStringValida(cidade);
+		verificaStringValida(logradouro);
+		verificaStringValida(numero);
 		if (pais.toLowerCase().equals("brasil"))
 			verificaCPF(cpf);
 		verificaCartao(cartaoDeCredito);
@@ -47,7 +48,7 @@ public class Hospede {
 	public Hospede(String nome, Calendar dataNascimento, String cartaoDeCredito)
 			throws NullPointerException, CPFInvalidoException,
 			DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException {
+			CartaoInvalidoException, StringInvalidaException {
 		this(nome, dataNascimento, SET_NAO_MORA_NO_BRASIL, Estado.XX,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL, cartaoDeCredito);
@@ -58,8 +59,8 @@ public class Hospede {
 	}
 
 	public void setNome(String nome) throws NullPointerException,
-			StringVaziaException {
-		verificaStringVazia(nome);
+			StringVaziaException, StringInvalidaException {
+		verificaStringValida(nome);
 		this.nome = nome;
 	}
 
@@ -77,8 +78,19 @@ public class Hospede {
 		return pais;
 	}
 
+	public void setPais(String pais) throws NullPointerException,
+			StringVaziaException, StringInvalidaException {
+		verificaStringValida(pais);
+		this.pais = pais;
+	}
+
 	public String getEstado() {
 		return estado.name();
+	}
+
+	public void setEstado(Estado estado) {
+		verificaParametroNulo(estado);
+		this.estado = estado;
 	}
 
 	public String getCidade() {
@@ -86,8 +98,8 @@ public class Hospede {
 	}
 
 	public void setCidade(String novaCidade) throws NullPointerException,
-			StringVaziaException {
-		verificaStringVazia(novaCidade);
+			StringVaziaException, StringInvalidaException {
+		verificaStringValida(novaCidade);
 		this.cidade = novaCidade;
 	}
 
@@ -114,7 +126,7 @@ public class Hospede {
 	}
 
 	public void setCpf(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException {
+			CPFInvalidoException, StringVaziaException, StringInvalidaException {
 		verificaCPF(cpf);
 		this.cpf = cpf;
 	}
@@ -141,22 +153,24 @@ public class Hospede {
 	}
 
 	private void verificaCPF(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException {
-		verificaStringVazia(cpf);
+			CPFInvalidoException, StringVaziaException, StringInvalidaException {
+		verificaStringValida(cpf);
 		if (cpf.trim().length() != 11)
 			throw new CPFInvalidoException();
 	}
 
-	private void verificaStringVazia(String string)
-			throws NullPointerException, StringVaziaException {
+	private void verificaStringValida(String string)
+			throws NullPointerException, StringVaziaException,
+			StringInvalidaException {
 		verificaParametroNulo(string);
 		if (string.trim().isEmpty())
 			throw new StringVaziaException();
 	}
 
 	private void verificaCartao(String numCartao) throws NullPointerException,
-			CartaoInvalidoException, StringVaziaException {
-		verificaStringVazia(numCartao);
+			CartaoInvalidoException, StringVaziaException,
+			StringInvalidaException {
+		verificaStringValida(numCartao);
 		if (numCartao.trim().length() != 16)
 			throw new CartaoInvalidoException();
 	}

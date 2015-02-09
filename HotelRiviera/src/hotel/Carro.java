@@ -144,11 +144,11 @@ public class Carro implements Servico {
 	}
 
 	/**
-	 * Retorna o preço, a partir do numero de dias e o valor de diaria do
+	 * Retorna o preï¿½o, a partir do numero de dias e o valor de diaria do
 	 * servico de acordo com o tipo de carro e os servicos adicionais (tanque
 	 * cheio e seguro).
 	 * 
-	 * @return O preço do servico ja calculado.
+	 * @return O preï¿½o do servico ja calculado.
 	 */
 	@Override
 	public double getPreco() {
@@ -191,7 +191,7 @@ public class Carro implements Servico {
 	}
 
 	/**
-	 * Retorna uma representacao completa do serviço em String, como o valor
+	 * Retorna uma representacao completa do serviï¿½o em String, como o valor
 	 * total, valor dos adicionais, tipo do automovel alugado e datas de inicio
 	 * e termino.
 	 * 

@@ -5,6 +5,7 @@ import hotel.Hospede;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import excecoes.CPFInvalidoException;
 import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
+import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 
 public class HospedeTest {
@@ -30,7 +32,7 @@ public class HospedeTest {
 	@Before
 	public void CriaObjetos() throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException {
+			CartaoInvalidoException, StringInvalidaException {
 		hospede1 = new Hospede("Joao", data1, "Brasil", Estado.PB,
 				"Campina Grande", "Rua Borborema", "234", "24564975431",
 				cartao1);
@@ -42,7 +44,7 @@ public class HospedeTest {
 	@Test
 	public void testaCriaHospede() throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException {
+			CartaoInvalidoException, StringInvalidaException {
 		try {
 			new Hospede(null, data1, cartao1);
 		} catch (NullPointerException e) {
@@ -60,7 +62,7 @@ public class HospedeTest {
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		try {
 			new Hospede("Paulo", new GregorianCalendar(), cartao1);
 		} catch (DataInvalidaException e) {
@@ -166,7 +168,7 @@ public class HospedeTest {
 	@Test
 	public void testaGetSetNome() throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException {
+			CartaoInvalidoException, StringInvalidaException {
 		Assert.assertEquals(hospede1.getNome(), "Joao");
 		Assert.assertEquals(hospede2.getNome(), "Jose");
 		Assert.assertEquals(hospede3.getNome(), "Mohammed");
@@ -183,6 +185,7 @@ public class HospedeTest {
 		} catch (StringVaziaException e) {
 			Assert.assertTrue(true);
 		}
+		System.out.println(hosp.getNome());
 		Assert.assertEquals(hosp.getNome(), "Jose");
 		hosp.setNome("Jose Pereira");
 		Assert.assertEquals(hosp.getNome(), "Jose Pereira");
@@ -194,143 +197,182 @@ public class HospedeTest {
 		Assert.assertNotEquals(hospe.getNome(), "Fernando Braz de Melo");
 		Assert.assertEquals(hospe.getNome(), "Fernando Braz");
 	}
-	
+
 	@Test
 	public void testaGetSetDataNascimento() throws NullPointerException,
 			DataInvalidaException, CPFInvalidoException, StringVaziaException,
-			CartaoInvalidoException {
+			CartaoInvalidoException, StringInvalidaException {
 		Assert.assertEquals(hospede1.getDataNascimento(), data1);
-		Assert.assertEquals(hospede1.getDataNascimento().get(Calendar.DAY_OF_MONTH), 20);
-		Assert.assertEquals(hospede1.getDataNascimento().get(Calendar.MONTH), Calendar.MARCH);
-		Assert.assertEquals(hospede1.getDataNascimento().get(Calendar.YEAR), 1980);
-		
+		Assert.assertEquals(
+				hospede1.getDataNascimento().get(Calendar.DAY_OF_MONTH), 20);
+		Assert.assertEquals(hospede1.getDataNascimento().get(Calendar.MONTH),
+				Calendar.MARCH);
+		Assert.assertEquals(hospede1.getDataNascimento().get(Calendar.YEAR),
+				1980);
+
 		Assert.assertEquals(hospede2.getDataNascimento(), data2);
-		Assert.assertEquals(hospede2.getDataNascimento().get(Calendar.DAY_OF_MONTH), 13);
-		Assert.assertEquals(hospede2.getDataNascimento().get(Calendar.MONTH), Calendar.OCTOBER);
-		Assert.assertEquals(hospede2.getDataNascimento().get(Calendar.YEAR), 1974);
-		
+		Assert.assertEquals(
+				hospede2.getDataNascimento().get(Calendar.DAY_OF_MONTH), 13);
+		Assert.assertEquals(hospede2.getDataNascimento().get(Calendar.MONTH),
+				Calendar.OCTOBER);
+		Assert.assertEquals(hospede2.getDataNascimento().get(Calendar.YEAR),
+				1974);
+
 		Assert.assertEquals(hospede3.getDataNascimento(), data3);
-		Assert.assertEquals(hospede3.getDataNascimento().get(Calendar.DAY_OF_MONTH), 5);
-		Assert.assertEquals(hospede3.getDataNascimento().get(Calendar.MONTH), Calendar.DECEMBER);
-		Assert.assertEquals(hospede3.getDataNascimento().get(Calendar.YEAR), 1987);
-		
-		Hospede hospede = new Hospede("Fabio", new GregorianCalendar(1990, Calendar.OCTOBER, 11), cartao3);
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 11);
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.MONTH), Calendar.OCTOBER);
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.YEAR), 1990);
+		Assert.assertEquals(
+				hospede3.getDataNascimento().get(Calendar.DAY_OF_MONTH), 5);
+		Assert.assertEquals(hospede3.getDataNascimento().get(Calendar.MONTH),
+				Calendar.DECEMBER);
+		Assert.assertEquals(hospede3.getDataNascimento().get(Calendar.YEAR),
+				1987);
+
+		Hospede hospede = new Hospede("Fabio", new GregorianCalendar(1990,
+				Calendar.OCTOBER, 11), cartao3);
+		Assert.assertEquals(
+				hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 11);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.MONTH),
+				Calendar.OCTOBER);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.YEAR),
+				1990);
 		try {
 			hospede.setDataNascimento(null);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		try {
-			hospede.setDataNascimento(new GregorianCalendar(2015, Calendar.JULY, 18));
+			hospede.setDataNascimento(new GregorianCalendar(2015,
+					Calendar.JULY, 18));
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		try {
 			hospede.setDataNascimento(new GregorianCalendar());
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
-		
-		hospede.setDataNascimento(new GregorianCalendar(1990, Calendar.OCTOBER, 12));
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 12);
-		
-		hospede.setDataNascimento(new GregorianCalendar(1992, Calendar.FEBRUARY, 4));
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 4);
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.MONTH), Calendar.FEBRUARY);
-		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.YEAR), 1992);
+
+		hospede.setDataNascimento(new GregorianCalendar(1990, Calendar.OCTOBER,
+				12));
+		Assert.assertEquals(
+				hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 12);
+
+		hospede.setDataNascimento(new GregorianCalendar(1992,
+				Calendar.FEBRUARY, 4));
+		Assert.assertEquals(
+				hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 4);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.MONTH),
+				Calendar.FEBRUARY);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.YEAR),
+				1992);
 
 	}
-	
+
 	@Test
-	public void testaGetSetCidade() throws StringVaziaException {
+	public void testaGetSetPais() throws NullPointerException,
+			StringInvalidaException, StringVaziaException {
+		Assert.assertEquals(hospede1.getPais(), "Brasil");
+		Assert.assertEquals(hospede2.getPais(), "Brasil");
+		Assert.assertEquals(hospede3.getPais(), "--");
+
+		try {
+			hospede1.setPais("");
+		} catch (StringVaziaException e) {
+			Assert.assertTrue(true);
+		}
+
+		try {
+			hospede2.setPais(null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+		
+		hospede3.setPais("Mexico");
+		Assert.assertEquals(hospede3.getPais(), "Mexico");
+		hospede2.setPais("Venezuela");
+		Assert.assertEquals(hospede2.getPais(), "Venezuela");
+		hospede2.setPais(hospede3.getPais());
+		Assert.assertEquals(hospede2.getPais(), hospede3.getPais());
+		
+		hospede1.setPais("EUA");
+		Assert.assertEquals(hospede1.getPais(), "EUA");
+		
+		try {
+			hospede1.setPais("    ");
+		} catch (StringVaziaException e) {
+			Assert.assertTrue(true);
+		}
+	}
+
+	@Test
+	public void testaGetSetEstado() {
+
+	}
+
+	@Test
+	public void testaGetSetCidade() throws StringVaziaException,
+			StringInvalidaException {
 		Assert.assertEquals(hospede1.getCidade(), "Campina Grande");
 		Assert.assertEquals(hospede2.getCidade(), "Natal");
 		Assert.assertEquals(hospede3.getCidade(), "--");
-		
+
 		try {
 			hospede1.setCidade("");
 		} catch (StringVaziaException e) {
-			
+			Assert.assertTrue(true);
 		}
+
 		try {
 			hospede2.setCidade(null);
 		} catch (NullPointerException e) {
-			
+			Assert.assertTrue(true);
 		}
-		
-		hospede3.setCidade("fdinf");
+
+		try {
+			hospede3.setCidade("     ");
+		} catch (StringVaziaException e) {
+			Assert.assertTrue(true);
+		}
+
+		hospede1.setCidade("Soledade");
+		Assert.assertEquals(hospede1.getCidade(), "Soledade");
+
+		hospede2.setCidade("Parai");
+		Assert.assertEquals(hospede2.getCidade(), "Parai");
+
+		hospede3.setCidade("Qualquer");
+		Assert.assertEquals(hospede3.getCidade(), "Qualquer");
 	}
 
-	// @Test
-	// public void testConstrutorCompleto() {
-	// try {
-	// new Hospede(null, data, true, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "12345678911");
-	// Assert.fail("Esperava excecao");
-	// } catch (CPFInvalidoException e) {
-	// fail();
-	// } catch (NullPointerException e) {
-	//
-	// }
-	// try {
-	// new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "234");
-	// Assert.fail("Esperava excecao");
-	// } catch (CPFInvalidoException e) {
-	//
-	// } catch (NullPointerException e) {
-	// fail();
-	// }
-	// try {
-	// new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "1234567891011");
-	// Assert.fail("Esperava excecao");
-	// } catch (CPFInvalidoException e) {
-	//
-	// } catch (NullPointerException e) {
-	//
-	// }
-	// }
-	//
-	// @Test
-	// public void testEquals() throws NullPointerException,
-	// CPFInvalidoException,
-	// DataInvalidaException {
-	// Hospede hospede;
-	// hospede = new Hospede("Claudio", data, true, "pais", Estado.RO,
-	// "cidade", "endereco", "numero", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, false, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.AC, "cidade",
-	// "endereco", "numero", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.AC,
-	// "Campina Grande", "endereco", "numero", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
-	// "R Manoel Morais", "numero", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.AC, "cidade",
-	// "endereco", "529", "12345678911");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "12345678910");
-	// Assert.assertFalse(hospede1.equals(hospede));
-	// hospede = new Hospede("nome", data, true, "pais", Estado.RO, "cidade",
-	// "endereco", "numero", "12345678911");
-	// Assert.assertTrue(hospede1.equals(hospede));
-	// Assert.assertFalse(hospede2.equals(hospede));
-	// hospede = new Hospede("nome", data, false, SET_NAO_MORA_NO_BRASIL,
-	// Estado.XX, SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
-	// SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL);
-	// Assert.assertTrue(hospede2.equals(hospede));
-	// }
+	@Test
+	public void testaGetSetLogradouro() {
+
+	}
+
+	@Test
+	public void testaGetSetNumero() {
+
+	}
+
+	@Test
+	public void testaGetSetCpf() {
+
+	}
+
+	@Test
+	public void testaGetSetCartao() {
+
+	}
+
+	@Test
+	public void testaToString() {
+
+	}
+
+	@Test
+	public void testaEquals() {
+
+	}
 
 }

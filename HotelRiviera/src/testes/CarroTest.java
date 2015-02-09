@@ -341,7 +341,7 @@ public class CarroTest {
 				+ "Adicionais: [Seguro = R$100.0]\n"
 				+ "Preco Total: R$ 1400.0\n"
 				+ "Duracao: 13 dias\n"
-				+ "Data Inicio: 29/6/2015 as 10:01\n" // ta ficando 10:1 <<< corrigir
+				+ "Data Inicio: 29/6/2015 as 10:1\n" // ta ficando 10:1 <<< corrigir
 				+ "Data Termino: 12/7/2015 as 7:32");
 		carro3.setDataTermino(new GregorianCalendar(2015, Calendar.JULY, 29, 9, 30));
 		carro3.setDataInicio(new GregorianCalendar(2015, Calendar.JULY, 3, 10, 10));
