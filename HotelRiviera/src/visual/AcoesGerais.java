@@ -18,9 +18,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import excecoes.CPFInvalidoException;
+import excecoes.CamaExtraException;
+import excecoes.CartaoInvalidoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.FrigobarEmListServicosException;
+import excecoes.StringVaziaException;
 
 import java.awt.Color;
 import java.awt.CardLayout;
@@ -28,9 +31,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
-public class AcoesGerais extends JPanel implements contratosExistentes {
+public class AcoesGerais extends JPanel {
 
 	/**
 	 */
@@ -52,13 +56,13 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 	private JFormattedTextField textFieldData;
 	private JFormattedTextField textFieldCheckIn;
 	private JFormattedTextField textFieldCheckOut;
+	private JFormattedTextField textFieldCartaoCredito;
 	
 	// Dados para criacao dos objetos
 	private String[] hospedesAcompanhantes;
 	private List<Servico> servicos;
 	private EstrategiaAplicavel estrategia;
 	private Quarto quarto;
-	private boolean brasileiro = false;
 	
 	/**
 	 * Create the panel.
@@ -106,25 +110,32 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 				if (comboBoxQuarto.getSelectedItem().equals("Presidencial"))
 					quarto = new SuitePresidencial();
 				if (comboBoxQuarto.getSelectedItem().equals("Luxo"))
-					quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
-							Conector.selecionaTipoQuarto(comboBoxQuartoQ
-									.getSelectedItem()));
+					try {
+						quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
+								Conector.selecionaTipoQuarto(comboBoxQuartoQ
+										.getSelectedItem()));
+					} catch (NullPointerException | CamaExtraException e2) {
+						erro.setVisible(true);
+					}
 				if (comboBoxQuarto.getSelectedItem().equals("Executivo"))
-					quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
-							Conector.selecionaTipoQuarto(comboBoxQuartoQ
-									.getSelectedItem()));
+					try {
+						quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
+								Conector.selecionaTipoQuarto(comboBoxQuartoQ
+										.getSelectedItem()));
+					} catch (NullPointerException | CamaExtraException e2) {
+						erro.setVisible(true);
+					}
 
 				servicos.add(quarto);
 				try {
 					Hospede novoHospede = new Hospede(
 							textFieldNome.getText(),
 							Conector.transformaData(textFieldData.getText()),
-							brasileiro,
 							(String) comboBoxPaises.getSelectedItem(),
 							Conector.selecionaEstado(textFieldEstado.getText()),
 							textFieldCidade.getText(), textFieldEndereco
 									.getText(), textFieldNumero.getText(),
-							textFieldCPF.getText());
+							textFieldCPF.getText(), textFieldCartaoCredito.getText());
 
 					Contrato contrato = new Contrato(
 							novoHospede,
@@ -148,6 +159,10 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 				} catch (FrigobarEmListServicosException e1) {
 					erro.setVisible(true);
 				} catch (DataInvalidaException e1) {
+					erro.setVisible(true);
+				} catch (StringVaziaException e1) {
+					erro.setVisible(true);
+				} catch (CartaoInvalidoException e1) {
 					erro.setVisible(true);
 				}
 			}
@@ -460,7 +475,6 @@ public class AcoesGerais extends JPanel implements contratosExistentes {
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(comboBoxPaises.getSelectedItem().equals("Brasil")){
-					brasileiro = true;
 					textFieldCPF.setEnabled(true);
 					textFieldEstado.setEnabled(true);
 					textFieldCidade.setEnabled(true);

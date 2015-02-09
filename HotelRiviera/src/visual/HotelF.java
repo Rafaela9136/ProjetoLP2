@@ -1,6 +1,5 @@
 package visual;
 
-import hotel.Informacoes;
 
 import java.text.ParseException;
 
@@ -42,8 +41,5 @@ public class HotelF extends JFrame {
 		
 		Recursos recursos = new Recursos();
 		tabbedPane.addTab("Recursos", null, recursos, null);
-
-		Informacoes info = new Informacoes();
-		tabbedPane.addTab("Informa\u00E7\u00F5es", null, info, null);
 	}
 }

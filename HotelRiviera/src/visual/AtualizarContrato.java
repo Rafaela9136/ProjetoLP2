@@ -22,6 +22,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AtualizarContrato extends JPanel {
 
@@ -36,8 +38,11 @@ public class AtualizarContrato extends JPanel {
 	private JTextField textFieldEndereco;
 	private JTextField textFieldNumero;
 	private JFormattedTextField textFieldCPF;
+	private JTable tableServicos;
 	
 	private String[] hospedesAcompanhantes;
+	private Object[][] desingTabela;
+	private List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 	private Contrato contrato;
 
 	/**
@@ -56,7 +61,7 @@ public class AtualizarContrato extends JPanel {
 		add(panel);
 		panel.setLayout(layout);
 		
-		// Editar Hóspede
+		// Editar Hï¿½spede
 		JPanel editarHospede = new JPanel();
 		editarHospede.setBackground(Color.WHITE);
 		panel.add(editarHospede, "editarHospede");
@@ -75,6 +80,10 @@ public class AtualizarContrato extends JPanel {
 		editarServicos.setBackground(Color.WHITE);
 		panel.add(editarServicos, "adicionarServico");
 		editarServicos.setLayout(null);
+		
+		tableServicos = new JTable();
+		tableServicos.setRowSelectionAllowed(true);
+		
 
 		tabelaServicosContratados(editarServicos);
 		
@@ -150,6 +159,11 @@ public class AtualizarContrato extends JPanel {
 		btnConfirmar_1.setBounds(436, 540, 145, 25);
 		editarServicos.add(btnConfirmar_1);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 56, 553, 206);
+		editarServicos.add(scrollPane);
+		scrollPane.setViewportView(tableServicos);
+		
 		fecharContrato(panel);
 	}
 
@@ -206,32 +220,31 @@ public class AtualizarContrato extends JPanel {
 		layout.show(panel, tela);
 	}
 	
-	@SuppressWarnings("serial")
 	private void tabelaServicosContratados(JPanel editarServicos) {
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(15, 56, 566, 223);
-		editarServicos.add(scrollPane_1);
-
-		JTable table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(new Object[][] {}, new String[] {
-				"Servi\u00E7o", "T\u00E9rmino", "Data inicial" }) {
-			Class[] columnTypes = new Class[] { String.class, String.class,
-					String.class };
-
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
+		if(contratosEncontrados == null){
+			desingTabela = new Object[1][3];
+		} else {
+			desingTabela = new Object[5][3];
+			
+			
+			
+			for (int i = 0; i < 5; i++) {
+				desingTabela[i][0] = "Rafaela";
+				desingTabela[i][1] = "";
+				desingTabela[i][1] = "";
 			}
-
-			boolean[] columnEditables = new boolean[] { true, false, true };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table_1.getColumnModel().getColumn(1).setPreferredWidth(100);
-		table_1.getColumnModel().getColumn(2).setPreferredWidth(100);
-		scrollPane_1.setViewportView(table_1);
+		}
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTableServico = new DefaultTableModel(
+				desingTabela,
+				new String[] { "Nome do hospede", "", "Contrato" })
+		{ @Override
+			public boolean isCellEditable(int roll, int column){
+			return false;
+		}	
+	};
+		
+		tableServicos.setModel(modeloTableServico);
 	}
 	
 	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask,
