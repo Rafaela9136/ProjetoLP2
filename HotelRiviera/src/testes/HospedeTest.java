@@ -60,6 +60,12 @@ public class HospedeTest {
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
+		
+		try {
+			new Hospede("Paulo", new GregorianCalendar(), cartao1);
+		} catch (DataInvalidaException e) {
+			Assert.assertTrue(true);
+		}
 
 		try {
 			new Hospede("Joaquim", data3, null);
@@ -215,15 +221,49 @@ public class HospedeTest {
 		try {
 			hospede.setDataNascimento(null);
 		} catch (NullPointerException e) {
-			
+			Assert.assertTrue(true);
 		}
+		
 		try {
 			hospede.setDataNascimento(new GregorianCalendar(2015, Calendar.JULY, 18));
 		} catch (DataInvalidaException e) {
-			
+			Assert.assertTrue(true);
 		}
+		
+		try {
+			hospede.setDataNascimento(new GregorianCalendar());
+		} catch (DataInvalidaException e) {
+			Assert.assertTrue(true);
+		}
+		
 		hospede.setDataNascimento(new GregorianCalendar(1990, Calendar.OCTOBER, 12));
 		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 12);
+		
+		hospede.setDataNascimento(new GregorianCalendar(1992, Calendar.FEBRUARY, 4));
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.DAY_OF_MONTH), 4);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.MONTH), Calendar.FEBRUARY);
+		Assert.assertEquals(hospede.getDataNascimento().get(Calendar.YEAR), 1992);
+
+	}
+	
+	@Test
+	public void testaGetSetCidade() throws StringVaziaException {
+		Assert.assertEquals(hospede1.getCidade(), "Campina Grande");
+		Assert.assertEquals(hospede2.getCidade(), "Natal");
+		Assert.assertEquals(hospede3.getCidade(), "--");
+		
+		try {
+			hospede1.setCidade("");
+		} catch (StringVaziaException e) {
+			
+		}
+		try {
+			hospede2.setCidade(null);
+		} catch (NullPointerException e) {
+			
+		}
+		
+		hospede3.setCidade("fdinf");
 	}
 
 	// @Test

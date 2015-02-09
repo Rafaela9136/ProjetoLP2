@@ -85,8 +85,9 @@ public class Hospede {
 		return cidade;
 	}
 
-	public void setCidade(String novaCidade) {
-		verificaParametroNulo(novaCidade);
+	public void setCidade(String novaCidade) throws NullPointerException,
+			StringVaziaException {
+		verificaStringVazia(novaCidade);
 		this.cidade = novaCidade;
 	}
 
