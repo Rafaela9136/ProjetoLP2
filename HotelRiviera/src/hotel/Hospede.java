@@ -57,7 +57,9 @@ public class Hospede {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws NullPointerException,
+			StringVaziaException {
+		verificaStringVazia(nome);
 		this.nome = nome;
 	}
 
@@ -65,7 +67,9 @@ public class Hospede {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Calendar dataNascimento) {
+	public void setDataNascimento(Calendar dataNascimento)
+			throws NullPointerException, DataInvalidaException {
+		verificaData(dataNascimento);
 		this.dataNascimento = dataNascimento;
 	}
 
