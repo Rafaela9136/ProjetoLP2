@@ -57,11 +57,15 @@ public class AcoesGerais extends JPanel {
 	private JFormattedTextField textFieldCheckIn;
 	private JFormattedTextField textFieldCheckOut;
 	private JFormattedTextField textFieldCartaoCredito;
+	private JTable tableContratos;
 	
 	// Dados para criacao dos objetos
+	private Hospede novoHospede;
+	private Contrato contrato;
+	private Object[][] desingTabela;
 	private String[] hospedesAcompanhantes;
 	private List<Servico> servicos;
-	private EstrategiaAplicavel estrategia;
+	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
 	private Quarto quarto;
 	
 	/**
@@ -73,6 +77,7 @@ public class AcoesGerais extends JPanel {
 		
 		final MaskFormatter dateMask = new MaskFormatter("##/##/####");
 		final MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
+		final MaskFormatter cartaoMask = new MaskFormatter("####.####.####.####");
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -92,7 +97,7 @@ public class AcoesGerais extends JPanel {
 		novoContrato.setLayout(null);
 		
 		// Dados do hospede
-		hospedeDadosPrincipais(dateMask, cpfMask, panel, novoContrato);
+		hospedeDadosPrincipais(dateMask, cpfMask, cartaoMask, panel, novoContrato);
 		hospedeEndereco(novoContrato);
 		
 		// Tipo de quarto
@@ -106,67 +111,82 @@ public class AcoesGerais extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				AvisoErro erro = new AvisoErro();
-
+				
 				if (comboBoxQuarto.getSelectedItem().equals("Presidencial"))
 					quarto = new SuitePresidencial();
-				if (comboBoxQuarto.getSelectedItem().equals("Luxo"))
+				if (comboBoxQuarto.getSelectedItem().equals("Luxo")){
 					try {
 						quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
-								Conector.selecionaTipoQuarto(comboBoxQuartoQ
-										.getSelectedItem()));
-					} catch (NullPointerException | CamaExtraException e2) {
+									Conector.selecionaTipoQuarto(comboBoxQuartoQ
+											.getSelectedItem()));
+					} catch (NullPointerException e3) {
+						System.out.println("1");
+						erro.setVisible(true);
+					} catch (CamaExtraException e3) {
+						System.out.println("2");
 						erro.setVisible(true);
 					}
-				if (comboBoxQuarto.getSelectedItem().equals("Executivo"))
+				}
+				if (comboBoxQuarto.getSelectedItem().equals("Executivo")){
 					try {
 						quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
 								Conector.selecionaTipoQuarto(comboBoxQuartoQ
 										.getSelectedItem()));
-					} catch (NullPointerException | CamaExtraException e2) {
+					} catch (NullPointerException e2) {
+						System.out.println("3");
+						erro.setVisible(true);
+					} catch (CamaExtraException e2) {
+						System.out.println("4");
+						erro.setVisible(true);
+					}
+				}
+
+					try {
+						novoHospede = new Hospede(textFieldNome.getText(), Conector.transformaData(textFieldData.getText()), (String) comboBoxPaises.getSelectedItem(),
+								Conector.selecionaEstado(textFieldEstado.getText()), textFieldCidade.getText(), textFieldEndereco.getText(), textFieldNumero.getText(),
+								textFieldCPF.getText(), textFieldCartaoCredito.getText());
+					} catch (NullPointerException e1) {
+						System.out.println("a");
+						erro.setVisible(true);
+					} catch (CPFInvalidoException e1) {
+						System.out.println("b");
+						erro.setVisible(true);
+					} catch (DataInvalidaException e1) {
+						System.out.println("c");
+						erro.setVisible(true);
+					} catch (StringVaziaException e1) {
+						System.out.println("d");
+						erro.setVisible(true);
+					} catch (CartaoInvalidoException e1) {
+						System.out.println("e");
+						erro.setVisible(true);
+					} catch (StringInvalidaException e1) {
+						System.out.println("f");
 						erro.setVisible(true);
 					}
 
-				servicos.add(quarto);
-				try {
-					Hospede novoHospede = new Hospede(
-							textFieldNome.getText(),
-							Conector.transformaData(textFieldData.getText()),
-							(String) comboBoxPaises.getSelectedItem(),
-							Conector.selecionaEstado(textFieldEstado.getText()),
-							textFieldCidade.getText(), textFieldEndereco
-									.getText(), textFieldNumero.getText(),
-							textFieldCPF.getText(), textFieldCartaoCredito.getText());
-
-					Contrato contrato = new Contrato(
-							novoHospede,
-							Conector.transformaVetor(hospedesAcompanhantes),
-							estrategia,
-							Conector.transformaData(textFieldCheckIn.getText()),
-							Conector.transformaData(textFieldCheckOut.getText()),
-							rdbtnReserva.isSelected(), servicos);
-
-					if (Hotel.adicionaContrato(contrato)) {
-						AvisoSucesso aviso = new AvisoSucesso();
-						aviso.setVisible(true);
-						layout.show(panel, "vazio");
+					try {
+						contrato = new Contrato(novoHospede, Conector.transformaVetor(hospedesAcompanhantes), estrategia, Conector.transformaData(textFieldCheckIn.getText()),
+								Conector.transformaData(textFieldCheckOut.getText()), rdbtnReserva.isSelected(), servicos);
+						
+						if (Hotel.adicionaContrato(contrato)) {
+							AvisoSucesso aviso = new AvisoSucesso();
+							aviso.setVisible(true);
+							layout.show(panel, "vazio");
+						}
+					} catch (NullPointerException e1) {
+						System.out.println("g");
+						erro.setVisible(true);
+					} catch (ContratoSemQuartoException e1) {
+						System.out.println("h");
+						erro.setVisible(true);
+					} catch (FrigobarEmListServicosException e1) {
+						System.out.println("i");
+						erro.setVisible(true);
+					} catch (DataInvalidaException e1) {
+						System.out.println("j");
+						erro.setVisible(true);
 					}
-				} catch (NullPointerException e1) {
-					erro.setVisible(true);
-				} catch (CPFInvalidoException e1) {
-					erro.setVisible(true);
-				} catch (ContratoSemQuartoException e1) {
-					erro.setVisible(true);
-				} catch (FrigobarEmListServicosException e1) {
-					erro.setVisible(true);
-				} catch (DataInvalidaException e1) {
-					erro.setVisible(true);
-				} catch (StringVaziaException e1) {
-					erro.setVisible(true);
-				} catch (CartaoInvalidoException e1) {
-					erro.setVisible(true);
-				} catch (StringInvalidaException e1) {
-					erro.setVisible(true);
-				}
 			}
 		});
 		novoContrato.add(btnConfirmar);
@@ -179,8 +199,7 @@ public class AcoesGerais extends JPanel {
 				layout.show(panel, "vazio");
 			}
 		});
-		novoContrato.add(btnCancelar);
-		
+		novoContrato.add(btnCancelar);		
 		//**
 		
 		//AtualizarContrato
@@ -202,6 +221,7 @@ public class AcoesGerais extends JPanel {
 		pesquisarContrato.setBackground(Color.WHITE);
 		panel.add(pesquisarContrato, "pesquisarContrato");
 		pesquisarContrato.setLayout(null);
+
 		
 		// pesquisa
 		JTextPane txtpnContratos = new JTextPane();
@@ -228,6 +248,15 @@ public class AcoesGerais extends JPanel {
 		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
 		
 		// tabela de contratos
+		tableContratos = new JTable();
+		tableContratos.setRowSelectionAllowed(true);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 138, 568, 445);
+		pesquisarContrato.add(scrollPane);
+		
+		scrollPane.setViewportView(tableContratos);
+		
 		contratosExistentes(pesquisarContrato);
 		
 		JTextPane txtpnHspede = new JTextPane();
@@ -244,9 +273,9 @@ public class AcoesGerais extends JPanel {
 		txtpnSituaoDoContrato.setBounds(22, 65, 152, 28);
 		pesquisarContrato.add(txtpnSituaoDoContrato);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"(selecionar)", "Aberto", "Fechado", "Reserva"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Aberto", "Fechado", "Reserva"}));
 		comboBox.setBounds(175, 64, 117, 26);
 		pesquisarContrato.add(comboBox);
 		//**
@@ -272,12 +301,32 @@ public class AcoesGerais extends JPanel {
 		layout.show(panel, tela);
 	}
 
-	@SuppressWarnings("serial")
+
 	private void contratosExistentes(JPanel pesquisarContrato) {
+			if(Hotel.getContratos() == null){
+				desingTabela = new Object[1][3];
+			} else {
+				desingTabela = new Object[5][3];
+				
+				
+				
+				for (int i = 0; i < 5; i++) {
+					desingTabela[i][0] = "Rafaela";
+					desingTabela[i][1] = "";
+					desingTabela[i][1] = "";
+				}
+			}
+			@SuppressWarnings("serial")
+			DefaultTableModel modeloTableServico = new DefaultTableModel(
+					desingTabela,
+					new String[] { "Nome do hospede", "", "Contrato" })
+			{ @Override
+				public boolean isCellEditable(int roll, int column){
+				return false;
+			}	
+		};
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 138, 568, 445);
-		pesquisarContrato.add(scrollPane);
+		tableContratos.setModel(modeloTableServico);
 	}
 
 	private void barraOpcoes(final JPanel panel, JPanel atualizarContrato) {
@@ -316,14 +365,14 @@ public class AcoesGerais extends JPanel {
 	private void detalhesQuarto(final MaskFormatter dateMask,
 			JPanel novoContrato) {
 		JTextPane txtpnDetalhesDoContrato = new JTextPane();
-		txtpnDetalhesDoContrato.setBounds(21, 355, 192, 36);
+		txtpnDetalhesDoContrato.setBounds(21, 388, 192, 36);
 		txtpnDetalhesDoContrato.setText("Detalhes do contrato");
 		txtpnDetalhesDoContrato.setFont(new Font("Verdana", Font.PLAIN, 14));
 		txtpnDetalhesDoContrato.setEditable(false);
 		novoContrato.add(txtpnDetalhesDoContrato);
 
 		JTextPane txtpnQuarto = new JTextPane();
-		txtpnQuarto.setBounds(33, 399, 85, 28);
+		txtpnQuarto.setBounds(33, 432, 85, 28);
 		txtpnQuarto.setText("Quarto:");
 		txtpnQuarto.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnQuarto.setEditable(false);
@@ -331,42 +380,42 @@ public class AcoesGerais extends JPanel {
 
 		// Data Check in
 		JTextPane txtpnCheckIn = new JTextPane();
-		txtpnCheckIn.setBounds(33, 434, 85, 28);
+		txtpnCheckIn.setBounds(33, 467, 85, 28);
 		txtpnCheckIn.setText("Check In:");
 		txtpnCheckIn.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCheckIn.setEditable(false);
 		novoContrato.add(txtpnCheckIn);
 
 		JFormattedTextField textFieldCheckIn = new JFormattedTextField(dateMask);
-		textFieldCheckIn.setBounds(149, 437, 117, 28);
+		textFieldCheckIn.setBounds(149, 470, 117, 28);
 		textFieldCheckIn.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldCheckIn.setColumns(10);
 		novoContrato.add(textFieldCheckIn);
 
 		// Data Check Out
 		JTextPane txtpnCheckOut = new JTextPane();
-		txtpnCheckOut.setBounds(33, 474, 85, 28);
+		txtpnCheckOut.setBounds(33, 507, 85, 28);
 		txtpnCheckOut.setText("Check Out:");
 		txtpnCheckOut.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCheckOut.setEditable(false);
 		novoContrato.add(txtpnCheckOut);
 
 		JFormattedTextField textFieldCheckOut = new JFormattedTextField(dateMask);
-		textFieldCheckOut.setBounds(149, 472, 117, 28);
+		textFieldCheckOut.setBounds(149, 505, 117, 28);
 		textFieldCheckOut.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldCheckOut.setColumns(10);
 		novoContrato.add(textFieldCheckOut);
 		
 		rdbtnCamaExtra = new JRadioButton("Cama extra");
 		rdbtnCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
-		rdbtnCamaExtra.setBounds(463, 434, 104, 18);
+		rdbtnCamaExtra.setBounds(463, 467, 104, 18);
 		novoContrato.add(rdbtnCamaExtra);
 
 		comboBoxQuartoQ = new JComboBox<String>();
 		comboBoxQuartoQ.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"(selecionar)", "Simples", "Duplo", "Triplo" }));
 		comboBoxQuartoQ.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxQuartoQ.setBounds(277, 399, 117, 26);
+		comboBoxQuartoQ.setBounds(277, 432, 117, 26);
 		comboBoxQuartoQ.setEnabled(false);
 		novoContrato.add(comboBoxQuartoQ);
 		comboBoxQuartoQ.addActionListener(new ActionListener() {
@@ -383,7 +432,7 @@ public class AcoesGerais extends JPanel {
 		comboBoxQuarto.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"(selecionar)", "Presidencial", "Luxo", "Executivo" }));
 		comboBoxQuarto.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxQuarto.setBounds(148, 399, 117, 26);
+		comboBoxQuarto.setBounds(148, 432, 117, 26);
 		novoContrato.add(comboBoxQuarto);
 		comboBoxQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -398,7 +447,7 @@ public class AcoesGerais extends JPanel {
 		
 		rdbtnReserva = new JRadioButton("Reserva");
 		rdbtnReserva.setFont(new Font("Verdana", Font.PLAIN, 12));
-		rdbtnReserva.setBounds(463, 399, 85, 18);
+		rdbtnReserva.setBounds(463, 432, 85, 18);
 		novoContrato.add(rdbtnReserva);
 	}
 	
@@ -406,63 +455,63 @@ public class AcoesGerais extends JPanel {
 	private void hospedeEndereco(JPanel novoContrato) {		
 		// Estado
 		JTextPane txtpnEstado = new JTextPane();
-		txtpnEstado.setBounds(32, 176, 85, 28);
+		txtpnEstado.setBounds(32, 209, 85, 28);
 		txtpnEstado.setText("Estado:");
 		txtpnEstado.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnEstado.setEditable(false);
 		novoContrato.add(txtpnEstado);
 
 		textFieldEstado = new JTextField();
-		textFieldEstado.setBounds(147, 176, 221, 28);
+		textFieldEstado.setBounds(147, 209, 221, 28);
 		textFieldEstado.setEnabled(false);
 		textFieldEstado.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldEstado);
 
 		// Cidade
 		JTextPane txtpnCidade = new JTextPane();
-		txtpnCidade.setBounds(32, 214, 85, 28);
+		txtpnCidade.setBounds(32, 247, 85, 28);
 		txtpnCidade.setText("Cidade:");
 		txtpnCidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCidade.setEditable(false);
 		novoContrato.add(txtpnCidade);
 
 		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(147, 210, 221, 28);
+		textFieldCidade.setBounds(147, 243, 221, 28);
 		textFieldCidade.setEnabled(false);
 		textFieldCidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldCidade);
 
 		// Endereco
 		JTextPane txtpnEndereco = new JTextPane();
-		txtpnEndereco.setBounds(32, 249, 85, 28);
+		txtpnEndereco.setBounds(32, 282, 85, 28);
 		txtpnEndereco.setText("Endere\u00E7o:");
 		txtpnEndereco.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnEndereco.setEditable(false);
 		novoContrato.add(txtpnEndereco);
 
 		textFieldEndereco = new JTextField();
-		textFieldEndereco.setBounds(147, 244, 339, 28);
+		textFieldEndereco.setBounds(147, 277, 339, 28);
 		textFieldEndereco.setEnabled(false);
 		textFieldEndereco.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldEndereco);
 
 		// Numero
 		JTextPane txtpnN = new JTextPane();
-		txtpnN.setBounds(491, 246, 33, 28);
+		txtpnN.setBounds(491, 279, 33, 28);
 		txtpnN.setText("N\u00BA:");
 		txtpnN.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnN.setEditable(false);
 		novoContrato.add(txtpnN);
 
 		textFieldNumero = new JTextField();
-		textFieldNumero.setBounds(525, 244, 42, 28);
+		textFieldNumero.setBounds(525, 277, 42, 28);
 		textFieldNumero.setEnabled(false);
 		textFieldNumero.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldNumero);
 		
 		// Pais
 		JTextPane txtpnNascionalidade = new JTextPane();
-		txtpnNascionalidade.setBounds(32, 142, 85, 28);
+		txtpnNascionalidade.setBounds(32, 175, 85, 28);
 		txtpnNascionalidade.setText("Pa\u00EDs:");
 		txtpnNascionalidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnNascionalidade.setEditable(false);
@@ -471,7 +520,7 @@ public class AcoesGerais extends JPanel {
 		final JComboBox<String> comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Afeganist\u00E3o", "\u00C1frica do Sul", "Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila", "Ant\u00E1rctida", "Ar\u00E1bia Saudita", "Arctic Ocean", "Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba", "Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria", "Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados", "B\u00E9lgica", "Belize", "Bermudas", "Bielorr\u00FAssia", "Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana", "Brasil", "Bulg\u00E1ria", "Cabo Verde", "Camar\u00F5es", "Camboja", "Canad\u00E1", "Cazaquist\u00E3o", "Chade", "Chile", "China", "Chipre", "Col\u00F4mbia", "Comores", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Cro\u00E1cia", "Cuba", "Dinamarca", "Dom\u00EDnica", "Egipto", "Equador", "Eslov\u00E1quia", "Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia", "Eti\u00F3pia", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a", "Ge\u00F3rgia", "Granada", "Gr\u00E9cia", "Guatemala", "Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial", "Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "I\u00E9men", "\u00CDndia", "Indian Ocean", "Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda", "Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica", "Jap\u00E3o", "Jord\u00E2nia", "Kuwait", "Let\u00F3nia", "L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Litu\u00E2nia", "Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar", "Mal\u00E1sia", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia", "M\u00E9xico", "Mo\u00E7ambique", "Mold\u00E1via", "M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro", "Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria", "Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia", "Pacific Ocean", "Pa\u00EDses Baixos", "Panam\u00E1", "Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paraguai", "Peru", "Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia", "Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o", "Reino Unido", "Rep\u00FAblica Centro-Africana", "Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana", "Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa", "Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura", "S\u00EDria", "Som\u00E1lia", "Sud\u00E3o", "Su\u00E9cia", "Su\u00ED\u00E7a", "Suriname", "Tail\u00E2ndia", "Taiwan", "Tajiquist\u00E3o", "Tanz\u00E2nia", "Tun\u00EDsia", "Turquemenist\u00E3o", "Turquia", "Ucr\u00E2nia", "Uganda", "Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o", "Vaticano", "Venezuela", "Vietname", "Z\u00E2mbia", "Zimbabu\u00E9"}));
-		comboBoxPaises.setBounds(147, 142, 117, 26);
+		comboBoxPaises.setBounds(147, 175, 117, 26);
 		novoContrato.add(comboBoxPaises);
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -493,7 +542,7 @@ public class AcoesGerais extends JPanel {
 	}
 	
 
-	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask,
+	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
 			JPanel panel, JPanel novoContrato) {
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
@@ -546,9 +595,24 @@ public class AcoesGerais extends JPanel {
 		textFieldCPF.setColumns(10);
 		novoContrato.add(textFieldCPF);
 		
+		// Cartao
+		textFieldCartaoCredito = new JFormattedTextField(cartaoMask);
+		textFieldCartaoCredito.setFont(new Font("Verdana", Font.PLAIN, 12));
+		textFieldCartaoCredito.setEnabled(true);
+		textFieldCartaoCredito.setColumns(10);
+		textFieldCartaoCredito.setBounds(147, 142, 181, 28);
+		novoContrato.add(textFieldCartaoCredito);
+		
+		JTextPane txtpnCCrdito = new JTextPane();
+		txtpnCCrdito.setText("N\u00BA do cart\u00E3o:");
+		txtpnCCrdito.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnCCrdito.setEditable(false);
+		txtpnCCrdito.setBounds(32, 142, 104, 28);
+		novoContrato.add(txtpnCCrdito);
+		
 		// Acompanhantes
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(32, 280, 112, 28);
+		textPane.setBounds(32, 313, 112, 28);
 		textPane.setText("Acompanhantes:");
 		textPane.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textPane.setEditable(false);
@@ -556,7 +620,7 @@ public class AcoesGerais extends JPanel {
 
 		JTextArea textAreaAcompanhantes = new JTextArea();
 		textAreaAcompanhantes.setLineWrap(true);
-		textAreaAcompanhantes.setBounds(147, 280, 420, 73);
+		textAreaAcompanhantes.setBounds(147, 313, 420, 73);
 		novoContrato.add(textAreaAcompanhantes);
 		hospedesAcompanhantes = textAreaAcompanhantes.getText().split(",");
 	}

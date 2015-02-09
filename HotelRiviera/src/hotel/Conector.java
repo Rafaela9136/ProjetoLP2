@@ -21,7 +21,7 @@ public class Conector {
 	
 	public static Estado selecionaEstado(String estadoDado) {
 		for (int i = 0; i < Estado.values().length; i++) {
-			if (Estado.values()[i].equals(estadoDado))
+			if(Estado.values()[i].name().equals(estadoDado))
 				return Estado.values()[i];
 		}
 		return null;

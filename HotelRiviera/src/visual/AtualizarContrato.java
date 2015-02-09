@@ -87,6 +87,11 @@ public class AtualizarContrato extends JPanel {
 
 		tabelaServicosContratados(editarServicos);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 56, 553, 206);
+		editarServicos.add(scrollPane);
+		scrollPane.setViewportView(tableServicos);
+		
 		JButton btnCancelarServio = new JButton("Cancelar servi\u00E7o");
 		btnCancelarServio.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnCancelarServio.setBounds(436, 291, 145, 25);
@@ -158,11 +163,6 @@ public class AtualizarContrato extends JPanel {
 		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnConfirmar_1.setBounds(436, 540, 145, 25);
 		editarServicos.add(btnConfirmar_1);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 56, 553, 206);
-		editarServicos.add(scrollPane);
-		scrollPane.setViewportView(tableServicos);
 		
 		fecharContrato(panel);
 	}
