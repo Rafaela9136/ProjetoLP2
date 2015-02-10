@@ -69,6 +69,7 @@ public class AcoesGerais extends JPanel {
 	private List<Servico> servicos = new ArrayList<Servico>();
 	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
 	private Quarto quarto;
+	public static Contrato contratoSelecionado = null;
 	
 	/**
 	 * Create the panel.
@@ -218,17 +219,18 @@ public class AcoesGerais extends JPanel {
 		panel.add(pesquisarContrato, "pesquisarContrato");
 		pesquisarContrato.setLayout(null);
 
-		final JTextField textFieldHospedeTitular = new JTextField();
-		textFieldHospedeTitular.setBounds(105, 11, 478, 28);
-		pesquisarContrato.add(textFieldHospedeTitular);
-		textFieldHospedeTitular.setColumns(10);
+		final JTextField textFieldHospedeT = new JTextField();
+		textFieldHospedeT.setBounds(105, 11, 478, 28);
+		pesquisarContrato.add(textFieldHospedeT);
+		textFieldHospedeT.setColumns(10);
 		
 		// tabela de contratos
 		tableContratos = new JTable();
+		tableContratos.setFont(new Font("Verdana", Font.PLAIN, 12));
 		tableContratos.setRowSelectionAllowed(true);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 89, 568, 494);
+		scrollPane.setBounds(20, 89, 568, 470);
 		pesquisarContrato.add(scrollPane);
 		
 		scrollPane.setViewportView(tableContratos);
@@ -240,14 +242,15 @@ public class AcoesGerais extends JPanel {
 		txtpnHspede.setBounds(20, 13, 78, 28);
 		pesquisarContrato.add(txtpnHspede);
 		
-		JButton btnConfirmarP = new JButton("Confirmar");
-		btnConfirmarP.setBounds(441, 50, 145, 28);
-		btnConfirmarP.addActionListener(new ActionListener() {
+		// Atualiza a tabela dos contratos existentes
+		JButton btnAtualizarTabela = new JButton("Atualizar tabela");
+		btnAtualizarTabela.setBounds(20, 50, 145, 28);
+		btnAtualizarTabela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Hotel.getContratos() == null){
-					desingTabela = new Object[1][3];
+					desingTabela = new Object[1][2];
 				} else {
-					desingTabela = new Object[Hotel.getContratos().size()][3];
+					desingTabela = new Object[Hotel.getContratos().size()][2];
 					for (int i = 0; i < Hotel.getContratos().size(); i++) {
 						desingTabela[i][0] = Hotel.getContratos().get(i).getHospedeTitular().getNome();
 						if(Hotel.getContratos().get(i).getIsReserva())
@@ -256,44 +259,79 @@ public class AcoesGerais extends JPanel {
 							desingTabela[i][1] = "Aberto";
 						if(!Hotel.getContratos().get(i).getIsAberto())
 							desingTabela[i][1] = "Fechado";
-						desingTabela[i][2] = "Ver Contrato";
 					}
 				}
 				
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situação",  "Contrato" })
+						new String[] { "Nome do hospede", "Situação"})
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
 				}	
 			};
-			
+			tableContratos.getCellSelectionEnabled();
 			tableContratos.setModel(modeloTableServico);
 			}
-			
 		});
-		pesquisarContrato.add(btnConfirmarP);
+		pesquisarContrato.add(btnAtualizarTabela);
 		
-		btnConfirmarP.setFont(new Font("Verdana", Font.PLAIN, 12));
-		//**
+		btnAtualizarTabela.setFont(new Font("Verdana", Font.PLAIN, 12));
 		
-		// Detalhes
-		JPanel detalhesContrato = new JPanel();
-		detalhesContrato.setBackground(Color.WHITE);
-		panel.add(detalhesContrato, "detalhesContrato");
-		detalhesContrato.setLayout(null);
-
+		JButton btnPesquisar = new JButton("Pesquisar");
+		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnPesquisar.setBounds(441, 50, 145, 28);
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Hotel.getContratos() == null){
+					desingTabela = new Object[1][2];
+				} else {
+					desingTabela = new Object[Hotel.getContratos().size()][2];
+					for (int i = 0; i < Hotel.getContratos().size(); i++) {
+						if (Hotel.getContratos().get(i).getHospedeTitular()
+								.getNome().equals(textFieldHospedeT)) {
+							desingTabela[i][0] = Hotel.getContratos().get(i)
+									.getHospedeTitular().getNome();
+							if (Hotel.getContratos().get(i).getIsReserva())
+								desingTabela[i][1] = "Reserva";
+							if (Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[i][1] = "Aberto";
+							if (!Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[i][1] = "Fechado";
+						} 
+						AvisoNaoEncontrado avisoNaoEncontrado = new AvisoNaoEncontrado();
+						avisoNaoEncontrado.setVisible(true);
+					}
+				}
+				
+				@SuppressWarnings("serial")
+				DefaultTableModel modeloTableServico = new DefaultTableModel(
+						desingTabela,
+						new String[] { "Nome do hospede", "Situação" })
+				{ @Override
+					public boolean isCellEditable(int roll, int column){
+					return false;
+				}	
+			};
+			System.out.println(tableContratos.getSelectedRowCount());
+			tableContratos.setModel(modeloTableServico);
+			}
+		});
+		pesquisarContrato.add(btnPesquisar);
+		
 		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
-		btnAtualizarContrato.setBounds(432, 562, 145, 25);
+		btnAtualizarContrato.setBounds(443, 570, 145, 25);
 		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		if(contratoSelecionado == null)
+			btnAtualizarContrato.setEnabled(false);
 		btnAtualizarContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {				
 				layout.show(panel, "atualizarContrato");
 			}
 		});
-		detalhesContrato.add(btnAtualizarContrato);
+		pesquisarContrato.add(btnAtualizarContrato);
+		//**		
 	}
 	
 	static void selecionaTela(String tela){

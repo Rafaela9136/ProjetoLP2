@@ -33,6 +33,10 @@ public class Conector {
 		return c;
 	}
 	
+	public static float transformaFloat(String num){
+		return Float.parseFloat(num);
+	}
+	
 	public static List<String> transformaVetor(String[] args){
 		for (int i = 0; i < args.length; i++) {
 			lista.add(args[i]);

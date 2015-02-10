@@ -1,15 +1,25 @@
 package visual;
 
+import hotel.Baba;
+import hotel.Carro;
+import hotel.Conector;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+
+import excecoes.AddQuartoContratoException;
+import excecoes.FrigobarEmListServicosException;
 
 public class AcoesNovoServico extends JPanel {
 	
@@ -28,7 +38,7 @@ public class AcoesNovoServico extends JPanel {
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 566, 90);
+		panel.setBounds(0, 0, 566, 114);
 		add(panel);
 		panel.setLayout(layout);
 		
@@ -66,6 +76,25 @@ public class AcoesNovoServico extends JPanel {
 		txtpnTipoDeCarro.setBounds(0, 8, 113, 21);
 		servicoCarro.add(txtpnTipoDeCarro);
 		
+		JButton btnConfirmar_1 = new JButton("Confirmar");
+		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnConfirmar_1.setBounds(421, 78, 145, 25);
+		btnConfirmar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AvisoErro erro = new AvisoErro();
+				Carro carro = null;
+				//...Baba baba = new Baba();
+				try {
+					AcoesGerais.contratoSelecionado.adicionaServico(carro);
+				} catch (AddQuartoContratoException e1) {
+					erro.setVisible(true);
+				} catch (FrigobarEmListServicosException e1) {
+					erro.setVisible(true);
+				}
+			}
+		});
+		servicoCarro.add(btnConfirmar_1);
+		
 		// Baba
 		JPanel servicoBaba = new JPanel();
 		servicoBaba.setBackground(Color.WHITE);
@@ -98,6 +127,25 @@ public class AcoesNovoServico extends JPanel {
 		comboBox_3.setBounds(362, 5, 121, 25);
 		servicoBaba.add(comboBox_3);
 		
+		JButton btnConfirmar_2 = new JButton("Confirmar");
+		btnConfirmar_2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnConfirmar_2.setBounds(421, 78, 145, 25);
+		btnConfirmar_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AvisoErro erro = new AvisoErro();
+				Baba baba = null;
+				//...Baba baba = new Baba();
+				try {
+					AcoesGerais.contratoSelecionado.adicionaServico(baba);
+				} catch (AddQuartoContratoException e1) {
+					erro.setVisible(true);
+				} catch (FrigobarEmListServicosException e1) {
+					erro.setVisible(true);
+				}
+			}
+		});
+		servicoBaba.add(btnConfirmar_2);
+		
 		// Restaurante
 		JPanel edicaoRestaurante = new JPanel();
 		panel.add(edicaoRestaurante, "servicoRestaurante");
@@ -111,10 +159,20 @@ public class AcoesNovoServico extends JPanel {
 		txtpnTotalDaConta.setBounds(0, 6, 113, 21);
 		edicaoRestaurante.add(txtpnTotalDaConta);
 		
-		JTextField textFieldConta = new JTextField();
+		final JTextField textFieldConta = new JTextField();
 		textFieldConta.setBounds(119, 4, 136, 27);
 		edicaoRestaurante.add(textFieldConta);
 		textFieldConta.setColumns(10);
+		
+		JButton btnConfirmar_3 = new JButton("Confirmar");
+		btnConfirmar_3.setFont(new Font("Verdana", Font.PLAIN, 12));
+		btnConfirmar_3.setBounds(421, 78, 145, 25);
+		btnConfirmar_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AcoesGerais.contratoSelecionado.adicionaDespesa(Conector.transformaFloat(textFieldConta.getText()));
+			}
+		});
+		edicaoRestaurante.add(btnConfirmar_3);
 
 	}
 	

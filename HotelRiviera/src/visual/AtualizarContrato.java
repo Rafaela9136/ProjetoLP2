@@ -43,7 +43,6 @@ public class AtualizarContrato extends JPanel {
 	private String[] hospedesAcompanhantes;
 	private Object[][] desingTabela;
 	private List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
-	private Contrato contrato;
 
 	/**
 	 * Create the panel.
@@ -61,7 +60,7 @@ public class AtualizarContrato extends JPanel {
 		add(panel);
 		panel.setLayout(layout);
 		
-		// Editar H�spede
+		// Editar hosspede
 		JPanel editarHospede = new JPanel();
 		editarHospede.setBackground(Color.WHITE);
 		panel.add(editarHospede, "editarHospede");
@@ -158,11 +157,6 @@ public class AtualizarContrato extends JPanel {
 			}
 		});
 		editarServicos.add(comboBoxTipoServico);
-
-		JButton btnConfirmar_1 = new JButton("Confirmar");
-		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnConfirmar_1.setBounds(436, 540, 145, 25);
-		editarServicos.add(btnConfirmar_1);
 		
 		fecharContrato(panel);
 	}

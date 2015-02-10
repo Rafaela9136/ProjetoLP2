@@ -64,17 +64,5 @@ public class Recursos extends JPanel {
 		btnSair.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnSair.setBounds(24, 575, 180, 43);
 		add(btnSair);
-
-		// ****************** Retirar **********************
-		JButton btnteste = new JButton("teste");
-		btnteste.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AcoesGerais.selecionaTela("detalhesContrato");
-			}
-		});
-		btnteste.setFont(new Font("Dialog", Font.PLAIN, 12));
-		btnteste.setBounds(51, 160, 145, 25);
-		add(btnteste);
-		//***************************************************
 	}
 }
