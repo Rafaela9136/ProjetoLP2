@@ -34,6 +34,7 @@ public class HotelF extends JFrame {
 		hotel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(hotel);
 		hotel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 872, 662);
