@@ -1,6 +1,5 @@
 package testes;
 
-import static org.junit.Assert.*;
 import hotel.Opiniao;
 
 import org.junit.Assert;
@@ -20,55 +19,53 @@ public class OpiniaoTest {
 	private Opiniao opiniao;
 	private final int NOTA = 1;
 	private final String COMENT = "Programacao II Universidade Federal de Campina Grande";
-	
+
 	@Before
 	public void criaObjetos() throws EstouroDeCaracteresException,
-			NotaInvalidaException, NullPointerException, ComentarioVazioException {
+			NotaInvalidaException, NullPointerException,
+			ComentarioVazioException {
 		opiniao = new Opiniao(COMENT, NOTA);
 	}
 
 	@Test
-	public void TestOpiniaoConstrutor() {
+	public void testaCriaOpiniao() throws NullPointerException,
+			EstouroDeCaracteresException, ComentarioVazioException,
+			NotaInvalidaException {
+
+		Assert.assertEquals(opiniao.getComentario(),
+				"Programacao II Universidade Federal de Campina Grande");
+		Assert.assertEquals(opiniao.getNota(), 1.0, 0.0001);
+
 		try {
 			new Opiniao(COMENT, 15);
 			Assert.fail("Esperava excecao");
 		} catch (NotaInvalidaException e) {
+			Assert.assertTrue(true);
+		}
 
-		} catch (Exception e) {
-			fail();
-		}// try-catch
 		try {
 			new Opiniao("", 6);
-			Assert.fail("Esperava excecao");
 		} catch (ComentarioVazioException e) {
+			Assert.assertTrue(true);
+		}
 
-		} catch (Exception e) {
-			fail();
-		}// try-catch
 		try {
 			new Opiniao(COMENT, -1);
-			Assert.fail("Esperava excecao");
 		} catch (NotaInvalidaException e) {
-		} catch (Exception e) {
-			fail();
-		}// try-catch
+			Assert.assertTrue(true);
+		}
+
 		try {
 			new Opiniao(null, NOTA);
-			Assert.fail("Esperava excecao");
 		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
 
-		} catch (Exception e) {
-			
-		}// try-catch
-		
 		try {
 			new Opiniao(comentExcessivo, 7);
-			Assert.fail("Esperava excecao");
 		} catch (EstouroDeCaracteresException e) {
-
-		} catch (Exception e) {
-			
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 	}// TestOpiniaoConstrutor
 
 	@Test
@@ -83,8 +80,17 @@ public class OpiniaoTest {
 	}
 
 	@Test
-	public void testToString() {
-		String esperado = "Opiniao [comentario=Programacao II Universidade Federal de Campina Grande, nota=1.0]";
-		Assert.assertTrue(esperado.equals(opiniao.toString()));
+	public void testToString() throws NullPointerException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
+		Assert.assertEquals(
+				opiniao.toString(),
+				"Opiniao: "
+						+ "\nComentario: 'Programacao II Universidade Federal de Campina Grande'"
+						+ "\nNota: 1.0");
+		Opiniao opiniao2 = new Opiniao("Muito bom, gostei bastante!", 10);
+		Assert.assertEquals(opiniao2.toString(), "Opiniao: "
+				+ "\nComentario: 'Muito bom, gostei bastante!'"
+				+ "\nNota: 10.0");
 	}
 }

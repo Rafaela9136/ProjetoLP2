@@ -5,9 +5,11 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.NotaInvalidaException;
 
 /**
- * @version 2.0
- * @author Grupinho da Alegria
- *
+ * Classe de uma Opiniao que sera dada pelo cliente ao termino do contrato sobre
+ * sua satisfacao com o Hotel.
+ * 
+ * @author Grupo
+ * @version 1.0
  */
 public class Opiniao {
 	public static final float NOTA_MAX = 10;
@@ -17,45 +19,77 @@ public class Opiniao {
 	private float nota;
 
 	/**
+	 * Cria uma opiniao com um comentario e uma nota.
 	 * 
 	 * @param comentario
-	 *            Comentario a ser adicionado na opiniao.
+	 *            Comentario da opiniao.
 	 * @param nota
 	 *            Nota da Opiniao.
 	 * @throws NotaInvalidaException
-	 *             Excecao lancada quando a nota e menor que a constante
-	 *             NOTA_MIN ou quando a nota e maior que a constante NOTA_MAX.
+	 *             Quando a nota e menor que a constante NOTA_MIN ou quando a
+	 *             nota e maior que a constante NOTA_MAX.
 	 * @throws EstouroDeCaracteresException
-	 *             Excecao lancada quando o comentario excede a quantidade
-	 *             maxima de caracteres.
+	 *             Quando o comentario excede a quantidade maxima de caracteres.
 	 * @throws NullPointerException
-	 *             Excecao lancada quando @param comentario nao foi
-	 *             inicializado.
-	 * @throws ComentarioVazioException Excecao lancada quando o comentario nao possui nenhum caractere.
+	 *             Quando @param comentario nao foi inicializado.
+	 * @throws ComentarioVazioException
+	 *             Quando o comentario nao possui nenhum caractere.
 	 */
 	public Opiniao(String comentario, float nota) throws NotaInvalidaException,
-			EstouroDeCaracteresException, NullPointerException, ComentarioVazioException {
+			EstouroDeCaracteresException, NullPointerException,
+			ComentarioVazioException {
 		verificaNotaValida(nota);
 		verificaComentarioValido(comentario);
 		this.comentario = comentario;
 		this.nota = nota;
 	}// Construtor
-	
+
 	/**
-	 * @see nothing Recupera o comentario do objeto Opiniao.
-	 * @return Retorna o comentario do objeto Opiniao.
+	 * Recupera o comentario do objeto Opiniao.
+	 * 
+	 * @return O comentario do objeto Opiniao.
 	 */
 	public String getComentario() {
 		return comentario;
 	}// getComentario
-	
+
 	/**
-	 * @see nothing Recupera a nota do Objeto Opiniao.
-	 * @return Retorna a nota do objeto Opiniao.
+	 * Recupera a nota do Objeto Opiniao.
+	 * 
+	 * @return A nota do objeto Opiniao.
 	 */
 	public float getNota() {
 		return nota;
 	}// getNota
+
+	private void verificaNotaValida(float nota) throws NotaInvalidaException {
+		if (nota > NOTA_MAX || nota < NOTA_MIN)
+			throw new NotaInvalidaException();
+	}// verificaNotaValida
+
+	private void verificaComentarioValido(String comentario)
+			throws NullPointerException, EstouroDeCaracteresException,
+			ComentarioVazioException {
+		if (comentario == null)
+			throw new NullPointerException();
+		if (comentario.trim().isEmpty())
+			throw new ComentarioVazioException();
+		if (comentario.length() > 400)
+			throw new EstouroDeCaracteresException();
+
+	}// verificaComentarioValido
+
+	/**
+	 * Retorna uma representacao em string da opiniao dada, com seu comentario e
+	 * nota.
+	 * 
+	 * @return String contendo os dados da opiniao.
+	 */
+	@Override
+	public String toString() {
+		return "Opiniao: \nComentario: '" + getComentario() + "'\nNota: "
+				+ getNota() + "";
+	}
 
 	@Override
 	public int hashCode() {
@@ -67,47 +101,19 @@ public class Opiniao {
 		return result;
 	}
 
+	/**
+	 * Verifica se dois objetos do tipo Opiniao sao iguais, a partir de seus
+	 * comentarios e suas notas.
+	 * 
+	 * @return True se forem iguas ou False caso contrario.
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (!(obj instanceof Opiniao))
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Opiniao other = (Opiniao) obj;
-		if (comentario == null) {
-			if (other.comentario != null)
-				return false;
-		} else if (!comentario.equals(other.comentario))
-			return false;
-		if (Float.floatToIntBits(nota) != Float.floatToIntBits(other.nota))
-			return false;
-		return true;
+		Opiniao outra = (Opiniao) obj;
+		return getNota() == outra.getNota()
+				&& getComentario().equals(outra.getComentario());
 	}
-
-	@Override
-	public String toString() {
-		return "Opiniao [comentario=" + comentario + ", nota=" + nota + "]";
-	}
-	
-	private void verificaNotaValida(float nota) throws NotaInvalidaException {
-		if (nota > NOTA_MAX || nota < NOTA_MIN)
-			throw new NotaInvalidaException();
-	}// verificaNotaValida
-
-	private void verificaComentarioValido(String comentario)
-			throws NullPointerException, EstouroDeCaracteresException,
-			ComentarioVazioException {
-		if (comentario == null)
-			throw new NullPointerException();
-
-		if (comentario.length() > 400)
-			throw new EstouroDeCaracteresException();
-
-		if (comentario.isEmpty())
-			throw new ComentarioVazioException();
-
-	}// verificaComentarioValido
 
 }// Opiniao

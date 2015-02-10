@@ -4,9 +4,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public enum Estrategias {
-	SAO_JOAO_PREMIUM("Sao Joao Premium +10%%", 1, 10, Calendar.JUNE, Calendar.JUNE,1.1, Calendar.getInstance().YEAR), 
-	SAO_JOAO("Sao Joao +50%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.5, Calendar.getInstance().YEAR), 
-	NATAL_REVEILLON("Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY, 1.2, Calendar.getInstance().YEAR + 1);
+	SAO_JOAO_PREMIUM("Sao Joao Premium +10%%", 1, 10, Calendar.JUNE,
+			Calendar.JUNE, 1.1, Calendar.getInstance().YEAR), SAO_JOAO(
+			"Sao Joao +50%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.5,
+			Calendar.getInstance().YEAR), NATAL_REVEILLON(
+			"Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
+			1.2, Calendar.getInstance().YEAR + 1);
 
 	private String nomeEstrategia;
 	private Calendar dataInicial;
@@ -38,14 +41,12 @@ public enum Estrategias {
 	public double getPorcentagem() {
 		return porcentagem;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Estrategia=" + nomeEstrategia + ","
-	+ "DataInicial=" + dataInicial + "," +"DataFinal=" + dataFinal
-	+"," + "Porcentagem=" + porcentagem;
+		return "Estrategia=" + nomeEstrategia + "," + "DataInicial="
+				+ dataInicial + "," + "DataFinal=" + dataFinal + ","
+				+ "Porcentagem=" + porcentagem;
 	}
-	
-	
-	
+
 }// Estrategias
