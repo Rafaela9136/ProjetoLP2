@@ -23,6 +23,7 @@ import excecoes.CartaoInvalidoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.FrigobarEmListServicosException;
+import excecoes.NumeroInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 
@@ -163,8 +164,6 @@ public class AcoesGerais extends JPanel {
 					aviso.setVisible(true);
 					layout.show(panel, "vazio");
 					
-					System.out.println(Hotel.getContratos().size());
-					
 				} catch (NullPointerException e1) {
 					erro.setVisible(true);
 				} catch (CPFInvalidoException e1) {
@@ -180,6 +179,8 @@ public class AcoesGerais extends JPanel {
 				} catch (ContratoSemQuartoException e1) {
 					erro.setVisible(true);
 				} catch (FrigobarEmListServicosException e1) {
+					erro.setVisible(true);
+				} catch (NumeroInvalidoException e1) {
 					erro.setVisible(true);
 				}
 			}
@@ -232,8 +233,6 @@ public class AcoesGerais extends JPanel {
 		
 		scrollPane.setViewportView(tableContratos);
 		
-		contratosExistentes(pesquisarContrato);
-		
 		JTextPane txtpnHspede = new JTextPane();
 		txtpnHspede.setText("H\u00F3spede:");
 		txtpnHspede.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -245,8 +244,35 @@ public class AcoesGerais extends JPanel {
 		btnConfirmarP.setBounds(441, 50, 145, 28);
 		btnConfirmarP.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizaPesquisa();
+				if(Hotel.getContratos() == null){
+					desingTabela = new Object[1][3];
+				} else {
+					desingTabela = new Object[Hotel.getContratos().size()][3];
+					for (int i = 0; i < Hotel.getContratos().size(); i++) {
+						desingTabela[i][0] = Hotel.getContratos().get(i).getHospedeTitular().getNome();
+						if(Hotel.getContratos().get(i).getIsReserva())
+							desingTabela[i][1] = "Reserva";
+						if(Hotel.getContratos().get(i).getIsAberto())
+							desingTabela[i][1] = "Aberto";
+						if(!Hotel.getContratos().get(i).getIsAberto())
+							desingTabela[i][1] = "Fechado";
+						desingTabela[i][2] = "Ver Contrato";
+					}
+				}
+				
+				@SuppressWarnings("serial")
+				DefaultTableModel modeloTableServico = new DefaultTableModel(
+						desingTabela,
+						new String[] { "Nome do hospede", "Situação",  "Contrato" })
+				{ @Override
+					public boolean isCellEditable(int roll, int column){
+					return false;
+				}	
+			};
+			
+			tableContratos.setModel(modeloTableServico);
 			}
+			
 		});
 		pesquisarContrato.add(btnConfirmarP);
 		
@@ -272,43 +298,6 @@ public class AcoesGerais extends JPanel {
 	
 	static void selecionaTela(String tela){
 		layout.show(panel, tela);
-	}
-
-
-	void contratosExistentes(JPanel pesquisarContrato) {
-			if(Hotel.getContratos() == null){
-				desingTabela = new Object[1][3];
-			} else {
-				System.out.println("b");
-				desingTabela = new Object[Hotel.getContratos().size()][3];
-				atualizaPesquisa();
-			}
-			@SuppressWarnings("serial")
-			DefaultTableModel modeloTableServico = new DefaultTableModel(
-					desingTabela,
-					new String[] { "Nome do hospede", "Situação",  "Contrato" })
-			{ @Override
-				public boolean isCellEditable(int roll, int column){
-				return false;
-			}	
-		};
-		
-		tableContratos.setModel(modeloTableServico);
-	}
-
-	private void atualizaPesquisa() {
-		System.out.println(Hotel.getContratos().size() + "<-");
-		for (int i = 0; i < Hotel.getContratos().size(); i++) {
-			System.out.println(i);
-			desingTabela[i][0] = "Rafaela";
-			if(Hotel.getContratos().get(i).getIsReserva())
-				desingTabela[i][1] = "Reserva";
-			if(Hotel.getContratos().get(i).getIsAberto())
-				desingTabela[i][1] = "Aberto";
-			if(!Hotel.getContratos().get(i).getIsAberto())
-				desingTabela[i][1] = "Fechado";
-			desingTabela[i][2] = "Ver Contrato";
-		}
 	}
 
 	private void barraOpcoes(final JPanel panel, JPanel atualizarContrato) {
