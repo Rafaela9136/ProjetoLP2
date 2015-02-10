@@ -69,7 +69,7 @@ public class HospedeTest {
 		}
 
 		try {
-			new Hospede("$¨*@#¨", data1, cartao3);
+			new Hospede("$ï¿½*@#ï¿½", data1, cartao3);
 		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
@@ -436,7 +436,7 @@ public class HospedeTest {
 		}
 
 		try {
-			hospede3.setNumero("%#¨$#*($");
+			hospede3.setNumero("%#ï¿½$#*($");
 		} catch (NumeroInvalidoException e) {
 			Assert.assertTrue(true);
 		}
@@ -563,18 +563,18 @@ public class HospedeTest {
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
-		Assert.assertEquals(hospede1.toString(), "Hospede" + "\nNome: Joao"
-				+ "\nData de Nascimento: 20/3/1980" + "\nPais: Brasil"
+		Assert.assertEquals(hospede1.toString(), "HOSPEDE" + "\nNome: Joao"
+				+ "\nData de Nascimento: 20/03/1980" + "\nPais: Brasil"
 				+ "\nEstado: PB" + "\nCidade: Campina Grande"
 				+ "\nEndereco: Rua Borborema, 234" + "\nCPF: 231.574.344-30"
 				+ "\nCartao de Credito: 5624.9842.3156.6251");
-		Assert.assertEquals(hospede2.toString(), "Hospede" + "\nNome: Jose"
+		Assert.assertEquals(hospede2.toString(), "HOSPEDE" + "\nNome: Jose"
 				+ "\nData de Nascimento: 13/10/1974" + "\nPais: Brasil"
 				+ "\nEstado: RN" + "\nCidade: Natal"
 				+ "\nEndereco: Rua Suassuna, 123" + "\nCPF: 321.654.987-61"
 				+ "\nCartao de Credito: 6032.1574.8219.4203");
-		Assert.assertEquals(hospede3.toString(), "Hospede" + "\nNome: Mohammed"
-				+ "\nData de Nascimento: 5/12/1987" + "\nPais: --"
+		Assert.assertEquals(hospede3.toString(), "HOSPEDE" + "\nNome: Mohammed"
+				+ "\nData de Nascimento: 05/12/1987" + "\nPais: --"
 				+ "\nEstado: XX" + "\nCidade: --" + "\nEndereco: --, --"
 				+ "\nCPF: --" + "\nCartao de Credito: 2320.1684.9726.2164");
 
@@ -583,16 +583,16 @@ public class HospedeTest {
 				"Rua Antonio Melo", "621", "245.613.203-70",
 				"5136.8452.1302.9764");
 
-		Assert.assertEquals(novoHospede.toString(), "Hospede" + "\nNome: Paula"
-				+ "\nData de Nascimento: 3/7/1990" + "\nPais: Brasil"
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + "\nNome: Paula"
+				+ "\nData de Nascimento: 03/07/1990" + "\nPais: Brasil"
 				+ "\nEstado: MA" + "\nCidade: Sao Luis"
 				+ "\nEndereco: Rua Antonio Melo, 621" + "\nCPF: 245.613.203-70"
 				+ "\nCartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setNome("Paula Ramalho");
 
-		Assert.assertEquals(novoHospede.toString(), "Hospede"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 3/7/1990"
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
+				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
 				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Sao Luis"
 				+ "\nEndereco: Rua Antonio Melo, 621" + "\nCPF: 245.613.203-70"
 				+ "\nCartao de Credito: 5136.8452.1302.9764");
@@ -600,22 +600,22 @@ public class HospedeTest {
 		novoHospede.setCidade("Algodao");
 		novoHospede.setLogradouro("Rua Morais");
 		novoHospede.setNumero("83");
-		Assert.assertEquals(novoHospede.toString(), "Hospede"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 3/7/1990"
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
+				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
 				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
 				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-70"
 				+ "\nCartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setCpf("245.613.203-60");
-		Assert.assertEquals(novoHospede.toString(), "Hospede"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 3/7/1990"
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
+				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
 				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
 				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-60"
 				+ "\nCartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setCartaoDeCredito("1364.2403.8492.3746");
-		Assert.assertEquals(novoHospede.toString(), "Hospede"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 3/7/1990"
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
+				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
 				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
 				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-60"
 				+ "\nCartao de Credito: 1364.2403.8492.3746");

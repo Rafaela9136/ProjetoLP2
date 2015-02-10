@@ -210,15 +210,15 @@ public class BabaTest {
 		Assert.assertEquals("SERVICO BABYSITTER"
                            + "\nPreco Total: R$ 450.0"
                            + "\nDuracao: 9 horas"
-                           + "\nData Inicio: 31/12/2015 as 22:0"
-                           + "\nData Termino: 1/1/2016 as 7:0"
+                           + "\nData Inicio: 31/12/2015 22:00"
+                           + "\nData Termino: 01/01/2016 07:00"
                            + "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.",  baba1.toString());
 		
 		Assert.assertEquals("SERVICO BABYSITTER"
 						+ "\nPreco Total: R$ 1100.0" 
 						+ "\nDuracao: 30 horas"
-						+ "\nData Inicio: 20/6/2015 as 13:0"
-						+ "\nData Termino: 21/6/2015 as 19:0"
+						+ "\nData Inicio: 20/06/2015 13:00"
+						+ "\nData Termino: 21/06/2015 19:00"
 						+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.", baba2.toString());	
 	}
 	

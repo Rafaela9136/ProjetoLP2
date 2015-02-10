@@ -1,5 +1,6 @@
 package hotel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -114,7 +115,7 @@ public class Contrato {
 	}// getOpiniao
 	
 	/**
-	 * @see nothing Recupera em que o contrato começa a valer e deixa de ser uma reserva.
+	 * @see nothing Recupera em que o contrato comeï¿½a a valer e deixa de ser uma reserva.
 	 * @return Retorna a data inicial do contrato.
 	 */
 	public Calendar getDataCheckIn() {
@@ -302,13 +303,17 @@ public class Contrato {
 
 	@Override
 	public String toString() {
-		return "\nContrato \nAcompanhantes: " + acompanhantes + "\nServicos: "
-				+ servicos + "\nHospedeTitular: " + hospedeTitular
-				+ "\nOpiniao: " + opiniao + "\nCheckIn: " + dataCheckIn
-				+ "\nCheckOut: " + dataCheckOut + "\nEstrategia: " + estrategia
-				+ "\nDespesas Adicionais: " + despesasAdicionais
-				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
-				+ "\n";
+		return "\nCONTRATO "
+			 + "\nHospedeTitular: " + hospedeTitular
+			 + "\nAcompanhantes: " + acompanhantes 
+			 + "\nServicos: " + servicos 
+			 + "\nOpiniao: " + opiniao 
+			 + "\nCheckIn: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime())
+			 + "\nCheckOut: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime()) 
+			 + "\nEstrategia: " + estrategia
+			 + "\nDespesas Adicionais: " + despesasAdicionais
+			 + "\nReserva: " + isReserva 
+			 + "\nContrato Aberto: " + isAberto	+ "\n";
 	}
 
 	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)

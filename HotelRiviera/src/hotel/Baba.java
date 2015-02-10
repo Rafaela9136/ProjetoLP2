@@ -1,5 +1,6 @@
 package hotel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -165,17 +166,8 @@ public class Baba implements Servico {
 	public String toString() {
 		return "SERVICO BABYSITTER\n" + "Preco Total: R$ " + getPreco()
 				+ "\nDuracao: " + getNumeroDeHoras() + " horas"
-				+ "\nData Inicio: "
-				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
-				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
-				+ getDataInicio().get(Calendar.YEAR) + " as "
-				+ getDataInicio().get(Calendar.HOUR_OF_DAY) + ":"
-				+ getDataInicio().get(Calendar.MINUTE) + "\nData Termino: "
-				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
-				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
-				+ getDataTermino().get(Calendar.YEAR) + " as "
-				+ getDataTermino().get(Calendar.HOUR_OF_DAY) + ":"
-				+ getDataTermino().get(Calendar.MINUTE)
+				+ "\nData Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataInicio.getTime())
+				+ "\nData Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataTermino.getTime())
 				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 

@@ -1,5 +1,6 @@
 package hotel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -434,11 +435,10 @@ public class Hospede {
 	 */
 	@Override
 	public String toString() {
-		return "Hospede\n" + "Nome: " + getNome() + "\nData de Nascimento: "
-				+ getDataNascimento().get(Calendar.DAY_OF_MONTH) + "/"
-				+ (getDataNascimento().get(Calendar.MONTH) + 1) + "/"
-				+ getDataNascimento().get(Calendar.YEAR) + "\nPais: "
-				+ getPais() + "\nEstado: " + getEstado() + "\nCidade: "
+		return "HOSPEDE\n" 
+				+ "Nome: " + getNome() 
+				+ "\nData de Nascimento: " + new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getTime())
+				+ "\nPais: "+ getPais() + "\nEstado: " + getEstado() + "\nCidade: "
 				+ getCidade() + "\nEndereco: " + getLogradouro() + ", "
 				+ getNumero() + "\nCPF: " + getCpf() + "\nCartao de Credito: "
 				+ getCartaoDeCredito();
