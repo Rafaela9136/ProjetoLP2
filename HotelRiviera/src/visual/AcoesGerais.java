@@ -265,7 +265,7 @@ public class AcoesGerais extends JPanel {
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situação"})
+						new String[] { "Nome do hospede", "Situaï¿½ï¿½o"})
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
@@ -287,34 +287,40 @@ public class AcoesGerais extends JPanel {
 				if(Hotel.getContratos() == null){
 					desingTabela = new Object[1][2];
 				} else {
+					int quantResultados = 0;
+					// Corrigir a quantidade de linhas
 					desingTabela = new Object[Hotel.getContratos().size()][2];
 					for (int i = 0; i < Hotel.getContratos().size(); i++) {
 						if (Hotel.getContratos().get(i).getHospedeTitular()
-								.getNome().equals(textFieldHospedeT)) {
-							desingTabela[i][0] = Hotel.getContratos().get(i)
+								.getNome().equals(textFieldHospedeT.getText())) {
+							desingTabela[quantResultados][0] = Hotel.getContratos().get(i)
 									.getHospedeTitular().getNome();
 							if (Hotel.getContratos().get(i).getIsReserva())
-								desingTabela[i][1] = "Reserva";
-							if (Hotel.getContratos().get(i).getIsAberto())
-								desingTabela[i][1] = "Aberto";
-							if (!Hotel.getContratos().get(i).getIsAberto())
-								desingTabela[i][1] = "Fechado";
-						} 
-						AvisoNaoEncontrado avisoNaoEncontrado = new AvisoNaoEncontrado();
-						avisoNaoEncontrado.setVisible(true);
+								desingTabela[quantResultados][1] = "Reserva";
+							else if (Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[quantResultados][1] = "Aberto";
+							else if (!Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[quantResultados][1] = "Fechado";
+							quantResultados++;
+						}
+						
 					}
+					if(quantResultados == 0) {
+						AvisoNaoEncontrado aviso = new AvisoNaoEncontrado();
+						aviso.setVisible(true);
+					}
+						
 				}
 				
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situação" })
+						new String[] { "Nome do hospede", "Situaï¿½ï¿½o" })
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
 				}	
 			};
-			System.out.println(tableContratos.getSelectedRowCount());
 			tableContratos.setModel(modeloTableServico);
 			}
 		});
