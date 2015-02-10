@@ -34,15 +34,21 @@ public class AtualizarContrato extends JPanel {
 	private final static CardLayout layout = new CardLayout();
 	
 	private JTextField textFieldEstado;
+	private JTextField textFieldNome;
+	private JTextField textFieldData;
+	private JTextArea textAreaAcompanhantes;
 	private JTextField textFieldCidade;
 	private JTextField textFieldEndereco;
 	private JTextField textFieldNumero;
 	private JFormattedTextField textFieldCPF;
+	private JFormattedTextField textFieldCartaoCredito;
+	private JComboBox<String> comboBoxPaises;
 	private JTable tableServicos;
 	
 	private String[] hospedesAcompanhantes;
 	private Object[][] desingTabela;
 	private List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
+
 
 	/**
 	 * Create the panel.
@@ -51,23 +57,29 @@ public class AtualizarContrato extends JPanel {
 	public AtualizarContrato() throws ParseException {
 		final MaskFormatter dateMask = new MaskFormatter("##/##/####");
 		final MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
+		final MaskFormatter cartaoMask = new MaskFormatter("####.####.####.####");
 		
 		setLayout(null);
-		
+
+		System.out.println(AcoesGerais.getContratoSelecionado());
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 603, 569);
 		add(panel);
 		panel.setLayout(layout);
 		
-		// Editar hosspede
+		// Editar hospede
+		
 		JPanel editarHospede = new JPanel();
 		editarHospede.setBackground(Color.WHITE);
 		panel.add(editarHospede, "editarHospede");
 		editarHospede.setLayout(null);
 		
-		hospedeDadosPrincipais(dateMask, cpfMask, panel, editarHospede);
+		hospedeDadosPrincipais(dateMask, cpfMask, cartaoMask, panel, editarHospede);
 		hospedeEndereco(editarHospede);
+		
+		//Preenche os campos com os dados do hospede selecionado
+		setaCampos();
 		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -241,7 +253,7 @@ public class AtualizarContrato extends JPanel {
 		tableServicos.setModel(modeloTableServico);
 	}
 	
-	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask,
+	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
 			JPanel panel, JPanel editarHospede) {
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
@@ -258,7 +270,7 @@ public class AtualizarContrato extends JPanel {
 		txtpnNome.setText("Nome:");
 		editarHospede.add(txtpnNome);
 
-		JTextField textFieldNome = new JTextField();
+		textFieldNome = new JTextField();
 		textFieldNome.setBounds(147, 74, 420, 28);
 		textFieldNome.setFont(new Font("Verdana", Font.PLAIN, 12));
 		editarHospede.add(textFieldNome);
@@ -273,7 +285,7 @@ public class AtualizarContrato extends JPanel {
 		editarHospede.add(txtpnNascimento);
 
 		dateMask.setPlaceholderCharacter(' ');
-		JFormattedTextField textFieldData = new JFormattedTextField(dateMask);
+		textFieldData = new JFormattedTextField(dateMask);
 		textFieldData.setBounds(147, 110, 117, 28);
 		textFieldData.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldData.setColumns(10);
@@ -294,17 +306,32 @@ public class AtualizarContrato extends JPanel {
 		textFieldCPF.setColumns(10);
 		editarHospede.add(textFieldCPF);
 		
+		// Cartao
+		textFieldCartaoCredito = new JFormattedTextField(cartaoMask);
+		textFieldCartaoCredito.setFont(new Font("Verdana", Font.PLAIN, 12));
+		textFieldCartaoCredito.setEnabled(true);
+		textFieldCartaoCredito.setColumns(10);
+		textFieldCartaoCredito.setBounds(147, 142, 181, 28);
+		editarHospede.add(textFieldCartaoCredito);
+
+		JTextPane txtpnCCrdito = new JTextPane();
+		txtpnCCrdito.setText("N\u00BA do cart\u00E3o:");
+		txtpnCCrdito.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnCCrdito.setEditable(false);
+		txtpnCCrdito.setBounds(32, 142, 104, 28);
+		editarHospede.add(txtpnCCrdito);
+		
 		// Acompanhantes
 		JTextPane textPane = new JTextPane();
-		textPane.setBounds(32, 280, 112, 28);
+		textPane.setBounds(32, 312, 112, 28);
 		textPane.setText("Acompanhantes:");
 		textPane.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textPane.setEditable(false);
 		editarHospede.add(textPane);
 
-		JTextArea textAreaAcompanhantes = new JTextArea();
+		textAreaAcompanhantes = new JTextArea();
 		textAreaAcompanhantes.setLineWrap(true);
-		textAreaAcompanhantes.setBounds(147, 280, 420, 73);
+		textAreaAcompanhantes.setBounds(147, 312, 420, 73);
 		editarHospede.add(textAreaAcompanhantes);
 		hospedesAcompanhantes = textAreaAcompanhantes.getText().split(",");
 	}
@@ -312,72 +339,72 @@ public class AtualizarContrato extends JPanel {
 	private void hospedeEndereco(JPanel editarHospede) {		
 		// Estado
 		JTextPane txtpnEstado = new JTextPane();
-		txtpnEstado.setBounds(32, 176, 85, 28);
+		txtpnEstado.setBounds(32, 208, 85, 28);
 		txtpnEstado.setText("Estado:");
 		txtpnEstado.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnEstado.setEditable(false);
 		editarHospede.add(txtpnEstado);
 
 		textFieldEstado = new JTextField();
-		textFieldEstado.setBounds(147, 176, 221, 28);
+		textFieldEstado.setBounds(147, 208, 221, 28);
 		textFieldEstado.setEnabled(false);
 		textFieldEstado.setFont(new Font("Verdana", Font.PLAIN, 12));
 		editarHospede.add(textFieldEstado);
 
 		// Cidade
 		JTextPane txtpnCidade = new JTextPane();
-		txtpnCidade.setBounds(32, 214, 85, 28);
+		txtpnCidade.setBounds(32, 246, 85, 28);
 		txtpnCidade.setText("Cidade:");
 		txtpnCidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCidade.setEditable(false);
 		editarHospede.add(txtpnCidade);
 
 		textFieldCidade = new JTextField();
-		textFieldCidade.setBounds(147, 210, 221, 28);
+		textFieldCidade.setBounds(147, 242, 221, 28);
 		textFieldCidade.setEnabled(false);
 		textFieldCidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		editarHospede.add(textFieldCidade);
 
 		// Endereco
 		JTextPane txtpnEndereco = new JTextPane();
-		txtpnEndereco.setBounds(32, 249, 85, 28);
+		txtpnEndereco.setBounds(32, 281, 85, 28);
 		txtpnEndereco.setText("Endere\u00E7o:");
 		txtpnEndereco.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnEndereco.setEditable(false);
 		editarHospede.add(txtpnEndereco);
 
 		textFieldEndereco = new JTextField();
-		textFieldEndereco.setBounds(147, 244, 339, 28);
+		textFieldEndereco.setBounds(147, 276, 339, 28);
 		textFieldEndereco.setEnabled(false);
 		textFieldEndereco.setFont(new Font("Verdana", Font.PLAIN, 12));
 		editarHospede.add(textFieldEndereco);
 
 		// Numero
 		JTextPane txtpnN = new JTextPane();
-		txtpnN.setBounds(491, 246, 33, 28);
+		txtpnN.setBounds(491, 278, 33, 28);
 		txtpnN.setText("N\u00BA:");
 		txtpnN.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnN.setEditable(false);
 		editarHospede.add(txtpnN);
 
 		textFieldNumero = new JTextField();
-		textFieldNumero.setBounds(525, 244, 42, 28);
+		textFieldNumero.setBounds(525, 276, 42, 28);
 		textFieldNumero.setEnabled(false);
 		textFieldNumero.setFont(new Font("Verdana", Font.PLAIN, 12));
 		editarHospede.add(textFieldNumero);
 		
 		// Pais
 		JTextPane txtpnNascionalidade = new JTextPane();
-		txtpnNascionalidade.setBounds(32, 142, 85, 28);
+		txtpnNascionalidade.setBounds(32, 174, 85, 28);
 		txtpnNascionalidade.setText("Pa\u00EDs:");
 		txtpnNascionalidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnNascionalidade.setEditable(false);
 		editarHospede.add(txtpnNascionalidade);
 				
-		final JComboBox<String> comboBoxPaises = new JComboBox<String>();
+		comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Afeganist\u00E3o", "\u00C1frica do Sul", "Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila", "Ant\u00E1rctida", "Ar\u00E1bia Saudita", "Arctic Ocean", "Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba", "Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria", "Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados", "B\u00E9lgica", "Belize", "Bermudas", "Bielorr\u00FAssia", "Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana", "Brasil", "Bulg\u00E1ria", "Cabo Verde", "Camar\u00F5es", "Camboja", "Canad\u00E1", "Cazaquist\u00E3o", "Chade", "Chile", "China", "Chipre", "Col\u00F4mbia", "Comores", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Cro\u00E1cia", "Cuba", "Dinamarca", "Dom\u00EDnica", "Egipto", "Equador", "Eslov\u00E1quia", "Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia", "Eti\u00F3pia", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a", "Ge\u00F3rgia", "Granada", "Gr\u00E9cia", "Guatemala", "Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial", "Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "I\u00E9men", "\u00CDndia", "Indian Ocean", "Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda", "Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica", "Jap\u00E3o", "Jord\u00E2nia", "Kuwait", "Let\u00F3nia", "L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Litu\u00E2nia", "Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar", "Mal\u00E1sia", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia", "M\u00E9xico", "Mo\u00E7ambique", "Mold\u00E1via", "M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro", "Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria", "Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia", "Pacific Ocean", "Pa\u00EDses Baixos", "Panam\u00E1", "Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paraguai", "Peru", "Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia", "Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o", "Reino Unido", "Rep\u00FAblica Centro-Africana", "Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana", "Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa", "Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura", "S\u00EDria", "Som\u00E1lia", "Sud\u00E3o", "Su\u00E9cia", "Su\u00ED\u00E7a", "Suriname", "Tail\u00E2ndia", "Taiwan", "Tajiquist\u00E3o", "Tanz\u00E2nia", "Tun\u00EDsia", "Turquemenist\u00E3o", "Turquia", "Ucr\u00E2nia", "Uganda", "Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o", "Vaticano", "Venezuela", "Vietname", "Z\u00E2mbia", "Zimbabu\u00E9"}));
-		comboBoxPaises.setBounds(147, 142, 117, 28);
+		comboBoxPaises.setBounds(147, 174, 117, 28);
 		editarHospede.add(comboBoxPaises);
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -396,5 +423,15 @@ public class AtualizarContrato extends JPanel {
 				}
 			}
 		});
+	}
+	
+	private void setaCampos(){
+		if(AcoesGerais.getContratoSelecionado() != -1){
+			
+//			textFieldCidade.setText(AcoesGerais.get(contratoSelecionado).getHospedeTitular().getCidade());
+//			textFieldEndereco.setText(AcoesGerais.get(contratoSelecionado).getHospedeTitular().getLogradouro());
+//			textFieldNumero.setText(AcoesGerais.get(contratoSelecionado).getHospedeTitular().getNumero());
+//			comboBoxPaises.setSelectedItem(AcoesGerais.get(contratoSelecionado).getHospedeTitular().getPais());
+		}
 	}
 }

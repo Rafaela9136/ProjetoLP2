@@ -46,6 +46,7 @@ public class AcoesGerais extends JPanel {
 	private static final long serialVersionUID = -3539467665785505533L;
 	private static JPanel panel;
 	private final static CardLayout layout = new CardLayout();
+	private final ListSelectionModel listSelectionModel;
 	
 	private JComboBox<String> comboBoxQuarto;
 	private JComboBox<String> comboBoxQuartoQ;
@@ -72,7 +73,7 @@ public class AcoesGerais extends JPanel {
 	private List<Servico> servicos = new ArrayList<Servico>();
 	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
 	private Quarto quarto;
-	private Contrato contratoSelecionado;
+	static int contratoSelecionado = -1;
 	
 	/**
 	 * Create the panel.
@@ -167,6 +168,7 @@ public class AcoesGerais extends JPanel {
 					AvisoSucesso aviso = new AvisoSucesso();
 					aviso.setVisible(true);
 					layout.show(panel, "vazio");
+					limpaCampos();
 					
 				} catch (NullPointerException e1) {
 					erro.setVisible(true);
@@ -238,19 +240,7 @@ public class AcoesGerais extends JPanel {
 		
 		scrollPane.setViewportView(tableContratos);
 		
-		ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel();
-		
-		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tableContratos.getSelectedRows(); 
-				if (indiceSelecionado.length <= 0){
-					contratoSelecionado = null;
-				}else{
-					setContratoSelecionado(indiceSelecionado[0]);
-				}
-			}
-		});
+		tableContratos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 		JTextPane txtpnHspede = new JTextPane();
 		txtpnHspede.setText("H\u00F3spede:");
@@ -258,6 +248,18 @@ public class AcoesGerais extends JPanel {
 		txtpnHspede.setEditable(false);
 		txtpnHspede.setBounds(20, 13, 78, 28);
 		pesquisarContrato.add(txtpnHspede);
+		
+		final JButton btnAtualizarContrato = new JButton("Atualizar contrato");
+		btnAtualizarContrato.setBounds(443, 570, 145, 25);
+		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
+		if(contratoSelecionado == -1)
+			btnAtualizarContrato.setEnabled(false);
+		btnAtualizarContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				layout.show(panel, "atualizarContrato");
+			}
+		});
+		pesquisarContrato.add(btnAtualizarContrato);
 		
 		// Atualiza a tabela dos contratos existentes
 		JButton btnAtualizarTabela = new JButton("Atualizar tabela");
@@ -293,6 +295,24 @@ public class AcoesGerais extends JPanel {
 			}
 		});
 		pesquisarContrato.add(btnAtualizarTabela);
+		
+		listSelectionModel = tableContratos.getSelectionModel();
+        tableContratos.setSelectionModel(listSelectionModel);
+        
+		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tableContratos.getSelectedRows();
+//				if (indiceSelecionado.length <= 0){
+//					contratoSelecionado = -1;
+//				}else{
+					for (int i = 0; i < Hotel.getContratos().size(); i++) {
+						if(Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0]))
+							contratoSelecionado = i;
+					}
+					btnAtualizarContrato.setEnabled(true);
+//				}
+			}
+		});
 		
 		btnAtualizarTabela.setFont(new Font("Verdana", Font.PLAIN, 12));
 		
@@ -342,23 +362,33 @@ public class AcoesGerais extends JPanel {
 			}
 		});
 		pesquisarContrato.add(btnPesquisar);		
-		
-		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
-		btnAtualizarContrato.setBounds(443, 570, 145, 25);
-		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		if(contratoSelecionado == null)
-			btnAtualizarContrato.setEnabled(false);
-		btnAtualizarContrato.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				layout.show(panel, "atualizarContrato");
-			}
-		});
-		pesquisarContrato.add(btnAtualizarContrato);
 		//**		
+	}
+	
+	static int getContratoSelecionado(){
+		return contratoSelecionado;
 	}
 	
 	static void selecionaTela(String tela){
 		layout.show(panel, tela);
+	}
+	
+	private void limpaCampos(){
+		comboBoxQuarto.setSelectedIndex(0);
+		comboBoxQuartoQ.setSelectedIndex(0);
+		comboBoxPaises.setSelectedIndex(0);
+		rdbtnReserva.setSelected(false);
+		rdbtnCamaExtra.setSelected(false);
+		textFieldNome.setText("");
+		textFieldEstado.setText("");
+		textFieldCidade.setText("");
+		textFieldEndereco.setText("");
+		textFieldNumero.setText("");
+		textFieldCPF.setText("");
+		textFieldData.setText("");
+		textFieldCheckIn.setText("");
+		textFieldCheckOut.setText("");
+		textFieldCartaoCredito.setText("");
 	}
 
 	private void barraOpcoes(final JPanel panel, JPanel atualizarContrato) {
