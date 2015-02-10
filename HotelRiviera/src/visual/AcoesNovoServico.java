@@ -118,7 +118,7 @@ public class AcoesNovoServico extends JPanel {
 				Carro carro;
 				try {
 					carro = new Carro(Conector.selecionaTipoCarro(comboBox_1.getSelectedItem()), Conector.transformaData(formattedTextFieldDataI.getText()),
-							Conector.transformaData(formattedTextFieldDataF.getText()), rdbtnTanqueCheio.isSelected(), rdbtnSeguro.isSelected() );
+							Conector.transformaData(formattedTextFieldDataF.getText()), rdbtnTanqueCheio.isSelected(), rdbtnSeguro.isSelected());
 					
 					try {
 						AcoesGerais.getContratoSelecionado().adicionaServico(carro);
@@ -144,6 +144,23 @@ public class AcoesNovoServico extends JPanel {
 		panel.add(servicoBaba, "servicoBaba");
 		servicoBaba.setLayout(null);
 		
+		JTextPane txtpnDataInicial_2 = new JTextPane();
+		txtpnDataInicial_2.setText("Data e hora inicial:");
+		txtpnDataInicial_2.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnDataInicial_2.setEditable(false);
+		txtpnDataInicial_2.setBounds(0, 10, 129, 21);
+		servicoBaba.add(txtpnDataInicial_2);
+
+		final JFormattedTextField formattedTextFieldData = new JFormattedTextField(
+				dateMask);
+		formattedTextFieldData.setBounds(139, 5, 121, 27);
+		servicoBaba.add(formattedTextFieldData);
+
+		final JFormattedTextField formattedTextFieldData_2 = new JFormattedTextField(
+				dateMask);
+		formattedTextFieldData_2.setBounds(139, 52, 121, 27);
+		servicoBaba.add(formattedTextFieldData_2);
+		
 		JTextPane txtpnHoraInicial = new JTextPane();
 		txtpnHoraInicial.setText("Hora inicial:");
 		txtpnHoraInicial.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -154,25 +171,25 @@ public class AcoesNovoServico extends JPanel {
 		JComboBox<String> comboBox_2 = new JComboBox<String>();
 		comboBox_2.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBox_2.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "00"}));
-		comboBox_2.setBounds(122, 5, 121, 25);
+		comboBox_2.setBounds(294, 6, 121, 25);
 		servicoBaba.add(comboBox_2);
 		
 		JTextPane txtpnTrmino = new JTextPane();
 		txtpnTrmino.setText("T\u00E9rmino:");
 		txtpnTrmino.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnTrmino.setEditable(false);
-		txtpnTrmino.setBounds(279, 5, 73, 21);
+		txtpnTrmino.setBounds(0, 52, 73, 21);
 		servicoBaba.add(txtpnTrmino);
 		
 		JComboBox<String> comboBox_3 = new JComboBox<String>();
 		comboBox_3.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBox_3.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "00"}));
-		comboBox_3.setBounds(362, 5, 121, 25);
+		comboBox_3.setBounds(294, 52, 121, 25);
 		servicoBaba.add(comboBox_3);
 		
 		JButton btnConfirmar_2 = new JButton("Confirmar");
 		btnConfirmar_2.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnConfirmar_2.setBounds(421, 78, 145, 25);
+		btnConfirmar_2.setBounds(421, 95, 145, 25);
 		btnConfirmar_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AvisoErro erro = new AvisoErro();
@@ -216,14 +233,13 @@ public class AcoesNovoServico extends JPanel {
 			}
 		});
 		edicaoRestaurante.add(btnConfirmar_3);
-
 	}
 	
 	static void selecionaServico(Object servico){
 		if (servico.equals("Carro")) {
 			layout.show(panel, "servicoCarro");
 		}
-		if (servico.equals("Bab�")) {
+		if (servico.equals("Baba")) {
 			layout.show(panel, "servicoBaba");
 		}
 		if (servico.equals("Restaurante")) {
