@@ -5,8 +5,8 @@ import hotel.Carro;
 import hotel.ContaRestaurante;
 import hotel.Contrato;
 import hotel.EstrategiaAplicavel;
-import hotel.EstacaoNatalReveillon;
-import hotel.EstacaoSaoJoaoPremium;
+import hotel.EstrategiaNatalReveillon;
+import hotel.EstrategiaSaoJoaoPremium;
 import hotel.Frigobar;
 import hotel.Hospede;
 import hotel.QuartoLuxo;
@@ -79,7 +79,7 @@ public class ContratoTest {
 			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException, StringInvalidaException, NumeroInvalidoException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento, "0123.4567.8999.9999");
-		estrategia = new EstacaoNatalReveillon();
+		estrategia = new EstrategiaNatalReveillon();
 		// Usada para settar as datas de teste, para que os testes continuem
 		// funcionando sem importar
 		// o tempo que faca que o teste foi criado
@@ -372,14 +372,14 @@ public class ContratoTest {
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
-		estrategia = new EstacaoSaoJoaoPremium();
+		estrategia = new EstrategiaSaoJoaoPremium();
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
-		estrategia = new EstacaoNatalReveillon();
+		estrategia = new EstrategiaNatalReveillon();
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);

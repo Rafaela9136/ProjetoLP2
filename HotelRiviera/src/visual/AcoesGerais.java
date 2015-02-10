@@ -47,7 +47,7 @@ public class AcoesGerais extends JPanel {
 	private static JPanel panel;
 	private final static CardLayout layout = new CardLayout();
 	private final ListSelectionModel listSelectionModel;
-	
+
 	private JComboBox<String> comboBoxQuarto;
 	private JComboBox<String> comboBoxQuartoQ;
 	private JComboBox<String> comboBoxPaises;
@@ -64,20 +64,26 @@ public class AcoesGerais extends JPanel {
 	private JFormattedTextField textFieldCheckOut;
 	private JFormattedTextField textFieldCartaoCredito;
 	private JTable tableContratos;
-	
+
 	// Dados para criacao dos objetos
 	private Hospede novoHospede;
 	private Contrato contrato;
 	private Object[][] desingTabela;
 	private String[] hospedesAcompanhantes;
 	private List<Servico> servicos = new ArrayList<Servico>();
-	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
-	private Quarto quarto;
-	static int contratoSelecionado = -1;
+	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada
+																		// para
+																		// testes
+
+	AtualizarContrato atualizar;
 	
+	private Quarto quarto;
+	private static Contrato contratoSelecionado;
+
 	/**
 	 * Create the panel.
-	 * @throws ParseException 
+	 * 
+	 * @throws ParseException
 	 */
 	public AcoesGerais() throws ParseException {
 		setLayout(null);
@@ -205,7 +211,7 @@ public class AcoesGerais extends JPanel {
 		//**
 		
 		//AtualizarContrato
-		JPanel atualizarContrato = new JPanel();
+		final JPanel atualizarContrato = new JPanel();
 		atualizarContrato.setBackground(Color.WHITE);
 		panel.add(atualizarContrato, "atualizarContrato");
 		atualizarContrato.setLayout(null);
@@ -213,9 +219,6 @@ public class AcoesGerais extends JPanel {
 		// Barra de opcoes
 		barraOpcoes(panel, atualizarContrato);
 		
-		AtualizarContrato atualizar = new AtualizarContrato();
-		atualizar.setBounds(0, 34, 607, 572);
-		atualizarContrato.add(atualizar);
 		//**
 		
 		// Pesquisa Contrato
@@ -252,7 +255,7 @@ public class AcoesGerais extends JPanel {
 		final JButton btnAtualizarContrato = new JButton("Atualizar contrato");
 		btnAtualizarContrato.setBounds(443, 570, 145, 25);
 		btnAtualizarContrato.setFont(new Font("Verdana", Font.PLAIN, 12));
-		if(contratoSelecionado == -1)
+		if(contratoSelecionado == null)
 			btnAtualizarContrato.setEnabled(false);
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
@@ -302,18 +305,23 @@ public class AcoesGerais extends JPanel {
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tableContratos.getSelectedRows();
-				Contrato copiaContrato;
-				Contrato copiaContratoOriginal;
 				for (Contrato contrato : Hotel.getContratos()) {
-					if(contrato.getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0]))
-						copiaContrato = contrato;
-					copiaContratoOriginal = contrato;
+					if(contrato.getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0])) {
+						try {
+							atualizar = new AtualizarContrato(contrato);
+						} catch (NullPointerException | ParseException e1) {
+							e1.printStackTrace();
+						}
+						atualizar.setBounds(0, 34, 607, 572);
+						atualizarContrato.add(atualizar);
+					}
 				}
 				btnAtualizarContrato.setEnabled(true);
 			}
 		});
-		
 		btnAtualizarTabela.setFont(new Font("Verdana", Font.PLAIN, 12));
+		
+		
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
 		btnPesquisar.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -363,16 +371,16 @@ public class AcoesGerais extends JPanel {
 		pesquisarContrato.add(btnPesquisar);		
 		//**		
 	}
-	
-	static int getContratoSelecionado(){
+
+	static Contrato getContratoSelecionado() {
 		return contratoSelecionado;
 	}
-	
-	static void selecionaTela(String tela){
+
+	static void selecionaTela(String tela) {
 		layout.show(panel, tela);
 	}
-	
-	private void limpaCampos(){
+
+	private void limpaCampos() {
 		comboBoxQuarto.setSelectedIndex(0);
 		comboBoxQuartoQ.setSelectedIndex(0);
 		comboBoxPaises.setSelectedIndex(0);
@@ -466,7 +474,7 @@ public class AcoesGerais extends JPanel {
 		textFieldCheckOut.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldCheckOut.setColumns(10);
 		novoContrato.add(textFieldCheckOut);
-		
+
 		rdbtnCamaExtra = new JRadioButton("Cama extra");
 		rdbtnCamaExtra.setFont(new Font("Verdana", Font.PLAIN, 12));
 		rdbtnCamaExtra.setBounds(463, 467, 104, 18);
@@ -497,23 +505,23 @@ public class AcoesGerais extends JPanel {
 		novoContrato.add(comboBoxQuarto);
 		comboBoxQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBoxQuarto.getSelectedItem().equals("Presidencial")){
+				if (comboBoxQuarto.getSelectedItem().equals("Presidencial")) {
 					comboBoxQuartoQ.setEnabled(false);
-				} if (comboBoxQuarto.getSelectedItem().equals("Luxo")
-					|| comboBoxQuarto.getSelectedItem().equals("Executivo")) {
+				}
+				if (comboBoxQuarto.getSelectedItem().equals("Luxo")
+						|| comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 					comboBoxQuartoQ.setEnabled(true);
 				}
 			}
 		});
-		
+
 		rdbtnReserva = new JRadioButton("Reserva");
 		rdbtnReserva.setFont(new Font("Verdana", Font.PLAIN, 12));
 		rdbtnReserva.setBounds(463, 432, 85, 18);
 		novoContrato.add(rdbtnReserva);
 	}
-	
 
-	private void hospedeEndereco(JPanel novoContrato) {		
+	private void hospedeEndereco(JPanel novoContrato) {
 		// Estado
 		JTextPane txtpnEstado = new JTextPane();
 		txtpnEstado.setBounds(32, 209, 85, 28);
@@ -569,7 +577,7 @@ public class AcoesGerais extends JPanel {
 		textFieldNumero.setEnabled(false);
 		textFieldNumero.setFont(new Font("Verdana", Font.PLAIN, 12));
 		novoContrato.add(textFieldNumero);
-		
+
 		// Pais
 		JTextPane txtpnNascionalidade = new JTextPane();
 		txtpnNascionalidade.setBounds(32, 175, 85, 28);
@@ -577,15 +585,60 @@ public class AcoesGerais extends JPanel {
 		txtpnNascionalidade.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnNascionalidade.setEditable(false);
 		novoContrato.add(txtpnNascionalidade);
-				
+
 		comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setFont(new Font("Verdana", Font.PLAIN, 12));
-		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Afeganist\u00E3o", "\u00C1frica do Sul", "Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila", "Ant\u00E1rctida", "Ar\u00E1bia Saudita", "Arctic Ocean", "Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba", "Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria", "Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados", "B\u00E9lgica", "Belize", "Bermudas", "Bielorr\u00FAssia", "Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana", "Brasil", "Bulg\u00E1ria", "Cabo Verde", "Camar\u00F5es", "Camboja", "Canad\u00E1", "Cazaquist\u00E3o", "Chade", "Chile", "China", "Chipre", "Col\u00F4mbia", "Comores", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Cro\u00E1cia", "Cuba", "Dinamarca", "Dom\u00EDnica", "Egipto", "Equador", "Eslov\u00E1quia", "Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia", "Eti\u00F3pia", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a", "Ge\u00F3rgia", "Granada", "Gr\u00E9cia", "Guatemala", "Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial", "Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "I\u00E9men", "\u00CDndia", "Indian Ocean", "Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda", "Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica", "Jap\u00E3o", "Jord\u00E2nia", "Kuwait", "Let\u00F3nia", "L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Litu\u00E2nia", "Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar", "Mal\u00E1sia", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia", "M\u00E9xico", "Mo\u00E7ambique", "Mold\u00E1via", "M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro", "Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria", "Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia", "Pacific Ocean", "Pa\u00EDses Baixos", "Panam\u00E1", "Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paraguai", "Peru", "Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia", "Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o", "Reino Unido", "Rep\u00FAblica Centro-Africana", "Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana", "Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa", "Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura", "S\u00EDria", "Som\u00E1lia", "Sud\u00E3o", "Su\u00E9cia", "Su\u00ED\u00E7a", "Suriname", "Tail\u00E2ndia", "Taiwan", "Tajiquist\u00E3o", "Tanz\u00E2nia", "Tun\u00EDsia", "Turquemenist\u00E3o", "Turquia", "Ucr\u00E2nia", "Uganda", "Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o", "Vaticano", "Venezuela", "Vietname", "Z\u00E2mbia", "Zimbabu\u00E9"}));
+		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"(selecionar)", "Afeganist\u00E3o", "\u00C1frica do Sul",
+				"Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila",
+				"Ant\u00E1rctida", "Ar\u00E1bia Saudita", "Arctic Ocean",
+				"Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba",
+				"Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria",
+				"Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados",
+				"B\u00E9lgica", "Belize", "Bermudas", "Bielorr\u00FAssia",
+				"Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana",
+				"Brasil", "Bulg\u00E1ria", "Cabo Verde", "Camar\u00F5es",
+				"Camboja", "Canad\u00E1", "Cazaquist\u00E3o", "Chade", "Chile",
+				"China", "Chipre", "Col\u00F4mbia", "Comores",
+				"Coreia do Norte", "Coreia do Sul", "Costa do Marfim",
+				"Costa Rica", "Cro\u00E1cia", "Cuba", "Dinamarca",
+				"Dom\u00EDnica", "Egipto", "Equador", "Eslov\u00E1quia",
+				"Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia",
+				"Eti\u00F3pia", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a",
+				"Ge\u00F3rgia", "Granada", "Gr\u00E9cia", "Guatemala",
+				"Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial",
+				"Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong",
+				"Hungria", "I\u00E9men", "\u00CDndia", "Indian Ocean",
+				"Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda",
+				"Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica",
+				"Jap\u00E3o", "Jord\u00E2nia", "Kuwait", "Let\u00F3nia",
+				"L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Litu\u00E2nia",
+				"Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar",
+				"Mal\u00E1sia", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia",
+				"M\u00E9xico", "Mo\u00E7ambique", "Mold\u00E1via",
+				"M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro",
+				"Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria",
+				"Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia",
+				"Pacific Ocean", "Pa\u00EDses Baixos", "Panam\u00E1",
+				"Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paraguai", "Peru",
+				"Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia",
+				"Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o",
+				"Reino Unido", "Rep\u00FAblica Centro-Africana",
+				"Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana",
+				"Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa",
+				"Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura",
+				"S\u00EDria", "Som\u00E1lia", "Sud\u00E3o", "Su\u00E9cia",
+				"Su\u00ED\u00E7a", "Suriname", "Tail\u00E2ndia", "Taiwan",
+				"Tajiquist\u00E3o", "Tanz\u00E2nia", "Tun\u00EDsia",
+				"Turquemenist\u00E3o", "Turquia", "Ucr\u00E2nia", "Uganda",
+				"Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o",
+				"Vaticano", "Venezuela", "Vietname", "Z\u00E2mbia",
+				"Zimbabu\u00E9" }));
 		comboBoxPaises.setBounds(147, 175, 117, 26);
 		novoContrato.add(comboBoxPaises);
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(comboBoxPaises.getSelectedItem().equals("Brasil")){
+				if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 					textFieldCPF.setEnabled(true);
 					textFieldEstado.setEnabled(true);
 					textFieldCidade.setEnabled(true);
@@ -602,7 +655,8 @@ public class AcoesGerais extends JPanel {
 		});
 	}
 
-	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
+	private void hospedeDadosPrincipais(final MaskFormatter dateMask,
+			final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
 			JPanel panel, JPanel novoContrato) {
 		JTextPane txtpnDadosDoHspede = new JTextPane();
 		txtpnDadosDoHspede.setBounds(21, 31, 192, 36);
@@ -639,7 +693,7 @@ public class AcoesGerais extends JPanel {
 		textFieldData.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldData.setColumns(10);
 		novoContrato.add(textFieldData);
-		
+
 		// CPF
 		JTextPane txtpnCpf = new JTextPane();
 		txtpnCpf.setBounds(336, 110, 42, 28);
@@ -654,7 +708,7 @@ public class AcoesGerais extends JPanel {
 		textFieldCPF.setFont(new Font("Verdana", Font.PLAIN, 12));
 		textFieldCPF.setColumns(10);
 		novoContrato.add(textFieldCPF);
-		
+
 		// Cartao
 		textFieldCartaoCredito = new JFormattedTextField(cartaoMask);
 		textFieldCartaoCredito.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -662,14 +716,14 @@ public class AcoesGerais extends JPanel {
 		textFieldCartaoCredito.setColumns(10);
 		textFieldCartaoCredito.setBounds(147, 142, 181, 28);
 		novoContrato.add(textFieldCartaoCredito);
-		
+
 		JTextPane txtpnCCrdito = new JTextPane();
 		txtpnCCrdito.setText("N\u00BA do cart\u00E3o:");
 		txtpnCCrdito.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnCCrdito.setEditable(false);
 		txtpnCCrdito.setBounds(32, 142, 104, 28);
 		novoContrato.add(txtpnCCrdito);
-		
+
 		// Acompanhantes
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(32, 313, 112, 28);
@@ -682,8 +736,8 @@ public class AcoesGerais extends JPanel {
 		textAreaAcompanhantes.setLineWrap(true);
 		textAreaAcompanhantes.setBounds(147, 313, 420, 73);
 		novoContrato.add(textAreaAcompanhantes);
-		
-		if(textAreaAcompanhantes.equals("") || textAreaAcompanhantes == null)
+
+		if (textAreaAcompanhantes.equals("") || textAreaAcompanhantes == null)
 			hospedesAcompanhantes = new String[2];
 		else
 			hospedesAcompanhantes = textAreaAcompanhantes.getText().split(",");

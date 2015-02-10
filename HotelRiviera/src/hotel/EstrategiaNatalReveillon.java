@@ -2,11 +2,6 @@ package hotel;
 
 import java.util.*;
 
-/**
- * A EstacaoNatalReveillon e uma estacao de alta que inicia no dia 15 de Dezembro e termina no dia 5 de Janeiro.
- * Quem se hospedar no hotel durante esse periodo tera um acrescimo de 20% nas despesas totaais do hotel.
- *
- */
 public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 
 	private final int DIA_INICIO = 15;
@@ -35,4 +30,43 @@ public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JANUARY, this.DIA_FIM);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + DIA_FIM;
+		result = prime * result + DIA_INICIO;
+		long temp;
+		temp = Double.doubleToLongBits(porcentagemAAplicar);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EstrategiaNatalReveillon other = (EstrategiaNatalReveillon) obj;
+		if (DIA_FIM != other.DIA_FIM)
+			return false;
+		if (DIA_INICIO != other.DIA_INICIO)
+			return false;
+		if (Double.doubleToLongBits(porcentagemAAplicar) != Double
+				.doubleToLongBits(other.porcentagemAAplicar))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "\nEstrategia Natal Reveillon \nDia inicial: " + DIA_INICIO
+				+ "\nDia final: " + DIA_FIM + "\nPorcentagem: "
+				+ porcentagemAAplicar + "\n";
+	}
+
 }

@@ -85,7 +85,7 @@ public class AcoesNovoServico extends JPanel {
 				Carro carro = null;
 				//...Baba baba = new Baba();
 				try {
-					AcoesGerais.contratoSelecionado.adicionaServico(carro);
+					AcoesGerais.getContratoSelecionado().adicionaServico(carro);
 				} catch (AddQuartoContratoException e1) {
 					erro.setVisible(true);
 				} catch (FrigobarEmListServicosException e1) {
@@ -136,7 +136,7 @@ public class AcoesNovoServico extends JPanel {
 				Baba baba = null;
 				//...Baba baba = new Baba();
 				try {
-					AcoesGerais.contratoSelecionado.adicionaServico(baba);
+					AcoesGerais.getContratoSelecionado().adicionaServico(baba);
 				} catch (AddQuartoContratoException e1) {
 					erro.setVisible(true);
 				} catch (FrigobarEmListServicosException e1) {
@@ -169,7 +169,7 @@ public class AcoesNovoServico extends JPanel {
 		btnConfirmar_3.setBounds(421, 78, 145, 25);
 		btnConfirmar_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AcoesGerais.contratoSelecionado.adicionaDespesa(Conector.transformaFloat(textFieldConta.getText()));
+				AcoesGerais.getContratoSelecionado().adicionaDespesa(Conector.transformaFloat(textFieldConta.getText()));
 			}
 		});
 		edicaoRestaurante.add(btnConfirmar_3);
@@ -180,7 +180,7 @@ public class AcoesNovoServico extends JPanel {
 		if (servico.equals("Carro")) {
 			layout.show(panel, "servicoCarro");
 		}
-		if (servico.equals("Babá")) {
+		if (servico.equals("Babï¿½")) {
 			layout.show(panel, "servicoBaba");
 		}
 		if (servico.equals("Restaurante")) {
