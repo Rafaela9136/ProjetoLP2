@@ -21,20 +21,18 @@ public class HospedeTest {
 	private Calendar data1 = new GregorianCalendar(1980, Calendar.MARCH, 20),
 			data2 = new GregorianCalendar(1974, Calendar.OCTOBER, 13),
 			data3 = new GregorianCalendar(1987, Calendar.DECEMBER, 5);
-	private String cpf1 = "01234567891", cpf2 = "32165498761",
-			cpf3 = "25896314720";
-	private String cartao1 = "5624984231566251", cartao2 = "6032157482194203",
-			cartao3 = "2320168497262164";
+	private String cpf1 = "102.524.114-20", cpf2 = "321.654.987-61",
+			cpf3 = "258.963.147-20";
+	private String cartao1 = "5624.9842.3156.6251", cartao2 = "6032.1574.8219.4203",
+			cartao3 = "2320.1684.9726.2164";
 
 	@Before
 	public void CriaObjetos() throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
 			CartaoInvalidoException, StringInvalidaException {
-		hospede1 = new Hospede("Joao", data1, "Brasil", Estado.PB,
-				"Campina Grande", "Rua Borborema", "234", "24564975431",
-				cartao1);
+		hospede1 = new Hospede("Joao", data1, "Brasil", Estado.PB, "Campina Grande", "Rua Borborema", "234", cpf1, cartao1);
 		hospede2 = new Hospede("Jose", data2, "Brasil", Estado.RN, "Natal",
-				"Rua Suassuna", "123", "16235487956", cartao2);
+				"Rua Suassuna", "123", cpf2, cartao2);
 		hospede3 = new Hospede("Mohammed", data3, cartao3);
 	}
 
@@ -51,6 +49,24 @@ public class HospedeTest {
 		try {
 			new Hospede("", data2, cartao3);
 		} catch (StringVaziaException e) {
+			Assert.assertTrue(true);
+		}
+		
+		try {
+			new Hospede("1918641", data1, cartao1);
+		} catch (StringInvalidaException e) {
+			Assert.assertTrue(true);
+		}
+		
+		try {
+			new Hospede("Paulo1615", data2, cartao2);
+		} catch (StringInvalidaException e) {
+			Assert.assertTrue(true);
+		}
+		
+		try {
+			new Hospede("$¨*@#¨", data1, cartao3);
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -182,7 +198,6 @@ public class HospedeTest {
 		} catch (StringVaziaException e) {
 			Assert.assertTrue(true);
 		}
-		System.out.println(hosp.getNome());
 		Assert.assertEquals(hosp.getNome(), "Jose");
 		hosp.setNome("Jose Pereira");
 		Assert.assertEquals(hosp.getNome(), "Jose Pereira");
@@ -268,7 +283,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetPais() throws NullPointerException,
-			StringInvalidaException, StringVaziaException {
+			StringInvalidaException, StringVaziaException, CPFInvalidoException, CartaoInvalidoException {
 		Assert.assertEquals(hospede1.getPais(), "Brasil");
 		Assert.assertEquals(hospede2.getPais(), "Brasil");
 		Assert.assertEquals(hospede3.getPais(), "--");
@@ -309,7 +324,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetCidade() throws StringVaziaException,
-			StringInvalidaException {
+			StringInvalidaException, CPFInvalidoException, CartaoInvalidoException {
 		Assert.assertEquals(hospede1.getCidade(), "Campina Grande");
 		Assert.assertEquals(hospede2.getCidade(), "Natal");
 		Assert.assertEquals(hospede3.getCidade(), "--");

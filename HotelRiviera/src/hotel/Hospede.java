@@ -24,25 +24,26 @@ public class Hospede {
 			String cpf, String cartaoDeCredito) throws NullPointerException,
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
 			CartaoInvalidoException, StringInvalidaException {
+		this.numero = numero;
+		this.cpf = cpf;
+		this.cartaoDeCredito = cartaoDeCredito;
 		verificaStringValida(nome);
 		verificaData(dataNascimento);
-		verificaStringValida(pais);
-		verificaParametroNulo(estado);
-		verificaStringValida(cidade);
-		verificaStringValida(logradouro);
-		verificaStringValida(numero);
-		if (pais.toLowerCase().equals("brasil"))
-			verificaCPF(cpf);
-		verificaCartao(cartaoDeCredito);
+		verificaStringValida(cartaoDeCredito);
+		if (pais.toLowerCase().equals("brasil")) {
+			verificaStringValida(cpf);
+			verificaStringValida(pais);
+			verificaParametroNulo(estado);
+			verificaStringValida(cidade);
+			verificaStringValida(logradouro);
+			verificaStringValida(numero);
+		}
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.pais = pais;
 		this.estado = estado;
 		this.cidade = cidade;
 		this.logradouro = logradouro;
-		this.numero = numero;
-		this.cpf = cpf;
-		this.cartaoDeCredito = cartaoDeCredito;
 	}// Construtor 1
 
 	public Hospede(String nome, Calendar dataNascimento, String cartaoDeCredito)
@@ -59,7 +60,8 @@ public class Hospede {
 	}
 
 	public void setNome(String nome) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringVaziaException, StringInvalidaException,
+			CPFInvalidoException, CartaoInvalidoException {
 		verificaStringValida(nome);
 		this.nome = nome;
 	}
@@ -79,7 +81,8 @@ public class Hospede {
 	}
 
 	public void setPais(String pais) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringVaziaException, StringInvalidaException,
+			CPFInvalidoException, CartaoInvalidoException {
 		verificaStringValida(pais);
 		this.pais = pais;
 	}
@@ -98,7 +101,8 @@ public class Hospede {
 	}
 
 	public void setCidade(String novaCidade) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringVaziaException, StringInvalidaException,
+			CPFInvalidoException, CartaoInvalidoException {
 		verificaStringValida(novaCidade);
 		this.cidade = novaCidade;
 	}
@@ -126,8 +130,9 @@ public class Hospede {
 	}
 
 	public void setCpf(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException, StringInvalidaException {
-		verificaCPF(cpf);
+			CPFInvalidoException, StringVaziaException,
+			StringInvalidaException, CartaoInvalidoException {
+		verificaStringValida(cpf);
 		this.cpf = cpf;
 	}
 
@@ -152,27 +157,35 @@ public class Hospede {
 			throw new NullPointerException();
 	}
 
-	private void verificaCPF(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException, StringInvalidaException {
-		verificaStringValida(cpf);
-		if (cpf.trim().length() != 11)
-			throw new CPFInvalidoException();
-	}
-
 	private void verificaStringValida(String string)
 			throws NullPointerException, StringVaziaException,
-			StringInvalidaException {
+			StringInvalidaException, CPFInvalidoException,
+			CartaoInvalidoException {
 		verificaParametroNulo(string);
-		if (string.trim().isEmpty())
+		if (string.trim().isEmpty()) {
 			throw new StringVaziaException();
+		}
+		
+		if (!(string.matches(selecionaRegex(string)))) {
+			if (!string.equals(cpf) && !string.equals(cartaoDeCredito)
+					&& !string.equals(numero) || (string.equals(numero)))
+				throw new StringInvalidaException();
+			if (string.equals(cpf))
+				throw new CPFInvalidoException();
+			if (string.equals(cartaoDeCredito))
+				throw new CartaoInvalidoException();
+		}
 	}
-
-	private void verificaCartao(String numCartao) throws NullPointerException,
-			CartaoInvalidoException, StringVaziaException,
-			StringInvalidaException {
-		verificaStringValida(numCartao);
-		if (numCartao.trim().length() != 16)
-			throw new CartaoInvalidoException();
+	
+	private String selecionaRegex(String str) {
+		String regex = "[a-zA-Z\\s]+";
+		if (str.equals(cpf))
+			regex = "\\d{3}.\\d{3}.\\d{3}-\\d{2}";
+		else if (str.equals(cartaoDeCredito))
+			regex = "\\d{4}.\\d{4}.\\d{4}.\\d{4}";
+		else if (str.equals(numero))
+			regex = "[0-9]+";
+		return regex;
 	}
 
 	@Override
