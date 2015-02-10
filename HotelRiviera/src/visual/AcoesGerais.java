@@ -302,15 +302,11 @@ public class AcoesGerais extends JPanel {
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tableContratos.getSelectedRows();
-//				if (indiceSelecionado.length <= 0){
-//					contratoSelecionado = -1;
-//				}else{
-					for (int i = 0; i < Hotel.getContratos().size(); i++) {
-						if(Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0]))
-							contratoSelecionado = i;
-					}
-					btnAtualizarContrato.setEnabled(true);
-//				}
+				for (int i = 0; i < Hotel.getContratos().size(); i++) {
+					if(Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0]))
+						contratoSelecionado = i;
+				}
+				btnAtualizarContrato.setEnabled(true);
 			}
 		});
 		
