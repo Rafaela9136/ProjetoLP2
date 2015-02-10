@@ -33,6 +33,7 @@ public class AvisoNaoEncontrado extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JButton btnOk = new JButton("Ok");
 		btnOk.addActionListener(new ActionListener() {
@@ -46,7 +47,7 @@ public class AvisoNaoEncontrado extends JFrame {
 		JTextPane txtpnErro = new JTextPane();
 		txtpnErro.setEditable(false);
 		txtpnErro.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnErro.setText("Não encontrado, verifique os dados.");
+		txtpnErro.setText("Nï¿½o encontrado, verifique os dados.");
 		txtpnErro.setBounds(63, 29, 250, 25);
 		contentPane.add(txtpnErro);
 	}

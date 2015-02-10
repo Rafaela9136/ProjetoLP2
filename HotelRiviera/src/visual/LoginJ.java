@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.Dialog.ModalExclusionType;
 
 public class LoginJ extends JFrame {
 
@@ -61,14 +62,16 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/hotelRiviera.png")));
+		setTitle("Login - Hotel Riviera Campina Grande");
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/hotelRiviera.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 464, 413);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null); 
 
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(79, 322, 117, 25);
