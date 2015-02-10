@@ -207,11 +207,25 @@ public class BabaTest {
 
 	@Test
 	public void testaToString() {
+		Assert.assertEquals("SERVICO BABYSITTER"
+                           + "\nPreco Total: R$ 450.0"
+                           + "\nDuracao: 9 horas"
+                           + "\nData Inicio: 31/12/2015 as 22:0"
+                           + "\nData Termino: 1/1/2016 as 7:0"
+                           + "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.",  baba1.toString());
 		
+		Assert.assertEquals("SERVICO BABYSITTER"
+						+ "\nPreco Total: R$ 1100.0" 
+						+ "\nDuracao: 30 horas"
+						+ "\nData Inicio: 20/6/2015 as 13:0"
+						+ "\nData Termino: 21/6/2015 as 19:0"
+						+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.", baba2.toString());	
 	}
 	
 	@Test
-	public void testaEquals() {
-		
+	public void testaEquals() throws NullPointerException, DataInvalidaException {
+		Assert.assertFalse(baba1.equals(baba2));
+		Assert.assertTrue(baba1.equals(new Baba(horarioInicio1, horarioFim1)));
+		Assert.assertTrue(baba2.equals(new Baba(horarioInicio2, horarioFim2)));
 	}
 }
