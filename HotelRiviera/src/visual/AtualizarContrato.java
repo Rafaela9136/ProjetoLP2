@@ -211,11 +211,13 @@ public class AtualizarContrato extends JPanel {
 			desingTabela = new Object[contrato.getServicos().size()][2];
 
 			for (int i = 0; i < contrato.getServicos().size(); i++) {
-				if(contrato.getServicos().get(i).getClass() == Carro.class)
+				if(contrato.getServicos().get(i) instanceof Quarto)
+					desingTabela[i][0] = "Quarto";
+				else if(contrato.getServicos().get(i) instanceof Carro)
 					desingTabela[i][0] = "Carro";
-				else if(contrato.getServicos().get(i).getClass() == Baba.class)
+				else if(contrato.getServicos().get(i) instanceof Baba)
 					desingTabela[i][0] = "Baba";
-				else if(contrato.getServicos().get(i).getClass() == ContaRestaurante.class)
+				else if(contrato.getServicos().get(i) instanceof ContaRestaurante)
 					desingTabela[i][0] = "Restaurante";
 				desingTabela[i][1] = contrato.getServicos().get(i).getPreco();
 			}

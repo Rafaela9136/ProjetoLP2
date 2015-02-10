@@ -287,7 +287,7 @@ public class AcoesGerais extends JPanel {
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situa��o"})
+						new String[] { "Nome do hospede", "Situacao"})
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
@@ -313,9 +313,9 @@ public class AcoesGerais extends JPanel {
 							e1.printStackTrace();
 						}
 						atualizar.setBounds(0, 34, 607, 572);
-						atualizarContrato.add(atualizar);
 					}
 				}
+				atualizarContrato.add(atualizar);
 				btnAtualizarContrato.setEnabled(true);
 			}
 		});
