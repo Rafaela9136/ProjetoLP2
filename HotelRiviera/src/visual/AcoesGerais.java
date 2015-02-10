@@ -302,10 +302,12 @@ public class AcoesGerais extends JPanel {
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tableContratos.getSelectedRows();
-				Contrato copiaContrato1;
+				Contrato copiaContrato;
+				Contrato copiaContratoOriginal;
 				for (Contrato contrato : Hotel.getContratos()) {
 					if(contrato.getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0]))
-						copiaContrato1 = contrato;
+						copiaContrato = contrato;
+					copiaContratoOriginal = contrato;
 				}
 				btnAtualizarContrato.setEnabled(true);
 			}
