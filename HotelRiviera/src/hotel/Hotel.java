@@ -7,10 +7,8 @@ public class Hotel {
 		private double dispesasTotais;
 		private static List<Contrato> contratosHotel = new ArrayList<Contrato>();
 		
-		public static boolean adicionaContrato(Contrato contrato){
-			if(contratosHotel.add(contrato))
-				return true;
-			return false;
+		public static void adicionaContrato(Contrato contrato){
+			contratosHotel.add(contrato);
 		}
 		
 		public static List<Contrato> getContratos() {
