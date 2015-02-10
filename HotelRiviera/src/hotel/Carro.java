@@ -1,5 +1,6 @@
 package hotel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -204,35 +205,43 @@ public class Carro implements Servico {
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "SERVICO CARRO" + "\nTipo: " + tipoDeCarro.getTipoNome() + "\n"
-				+ "Adicionais: " + Arrays.toString(adicionais.toArray())
-				+ "\nPreco Total: R$ " + getPreco() + "\nDuracao: "
-				+ getNumeroDeDias() + " dias" + "\nData Inicio: "
-				+ getDataInicio().get(Calendar.DAY_OF_MONTH) + "/"
-				+ (getDataInicio().get(Calendar.MONTH) + 1) + "/"
-				+ getDataInicio().get(Calendar.YEAR) + " as "
-				+ getDataInicio().get(Calendar.HOUR_OF_DAY) + ":"
-				+ getDataInicio().get(Calendar.MINUTE) + "\nData Termino: "
-				+ getDataTermino().get(Calendar.DAY_OF_MONTH) + "/"
-				+ (getDataTermino().get(Calendar.MONTH) + 1) + "/"
-				+ getDataTermino().get(Calendar.YEAR) + " as "
-				+ getDataTermino().get(Calendar.HOUR_OF_DAY) + ":"
-				+ getDataTermino().get(Calendar.MINUTE);
+		return "SERVICO CARRO"
+				+ "\nTipo: "
+				+ tipoDeCarro.getTipoNome()
+				+ "\n"
+				+ "Adicionais: "
+				+ Arrays.toString(adicionais.toArray())
+				+ "\nPreco Total: R$ "
+				+ getPreco()
+				+ "\nDuracao: "
+				+ getNumeroDeDias()
+				+ " dias"
+				+ "\nData Inicio: "
+				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
+						.format(getDataInicio().getTime())
+				+ "\nData Termino: "
+				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
+						.format(getDataTermino().getTime());
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result
-	// + ((dataDeTermino == null) ? 0 : dataDeTermino.hashCode());
-	// result = prime * result
-	// + ((dataInicial == null) ? 0 : dataInicial.hashCode());
-	// result = prime * result + (isAssegurado ? 1231 : 1237);
-	// result = prime * result + (isTanqueCheio ? 1231 : 1237);
-	// result = prime * result + ((preco == null) ? 0 : preco.hashCode());
-	// return result;
-	// }
+	/**
+	 * 
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((dataInicio == null) ? 0 : dataInicio.hashCode());
+		result = prime * result
+				+ ((dataTermino == null) ? 0 : dataTermino.hashCode());
+		result = prime * result + (isAssegurado ? 1231 : 1237);
+		result = prime * result + (isTanqueCheio ? 1231 : 1237);
+		result = prime * result + numDeDias;
+		result = prime * result
+				+ ((tipoDeCarro == null) ? 0 : tipoDeCarro.hashCode());
+		return result;
+	}
 
 	/**
 	 * Mostra se dois servicos de aluguel de carro sao iguais, a partir do tipo,
