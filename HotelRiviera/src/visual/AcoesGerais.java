@@ -14,6 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -69,7 +72,7 @@ public class AcoesGerais extends JPanel {
 	private List<Servico> servicos = new ArrayList<Servico>();
 	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
 	private Quarto quarto;
-	public static Contrato contratoSelecionado = null;
+	private Contrato contratoSelecionado;
 	
 	/**
 	 * Create the panel.
@@ -235,6 +238,20 @@ public class AcoesGerais extends JPanel {
 		
 		scrollPane.setViewportView(tableContratos);
 		
+		ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel();
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tableContratos.getSelectedRows(); 
+				if (indiceSelecionado.length <= 0){
+					contratoSelecionado = null;
+				}else{
+					setContratoSelecionado(indiceSelecionado[0]);
+				}
+			}
+		});
+				
 		JTextPane txtpnHspede = new JTextPane();
 		txtpnHspede.setText("H\u00F3spede:");
 		txtpnHspede.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -324,7 +341,7 @@ public class AcoesGerais extends JPanel {
 			tableContratos.setModel(modeloTableServico);
 			}
 		});
-		pesquisarContrato.add(btnPesquisar);
+		pesquisarContrato.add(btnPesquisar);		
 		
 		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
 		btnAtualizarContrato.setBounds(443, 570, 145, 25);
@@ -555,7 +572,6 @@ public class AcoesGerais extends JPanel {
 			}
 		});
 	}
-	
 
 	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
 			JPanel panel, JPanel novoContrato) {
