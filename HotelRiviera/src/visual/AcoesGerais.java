@@ -14,6 +14,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
@@ -69,7 +72,7 @@ public class AcoesGerais extends JPanel {
 	private List<Servico> servicos = new ArrayList<Servico>();
 	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Setada para testes
 	private Quarto quarto;
-	public static Contrato contratoSelecionado = null;
+	private Contrato contratoSelecionado;
 	
 	/**
 	 * Create the panel.
@@ -235,6 +238,20 @@ public class AcoesGerais extends JPanel {
 		
 		scrollPane.setViewportView(tableContratos);
 		
+		ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel();
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tableContratos.getSelectedRows(); 
+				if (indiceSelecionado.length <= 0){
+					contratoSelecionado = null;
+				}else{
+					setContratoSelecionado(indiceSelecionado[0]);
+				}
+			}
+		});
+				
 		JTextPane txtpnHspede = new JTextPane();
 		txtpnHspede.setText("H\u00F3spede:");
 		txtpnHspede.setFont(new Font("Verdana", Font.PLAIN, 12));
@@ -265,7 +282,7 @@ public class AcoesGerais extends JPanel {
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situação"})
+						new String[] { "Nome do hospede", "Situaï¿½ï¿½o"})
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
@@ -287,38 +304,44 @@ public class AcoesGerais extends JPanel {
 				if(Hotel.getContratos() == null){
 					desingTabela = new Object[1][2];
 				} else {
+					int quantResultados = 0;
+					// Corrigir a quantidade de linhas
 					desingTabela = new Object[Hotel.getContratos().size()][2];
 					for (int i = 0; i < Hotel.getContratos().size(); i++) {
 						if (Hotel.getContratos().get(i).getHospedeTitular()
-								.getNome().equals(textFieldHospedeT)) {
-							desingTabela[i][0] = Hotel.getContratos().get(i)
+								.getNome().equals(textFieldHospedeT.getText())) {
+							desingTabela[quantResultados][0] = Hotel.getContratos().get(i)
 									.getHospedeTitular().getNome();
 							if (Hotel.getContratos().get(i).getIsReserva())
-								desingTabela[i][1] = "Reserva";
-							if (Hotel.getContratos().get(i).getIsAberto())
-								desingTabela[i][1] = "Aberto";
-							if (!Hotel.getContratos().get(i).getIsAberto())
-								desingTabela[i][1] = "Fechado";
-						} 
-						AvisoNaoEncontrado avisoNaoEncontrado = new AvisoNaoEncontrado();
-						avisoNaoEncontrado.setVisible(true);
+								desingTabela[quantResultados][1] = "Reserva";
+							else if (Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[quantResultados][1] = "Aberto";
+							else if (!Hotel.getContratos().get(i).getIsAberto())
+								desingTabela[quantResultados][1] = "Fechado";
+							quantResultados++;
+						}
+						
 					}
+					if(quantResultados == 0) {
+						AvisoNaoEncontrado aviso = new AvisoNaoEncontrado();
+						aviso.setVisible(true);
+					}
+						
 				}
 				
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situação" })
+						new String[] { "Nome do hospede", "Situaï¿½ï¿½o" })
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;
 				}	
 			};
-			System.out.println(tableContratos.getSelectedRowCount());
 			tableContratos.setModel(modeloTableServico);
 			}
 		});
-		pesquisarContrato.add(btnPesquisar);
+		pesquisarContrato.add(btnPesquisar);		
 		
 		JButton btnAtualizarContrato = new JButton("Atualizar contrato");
 		btnAtualizarContrato.setBounds(443, 570, 145, 25);
@@ -549,7 +572,6 @@ public class AcoesGerais extends JPanel {
 			}
 		});
 	}
-	
 
 	private void hospedeDadosPrincipais(final MaskFormatter dateMask, final MaskFormatter cpfMask, final MaskFormatter cartaoMask,
 			JPanel panel, JPanel novoContrato) {
