@@ -39,6 +39,7 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
+import excecoes.NumeroInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.ValorNegativoException;
@@ -75,9 +76,9 @@ public class ContratoTest {
 	public void criaObjetos() throws NullPointerException,
 			CPFInvalidoException, ContratoSemQuartoException,
 			FrigobarEmListServicosException, DataInvalidaException,
-			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException, StringInvalidaException {
+			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException, StringInvalidaException, NumeroInvalidoException {
 		dataNascimento = Calendar.getInstance();
-		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento, "0123456789999999");
+		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento, "0123.4567.8999.9999");
 		estrategia = new EstrategiaNatalReveillon();
 		// Usada para settar as datas de teste, para que os testes continuem
 		// funcionando sem importar
@@ -344,7 +345,7 @@ public class ContratoTest {
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException, CPFInvalidoException,
-			AddQuartoContratoException, StringVaziaException, CartaoInvalidoException, StringInvalidaException {
+			AddQuartoContratoException, StringVaziaException, CartaoInvalidoException, StringInvalidaException, NumeroInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
@@ -356,7 +357,7 @@ public class ContratoTest {
 		Assert.assertTrue(contrato1.equals(contrato2));
 
 		Calendar dataNascimento2 = new GregorianCalendar(1500, 6, 9);
-		Hospede hospedeTitular2 = new Hospede("Jao da lenha", dataNascimento2, "0123456789999999");
+		Hospede hospedeTitular2 = new Hospede("Jao da lenha", dataNascimento2, "0123.4567.8999.9999");
 
 		contrato2 = new Contrato(hospedeTitular2, acompanhantes, estrategia,
 				dataCheckIn, dataCheckOut, isReserva, servicos);

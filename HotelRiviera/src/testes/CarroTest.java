@@ -90,8 +90,6 @@ public class CarroTest {
 					new GregorianCalendar(2015, Calendar.JULY, 1), true, false);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
-		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
 		}
 
 		Carro corsa = new Carro(carroExecutivo, dataInicio3, dataTermino1,
@@ -164,12 +162,6 @@ public class CarroTest {
 		try {
 			carro2.setDataInicio(new GregorianCalendar(2015, Calendar.JANUARY,
 					31));
-		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
-		}
-
-		try {
-			carro4.setDataInicio(new GregorianCalendar());
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
@@ -358,7 +350,7 @@ public class CarroTest {
 
 	@Test
 	public void testaEquals() {
-
+		
 	}
 
 }

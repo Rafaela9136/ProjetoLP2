@@ -22,11 +22,10 @@ public class Baba implements Servico {
 														// por hora da baba e
 														// dobrado.
 	public static final int FIM_HORA_DOBRADA = 7;
-	private static final double MILISSEGUNDOS_EM_UMA_HORA = 3600000;
+	private static final int MILISSEGUNDOS_EM_UMA_HORA = 3600000;
 
 	private Calendar dataInicio;
 	private Calendar dataTermino;
-	private int numDeHoras;
 
 	/**
 	 * Cria o servico de Babysitter com uma data inicial e uma data de termino.
@@ -46,7 +45,24 @@ public class Baba implements Servico {
 		verificaData(dataInicio, dataTermino);
 		this.dataInicio = dataInicio;
 		this.dataTermino = dataTermino;
-		numDeHoras = 0;
+	}
+
+	/**
+	 * Retorna a data de inicio do servico.
+	 * 
+	 * @return A data inicial.
+	 */
+	public Calendar getDataInicio() {
+		return dataInicio;
+	}
+
+	/**
+	 * Retorna data de termino do servico.
+	 * 
+	 * @return A data final.
+	 */
+	public Calendar getDataTermino() {
+		return dataTermino;
 	}
 
 	/**
@@ -59,7 +75,7 @@ public class Baba implements Servico {
 	 * @throws DataInvalidaException
 	 *             Caso a nova data de termino seja antes da data de inicio.
 	 */
-	public void setTerminoDoServico(Calendar novaDataTermino)
+	public void setDataTermino(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(dataInicio, novaDataTermino);
 		dataTermino = novaDataTermino;
@@ -76,7 +92,7 @@ public class Baba implements Servico {
 	 *             Caso a nova data de inicio seja antes da data atual ou seja
 	 *             depois da data de termino.
 	 */
-	public void setInicioDoServico(Calendar novaDataInicio)
+	public void setDataInicio(Calendar novaDataInicio)
 			throws NullPointerException, DataInvalidaException {
 		verificaData(novaDataInicio, dataTermino);
 		dataInicio = novaDataInicio;
@@ -108,24 +124,6 @@ public class Baba implements Servico {
 	}
 
 	/**
-	 * Retorna a data de inicio do servico.
-	 * 
-	 * @return A data inicial.
-	 */
-	public Calendar getDataInicio() {
-		return dataInicio;
-	}
-
-	/**
-	 * Retorna data de termino do servico.
-	 * 
-	 * @return A data final.
-	 */
-	public Calendar getDataTermino() {
-		return dataTermino;
-	}
-
-	/**
 	 * Calcula e retorna a quantidade de horas do servico, a partir da diferenca
 	 * em milissegundos da data final e data inicial.
 	 * 
@@ -134,8 +132,8 @@ public class Baba implements Servico {
 	public int getNumeroDeHoras() {
 		long tempoInicial = dataInicio.getTimeInMillis();
 		long tempoFinal = dataTermino.getTimeInMillis();
-		numDeHoras = (int) Math
-				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UMA_HORA));
+		int numDeHoras = (int) Math
+				.ceil(((double) (tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UMA_HORA));
 		return numDeHoras;
 	}
 
@@ -151,7 +149,8 @@ public class Baba implements Servico {
 			throws NullPointerException, DataInvalidaException {
 		if (dataInicio == null || dataTermino == null)
 			throw new NullPointerException();
-		if (dataInicio.before(new GregorianCalendar())
+		if (dataInicio.equals(dataTermino)
+				|| dataInicio.before(new GregorianCalendar())
 				|| dataTermino.before(dataInicio))
 			throw new DataInvalidaException();
 	}
@@ -180,6 +179,17 @@ public class Baba implements Servico {
 				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((dataInicio == null) ? 0 : dataInicio.hashCode());
+		result = prime * result
+				+ ((dataTermino == null) ? 0 : dataTermino.hashCode());
+		return result;
+	}
+
 	/**
 	 * Verifica se dois servicos de Babas sao iguais, apartir de suas datas e
 	 * precos.
@@ -197,4 +207,4 @@ public class Baba implements Servico {
 				.equals(outra.getDataTermino()));
 	}
 
-}// Baba
+}
