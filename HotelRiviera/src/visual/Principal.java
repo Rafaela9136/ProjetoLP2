@@ -26,7 +26,7 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HotelF frame = new HotelF();
+					LoginJ frame = new LoginJ();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

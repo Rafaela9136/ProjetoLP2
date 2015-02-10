@@ -47,7 +47,7 @@ public class AtualizarContrato extends JPanel {
 	
 	private String[] hospedesAcompanhantes;
 	private Object[][] desingTabela;
-	private List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
+	private List<Contrato> servicosContratados = new ArrayList<Contrato>();
 
 
 	/**
@@ -227,12 +227,12 @@ public class AtualizarContrato extends JPanel {
 	}
 	
 	private void tabelaServicosContratados(JPanel editarServicos) {
-		if(contratosEncontrados == null){
-			desingTabela = new Object[1][3];
+		// o size() lista de servicos do contrato sera o numero de linhas
+		if(servicosContratados == null){
+			desingTabela = new Object[1][2];
 		} else {
-			desingTabela = new Object[5][3];
-			
-			
+			// o size() lista de servicos do contrato sera o numero de linhas
+			desingTabela = new Object[5][2];
 			
 			for (int i = 0; i < 5; i++) {
 				desingTabela[i][0] = "Rafaela";
@@ -243,7 +243,7 @@ public class AtualizarContrato extends JPanel {
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTableServico = new DefaultTableModel(
 				desingTabela,
-				new String[] { "Nome do hospede", "", "Contrato" })
+				new String[] { "Serviço", "", "Data de contrato" })
 		{ @Override
 			public boolean isCellEditable(int roll, int column){
 			return false;
