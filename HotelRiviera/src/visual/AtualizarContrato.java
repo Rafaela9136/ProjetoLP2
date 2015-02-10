@@ -1,6 +1,6 @@
 package visual;
 
-import hotel.Contrato;
+import hotel.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -130,32 +130,8 @@ public class AtualizarContrato extends JPanel {
 		txtpnTipoDeServico.setBounds(15, 365, 113, 21);
 		editarServicos.add(txtpnTipoDeServico);
 
-		JTextPane txtpnDataInicial = new JTextPane();
-		txtpnDataInicial.setText("Data inicial:");
-		txtpnDataInicial.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnDataInicial.setEditable(false);
-		txtpnDataInicial.setBounds(15, 402, 90, 21);
-		editarServicos.add(txtpnDataInicial);
-
-		JTextPane txtpnTermino = new JTextPane();
-		txtpnTermino.setText("T\u00E9rmino:");
-		txtpnTermino.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnTermino.setEditable(false);
-		txtpnTermino.setBounds(292, 402, 73, 21);
-		editarServicos.add(txtpnTermino);
-
-		JFormattedTextField formattedTextFieldDataI = new JFormattedTextField(
-				dateMask);
-		formattedTextFieldDataI.setBounds(135, 401, 121, 27);
-		editarServicos.add(formattedTextFieldDataI);
-
-		JFormattedTextField formattedTextFieldDataF = new JFormattedTextField(
-				dateMask);
-		formattedTextFieldDataF.setBounds(374, 398, 121, 27);
-		editarServicos.add(formattedTextFieldDataF);
-
 		final AcoesNovoServico painelDeServico = new AcoesNovoServico();
-		painelDeServico.setBounds(15, 439, 566, 90);
+		painelDeServico.setBounds(15, 398, 566, 159);
 		editarServicos.add(painelDeServico);
 
 		// Escolhe o tipo e paineis de opcao
@@ -230,20 +206,24 @@ public class AtualizarContrato extends JPanel {
 
 	private void tabelaServicosContratados(JPanel editarServicos) {
 		if (contrato.getServicos() == null) {
-			desingTabela = new Object[1][3];
+			desingTabela = new Object[1][2];
 		} else {
-			desingTabela = new Object[contrato.getServicos().size()][3];
+			desingTabela = new Object[contrato.getServicos().size()][2];
 
 			for (int i = 0; i < contrato.getServicos().size(); i++) {
-				desingTabela[i][0] = "Rafaela";
-				desingTabela[i][1] = "";
-				desingTabela[i][1] = "";
+				if(contrato.getServicos().get(i).getClass() == Carro.class)
+					desingTabela[i][0] = "Carro";
+				else if(contrato.getServicos().get(i).getClass() == Baba.class)
+					desingTabela[i][0] = "Baba";
+				else if(contrato.getServicos().get(i).getClass() == ContaRestaurante.class)
+					desingTabela[i][0] = "Restaurante";
+				desingTabela[i][1] = contrato.getServicos().get(i).getPreco();
 			}
 		}
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTableServico = new DefaultTableModel(
 				desingTabela,
-				new String[] { "Nome do hospede", "", "Contrato" }) {
+				new String[] { "Servicos", "Data de contrato" }) {
 			@Override
 			public boolean isCellEditable(int roll, int column) {
 				return false;

@@ -9,16 +9,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.text.MaskFormatter;
 
 import excecoes.AddQuartoContratoException;
+import excecoes.DataInvalidaException;
 import excecoes.FrigobarEmListServicosException;
 
 public class AcoesNovoServico extends JPanel {
@@ -32,13 +36,16 @@ public class AcoesNovoServico extends JPanel {
 
 	/**
 	 * Create the panel.
+	 * @throws ParseException 
 	 */
-	public AcoesNovoServico() {
+	public AcoesNovoServico() throws ParseException {
+		final MaskFormatter dateMask = new MaskFormatter("##/##/####");
+		
 		setLayout(null);
 		
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 566, 114);
+		panel.setBounds(0, 0, 566, 159);
 		add(panel);
 		panel.setLayout(layout);
 		
@@ -53,47 +60,83 @@ public class AcoesNovoServico extends JPanel {
 		panel.add(servicoCarro, "servicoCarro");
 		servicoCarro.setLayout(null);
 		
-		JComboBox<String> comboBox_1 = new JComboBox<String>();
+		JTextPane txtpnDataInicial = new JTextPane();
+		txtpnDataInicial.setText("Data inicial:");
+		txtpnDataInicial.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnDataInicial.setEditable(false);
+		txtpnDataInicial.setBounds(0, 10, 90, 21);
+		servicoCarro.add(txtpnDataInicial);
+
+		JTextPane txtpnTermino = new JTextPane();
+		txtpnTermino.setText("T\u00E9rmino:");
+		txtpnTermino.setFont(new Font("Verdana", Font.PLAIN, 12));
+		txtpnTermino.setEditable(false);
+		txtpnTermino.setBounds(291, 10, 73, 21);
+		servicoCarro.add(txtpnTermino);
+
+		final JFormattedTextField formattedTextFieldDataI = new JFormattedTextField(
+				dateMask);
+		formattedTextFieldDataI.setBounds(123, 10, 121, 27);
+		servicoCarro.add(formattedTextFieldDataI);
+
+		final JFormattedTextField formattedTextFieldDataF = new JFormattedTextField(
+				dateMask);
+		formattedTextFieldDataF.setBounds(374, 10, 121, 27);
+		servicoCarro.add(formattedTextFieldDataF);
+		
+		final JComboBox<String> comboBox_1 = new JComboBox<String>();
 		comboBox_1.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBox_1.setModel(new DefaultComboBoxModel<String>(new String[] {"(selecionar)", "Executivo", "Luxo"}));
-		comboBox_1.setBounds(123, 4, 151, 25);
+		comboBox_1.setBounds(123, 49, 151, 25);
 		servicoCarro.add(comboBox_1);
 		
-		JRadioButton rdbtnTanqueCheio = new JRadioButton("Tanque cheio");
+		final JRadioButton rdbtnTanqueCheio = new JRadioButton("Tanque cheio");
 		rdbtnTanqueCheio.setFont(new Font("Verdana", Font.PLAIN, 12));
-		rdbtnTanqueCheio.setBounds(123, 43, 151, 18);
+		rdbtnTanqueCheio.setBounds(123, 87, 151, 18);
 		servicoCarro.add(rdbtnTanqueCheio);
 		
-		JRadioButton rdbtnSeguro = new JRadioButton("Seguro");
+		final JRadioButton rdbtnSeguro = new JRadioButton("Seguro");
 		rdbtnSeguro.setFont(new Font("Verdana", Font.PLAIN, 12));
-		rdbtnSeguro.setBounds(291, 43, 151, 18);
+		rdbtnSeguro.setBounds(291, 87, 151, 18);
 		servicoCarro.add(rdbtnSeguro);
 		
 		JTextPane txtpnTipoDeCarro = new JTextPane();
 		txtpnTipoDeCarro.setText("Tipo de carro:");
 		txtpnTipoDeCarro.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnTipoDeCarro.setEditable(false);
-		txtpnTipoDeCarro.setBounds(0, 8, 113, 21);
+		txtpnTipoDeCarro.setBounds(0, 52, 113, 21);
 		servicoCarro.add(txtpnTipoDeCarro);
 		
 		JButton btnConfirmar_1 = new JButton("Confirmar");
 		btnConfirmar_1.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnConfirmar_1.setBounds(421, 78, 145, 25);
+		btnConfirmar_1.setBounds(421, 122, 145, 25);
 		btnConfirmar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AvisoErro erro = new AvisoErro();
-				Carro carro = null;
-				//...Baba baba = new Baba();
+				AvisoSucesso aviso = new AvisoSucesso();
+				
+				Carro carro;
 				try {
-					AcoesGerais.getContratoSelecionado().adicionaServico(carro);
-				} catch (AddQuartoContratoException e1) {
+					carro = new Carro(Conector.selecionaTipoCarro(comboBox_1.getSelectedItem()), Conector.transformaData(formattedTextFieldDataI.getText()),
+							Conector.transformaData(formattedTextFieldDataF.getText()), rdbtnTanqueCheio.isSelected(), rdbtnSeguro.isSelected() );
+					
+					try {
+						AcoesGerais.getContratoSelecionado().adicionaServico(carro);
+						aviso.setVisible(true);
+					} catch (AddQuartoContratoException e1) {
+						erro.setVisible(true);
+					} catch (FrigobarEmListServicosException e1) {
+						erro.setVisible(true);
+					}
+				} catch (NullPointerException e2) {
 					erro.setVisible(true);
-				} catch (FrigobarEmListServicosException e1) {
+				} catch (DataInvalidaException e2) {
 					erro.setVisible(true);
 				}
 			}
 		});
 		servicoCarro.add(btnConfirmar_1);
+		//**
 		
 		// Baba
 		JPanel servicoBaba = new JPanel();

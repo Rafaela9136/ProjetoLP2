@@ -19,6 +19,14 @@ public class Conector {
 			return null;
 	}
 	
+	public static TipoCarro selecionaTipoCarro(Object estilo){
+		if(estilo.equals("Executivo"))
+			return TipoCarro.EXECUTIVO;
+		if(estilo.equals("Luxo"))
+			return TipoCarro.LUXO;
+		return null;
+}
+	
 	public static Estado selecionaEstado(String estadoDado) {
 		for (int i = 0; i < Estado.values().length; i++) {
 			if(Estado.values()[i].name().equals(estadoDado))
@@ -28,6 +36,12 @@ public class Conector {
 	}
 	
 	public static Calendar transformaData(String data){
+		String[] diaMesAno = data.split("/");
+		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]), Integer.parseInt(diaMesAno[0]));
+		return c;
+	}
+	
+	public static Calendar transformaDataHora(String data, String horaI, String horaF){
 		String[] diaMesAno = data.split("/");
 		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]), Integer.parseInt(diaMesAno[0]));
 		return c;
