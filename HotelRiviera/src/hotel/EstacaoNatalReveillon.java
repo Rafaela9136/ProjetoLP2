@@ -2,6 +2,11 @@ package hotel;
 
 import java.util.*;
 
+/**
+ * A EstacaoNatalReveillon e uma estacao de alta que inicia no dia 15 de Dezembro e termina no dia 5 de Janeiro.
+ * Quem se hospedar no hotel durante esse periodo tera um acrescimo de 20% nas despesas totaais do hotel.
+ *
+ */
 public final class EstacaoNatalReveillon implements Estacao {
 
 	private final int DIA_INICIO = 15;
