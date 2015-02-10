@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
  * Mas se a estadia for entre 23 e 29 de junho, essa porcentagem aumenta para 50%.
  *
  */
-public class EstacaoSaoJoao implements Estacao {
+public class EstrategiaSaoJoao implements EstrategiaAplicavel {
 
 	private final int DIA_INICIO = 1;
 	private final int DIA_FIM = 10;

@@ -6,7 +6,7 @@ import java.util.*;
  * Interface para definir estrategias de calculo de preco em altas e baixas estacoes do ano.
  * 
  */
-public interface Estacao {
+public interface EstrategiaAplicavel {
 	
 	/**
 	 * Informa a porcentagem que sera multiplicada pelo custo total da estadia no hotel Rivieira a fim de definir

@@ -7,7 +7,7 @@ import java.util.*;
  * Quem se hospedar no hotel durante esse periodo tera um acrescimo de 20% nas despesas totaais do hotel.
  *
  */
-public final class EstacaoNatalReveillon implements Estacao {
+public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 
 	private final int DIA_INICIO = 15;
 	private final int DIA_FIM = 5;

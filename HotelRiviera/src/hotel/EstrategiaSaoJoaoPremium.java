@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
  * termina no dia 29 desse mesmo mes. Quam se hospedar durante esse periodo terá um acréscimo de 50% nas despesas totais do hotel.
  *
  */
-public class EstacaoSaoJoaoPremium implements Estacao {
+public class EstrategiaSaoJoaoPremium implements EstrategiaAplicavel{
 	private final int DIA_INICIO = 23;
 	private final int DIA_FIM = 29;
 	private double porcentagemAAplicar = 1.5; // 10% a mais no valor das

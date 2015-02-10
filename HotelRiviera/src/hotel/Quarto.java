@@ -21,6 +21,14 @@ public abstract class Quarto implements Servico{
 		frigobar = new Frigobar();
 	}
 	
+	public Frigobar getFrigobar() {
+		return frigobar;
+	}
+
+	public void setFrigobar(Frigobar frigobar) {
+		this.frigobar = frigobar;
+	}
+
 
 	/**
 	 * Calcula e deve retornar o preco da diario do quarto.
@@ -66,10 +74,6 @@ public abstract class Quarto implements Servico{
 	public String toString() {
 		return "Quarto [preco=" + this.getPreco() + ", camaExtra=" + CamaExtra
 				+ "]";
-	}
-	
-	public Frigobar getFrigobar() {
-		return frigobar;
 	}
 		
 }
