@@ -207,19 +207,4 @@ public class Baba implements Servico {
 				.equals(outra.getDataTermino()));
 	}
 	
-	public static void main(String[] args) throws NullPointerException, DataInvalidaException {
-		Baba baba1;
-
-
-		Calendar horarioInicio2 = new GregorianCalendar(2015,
-				Calendar.JUNE, 20, 13, 0);
-		Calendar horarioFim2 = new GregorianCalendar(2015, Calendar.JUNE,
-				21, 19, 0);
-		
-		baba1 = new Baba(horarioInicio2, horarioFim2);
-		
-		System.out.println(baba1.toString());
-
-	}
-
 }
