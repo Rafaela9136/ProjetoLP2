@@ -32,6 +32,10 @@ public class Hotel {
 		private double calculaCustoFinal(Contrato contrato) {
 			return 0;
 		}
+		
+		public static boolean removeContrato(Contrato contrato) {
+			return contratosHotel.remove(contrato);
+		}
 }
 
 		
