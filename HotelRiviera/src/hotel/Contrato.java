@@ -19,8 +19,9 @@ import excecoes.NotaInvalidaException;
  * 
  * @author Grupinho da Alegria
  * @version 2.0
- * @see nothing Classe responsavel por criar um contrato contendo hospedes com suas informacoes, datas de comeco e fim do contrato,
- * opiniao sobre o servico prestado, entre outras coisas.
+ * @see nothing Classe responsavel por criar um contrato contendo hospedes com
+ *      suas informacoes, datas de comeco e fim do contrato, opiniao sobre o
+ *      servico prestado, entre outras coisas.
  */
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
@@ -38,25 +39,46 @@ public class Contrato {
 	private float despesasAdicionais;
 	private boolean isReserva;
 	private boolean isAberto;
-	
+
 	/**
 	 * 
-	 * @param hospedeTitular Hospede responsavel pelo contrato criado. Nesse objeto estao todas as informacoes
-	 * dele como nome, endereco, numero do cartao de credito, CPF, etc.
-	 * @param hospedesAcompanhantes Nessa lista estao os nomes das outras pessoas que estao associadas ao contrato,
-	 * esta lista pode estar vazia.
-	 * @param estrategia Estrategia contendo uma porcentagem a ser adicionada ao valor total do contrato na hora do fechamento.
-	 * @param dataCheckIn Data do inicio do contrato usada para calcular o preco dos contrato.
-	 * @param dataCheckOut Data do fim do contrato suada para calcular o preco dos contrato
-	 * @param isReserva Variavel usada para dizer se o contrato e uma reserva ou nao (deve ser setada como nao sendo ao 
-	 * chegar a data de inicio do contrato).
-	 * @param servicos List de servicos do contrato contendo objetos como Quartos, conta do restaurante, etc (Esta lista
-	 * deve ter pelo menos um quarto).
-	 * @throws NullPointerException Excecao lancada ao receber objetos que nao foram inicializados
-	 * @throws ContratoSemQuartoException Excecao lancada quando a lista de servicos nao possui um quarto nela.
-	 * @throws FrigobarEmListServicosException Excecao lancada quando tentam adicionar um frigobar na lista de servicos.
-	 * @throws DataInvalidaException Excecao lancada quando a data final do contrato esta para antes do inicio do contrato,
-	 * ou quando alguma das duas datas esta setada para um dia que ja passou.
+	 * @param hospedeTitular
+	 *            Hospede responsavel pelo contrato criado. Nesse objeto estao
+	 *            todas as informacoes dele como nome, endereco, numero do
+	 *            cartao de credito, CPF, etc.
+	 * @param hospedesAcompanhantes
+	 *            Nessa lista estao os nomes das outras pessoas que estao
+	 *            associadas ao contrato, esta lista pode estar vazia.
+	 * @param estrategia
+	 *            Estrategia contendo uma porcentagem a ser adicionada ao valor
+	 *            total do contrato na hora do fechamento.
+	 * @param dataCheckIn
+	 *            Data do inicio do contrato usada para calcular o preco dos
+	 *            contrato.
+	 * @param dataCheckOut
+	 *            Data do fim do contrato suada para calcular o preco dos
+	 *            contrato
+	 * @param isReserva
+	 *            Variavel usada para dizer se o contrato e uma reserva ou nao
+	 *            (deve ser setada como nao sendo ao chegar a data de inicio do
+	 *            contrato).
+	 * @param servicos
+	 *            List de servicos do contrato contendo objetos como Quartos,
+	 *            conta do restaurante, etc (Esta lista deve ter pelo menos um
+	 *            quarto).
+	 * @throws NullPointerException
+	 *             Excecao lancada ao receber objetos que nao foram
+	 *             inicializados
+	 * @throws ContratoSemQuartoException
+	 *             Excecao lancada quando a lista de servicos nao possui um
+	 *             quarto nela.
+	 * @throws FrigobarEmListServicosException
+	 *             Excecao lancada quando tentam adicionar um frigobar na lista
+	 *             de servicos.
+	 * @throws DataInvalidaException
+	 *             Excecao lancada quando a data final do contrato esta para
+	 *             antes do inicio do contrato, ou quando alguma das duas datas
+	 *             esta setada para um dia que ja passou.
 	 */
 	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
 			EstrategiaAplicavel estrategia, Calendar dataCheckIn,
@@ -83,13 +105,16 @@ public class Contrato {
 		this.servicos = servicos;
 
 	}// Construtor
+
 	/**
-	 * @see nothing Recupera a informacao sobre o contrato que diz se ele esta aberto ou nao.
+	 * @see nothing Recupera a informacao sobre o contrato que diz se ele esta
+	 *      aberto ou nao.
 	 * @return Retorna true se o contrato estiver aberto e false se nao.
 	 */
 	public boolean getIsReserva() {
 		return isReserva;
 	}// getIsReserva
+
 	/**
 	 * @see nothing Recupera a estrategia do contrato.
 	 * @return Retorna a estrategia a ser aplicada no preco do contrato.
@@ -99,7 +124,8 @@ public class Contrato {
 	}// getEstrategia
 
 	/**
-	 * @see nothing Recupera a lista com o nome dos acompanhantes do hospede titular.
+	 * @see nothing Recupera a lista com o nome dos acompanhantes do hospede
+	 *      titular.
 	 * @return Retorna a lista com o nome dos acompanhantes.
 	 */
 	public List<String> getAcompanhantes() {
@@ -113,23 +139,25 @@ public class Contrato {
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}// getOpiniao
-	
+
 	/**
-	 * @see nothing Recupera em que o contrato come�a a valer e deixa de ser uma reserva.
+	 * @see nothing Recupera em que o contrato come�a a valer e deixa de ser
+	 *      uma reserva.
 	 * @return Retorna a data inicial do contrato.
 	 */
 	public Calendar getDataCheckIn() {
 		return dataCheckIn;
 	}// getDataCheckIn
-	
+
 	/**
-	 * @see nothing Recupera a lista com todos os servicos do contrato, inclusive os quartos.
+	 * @see nothing Recupera a lista com todos os servicos do contrato,
+	 *      inclusive os quartos.
 	 * @return Retorna a lista dos servicos.
 	 */
 	public List<Servico> getServicos() {
 		return servicos;
 	}// getServicos
-	
+
 	/**
 	 * @see nothing Recupera a data de termino do contrato.
 	 * @return Retorna a data onde acaba o contrato
@@ -137,16 +165,17 @@ public class Contrato {
 	public Calendar getDataCheckOut() {
 		return dataCheckOut;
 	}// getDataCheckOut
-	
+
 	/**
-	 * @see nothing Recupera as despesas adicionais do contrato, como alguma despesa por dano a algo do hotel
-	 * ou por algum servico diferente que nao faca parte do programa.
+	 * @see nothing Recupera as despesas adicionais do contrato, como alguma
+	 *      despesa por dano a algo do hotel ou por algum servico diferente que
+	 *      nao faca parte do programa.
 	 * @return Retorna as despesas adicionais.
 	 */
 	public double getDespesasAdicionais() {
 		return despesasAdicionais;
 	}// getDespesasTotais
-	
+
 	/**
 	 * @see nothing Recupera o estado do contrato, se esta aberto ou nao.
 	 * @return Retorna true se o contrato estiver aberto e falso caso contrario.
@@ -162,63 +191,89 @@ public class Contrato {
 	public Hospede getHospedeTitular() {
 		return hospedeTitular;
 	}// getHospedeTitular
-	
+
 	/**
-	 * @see Estabelece um valor ao atributo que diz se o contrato esta aberto ou nao.
-	 * @param estado Valor a ser estabelecido.
-	 * @throws ContratoFechadoException Excecao lancada quando o contrato ja esta fechado e tentam alterar esse valor.
-	 * @throws ContratoSemOpiniaoException Excecao lancada quando tentam fechar o contrato sem ter adicionado uma 
-	 * opiniao sobre a estadia no hotel.
+	 * @see Estabelece um valor ao atributo que diz se o contrato esta aberto ou
+	 *      nao.
+	 * @param estado
+	 *            Valor a ser estabelecido.
+	 * @throws ContratoFechadoException
+	 *             Excecao lancada quando o contrato ja esta fechado e tentam
+	 *             alterar esse valor.
+	 * @throws ContratoSemOpiniaoException
+	 *             Excecao lancada quando tentam fechar o contrato sem ter
+	 *             adicionado uma opiniao sobre a estadia no hotel.
 	 */
-	public void setIsAberto(boolean estado) throws ContratoFechadoException, ContratoSemOpiniaoException {
-		if(!isAberto)
+	public void setIsAberto(boolean estado) throws ContratoFechadoException,
+			ContratoSemOpiniaoException {
+		if (!isAberto)
 			throw new ContratoFechadoException();
-		
-		if(!estado && opiniao == null)
+
+		if (!estado && opiniao == null)
 			throw new ContratoSemOpiniaoException();
 		isAberto = estado;
 	}// setIsAberto
-	
+
 	/**
-	 * @see nothing Metodo responsavel por estabelecer um valor para variavel que diz se o contrato e reserva ou nao.
-	 * @param estado Estado em que o contrato deve estar. True para ser uma reserva e falso para deixar de ser uma.
+	 * @see nothing Metodo responsavel por estabelecer um valor para variavel
+	 *      que diz se o contrato e reserva ou nao.
+	 * @param estado
+	 *            Estado em que o contrato deve estar. True para ser uma reserva
+	 *            e falso para deixar de ser uma.
 	 */
 	public void setIsReserva(boolean estado) {
 		isReserva = estado;
 	}// setIsReserva
 
 	/**
-	 * @see nothing Metodo responsavel por estabelecer uma nova data final para o contrato.
-	 * @param novaData Data a ser estabelecida.
-	 * @throws NullPointerException Excecao lancada quando a o parametro novaData nao foi inicializado.
-	 * @throws DataInvalidaException Excecao lancada quando a novaData a ser estabelecida ja passou ou
-	 * e menor do que a data inicial.
+	 * @see nothing Metodo responsavel por estabelecer uma nova data final para
+	 *      o contrato.
+	 * @param novaData
+	 *            Data a ser estabelecida.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando a o parametro novaData nao foi
+	 *             inicializado.
+	 * @throws DataInvalidaException
+	 *             Excecao lancada quando a novaData a ser estabelecida ja
+	 *             passou ou e menor do que a data inicial.
 	 */
-	public void setDataCheckOut(Calendar novaData) throws NullPointerException, DataInvalidaException {
+	public void setDataCheckOut(Calendar novaData) throws NullPointerException,
+			DataInvalidaException {
 		verificaDatasValidas(dataCheckIn, novaData);
 		dataCheckOut = novaData;
 	}// setDataCheckOut
-	
 
 	/**
-	 * @see nothing Metodo responsavel por estabelecer uma nova data inicial para o contrato.
-	 * @param novaData Data a ser estabelecida.
-	 * @throws NullPointerException Excecao lancada quando a o parametro novaData nao foi inicializado.
-	 * @throws DataInvalidaException Excecao lancada quando a novaData a ser estabelecida ja passou ou
-	 * e maior do que a data inicial.
+	 * @see nothing Metodo responsavel por estabelecer uma nova data inicial
+	 *      para o contrato.
+	 * @param novaData
+	 *            Data a ser estabelecida.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando a o parametro novaData nao foi
+	 *             inicializado.
+	 * @throws DataInvalidaException
+	 *             Excecao lancada quando a novaData a ser estabelecida ja
+	 *             passou ou e maior do que a data inicial.
 	 */
-	public void setDataCheckIn(Calendar novaData) throws NullPointerException, DataInvalidaException {
+	public void setDataCheckIn(Calendar novaData) throws NullPointerException,
+			DataInvalidaException {
 		verificaDatasValidas(novaData, dataCheckOut);
 		dataCheckIn = novaData;
 	}// setDataCheckIn
-	
+
 	/**
-	 * @see nothing Metodo responsavel por adicionar novos servicos na lista de servicos do contrato.
-	 * @param servico Servico a ser adicionado a lista de servicos.
-	 * @throws FrigobarEmListServicosException Excecao lancada quando o servico a ser adicionado e do tipo Frigobar,
-	 * objetos dessa classe estao nos seus proprios quartos.
-	 * @throws AddQuartoContratoException Excecao lancada quando o servico a ser adicionado e um quarto, quartos so 
-	 * podem ter adicionados na criacao do contrato.
+	 * @see nothing Metodo responsavel por adicionar novos servicos na lista de
+	 *      servicos do contrato.
+	 * @param servico
+	 *            Servico a ser adicionado a lista de servicos.
+	 * @throws FrigobarEmListServicosException
+	 *             Excecao lancada quando o servico a ser adicionado e do tipo
+	 *             Frigobar, objetos dessa classe estao nos seus proprios
+	 *             quartos.
+	 * @throws AddQuartoContratoException
+	 *             Excecao lancada quando o servico a ser adicionado e um
+	 *             quarto, quartos so podem ter adicionados na criacao do
+	 *             contrato.
 	 */
 	public void adicionaServico(Servico servico)
 			throws FrigobarEmListServicosException, AddQuartoContratoException {
@@ -232,22 +287,24 @@ public class Contrato {
 
 	/**
 	 * @see nothing Remove um servico da lista de servicos
-	 * @param servico Servico a ser removido da lista de servicos
+	 * @param servico
+	 *            Servico a ser removido da lista de servicos
 	 * @return Retorna true se o servico foi removido e false caso contrario.
 	 */
 	public boolean removeServico(Servico servico) {
 		return servicos.remove(servico);
 	}// removeServico
-	
+
 	/**
-	 * @see nothing Metodo responsavel por inicializar o objeto Opiniao do contrato que contem uma nota 
-	 * do cliente sobre o que ele achou dos servicos e de sua estadia em geral no hotel.
-	 * @param nota 
+	 * @see nothing Metodo responsavel por inicializar o objeto Opiniao do
+	 *      contrato que contem uma nota do cliente sobre o que ele achou dos
+	 *      servicos e de sua estadia em geral no hotel.
+	 * @param nota
 	 * @param comentario
 	 * @throws NullPointerException
 	 * @throws NotaInvalidaException
 	 * @throws EstouroDeCaracteresException
-	 * @throws ComentarioVazioException 
+	 * @throws ComentarioVazioException
 	 */
 	public void inicializaOpiniao(float nota, String comentario)
 			throws NullPointerException, NotaInvalidaException,
@@ -256,15 +313,18 @@ public class Contrato {
 	}// setOpiniao
 
 	/**
-	 * @see nothing Metodo responsavel por adicionar alguma despesa extra ao contrato.
-	 * @param valor Valor a ser adicionado.
+	 * @see nothing Metodo responsavel por adicionar alguma despesa extra ao
+	 *      contrato.
+	 * @param valor
+	 *            Valor a ser adicionado.
 	 */
 	public void adicionaDespesa(float valor) {
 		despesasAdicionais += valor;
 	}// adicionaDespesa
-	
+
 	/**
-	 * @see nothing Metodo responsavel por calcular o numero de dias que o contrato durara.
+	 * @see nothing Metodo responsavel por calcular o numero de dias que o
+	 *      contrato durara.
 	 * @return Retorna o numero de dias.
 	 */
 	public int getNumeroDeDias() {
@@ -276,8 +336,8 @@ public class Contrato {
 	}// getNumeroDeDias
 
 	/**
-	 * @see nothing Metodo responsavel por calcular o valor total do contrato e ja multiplicando pela
-	 * porcentagem da estrategia.
+	 * @see nothing Metodo responsavel por calcular o valor total do contrato e
+	 *      ja multiplicando pela porcentagem da estrategia.
 	 * @return Retorna o valor total.
 	 */
 	public double calculaValorTotalServicos() {
@@ -294,7 +354,6 @@ public class Contrato {
 		return valor * estrategia.getPorcentagemAAplicar();
 	}// calculaValorTotalServicos
 
-
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
 		if (hospede == null)
@@ -304,16 +363,23 @@ public class Contrato {
 	@Override
 	public String toString() {
 		return "\nCONTRATO "
-			 + "\nHospedeTitular: " + hospedeTitular
-			 + "\nAcompanhantes: " + acompanhantes 
-			 + "\nServicos: " + servicos 
-			 + "\nOpiniao: " + opiniao 
-			 + "\nCheckIn: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime())
-			 + "\nCheckOut: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime()) 
-			 + "\nEstrategia: " + estrategia
-			 + "\nDespesas Adicionais: " + despesasAdicionais
-			 + "\nReserva: " + isReserva 
-			 + "\nContrato Aberto: " + isAberto	+ "\n";
+				+ "\nHospedeTitular: "
+				+ hospedeTitular
+				+ "\nAcompanhantes: "
+				+ acompanhantes
+				+ "\nServicos: "
+				+ servicos
+				+ "\nOpiniao: "
+				+ opiniao
+				+ "\nCheckIn: "
+				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn
+						.getTime())
+				+ "\nCheckOut: "
+				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut
+						.getTime()) + "\nEstrategia: " + estrategia
+				+ "\nDespesas Adicionais: " + despesasAdicionais
+				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
+				+ "\n";
 	}
 
 	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)
@@ -327,11 +393,11 @@ public class Contrato {
 			DataInvalidaException {
 		verificaDataNull(dataCheckIn);
 		verificaDataNull(dataCheckOut);
-		
+
 		if (dataCheckIn.before(new GregorianCalendar())
 				|| dataCheckOut.before(dataCheckIn))
 			throw new DataInvalidaException();
-		
+
 		if (dataCheckIn.compareTo(dataCheckOut) > 0)
 			throw new DataInvalidaException();
 	}// verificaDataValida
@@ -417,5 +483,4 @@ public class Contrato {
 		return true;
 	}// equals
 
-	
 }// Contrato
