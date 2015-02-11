@@ -225,7 +225,7 @@ public class AtualizarContrato extends JPanel {
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTableServico = new DefaultTableModel(
 				desingTabela,
-				new String[] { "Servicos", "Data de contrato" }) {
+				new String[] { "Servicos", "Valor" }) {
 			@Override
 			public boolean isCellEditable(int roll, int column) {
 				return false;

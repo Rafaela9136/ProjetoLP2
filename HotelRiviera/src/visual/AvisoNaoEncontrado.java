@@ -47,8 +47,8 @@ public class AvisoNaoEncontrado extends JFrame {
 		JTextPane txtpnErro = new JTextPane();
 		txtpnErro.setEditable(false);
 		txtpnErro.setFont(new Font("Verdana", Font.PLAIN, 12));
-		txtpnErro.setText("N�o encontrado, verifique os dados.");
-		txtpnErro.setBounds(63, 29, 250, 25);
+		txtpnErro.setText("Nao encontrado, verifique os dados.");
+		txtpnErro.setBounds(54, 30, 284, 25);
 		contentPane.add(txtpnErro);
 	}
 

@@ -48,7 +48,7 @@ public class AvisoErro extends JFrame {
 		txtpnErro.setEditable(false);
 		txtpnErro.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnErro.setText("Algo parece errado, tente novamente.");
-		txtpnErro.setBounds(63, 29, 225, 25);
+		txtpnErro.setBounds(51, 29, 302, 25);
 		contentPane.add(txtpnErro);
 	}
 

@@ -66,8 +66,7 @@ public class AcoesGerais extends JPanel {
 	private JTable tableContratos;
 
 	// Dados para criacao dos objetos
-	private Hospede novoHospede;
-	private Contrato contrato;
+	private Contrato contrato1;
 	private Object[][] desingTabela;
 	private String[] hospedesAcompanhantes;
 	private List<Servico> servicos = new ArrayList<Servico>();
@@ -77,7 +76,6 @@ public class AcoesGerais extends JPanel {
 
 	AtualizarContrato atualizar;
 	
-	private Quarto quarto;
 	private static Contrato contratoSelecionado;
 
 	/**
@@ -125,12 +123,12 @@ public class AcoesGerais extends JPanel {
 				AvisoErro erro = new AvisoErro();
 
 				if (comboBoxQuarto.getSelectedItem().equals("Presidencial")){
-					quarto = new SuitePresidencial();
+					Quarto quarto = new SuitePresidencial();
 					servicos.add(quarto);
 				}
 				if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
 					try {
-						quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
+						Quarto quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
 								Conector.selecionaTipoQuarto(comboBoxQuartoQ
 										.getSelectedItem()));
 						servicos.add(quarto);
@@ -142,7 +140,7 @@ public class AcoesGerais extends JPanel {
 				}
 				if (comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 					try {
-						quarto = new QuartoExecutivo(rdbtnCamaExtra
+						Quarto quarto = new QuartoExecutivo(rdbtnCamaExtra
 								.isSelected(), Conector
 								.selecionaTipoQuarto(comboBoxQuartoQ
 										.getSelectedItem()));
@@ -155,14 +153,14 @@ public class AcoesGerais extends JPanel {
 				}
 				
 				try {
-					novoHospede = new Hospede(
+					Hospede novoHospede = new Hospede(
 							textFieldNome.getText(),
 							Conector.transformaData(textFieldData.getText()),
 							(String) comboBoxPaises.getSelectedItem(),
 							Conector.selecionaEstado(textFieldEstado.getText()),
 							textFieldCidade.getText(), textFieldEndereco.getText(), textFieldNumero.getText(),
 							textFieldCPF.getText(), textFieldCartaoCredito.getText());
-					contrato = new Contrato(
+					Contrato contrato = new Contrato(
 							novoHospede,
 							Conector.transformaVetor(hospedesAcompanhantes),
 							estrategia,
@@ -305,10 +303,11 @@ public class AcoesGerais extends JPanel {
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tableContratos.getSelectedRows();
-				for (Contrato contrato : Hotel.getContratos()) {
-					if(contrato.getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0])) {
+				for (int i = 0; i < Hotel.getContratos().size(); i++) {
+					if(Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0])) {
+						contrato1 = Hotel.getContratos().get(i);
 						try {
-							atualizar = new AtualizarContrato(contrato);
+							atualizar = new AtualizarContrato(contrato1);
 						} catch (NullPointerException | ParseException e1) {
 							e1.printStackTrace();
 						}
@@ -320,7 +319,6 @@ public class AcoesGerais extends JPanel {
 			}
 		});
 		btnAtualizarTabela.setFont(new Font("Verdana", Font.PLAIN, 12));
-		
 		
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
@@ -359,7 +357,7 @@ public class AcoesGerais extends JPanel {
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTableServico = new DefaultTableModel(
 						desingTabela,
-						new String[] { "Nome do hospede", "Situa��o" })
+						new String[] { "Nome do hospede", "Situacao" })
 				{ @Override
 					public boolean isCellEditable(int roll, int column){
 					return false;

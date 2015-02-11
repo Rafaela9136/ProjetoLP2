@@ -48,7 +48,7 @@ public class AvisoSucesso extends JFrame {
 		txtpnOperaoRealizadaCom.setEditable(false);
 		txtpnOperaoRealizadaCom.setFont(new Font("Verdana", Font.PLAIN, 12));
 		txtpnOperaoRealizadaCom.setText("Opera\u00E7\u00E3o realizada com sucesso!");
-		txtpnOperaoRealizadaCom.setBounds(63, 29, 225, 25);
+		txtpnOperaoRealizadaCom.setBounds(70, 27, 260, 25);
 		contentPane.add(txtpnOperaoRealizadaCom);
 	}
 
