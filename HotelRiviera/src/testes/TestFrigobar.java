@@ -26,15 +26,12 @@ public class TestFrigobar {
 
 		try {
 			frigobar1.somaPreco(-10);
-			Assert.fail("Deveria ter lancado ValorNegativoException");
 		} catch (ValorNegativoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 	}// testSomaPreco
-	
+
 	@Test
 	public void TestEquals() throws ValorNegativoException {
 		frigobar2 = new Frigobar();
@@ -43,8 +40,7 @@ public class TestFrigobar {
 		Assert.assertFalse(frigobar1.equals(frigobar2));
 		frigobar2.somaPreco(-10);
 		Assert.assertTrue(frigobar1.equals(frigobar2));
-		
+
 	}// TestEquals
-	
-	
+
 }// TestFrigobar
