@@ -66,7 +66,7 @@ public class AcoesGerais extends JPanel {
 	private JTable tableContratos;
 
 	// Dados para criacao dos objetos
-	private Contrato contrato1;
+	private static Contrato contrato1;
 	private Object[][] desingTabela;
 	private String[] hospedesAcompanhantes;
 	private List<Servico> servicos = new ArrayList<Servico>();
@@ -368,7 +368,7 @@ public class AcoesGerais extends JPanel {
 	}
 
 	static Contrato getContratoSelecionado() {
-		return contratoSelecionado;
+		return contrato1;
 	}
 
 	static void selecionaTela(String tela) {
