@@ -134,7 +134,7 @@ public class AtualizarContrato extends JPanel {
 		final JComboBox<String> comboBoxTipoServico = new JComboBox<String>();
 		comboBoxTipoServico.setFont(new Font("Verdana", Font.PLAIN, 12));
 		comboBoxTipoServico.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "(selecionar)", "Bab\u00E1", "Carro",
+				new String[] { "(selecionar)", "Baba", "Carro",
 						"Restaurante" }));
 		comboBoxTipoServico.setBounds(135, 365, 154, 24);
 		comboBoxTipoServico.addActionListener(new ActionListener() {
