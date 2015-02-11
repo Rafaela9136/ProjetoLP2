@@ -54,11 +54,8 @@ public class AtualizarContrato extends JPanel {
 	 * 
 	 * @throws ParseException
 	 */
-	public AtualizarContrato(Contrato contrato) throws ParseException, NullPointerException {
-		if(contrato == null)
-			throw new NullPointerException();
-		
-		this.contrato = contrato;
+	public AtualizarContrato() throws ParseException {
+
 		final MaskFormatter dateMask = new MaskFormatter("##/##/####");
 		final MaskFormatter cpfMask = new MaskFormatter("###.###.###-##");
 		final MaskFormatter cartaoMask = new MaskFormatter(
@@ -66,7 +63,6 @@ public class AtualizarContrato extends JPanel {
 
 		setLayout(null);
 
-		System.out.println(AcoesGerais.getContratoSelecionado());
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 603, 569);
@@ -205,7 +201,7 @@ public class AtualizarContrato extends JPanel {
 	}
 
 	private void tabelaServicosContratados(JPanel editarServicos) {
-		if (contrato.getServicos() == null) {
+		if (contrato == null) {
 			desingTabela = new Object[1][2];
 		} else {
 			desingTabela = new Object[contrato.getServicos().size()][2];
@@ -346,7 +342,6 @@ public class AtualizarContrato extends JPanel {
 		textFieldCidade.setBounds(147, 242, 221, 28);
 		textFieldCidade.setEnabled(false);
 		textFieldCidade.setFont(new Font("Verdana", Font.PLAIN, 12));
-		textFieldCidade.setText(contrato.getHospedeTitular().getCidade());
 		editarHospede.add(textFieldCidade);
 
 		// Endereco

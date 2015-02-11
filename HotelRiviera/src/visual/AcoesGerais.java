@@ -214,6 +214,10 @@ public class AcoesGerais extends JPanel {
 		panel.add(atualizarContrato, "atualizarContrato");
 		atualizarContrato.setLayout(null);
 		
+		atualizar = new AtualizarContrato();
+		atualizar.setBounds(0, 34, 607, 572);
+		atualizarContrato.add(atualizar);
+		
 		// Barra de opcoes
 		barraOpcoes(panel, atualizarContrato);
 		
@@ -303,18 +307,11 @@ public class AcoesGerais extends JPanel {
 		listSelectionModel.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tableContratos.getSelectedRows();
-				for (int i = 0; i < Hotel.getContratos().size(); i++) {
-					if(Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0])) {
-						contrato1 = Hotel.getContratos().get(i);
-						try {
-							atualizar = new AtualizarContrato(contrato1);
-						} catch (NullPointerException | ParseException e1) {
-							e1.printStackTrace();
-						}
-						atualizar.setBounds(0, 34, 607, 572);
+				for (Contrato cont : Hotel.getContratos()) {
+					if(cont.getHospedeTitular().getNome().equals(desingTabela[indiceSelecionado[0]][0])) {
+						contrato1 = cont;
 					}
 				}
-				atualizarContrato.add(atualizar);
 				btnAtualizarContrato.setEnabled(true);
 			}
 		});
