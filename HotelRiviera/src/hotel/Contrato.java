@@ -463,7 +463,7 @@ public class Contrato {
 		verificaDataNull(dataCheckIn);
 		verificaDataNull(dataCheckOut);
 
-		Calendar dataAtual = new GregorianCalendar();
+		Calendar dataAtual = Calendar.getInstance();
 
 		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
 		dataAtual.set(Calendar.MINUTE, 00);
