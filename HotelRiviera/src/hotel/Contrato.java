@@ -468,7 +468,7 @@ public class Contrato {
 		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
 		dataAtual.set(Calendar.MINUTE, 00);
 
-		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn))
+		if (dataCheckIn.compareTo(dataAtual) < 0 || dataCheckOut.compareTo(dataCheckIn) < 0)
 			throw new DataInvalidaException();
 
 	}// verificaDataValida
