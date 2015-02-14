@@ -57,7 +57,6 @@ public class ContratoTest {
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private Calendar momentoAgr;
-	private boolean isReserva;
 	private List<Servico> servicos;
 	private Baba baba;
 
@@ -116,10 +115,8 @@ public class ContratoTest {
 		servicos.add(quarto3);
 		servicos.add(quarto4);
 
-		this.isReserva = true;
-
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 	}// criaObjetos
 
@@ -128,7 +125,7 @@ public class ContratoTest {
 			FrigobarEmListServicosException, DataInvalidaException {
 		try {
 			contrato1 = new Contrato(null, acompanhantes, dataCheckIn,
-					dataCheckOut, isReserva, servicos);
+					dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -138,7 +135,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, null, dataCheckIn,
-					dataCheckOut, isReserva, servicos);
+					dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado ");
 		} catch (NullPointerException e) {
 
@@ -148,7 +145,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes, null,
-					dataCheckOut, isReserva, servicos);
+					dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -158,7 +155,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, null, isReserva, servicos);
+					dataCheckIn, null, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -168,7 +165,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, null);
+					dataCheckIn, dataCheckOut, null);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -176,11 +173,11 @@ public class ContratoTest {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
-		dataCheckIn.set(Calendar.MONTH, 6);
+		dataCheckIn.set(Calendar.MONTH, dataCheckOut.get(Calendar.MONTH) + 1);
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+					dataCheckIn, dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 
@@ -188,13 +185,15 @@ public class ContratoTest {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
-		dataCheckIn.set(Calendar.MONTH, 4);
+		dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
 
 		List<Servico> servicos = new ArrayList<Servico>();
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+					dataCheckIn, dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
 
@@ -206,7 +205,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+					dataCheckIn, dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
 
@@ -221,7 +220,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+					dataCheckIn, dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
 
@@ -233,7 +232,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, isReserva, this.servicos);
+					dataCheckIn, dataCheckOut, this.servicos);
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 
@@ -274,7 +273,7 @@ public class ContratoTest {
 	@Test
 	public void testCalculaValorTotalServicos() throws ValorNegativoException,
 			NullPointerException, DataInvalidaException {
-		Assert.assertEquals(21600, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(18000, contrato1.calculaValorTotalServicos(), 0.5);
 
 		Calendar dataInicio = new GregorianCalendar(
 				momentoAgr.get(Calendar.YEAR), Calendar.MONTH,
@@ -289,18 +288,18 @@ public class ContratoTest {
 
 		servicos.add(carro2);
 
-		Assert.assertEquals(22500, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(18750, contrato1.calculaValorTotalServicos(), 0.5);
 
 		Baba baba2 = new Baba(dataInicio, dataTermino);
 
 		servicos.add(baba2);
 
-		Assert.assertEquals(28050, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(23375, contrato1.calculaValorTotalServicos(), 0.5);
 		ContaRestaurante conta = new ContaRestaurante(1000);
 
 		servicos.add(conta);
 
-		Assert.assertEquals(29250, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(24375, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos
 
@@ -343,10 +342,10 @@ public class ContratoTest {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
@@ -355,7 +354,7 @@ public class ContratoTest {
 				"0123.4567.8999.9999");
 
 		contrato2 = new Contrato(hospedeTitular2, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
@@ -363,19 +362,12 @@ public class ContratoTest {
 
 		List<String> acompanhantes2 = new ArrayList<String>();
 		contrato2 = new Contrato(hospedeTitular, acompanhantes2, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
-
-		Assert.assertFalse(contrato1.equals(contrato2));
-
-		final boolean NAO_RESERVA = false;
-
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, NAO_RESERVA, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
@@ -384,12 +376,12 @@ public class ContratoTest {
 		servicos2.add(quarto5);
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos2);
+				dataCheckOut, servicos2);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
@@ -398,7 +390,7 @@ public class ContratoTest {
 		Assert.assertFalse(contrato1.equals(contrato2));
 
 		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
-				dataCheckOut, isReserva, servicos);
+				dataCheckOut, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 

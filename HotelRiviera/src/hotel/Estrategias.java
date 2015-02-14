@@ -42,6 +42,7 @@ public enum Estrategias {
 	public double getPorcentagem() {
 		return porcentagem;
 	}
+	
 
 	@Override
 	public String toString() {

@@ -50,19 +50,12 @@ public class Contrato {
 	 * @param hospedesAcompanhantes
 	 *            Nessa lista estao os nomes das outras pessoas que estao
 	 *            associadas ao contrato, esta lista pode estar vazia.
-	 * @param estrategia
-	 *            Estrategia contendo uma porcentagem a ser adicionada ao valor
-	 *            total do contrato na hora do fechamento.
 	 * @param dataCheckIn
 	 *            Data do inicio do contrato usada para calcular o preco dos
 	 *            contrato.
 	 * @param dataCheckOut
 	 *            Data do fim do contrato suada para calcular o preco dos
 	 *            contrato
-	 * @param isReserva
-	 *            Variavel usada para dizer se o contrato e uma reserva ou nao
-	 *            (deve ser setada como nao sendo ao chegar a data de inicio do
-	 *            contrato).
 	 * @param servicos
 	 *            List de servicos do contrato contendo objetos como Quartos,
 	 *            conta do restaurante, etc (Esta lista deve ter pelo menos um
@@ -82,18 +75,14 @@ public class Contrato {
 	 *             esta setada para um dia que ja passou.
 	 */
 	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
-			Calendar dataCheckIn, Calendar dataCheckOut, boolean isReserva,
-			List<Servico> servicos) throws NullPointerException,
-			ContratoSemQuartoException, FrigobarEmListServicosException,
-			DataInvalidaException {
+			Calendar dataCheckIn, Calendar dataCheckOut, List<Servico> servicos)
+			throws NullPointerException, ContratoSemQuartoException,
+			FrigobarEmListServicosException, DataInvalidaException {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(hospedesAcompanhantes);
 		verificaServicosValido(servicos);
 		verificaDatasValidas(dataCheckIn, dataCheckOut);
-
-		if (estrategia == null)
-			throw new NullPointerException();
 
 		Calendar dataAtual = new GregorianCalendar();
 		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
@@ -387,8 +376,7 @@ public class Contrato {
 	}// getNumeroDeDias
 
 	/**
-	 * @see nothing Metodo responsavel por calcular o valor total do contrato e
-	 *      ja multiplicando pela porcentagem da estrategia.
+	 * @see nothing Metodo responsavel por calcular o valor total do contrato.
 	 * @return Retorna o valor total.
 	 */
 	public double calculaValorTotalServicos() {
@@ -402,8 +390,27 @@ public class Contrato {
 			}// if
 			valor += servico.getPreco();
 		}// for
-		return valor * estrategia.getPorcentagem();
+		return valor;
 	}// calculaValorTotalServicos
+	
+	/**
+	 * @see nothing Metodo responsavel por calcular o valor total do contrato e
+	 *      ja multiplicando pela porcentagem da estrategia.
+	 * @return Retorna o valor total.
+	 */
+	public double calculaValorTotalServicosComEstrategia() {
+		double valor = 0;
+		for (Servico servico : servicos) {
+			if (servico instanceof Quarto) {
+				Quarto umQuarto = (Quarto) servico;
+				valor += umQuarto.getPreco() * getNumeroDeDias();
+				valor += umQuarto.getFrigobar().getPreco();
+				continue;
+			}// if
+			valor += servico.getPreco();
+		}// for
+		return valor * estrategia.getPorcentagem();
+	}// calculaValorTotalServicosComEstrategia
 
 	private void verificaHospedeTitularValido(Hospede hospede)
 			throws NullPointerException {
@@ -432,14 +439,16 @@ public class Contrato {
 				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
 				+ "\n";
 	}
-	
-	private Estrategias estrategiaAAplicar(Calendar dataCheckIn, Calendar dataCheckOut) {
+
+	private Estrategias estrategiaAAplicar(Calendar dataCheckIn,
+			Calendar dataCheckOut) {
 		Estrategias[] estrategias = Estrategias.values();
-		
+
 		for (Estrategias estrategia : estrategias)
-			if(estrategia.getDataInicial().after(dataCheckIn) && estrategia.getDataFinal().before(dataCheckOut))
+			if (estrategia.getDataInicial().after(dataCheckIn)
+					&& estrategia.getDataFinal().before(dataCheckOut))
 				return estrategia;
-		return null;
+		return Estrategias.DEFAULT;
 	}// estrategiaAAplicar
 
 	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)
