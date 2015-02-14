@@ -26,6 +26,11 @@ public class Conector {
 			return TipoCarro.LUXO;
 		return null;
 	}
+	
+	public static int trasformaNota(String object){
+		int notaInt = Integer.parseInt(object);
+		return notaInt;
+	}
 
 	public static Estado selecionaEstado(String estadoDado) {
 		for (int i = 0; i < Estado.values().length; i++) {
