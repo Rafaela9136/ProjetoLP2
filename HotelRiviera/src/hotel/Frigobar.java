@@ -27,6 +27,11 @@ public class Frigobar implements Servico {
 			return false;
 		return true;
 	}
+	
+	@Override
+	public String getNome() {
+		return "Frigobar";
+	}// getNome
 
 	@Override
 	public double getPreco() {

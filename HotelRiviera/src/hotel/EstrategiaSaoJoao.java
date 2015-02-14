@@ -11,8 +11,8 @@ import java.util.GregorianCalendar;
  */
 public class EstrategiaSaoJoao implements EstrategiaAplicavel {
 
-	private final int DIA_INICIO = 1;
-	private final int DIA_FIM = 10;
+	private static final int DIA_INICIO = 1;
+	private static final int DIA_FIM = 10;
 	private double porcentagemAAplicar = 1.1; // 50% a mais no valor das
 												// despesas totais do cliente.
 
@@ -20,18 +20,14 @@ public class EstrategiaSaoJoao implements EstrategiaAplicavel {
 		return porcentagemAAplicar;
 	}
 
-	@SuppressWarnings("static-access")
-	@Override
-	public Calendar getDataInicio() {
+	public static Calendar getDataInicio() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
-				Calendar.JUNE, this.DIA_INICIO);
+				Calendar.JUNE, DIA_INICIO);
 	}
 
-	@SuppressWarnings("static-access")
-	@Override
-	public Calendar getDataFim() {
+	public static Calendar getDataFim() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
-				Calendar.JULY, this.DIA_FIM);
+				Calendar.JULY, DIA_FIM, 23, 59);
 	}
 
 }

@@ -28,5 +28,10 @@ public class ContaRestaurante implements Servico {
 	public double getPreco() {
 		return valor;
 	}// getValor
+	
+	@Override
+	public String getNome() {
+		return "Conta do Restaurante";
+	}// getNome
 
 }// ContaRestaurante

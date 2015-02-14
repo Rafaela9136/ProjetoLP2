@@ -160,6 +160,11 @@ public class Carro implements Servico {
 			preco += VALOR_DO_SEGURO;
 		return preco;
 	}
+	
+	@Override
+	public String getNome() {
+		return "Carro";
+	}// getNome
 
 	/**
 	 * Calcula a duracao do servico a partir do dia final e inicial, em

@@ -3,7 +3,11 @@ package hotel;
 public interface Servico {
 
 	public double getPreco();
-
-	// public String getDescricao();
+	
+	/**
+	 * @see nothing Recupera o nome do servico.
+	 * @return Retorna o nome do servico.
+	 */
+	public String getNome();
 
 }

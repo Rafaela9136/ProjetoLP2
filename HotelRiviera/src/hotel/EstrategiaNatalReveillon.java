@@ -4,8 +4,8 @@ import java.util.*;
 
 public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 
-	private final int DIA_INICIO = 15;
-	private final int DIA_FIM = 5;
+	private static final int DIA_INICIO = 15;
+	private static final int DIA_FIM = 5;
 	private double porcentagemAAplicar = 1.2; // 20% a mais no valor das
 												// despesas totais do cliente.
 
@@ -17,18 +17,16 @@ public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 		this.porcentagemAAplicar = porcentagemAAplicar;
 	}
 
-	@SuppressWarnings("static-access")
-	@Override
-	public Calendar getDataInicio() {
+	
+	
+	public static Calendar getDataInicio() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
-				Calendar.DECEMBER, this.DIA_INICIO);
+				Calendar.DECEMBER, DIA_INICIO);
 	}
 
-	@SuppressWarnings("static-access")
-	@Override
-	public Calendar getDataFim() {
+	public static Calendar getDataFim() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
-				Calendar.JANUARY, this.DIA_FIM);
+				Calendar.JANUARY, DIA_FIM, 23, 59);
 	}
 
 	@Override

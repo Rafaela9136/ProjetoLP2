@@ -199,4 +199,9 @@ public class Baba implements Servico {
 				.equals(outra.getDataTermino()));
 	}
 	
+	@Override
+	public String getNome() {
+		return "Baba";
+	}// getNome
+	
 }

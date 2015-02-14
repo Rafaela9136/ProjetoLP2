@@ -17,18 +17,4 @@ public interface EstrategiaAplicavel {
 	 */
 	public double getPorcentagemAAplicar();
 	
-	/**
-	 * Informa a data do inicio da estacao.
-	 * 
-	 * @return A data de inicio da estacao.
-	 */
-	public Calendar getDataInicio(); 
-	
-	/**
-	 * Informa a data do fim da estacao.
-	 * 
-	 * @return A data do fim da estacao.
-	 */
-	public Calendar getDataFim();
-	
 }

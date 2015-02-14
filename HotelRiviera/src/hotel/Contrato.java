@@ -13,6 +13,7 @@ import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
+import excecoes.NomeInvalidoException;
 import excecoes.NotaInvalidaException;
 
 /**
@@ -94,13 +95,22 @@ public class Contrato {
 		if (estrategia == null)
 			throw new NullPointerException();
 
+		Calendar dataAtual = new GregorianCalendar();
+		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
+		dataAtual.set(Calendar.MINUTE, 00);
+
+		if (!(dataCheckIn.get(Calendar.YEAR) == dataAtual.get(Calendar.YEAR)
+				&& dataCheckIn.get(Calendar.MONTH) == dataAtual
+						.get(Calendar.MONTH) && dataCheckIn
+					.get(Calendar.DAY_OF_MONTH) == dataAtual
+				.get(Calendar.DAY_OF_MONTH)))
+			this.isReserva = true;
+
 		this.estrategia = estrategia;
 		this.hospedeTitular = hospedeTitular;
-		this.isReserva = isReserva;
-		this.isAberto = CONTRATO_ABERTO;
 		this.dataCheckIn = dataCheckIn;
 		this.dataCheckOut = dataCheckOut;
-
+		this.isAberto = CONTRATO_ABERTO;
 		this.acompanhantes = hospedesAcompanhantes;
 		this.servicos = servicos;
 
@@ -192,6 +202,13 @@ public class Contrato {
 		return hospedeTitular;
 	}// getHospedeTitular
 
+	public void setHospedeTitular(Hospede hospedeTitular)
+			throws NullPointerException {
+		if (hospedeTitular == null)
+			throw new NullPointerException();
+		this.hospedeTitular = hospedeTitular;
+	}// setHospedeTitular
+
 	/**
 	 * @see Estabelece um valor ao atributo que diz se o contrato esta aberto ou
 	 *      nao.
@@ -260,6 +277,29 @@ public class Contrato {
 		verificaDatasValidas(novaData, dataCheckOut);
 		dataCheckIn = novaData;
 	}// setDataCheckIn
+	
+	/**
+	 * @see nothing Adiciona um acompanante a lista de acompanhantes.
+	 * @param acompanhante Acompanhante a ser adicionado.
+	 * @throws NullPointerException Excecao lancada quando o parametro nao foi inicializado.
+	 * @throws NomeInvalidoException Excecao lancada quando o nome do acompanhante e uma string vazia.
+	 */
+	public void adicionaAcompanhante(String acompanhante) throws NullPointerException, NomeInvalidoException {
+			verificaAcompanhanteValido(acompanhante);
+			acompanhantes.add(acompanhante);
+	}// adicionaAcompanhante
+	
+	/**
+	 * 
+	 * @see nothing Remove um acompanante a lista de acompanhantes.
+	 * @param acompanhante Acompanhante a ser adicionado.
+	 * @return Retorna verdadeiro se o acompanhante foi removido e falso caso contrario.
+	 * @throws NullPointerException Excecao lancada quando o parametro nao foi inicializado.
+	 * @throws NomeInvalidoException Excecao lancada quando o nome do acompanhante e uma string vazia.
+	 */
+	public boolean removeAcompanhante(String acompanhante) throws NullPointerException, NomeInvalidoException {
+		return acompanhantes.remove(acompanhante);
+	}// removeAcompanhante
 
 	/**
 	 * @see nothing Metodo responsavel por adicionar novos servicos na lista de
@@ -394,12 +434,14 @@ public class Contrato {
 		verificaDataNull(dataCheckIn);
 		verificaDataNull(dataCheckOut);
 
-		if (dataCheckIn.before(new GregorianCalendar())
-				|| dataCheckOut.before(dataCheckIn))
+		Calendar dataAtual = new GregorianCalendar();
+
+		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
+		dataAtual.set(Calendar.MINUTE, 00);
+
+		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn))
 			throw new DataInvalidaException();
 
-		if (dataCheckIn.compareTo(dataCheckOut) > 0)
-			throw new DataInvalidaException();
 	}// verificaDataValida
 
 	private void verificaDataNull(Calendar data) throws NullPointerException {
@@ -425,6 +467,13 @@ public class Contrato {
 			throw new ContratoSemQuartoException();
 
 	}// verificaServicosValido
+	
+	private void verificaAcompanhanteValido(String acompanhante) throws NullPointerException, NomeInvalidoException {
+		if (acompanhante == null)
+			throw new NullPointerException();
+		if (acompanhante.isEmpty())
+			throw new NomeInvalidoException();
+	}// verificaAcompananteValido
 
 	@Override
 	public int hashCode() {
