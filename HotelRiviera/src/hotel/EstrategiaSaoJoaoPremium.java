@@ -21,13 +21,15 @@ public class EstrategiaSaoJoaoPremium implements EstrategiaAplicavel{
 	public void setPorcentagemAAplicar(double porcentagemAAplicar) {
 		this.porcentagemAAplicar = porcentagemAAplicar;
 	}
-
-	public static Calendar getDataInicio() {
+	
+	@Override
+	public Calendar getDataInicio() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JUNE, DIA_INICIO, 23, 59);
 	}
-
-	public static Calendar getDataFim() {
+	
+	@Override
+	public Calendar getDataFim() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JUNE, DIA_FIM, 23, 59);
 	}

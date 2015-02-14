@@ -35,7 +35,7 @@ public class Contrato {
 	private Opiniao opiniao;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
-	private EstrategiaAplicavel estrategia;
+	private Estrategias estrategia;
 
 	private float despesasAdicionais;
 	private boolean isReserva;
@@ -82,10 +82,10 @@ public class Contrato {
 	 *             esta setada para um dia que ja passou.
 	 */
 	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
-			EstrategiaAplicavel estrategia, Calendar dataCheckIn,
-			Calendar dataCheckOut, boolean isReserva, List<Servico> servicos)
-			throws NullPointerException, ContratoSemQuartoException,
-			FrigobarEmListServicosException, DataInvalidaException {
+			Calendar dataCheckIn, Calendar dataCheckOut, boolean isReserva,
+			List<Servico> servicos) throws NullPointerException,
+			ContratoSemQuartoException, FrigobarEmListServicosException,
+			DataInvalidaException {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(hospedesAcompanhantes);
@@ -106,7 +106,7 @@ public class Contrato {
 				.get(Calendar.DAY_OF_MONTH)))
 			this.isReserva = true;
 
-		this.estrategia = estrategia;
+		this.estrategia = estrategiaAAplicar(dataCheckIn, dataCheckOut);
 		this.hospedeTitular = hospedeTitular;
 		this.dataCheckIn = dataCheckIn;
 		this.dataCheckOut = dataCheckOut;
@@ -129,7 +129,7 @@ public class Contrato {
 	 * @see nothing Recupera a estrategia do contrato.
 	 * @return Retorna a estrategia a ser aplicada no preco do contrato.
 	 */
-	public EstrategiaAplicavel getEstrategia() {
+	public Estrategias getEstrategia() {
 		return estrategia;
 	}// getEstrategia
 
@@ -277,27 +277,38 @@ public class Contrato {
 		verificaDatasValidas(novaData, dataCheckOut);
 		dataCheckIn = novaData;
 	}// setDataCheckIn
-	
+
 	/**
 	 * @see nothing Adiciona um acompanante a lista de acompanhantes.
-	 * @param acompanhante Acompanhante a ser adicionado.
-	 * @throws NullPointerException Excecao lancada quando o parametro nao foi inicializado.
-	 * @throws NomeInvalidoException Excecao lancada quando o nome do acompanhante e uma string vazia.
+	 * @param acompanhante
+	 *            Acompanhante a ser adicionado.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando o parametro nao foi inicializado.
+	 * @throws NomeInvalidoException
+	 *             Excecao lancada quando o nome do acompanhante e uma string
+	 *             vazia.
 	 */
-	public void adicionaAcompanhante(String acompanhante) throws NullPointerException, NomeInvalidoException {
-			verificaAcompanhanteValido(acompanhante);
-			acompanhantes.add(acompanhante);
+	public void adicionaAcompanhante(String acompanhante)
+			throws NullPointerException, NomeInvalidoException {
+		verificaAcompanhanteValido(acompanhante);
+		acompanhantes.add(acompanhante);
 	}// adicionaAcompanhante
-	
+
 	/**
 	 * 
 	 * @see nothing Remove um acompanante a lista de acompanhantes.
-	 * @param acompanhante Acompanhante a ser adicionado.
-	 * @return Retorna verdadeiro se o acompanhante foi removido e falso caso contrario.
-	 * @throws NullPointerException Excecao lancada quando o parametro nao foi inicializado.
-	 * @throws NomeInvalidoException Excecao lancada quando o nome do acompanhante e uma string vazia.
+	 * @param acompanhante
+	 *            Acompanhante a ser adicionado.
+	 * @return Retorna verdadeiro se o acompanhante foi removido e falso caso
+	 *         contrario.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando o parametro nao foi inicializado.
+	 * @throws NomeInvalidoException
+	 *             Excecao lancada quando o nome do acompanhante e uma string
+	 *             vazia.
 	 */
-	public boolean removeAcompanhante(String acompanhante) throws NullPointerException, NomeInvalidoException {
+	public boolean removeAcompanhante(String acompanhante)
+			throws NullPointerException, NomeInvalidoException {
 		return acompanhantes.remove(acompanhante);
 	}// removeAcompanhante
 
@@ -391,7 +402,7 @@ public class Contrato {
 			}// if
 			valor += servico.getPreco();
 		}// for
-		return valor * estrategia.getPorcentagemAAplicar();
+		return valor * estrategia.getPorcentagem();
 	}// calculaValorTotalServicos
 
 	private void verificaHospedeTitularValido(Hospede hospede)
@@ -421,6 +432,15 @@ public class Contrato {
 				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
 				+ "\n";
 	}
+	
+	private Estrategias estrategiaAAplicar(Calendar dataCheckIn, Calendar dataCheckOut) {
+		Estrategias[] estrategias = Estrategias.values();
+		
+		for (Estrategias estrategia : estrategias)
+			if(estrategia.getDataInicial().after(dataCheckIn) && estrategia.getDataFinal().before(dataCheckOut))
+				return estrategia;
+		return null;
+	}// estrategiaAAplicar
 
 	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)
 			throws NullPointerException {
@@ -467,8 +487,9 @@ public class Contrato {
 			throw new ContratoSemQuartoException();
 
 	}// verificaServicosValido
-	
-	private void verificaAcompanhanteValido(String acompanhante) throws NullPointerException, NomeInvalidoException {
+
+	private void verificaAcompanhanteValido(String acompanhante)
+			throws NullPointerException, NomeInvalidoException {
 		if (acompanhante == null)
 			throw new NullPointerException();
 		if (acompanhante.isEmpty())

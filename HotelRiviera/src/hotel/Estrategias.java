@@ -9,7 +9,9 @@ public enum Estrategias {
 			"Sao Joao +50%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.5,
 			Calendar.getInstance().YEAR), NATAL_REVEILLON(
 			"Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
-			1.2, Calendar.getInstance().YEAR + 1);
+			1.2, Calendar.getInstance().YEAR + 1), DEFAULT(
+			"Sem estrategia +0%%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
+			0, Calendar.getInstance().YEAR);
 
 	private String nomeEstrategia;
 	private Calendar dataInicial;
@@ -21,8 +23,7 @@ public enum Estrategias {
 		this.nomeEstrategia = nomeEstrategia;
 		this.dataInicial = new GregorianCalendar(Calendar.getInstance().YEAR,
 				mesInicio, diaInicio);
-		this.dataFinal = new GregorianCalendar(Calendar.getInstance().YEAR,
-				mesFim, diaFim);
+		this.dataFinal = new GregorianCalendar(anoFinal, mesFim, diaFim, 23, 59);
 		this.porcentagem = porcentagem;
 	}// Construtor
 

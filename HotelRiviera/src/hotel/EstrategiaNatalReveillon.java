@@ -18,13 +18,14 @@ public final class EstrategiaNatalReveillon implements EstrategiaAplicavel {
 	}
 
 	
-	
-	public static Calendar getDataInicio() {
+	@Override
+	public Calendar getDataInicio() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.DECEMBER, DIA_INICIO);
 	}
-
-	public static Calendar getDataFim() {
+	
+	@Override
+	public Calendar getDataFim() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JANUARY, DIA_FIM, 23, 59);
 	}

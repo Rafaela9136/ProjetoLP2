@@ -54,7 +54,6 @@ public class ContratoTest {
 	private Hospede hospedeTitular;
 	private Calendar dataNascimento;
 	private List<String> acompanhantes = new ArrayList<String>();
-	private EstrategiaAplicavel estrategia;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
 	private Calendar momentoAgr;
@@ -76,10 +75,12 @@ public class ContratoTest {
 	public void criaObjetos() throws NullPointerException,
 			CPFInvalidoException, ContratoSemQuartoException,
 			FrigobarEmListServicosException, DataInvalidaException,
-			NomeVazioException, StringVaziaException, CartaoInvalidoException, CamaExtraException, StringInvalidaException, NumeroInvalidoException {
+			NomeVazioException, StringVaziaException, CartaoInvalidoException,
+			CamaExtraException, StringInvalidaException,
+			NumeroInvalidoException {
 		dataNascimento = Calendar.getInstance();
-		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento, "0123.4567.8999.9999");
-		estrategia = new EstrategiaNatalReveillon();
+		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento,
+				"0123.4567.8999.9999");
 		// Usada para settar as datas de teste, para que os testes continuem
 		// funcionando sem importar
 		// o tempo que faca que o teste foi criado
@@ -117,8 +118,8 @@ public class ContratoTest {
 
 		this.isReserva = true;
 
-		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 	}// criaObjetos
 
@@ -126,8 +127,8 @@ public class ContratoTest {
 	public void testCriaContrato() throws ContratoSemQuartoException,
 			FrigobarEmListServicosException, DataInvalidaException {
 		try {
-			contrato1 = new Contrato(null, acompanhantes, estrategia,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+			contrato1 = new Contrato(null, acompanhantes, dataCheckIn,
+					dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -136,8 +137,8 @@ public class ContratoTest {
 		}// try-catch
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, null, estrategia,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+			contrato1 = new Contrato(hospedeTitular, null, dataCheckIn,
+					dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado ");
 		} catch (NullPointerException e) {
 
@@ -147,7 +148,7 @@ public class ContratoTest {
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes, null,
-					dataCheckIn, dataCheckOut, isReserva, servicos);
+					dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
 
@@ -156,17 +157,7 @@ public class ContratoTest {
 		}// try-catch
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-					null, dataCheckOut, isReserva, servicos);
-			Assert.fail("Deveria ter lancado NullPointerException");
-		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-
-		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, null, isReserva, servicos);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
@@ -176,7 +167,7 @@ public class ContratoTest {
 		}// try-catch
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, null);
 			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
@@ -188,7 +179,7 @@ public class ContratoTest {
 		dataCheckIn.set(Calendar.MONTH, 6);
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
@@ -202,7 +193,7 @@ public class ContratoTest {
 		List<Servico> servicos = new ArrayList<Servico>();
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
@@ -214,7 +205,7 @@ public class ContratoTest {
 		servicos.add(baba);
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
@@ -229,7 +220,7 @@ public class ContratoTest {
 		servicos.add(frigobar);
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, servicos);
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
@@ -241,7 +232,7 @@ public class ContratoTest {
 		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
 
 		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, isReserva, this.servicos);
 			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
@@ -316,7 +307,8 @@ public class ContratoTest {
 	@Test
 	public void testSetIsAberto() throws ContratoFechadoException,
 			ContratoSemOpiniaoException, NullPointerException,
-			NotaInvalidaException, EstouroDeCaracteresException, ComentarioVazioException {
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
 		final boolean FECHADO = false;
 		final boolean ABERTO = true;
 		try {
@@ -345,56 +337,45 @@ public class ContratoTest {
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, FrigobarEmListServicosException,
 			DataInvalidaException, CPFInvalidoException,
-			AddQuartoContratoException, StringVaziaException, CartaoInvalidoException, StringInvalidaException, NumeroInvalidoException {
+			AddQuartoContratoException, StringVaziaException,
+			CartaoInvalidoException, StringInvalidaException,
+			NumeroInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
-		contrato1 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
 		Calendar dataNascimento2 = new GregorianCalendar(1500, 6, 9);
-		Hospede hospedeTitular2 = new Hospede("Jao da lenha", dataNascimento2, "0123.4567.8999.9999");
+		Hospede hospedeTitular2 = new Hospede("Jao da lenha", dataNascimento2,
+				"0123.4567.8999.9999");
 
-		contrato2 = new Contrato(hospedeTitular2, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular2, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
 		acompanhantes.add("Mais um");
 
 		List<String> acompanhantes2 = new ArrayList<String>();
-		contrato2 = new Contrato(hospedeTitular, acompanhantes2, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes2, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
-
-		estrategia = new EstrategiaSaoJoaoPremium();
-
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
-
-		Assert.assertFalse(contrato1.equals(contrato2));
-
-		estrategia = new EstrategiaNatalReveillon();
-
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
-
-		Assert.assertTrue(contrato1.equals(contrato2));
 
 		final boolean NAO_RESERVA = false;
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, NAO_RESERVA, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, NAO_RESERVA, servicos);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
@@ -402,13 +383,13 @@ public class ContratoTest {
 
 		servicos2.add(quarto5);
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos2);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos2);
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 
@@ -416,8 +397,8 @@ public class ContratoTest {
 
 		Assert.assertFalse(contrato1.equals(contrato2));
 
-		contrato2 = new Contrato(hospedeTitular, acompanhantes, estrategia,
-				dataCheckIn, dataCheckOut, isReserva, servicos);
+		contrato2 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
+				dataCheckOut, isReserva, servicos);
 
 		Assert.assertTrue(contrato1.equals(contrato2));
 

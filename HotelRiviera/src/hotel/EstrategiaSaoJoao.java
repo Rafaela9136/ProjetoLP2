@@ -19,13 +19,15 @@ public class EstrategiaSaoJoao implements EstrategiaAplicavel {
 	public double getPorcentagemAAplicar() {
 		return porcentagemAAplicar;
 	}
-
-	public static Calendar getDataInicio() {
+	
+	@Override
+	public Calendar getDataInicio() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JUNE, DIA_INICIO);
 	}
-
-	public static Calendar getDataFim() {
+	
+	@Override
+	public Calendar getDataFim() {
 		return new GregorianCalendar(Calendar.getInstance().YEAR,
 				Calendar.JULY, DIA_FIM, 23, 59);
 	}

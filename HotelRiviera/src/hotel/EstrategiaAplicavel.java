@@ -1,5 +1,7 @@
 package hotel;
 
+import java.util.Calendar;
+
 
 /**
  * Interface para definir estrategias de calculo de preco em altas e baixas estacoes do ano.
@@ -15,5 +17,9 @@ public interface EstrategiaAplicavel {
 	 * @return a porcentagem que sera multiplicada pelo custo.
 	 */
 	public double getPorcentagemAAplicar();
+	
+	public Calendar getDataInicio();
+	
+	public Calendar getDataFim();
 	
 }
