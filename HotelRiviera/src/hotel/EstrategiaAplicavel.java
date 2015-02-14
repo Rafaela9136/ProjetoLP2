@@ -1,6 +1,5 @@
 package hotel;
 
-import java.util.*;
 
 /**
  * Interface para definir estrategias de calculo de preco em altas e baixas estacoes do ano.
