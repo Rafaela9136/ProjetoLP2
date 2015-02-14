@@ -184,8 +184,21 @@ public class ContratoTest {
 		} catch (Exception e) {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
+		
 
-		dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
+
+		try {
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
+					dataCheckIn, dataCheckOut, this.servicos);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
+		} catch (DataInvalidaException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+
+		this.dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
 
@@ -223,18 +236,6 @@ public class ContratoTest {
 					dataCheckIn, dataCheckOut, servicos);
 			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
 		} catch (FrigobarEmListServicosException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-
-		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
-
-		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, this.servicos);
-			Assert.fail("Deveria ter lancado DataInvalidaException");
-		} catch (DataInvalidaException e) {
 
 		} catch (Exception e) {
 			Assert.fail("Nao deveria ter lancado essa excecao");
