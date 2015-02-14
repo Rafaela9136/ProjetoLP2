@@ -169,6 +169,7 @@ public class AtualizacaoContrato extends JPanel {
 		editarServicos.add(comboBox);
 		
 		EdicaoServicos edicaoServico = new EdicaoServicos();
+		edicaoServico.setLocation(32, 391);
 		editarServicos.add(edicaoServico);
 		
 		JButton btnConfirmar_1 = new JButton("Confirmar");
@@ -184,6 +185,32 @@ public class AtualizacaoContrato extends JPanel {
 	}
 	
 	private void criaObjetosServicos(){
+		AvisoErro erro = new AvisoErro();
+		if(comboBox.getSelectedItem().equals("Baba")){
+			try {
+				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.contrataBaba());
+			} catch (AddQuartoContratoException e) {
+				erro.setVisible(true);
+			} catch (FrigobarEmListServicosException e) {
+				erro.setVisible(true);
+			}
+		} if(comboBox.getSelectedItem().equals("Carro")){
+			try {
+				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.alugaCarro());
+			} catch (AddQuartoContratoException e) {
+				erro.setVisible(true);
+			} catch (FrigobarEmListServicosException e) {
+				erro.setVisible(true);
+			}
+		} if(comboBox.getSelectedItem().equals("Restaurante")){
+			try {
+				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.geraContaRestaurante());
+			} catch (AddQuartoContratoException e) {
+				erro.setVisible(true);
+			} catch (FrigobarEmListServicosException e) {
+				erro.setVisible(true);
+			}
+		}
 		
 	}
 

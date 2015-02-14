@@ -1,5 +1,10 @@
 package visual;
 
+import hotel.Baba;
+import hotel.Carro;
+import hotel.Conector;
+import hotel.ContaRestaurante;
+
 import javax.swing.JPanel;
 
 import java.awt.CardLayout;
@@ -16,6 +21,11 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.text.MaskFormatter;
 
+import excecoes.DataInvalidaException;
+import excecoes.ValorNegativoException;
+
+import javax.swing.JRadioButton;
+
 public class EdicaoServicos extends JPanel {
 	
 	/**
@@ -25,12 +35,16 @@ public class EdicaoServicos extends JPanel {
 	private final static CardLayout layout = new CardLayout();
 	
 	private static JPanel panel;
-	private JTextField textField;
-	private JComboBox<String> comboBoxHoraI;
-	private JComboBox<String> comboBoxHoraF;
-	private JComboBox<String> comboBoxCarros;
-	private JFormattedTextField formattedTextFieldFinal;
-	private JFormattedTextField formattedTextField;
+	private static JTextField textField;
+	private static JComboBox<String> comboBoxHoraI;
+	private static JComboBox<String> comboBoxHoraF;
+	private static JComboBox<String> comboBoxCarros;
+	private static JFormattedTextField formattedTextFieldFinal;
+	private static JFormattedTextField formattedTextField;
+	private static JFormattedTextField formattedTextFieldDataI;
+	private static JFormattedTextField formattedTextFieldDataF;
+	private static JRadioButton rdbtnTanqueCheio;
+	private static JRadioButton rdbtnSeguro;
 
 	/**
 	 * Create the panel.
@@ -76,16 +90,16 @@ public class EdicaoServicos extends JPanel {
 		txtpnDataFinal.setText("Data final:");
 		txtpnDataFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataFinal.setEditable(false);
-		txtpnDataFinal.setBounds(259, 12, 64, 24);
+		txtpnDataFinal.setBounds(262, 12, 64, 24);
 		carro.add(txtpnDataFinal);
 		
-		formattedTextField = new JFormattedTextField(dataMask);
-		formattedTextField.setBounds(88, 15, 139, 20);
-		carro.add(formattedTextField);
+		formattedTextFieldDataI = new JFormattedTextField(dataMask);
+		formattedTextFieldDataI.setBounds(107, 15, 139, 20);
+		carro.add(formattedTextFieldDataI);
 		
-		formattedTextFieldFinal = new JFormattedTextField(dataMask);
-		formattedTextFieldFinal.setBounds(345, 15, 139, 20);
-		carro.add(formattedTextFieldFinal);
+		formattedTextFieldDataF = new JFormattedTextField(dataMask);
+		formattedTextFieldDataF.setBounds(354, 15, 139, 20);
+		carro.add(formattedTextFieldDataF);
 		
 		JTextPane txtpnTipoDeCarro = new JTextPane();
 		txtpnTipoDeCarro.setText("Tipo de carro:");
@@ -96,8 +110,18 @@ public class EdicaoServicos extends JPanel {
 		
 		comboBoxCarros = new JComboBox<String>();
 		comboBoxCarros.setModel(new DefaultComboBoxModel<String>(new String[] {"Executivo", "Luxo"}));
-		comboBoxCarros.setBounds(90, 47, 137, 24);
+		comboBoxCarros.setBounds(107, 47, 137, 24);
 		carro.add(comboBoxCarros);
+		
+		rdbtnTanqueCheio = new JRadioButton("Tanque cheio");
+		rdbtnTanqueCheio.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		rdbtnTanqueCheio.setBounds(107, 84, 121, 24);
+		carro.add(rdbtnTanqueCheio);
+		
+		rdbtnSeguro = new JRadioButton("Seguro");
+		rdbtnSeguro.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		rdbtnSeguro.setBounds(262, 84, 121, 24);
+		carro.add(rdbtnSeguro);
 	}
 
 	private void edicaoBaba(final MaskFormatter dataMask) {
@@ -124,32 +148,32 @@ public class EdicaoServicos extends JPanel {
 		txtpnDataFinal.setText("Data final:");
 		txtpnDataFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataFinal.setEditable(false);
-		txtpnDataFinal.setBounds(259, 12, 82, 23);
+		txtpnDataFinal.setBounds(262, 12, 82, 23);
 		baba.add(txtpnDataFinal);
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("Hora inicial:");
 		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		textPane.setEditable(false);
-		textPane.setBounds(259, 47, 82, 23);
+		textPane.setBounds(262, 47, 82, 23);
 		baba.add(textPane);
 		
 		formattedTextField = new JFormattedTextField(dataMask);
-		formattedTextField.setBounds(88, 15, 139, 20);
+		formattedTextField.setBounds(107, 15, 139, 20);
 		baba.add(formattedTextField);
 		
 		formattedTextFieldFinal = new JFormattedTextField(dataMask);
-		formattedTextFieldFinal.setBounds(345, 15, 139, 20);
+		formattedTextFieldFinal.setBounds(354, 15, 139, 20);
 		baba.add(formattedTextFieldFinal);
 		
 		comboBoxHoraI = new JComboBox<String>();
 		comboBoxHoraI.setModel(new DefaultComboBoxModel<String>(new String[] {"01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"}));
-		comboBoxHoraI.setBounds(88, 47, 139, 20);
+		comboBoxHoraI.setBounds(107, 47, 139, 20);
 		baba.add(comboBoxHoraI);
 		
 		comboBoxHoraF = new JComboBox<String>();
 		comboBoxHoraF.setModel(new DefaultComboBoxModel<String>(new String[] {"01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"}));
-		comboBoxHoraF.setBounds(345, 47, 139, 20);
+		comboBoxHoraF.setBounds(354, 47, 139, 20);
 		baba.add(comboBoxHoraF);
 	}
 
@@ -167,9 +191,53 @@ public class EdicaoServicos extends JPanel {
 		restaurante.add(txtpnTotalDaConta);
 		
 		textField = new JTextField();
-		textField.setBounds(101, 14, 140, 20);
+		textField.setBounds(107, 14, 140, 20);
 		restaurante.add(textField);
 		textField.setColumns(10);
+	}
+	
+	static ContaRestaurante geraContaRestaurante(){
+		AvisoErro erro = new AvisoErro();
+		
+		ContaRestaurante conta = null;
+		try {
+			conta = new ContaRestaurante(Double.parseDouble(textField.getText()));
+		} catch (NumberFormatException e) {
+			erro.setVisible(true);
+		} catch (ValorNegativoException e) {
+			erro.setVisible(true);
+		}
+		return conta;
+	}
+	
+	static Baba contrataBaba(){
+		AvisoErro erro = new AvisoErro();
+		
+		Baba baba = null;
+		try {
+			baba = new Baba(Conector.transformaDataHora(formattedTextField.getText(),(String) comboBoxHoraI.getSelectedItem()),
+					Conector.transformaDataHora(formattedTextFieldFinal.getText(), (String) comboBoxHoraF.getSelectedItem()));
+		} catch (NullPointerException e) {
+			erro.setVisible(true);
+		} catch (DataInvalidaException e) {
+			erro.setVisible(true);
+		}
+		return baba;
+	}
+	
+	static Carro alugaCarro(){
+		AvisoErro erro = new AvisoErro();
+		
+		Carro carro = null;
+		try {
+			carro = new Carro(Conector.selecionaTipoCarro((String) comboBoxCarros.getSelectedItem()), Conector.transformaData(formattedTextFieldDataI.getText()),
+					Conector.transformaData(formattedTextFieldDataF.getText()), rdbtnTanqueCheio.isSelected(), rdbtnSeguro.isSelected());
+		} catch (NullPointerException e) {
+			erro.setVisible(true);
+		} catch (DataInvalidaException e) {
+			erro.setVisible(true);
+		}
+		return carro;
 	}
 	
 	// metodo para selecionar a tela a que aparece

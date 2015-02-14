@@ -38,7 +38,8 @@ public class Hotel extends JFrame {
 					Hotel frame = new Hotel();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					AvisoErro erro = new AvisoErro();
+					erro.setVisible(true);
 				}
 			}
 		});
