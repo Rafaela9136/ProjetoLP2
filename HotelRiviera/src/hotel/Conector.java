@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Conector {
 
-	private static Calendar c = Calendar.getInstance();
 	private static List<String> lista = new ArrayList<String>();
 
 	public static TiposDeQuarto selecionaTipoQuarto(Object estilo) {
@@ -41,6 +40,7 @@ public class Conector {
 	}
 
 	public static Calendar transformaData(String data) {
+		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
 		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]),
 				Integer.parseInt(diaMesAno[0]));
@@ -48,6 +48,7 @@ public class Conector {
 	}
 
 	public static Calendar transformaDataHora(String data, String hora) {
+		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
 		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]),
 				Integer.parseInt(diaMesAno[0]));

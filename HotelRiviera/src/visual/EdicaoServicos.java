@@ -59,12 +59,18 @@ public class EdicaoServicos extends JPanel {
 		panel.setBounds(0, 0, 705, 145);
 		add(panel);
 		panel.setLayout(layout);
+		layout.show(panel, "vazio");
 		
 		edicaoRestaurante();
 		
 		edicaoBaba(dataMask);
 		
 		edicaoCarro(dataMask);
+		
+		// pinel que permanece
+		JPanel vazio = new JPanel();
+		vazio.setBackground(Color.WHITE);
+		panel.add(vazio, "vazio");
 	}
 
 	private void inicializa() {

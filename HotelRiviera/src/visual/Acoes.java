@@ -53,7 +53,6 @@ public class Acoes extends JPanel {
 	private JComboBox<String> comboBoxPaises;
 	private JComboBox<String> comboBoxEstados;
 	private JRadioButton rdbtnCamaExtra;
-	private JRadioButton rdbtnReserva;
 	private JTextArea textAreaAcompanhantes;
 	private JTextField textFieldPesquisa;
 	private DefaultTableModel model;
@@ -61,7 +60,6 @@ public class Acoes extends JPanel {
 	
 	// Variaveis para criacao do contrato
 	private List<String> acompanhantes;
-	private EstrategiaAplicavel estrategia = new EstrategiaSaoJoao(); // Apenas para teste, sera substituido.
 	private Quarto quarto;
 	private Hospede hospede;
 	private String[][] dados;
@@ -126,33 +124,6 @@ public class Acoes extends JPanel {
 		
 		confirmaECriaObjetos(panelNovoContrato);
 	}
-
-	private void criaQuarto(List<Servico> servicos) {
-		
-		AvisoErro erro = new AvisoErro();
-		if(comboBoxQuarto.getSelectedItem().equals("Presidencial")){
-			quarto = new SuitePresidencial();
-			servicos.add(quarto);
-		} if(comboBoxQuarto.getSelectedItem().equals("Executivo")){
-			try {
-				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
-				servicos.add(quarto);
-			} catch (NullPointerException e1) {
-				erro.setVisible(true);
-			} catch (CamaExtraException e1) {
-				erro.setVisible(true);
-			}
-		} if(comboBoxQuarto.getSelectedItem().equals("Luxo")){
-			try {
-				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
-				servicos.add(quarto);
-			} catch (NullPointerException e1) {
-				erro.setVisible(true);
-			} catch (CamaExtraException e1) {
-				erro.setVisible(true);
-			}
-		}
-	}
 	
 	private void dadosQuarto(JPanel panelNovoContrato) throws ParseException {
 		
@@ -203,12 +174,8 @@ public class Acoes extends JPanel {
 		panelNovoContrato.add(comboBoxQuartoT);
 		
 		rdbtnCamaExtra = new JRadioButton("Cama extra");
-		rdbtnCamaExtra.setBounds(378, 445, 121, 24);
+		rdbtnCamaExtra.setBounds(182, 445, 121, 24);
 		panelNovoContrato.add(rdbtnCamaExtra);
-		
-		rdbtnReserva = new JRadioButton("Reserva");
-		rdbtnReserva.setBounds(180, 445, 121, 24);
-		panelNovoContrato.add(rdbtnReserva);
 		
 		JTextPane txtpnDataCheckin = new JTextPane();
 		txtpnDataCheckin.setEditable(false);
@@ -232,6 +199,33 @@ public class Acoes extends JPanel {
 		formattedTextFieldCheckOut.setBounds(180, 524, 163, 22);
 		panelNovoContrato.add(formattedTextFieldCheckOut);
 	}
+	
+	private void criaQuarto(List<Servico> servicos) {
+		
+		AvisoErro erro = new AvisoErro();
+		if(comboBoxQuarto.getSelectedItem().equals("Presidencial")){
+			quarto = new SuitePresidencial();
+			servicos.add(quarto);
+		} if(comboBoxQuarto.getSelectedItem().equals("Executivo")){
+			try {
+				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
+				servicos.add(quarto);
+			} catch (NullPointerException e1) {
+				erro.setVisible(true);
+			} catch (CamaExtraException e1) {
+				erro.setVisible(true);
+			}
+		} if(comboBoxQuarto.getSelectedItem().equals("Luxo")){
+			try {
+				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
+				servicos.add(quarto);
+			} catch (NullPointerException e1) {
+				erro.setVisible(true);
+			} catch (CamaExtraException e1) {
+				erro.setVisible(true);
+			}
+		}
+	}
 
 	// Cria o quarto, o hospede e o contrato
 	private void confirmaECriaObjetos(JPanel panelNovoContrato) {
@@ -246,14 +240,16 @@ public class Acoes extends JPanel {
 				criaHospede();
 				
 				try {
-					Contrato contrato = new Contrato(hospede, acompanhantes, estrategia, Conector.transformaData(formattedTextFieldCheckIn.getText()),
-							Conector.transformaData(formattedTextFieldCheckOut.getText()), rdbtnReserva.isSelected(), servicos);
+					Contrato contrato = new Contrato(hospede, acompanhantes, Conector.transformaData(formattedTextFieldCheckIn.getText()),
+							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
 					
 					hotel.Hotel.adicionaContrato(contrato);
 					
 					
 					AvisoSucesso sucesso = new AvisoSucesso();
 					sucesso.setVisible(true);
+					
+					layout.show(panel, "vazio");
 				} catch (NullPointerException e1) {
 					erro.setVisible(true);
 				} catch (ContratoSemQuartoException e1) {

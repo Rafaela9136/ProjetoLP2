@@ -81,6 +81,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnEditarServicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layout.show(panel, "editarServicos");
+				EdicaoServicos.selecionaTela("vazio");
 			}
 		});
 		toolBar.add(btnEditarServicos);
@@ -186,30 +187,23 @@ public class AtualizacaoContrato extends JPanel {
 	
 	private void criaObjetosServicos(){
 		AvisoErro erro = new AvisoErro();
-		if(comboBox.getSelectedItem().equals("Baba")){
-			try {
-				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.contrataBaba());
-			} catch (AddQuartoContratoException e) {
-				erro.setVisible(true);
-			} catch (FrigobarEmListServicosException e) {
-				erro.setVisible(true);
-			}
-		} if(comboBox.getSelectedItem().equals("Carro")){
-			try {
-				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.alugaCarro());
-			} catch (AddQuartoContratoException e) {
-				erro.setVisible(true);
-			} catch (FrigobarEmListServicosException e) {
-				erro.setVisible(true);
-			}
-		} if(comboBox.getSelectedItem().equals("Restaurante")){
-			try {
-				Acoes.getContratoPesquisado().adicionaServico(EdicaoServicos.geraContaRestaurante());
-			} catch (AddQuartoContratoException e) {
-				erro.setVisible(true);
-			} catch (FrigobarEmListServicosException e) {
-				erro.setVisible(true);
-			}
+		Servico servico = null;
+		if(comboBox.getSelectedItem().equals("Baba"))
+			servico = EdicaoServicos.contrataBaba();
+		if(comboBox.getSelectedItem().equals("Carro"))
+			servico = EdicaoServicos.alugaCarro();
+		if(comboBox.getSelectedItem().equals("Restaurante"))
+			servico = EdicaoServicos.geraContaRestaurante();
+		
+		try {
+			Acoes.getContratoPesquisado().adicionaServico(servico);
+			
+			AvisoSucesso sucesso = new AvisoSucesso();
+			sucesso.setVisible(true);
+		} catch (AddQuartoContratoException e) {
+			erro.setVisible(true);
+		} catch (FrigobarEmListServicosException e) {
+			erro.setVisible(true);
 		}
 		
 	}
@@ -230,14 +224,7 @@ public class AtualizacaoContrato extends JPanel {
 
 	private void atualizaTabela() {
 		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
-			if(Acoes.getContratoPesquisado().getServicos().get(i) instanceof Quarto)
-				dados[i][0] = "Quarto";
-			if(Acoes.getContratoPesquisado().getServicos().get(i) instanceof Carro)
-				dados[i][0] = "Quarto";
-			if(Acoes.getContratoPesquisado().getServicos().get(i) instanceof Baba)
-				dados[i][0] = "Baba";
-			if(Acoes.getContratoPesquisado().getServicos().get(i)instanceof ContaRestaurante)
-				dados[i][0] = "Restaurante";
+			dados[i][0] = Acoes.getContratoPesquisado().getServicos().get(i).getNome();
 			dados[i][1] = String.valueOf(Acoes.getContratoPesquisado().getServicos().get(i).getPreco());
 		}
 		
@@ -324,10 +311,10 @@ public class AtualizacaoContrato extends JPanel {
 			erro.setVisible(true);
 		}
 		
-		if(hotel.Hotel.removeContrato(Acoes.getContratoPesquisado())){
-			AvisoSucesso sucesso = new AvisoSucesso();
-			sucesso.setVisible(true);
-		}
+		hotel.Hotel.removeContrato(Acoes.getContratoPesquisado());
+		
+		AvisoSucesso sucesso = new AvisoSucesso();
+		sucesso.setVisible(true);
 	}
 
 }
