@@ -250,6 +250,7 @@ public class Acoes extends JPanel {
 					sucesso.setVisible(true);
 					
 					layout.show(panel, "vazio");
+					limpaCampos();
 				} catch (NullPointerException e1) {
 					erro.setVisible(true);
 				} catch (ContratoSemQuartoException e1) {
@@ -560,6 +561,24 @@ public class Acoes extends JPanel {
 		tabela.setModel(model);
 	}
 
+	public void limpaCampos(){
+		textFieldNome.setText("");
+		textFieldNumero.setText("");
+		textFieldCidade.setText("");
+		textFieldLogradouro.setText("");
+		formattedTextFieldData.setText("");
+		formattedTextFieldCPF.setText("");
+		formattedTextFieldCartao.setText("");
+		formattedTextFieldCheckIn.setText("");
+		formattedTextFieldCheckOut.setText("");
+		comboBoxQuarto.setSelectedIndex(0);
+		comboBoxQuartoT.setSelectedIndex(0);
+		comboBoxPaises.setSelectedIndex(0);
+		comboBoxEstados.setSelectedIndex(0);
+		rdbtnCamaExtra.setSelected(false);
+		textAreaAcompanhantes.setText("");;
+		
+	}
 	
 	// metodo para selecionar a tela a que aparece
 	static void selecionaTela(String nomeDaTela){

@@ -71,6 +71,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnEditarDados.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(Acoes.getContratoPesquisado().toString());
 				layout.show(panel, "editarDadosHospede");
 			}
 		});
