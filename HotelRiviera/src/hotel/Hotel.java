@@ -34,11 +34,12 @@ public class Hotel {
 		}
 		
 		public static void removeContrato(Contrato contrato) {
-			List<Contrato> copiaContratos = contratosHotel;
-			for (Contrato contratoL : copiaContratos) {
-				if(contrato.equals(contratoL))
-					contratosHotel.remove(contratoL);
+			int cont = 0;
+			for (int i = 0; i < contratosHotel.size(); i++) {
+				if(contratosHotel.get(i).equals(contrato))
+					cont = i;
 			}
+			contratosHotel.remove(cont);
 		}
 }
 

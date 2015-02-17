@@ -526,6 +526,10 @@ public class Acoes extends JPanel {
 	}
 	
 	private void pesquisaTabela(){
+		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
+			dados[i][0] = "";
+			dados[i][1] = "";
+		}
 		String[][] dados = new String[85][2];
 		int cont = 0;
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
