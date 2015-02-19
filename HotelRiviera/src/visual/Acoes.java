@@ -62,7 +62,6 @@ public class Acoes extends JPanel {
 	private List<String> acompanhantes;
 	private Quarto quarto;
 	private Hospede hospede;
-	private String[][] dados;
 	private String[] colunas;
 	private static Contrato contratoPesquisado;
 	
@@ -512,12 +511,11 @@ public class Acoes extends JPanel {
 
 	private void geraTabela(JPanel panelPesquisarContrato) {
 		colunas = new String[]{"Nome do hospede","Situacao do contrato"};
-		dados = new String[85][2];
 		
 		tabela = new JTable();
 		tabela.setRowSelectionAllowed(true);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		model = new DefaultTableModel(dados, colunas);
+		model = new DefaultTableModel(new String[0][2], colunas);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(50, 150, 685, 389);
@@ -526,11 +524,7 @@ public class Acoes extends JPanel {
 	}
 	
 	private void pesquisaTabela(){
-		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
-			dados[i][0] = "";
-			dados[i][1] = "";
-		}
-		String[][] dados = new String[85][2];
+		String[][] dados = new String[hotel.Hotel.getContratos().size()][2];
 		int cont = 0;
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
 			if(hotel.Hotel.getContratos().get(i).getHospedeTitular().getNome().equals(textFieldPesquisa.getText())){
@@ -553,6 +547,7 @@ public class Acoes extends JPanel {
 	}
 	
 	private void atualizaTabela() {
+		String[][] dados = new String[hotel.Hotel.getContratos().size()][2];
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
 			dados[i][0] = hotel.Hotel.getContratos().get(i).getHospedeTitular().getNome();
 			if (hotel.Hotel.getContratos().get(i).getIsAberto())

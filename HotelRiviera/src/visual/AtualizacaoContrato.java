@@ -41,10 +41,6 @@ public class AtualizacaoContrato extends JPanel {
 	private JTable tabela;
 	private DefaultTableModel model;
 	private JComboBox<String> comboBox;
-	
-	// Variaveis para criar objetos
-	private String[][] dados;
-	private String[] colunas;
 	private JTextField textFieldLogradouro;
 	private JComboBox<String> comboBoxEstados;
 	private JComboBox<String> comboBoxPaises;
@@ -54,7 +50,10 @@ public class AtualizacaoContrato extends JPanel {
 	private JFormattedTextField formattedTextFieldCartao;
 	private JFormattedTextField formattedTextFieldCPF;
 	private JFormattedTextField formattedTextFieldData;
-	private JTextField textFieldNome;	
+	private JTextField textFieldNome;
+	
+	// Variaveis para criar objetos
+	private String[] colunas;	
 	
 	/**
 	 * Create the panel.
@@ -231,11 +230,10 @@ public class AtualizacaoContrato extends JPanel {
 
 	private void desenhaTabela(JPanel editarServicos) {
 		colunas = new String[]{"Servico","Custo"};
-		dados = new String[25][2];
 		 
 		tabela = new JTable();
 		tabela.setRowSelectionAllowed(true);
-		model = new DefaultTableModel(dados , colunas );
+		model = new DefaultTableModel(new String[0][2] , colunas );
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(28, 60, 705, 200);
@@ -244,6 +242,7 @@ public class AtualizacaoContrato extends JPanel {
 	}
 
 	private void atualizaTabela() {
+		String[][] dados = new String[25][2];
 		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
 			dados[i][0] = Acoes.getContratoPesquisado().getServicos().get(i).getNome();
 			dados[i][1] = String.valueOf(Acoes.getContratoPesquisado().getServicos().get(i).getPreco());
