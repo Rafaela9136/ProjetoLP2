@@ -37,6 +37,7 @@ public class Info extends JPanel {
 		setLayout(null);
 		
 		panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(102, 51, 0), 2));
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 764, 612);
 		add(panel);
@@ -52,6 +53,10 @@ public class Info extends JPanel {
 		vazio.setBackground(Color.WHITE);
 		panel.add(vazio, "vazio");
 		layout.show(panel, "vazio");
+		
+		JPanel estatistica = new JPanel();
+		estatistica.setBackground(Color.WHITE);
+		panel.add(estatistica, "estatistica");
 	}
 
 	private void panelOpinioes(JPanel panel) {
@@ -73,14 +78,14 @@ public class Info extends JPanel {
 		txtpnInformacoesDosServicos.setEditable(false);
 		txtpnInformacoesDosServicos.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtpnInformacoesDosServicos.setText("Informacoes dos servicos");
-		txtpnInformacoesDosServicos.setBounds(27, 26, 209, 31);
+		txtpnInformacoesDosServicos.setBounds(47, 24, 209, 31);
 		panelServicos.add(txtpnInformacoesDosServicos);
 		
 		JTextPane txtpnQuartos = new JTextPane();
 		txtpnQuartos.setText("Quartos:");
 		txtpnQuartos.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnQuartos.setEditable(false);
-		txtpnQuartos.setBounds(27, 65, 74, 23);
+		txtpnQuartos.setBounds(47, 65, 74, 23);
 		panelServicos.add(txtpnQuartos);
 		
 		tabelaQuarto(panelServicos);
@@ -89,21 +94,21 @@ public class Info extends JPanel {
 		txtpnBabysytter.setText("Babysitter:");
 		txtpnBabysytter.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnBabysytter.setEditable(false);
-		txtpnBabysytter.setBounds(27, 278, 74, 23);
+		txtpnBabysytter.setBounds(47, 278, 74, 23);
 		panelServicos.add(txtpnBabysytter);
 		
 		JTextPane txtpnAluguelDeCarro = new JTextPane();
 		txtpnAluguelDeCarro.setText("Aluguel de carro:");
 		txtpnAluguelDeCarro.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnAluguelDeCarro.setEditable(false);
-		txtpnAluguelDeCarro.setBounds(27, 385, 127, 23);
+		txtpnAluguelDeCarro.setBounds(47, 385, 127, 23);
 		panelServicos.add(txtpnAluguelDeCarro);
 		
 		JTextPane txtpnOValor = new JTextPane();
 		txtpnOValor.setEditable(false);
 		txtpnOValor.setFont(new Font("Dialog", Font.PLAIN, 11));
 		txtpnOValor.setText("* O valor desses serviços é adicionado ao montante total a ser pago uma unica vez.");
-		txtpnOValor.setBounds(27, 533, 491, 23);
+		txtpnOValor.setBounds(47, 533, 491, 23);
 		panelServicos.add(txtpnOValor);
 		
 		
@@ -127,7 +132,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(27, 91, 710, 172);
+		scroll.setBounds(47, 91, 682, 172);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -147,7 +152,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(27, 419, 708, 110);
+		scroll.setBounds(47, 419, 682, 110);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -165,7 +170,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(27, 303, 708, 67);
+		scroll.setBounds(47, 305, 682, 67);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}

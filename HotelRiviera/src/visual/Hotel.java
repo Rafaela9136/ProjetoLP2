@@ -112,7 +112,7 @@ public class Hotel extends JFrame {
 		panelInfo.add(btnServios);
 		
 		JButton btnOpinies = new JButton("Opiniões");
-		btnOpinies.setBounds(12, 179, 204, 49);
+		btnOpinies.setBounds(12, 180, 204, 49);
 		btnOpinies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("opinioes");
@@ -120,10 +120,19 @@ public class Hotel extends JFrame {
 		});
 		panelInfo.add(btnOpinies);
 		
+		JButton btnEstatisticas = new JButton("Estatisticas");
+		btnEstatisticas.setBounds(12, 247, 204, 49);
+		btnEstatisticas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Info.selecionaTela("estatisticas");
+			}
+		});
+		panelInfo.add(btnEstatisticas);
+		
 		botaoSair(panelInfo);
 	}
 
-	private void botaoSair(JPanel panelInfo) {
+	private void botaoSair(JPanel panel) {
 		JButton btnSair = new JButton("Sair");
 		btnSair.setBounds(12, 575, 204, 49);
 		btnSair.addActionListener(new ActionListener() {
@@ -131,6 +140,6 @@ public class Hotel extends JFrame {
 				System.exit(0);
 			}
 		});
-		panelInfo.add(btnSair);
+		panel.add(btnSair);
 	}
 }
