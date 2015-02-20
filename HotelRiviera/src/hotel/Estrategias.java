@@ -5,12 +5,12 @@ import java.util.GregorianCalendar;
 
 public enum Estrategias {
 	SAO_JOAO_PREMIUM("Sao Joao Premium +10%%", 1, 10, Calendar.JUNE,
-			Calendar.JUNE, 1.1, Calendar.getInstance().YEAR), SAO_JOAO(
-			"Sao Joao +50%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.5,
-			Calendar.getInstance().YEAR), NATAL_REVEILLON(
-			"Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
-			1.2, Calendar.getInstance().YEAR + 1), DEFAULT(
-			"Sem estrategia +0%%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
+			Calendar.JUNE, 1.1, Calendar.getInstance().YEAR),
+	SAO_JOAO("Sao Joao +50%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.5,
+			Calendar.getInstance().YEAR),
+	NATAL_REVEILLON("Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
+			1.2, Calendar.getInstance().YEAR + 1), 
+	DEFAULT("Sem estrategia +0%%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
 			0, Calendar.getInstance().YEAR);
 
 	private String nomeEstrategia;

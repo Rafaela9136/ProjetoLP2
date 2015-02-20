@@ -42,13 +42,13 @@ public class Conector {
 	public static Calendar transformaData(String data) {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
-		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]),
+		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
 				Integer.parseInt(diaMesAno[0]));
 		return c;
 	}
 	
 	public static String transformaData(Calendar data) {
-		String novaData = (Integer.toString(Calendar.DAY_OF_MONTH) + "/" + Integer.toString(Calendar.MONTH) + "/" + Integer.toString(Calendar.YEAR));
+		String novaData = (Integer.toString(Calendar.DAY_OF_MONTH) + "/" + Integer.toString(Calendar.MONTH + 1) + "/" + Integer.toString(Calendar.YEAR));
 		return novaData;
 	}
 

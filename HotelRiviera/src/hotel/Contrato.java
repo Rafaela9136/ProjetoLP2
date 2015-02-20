@@ -445,8 +445,9 @@ public class Contrato {
 		Estrategias[] estrategias = Estrategias.values();
 
 		for (Estrategias estrategia : estrategias)
-			if (estrategia.getDataInicial().after(dataCheckIn)
-					&& estrategia.getDataFinal().before(dataCheckOut))
+			if (estrategia.getDataInicial().before(dataCheckIn)
+					&& estrategia.getDataFinal().after(dataCheckIn) || estrategia.getDataInicial().before(dataCheckOut)
+					&& estrategia.getDataFinal().after(dataCheckOut))
 				return estrategia;
 		return Estrategias.DEFAULT;
 	}// estrategiaAAplicar
