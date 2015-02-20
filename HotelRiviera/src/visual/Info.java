@@ -107,7 +107,7 @@ public class Info extends JPanel {
 		JTextPane txtpnOValor = new JTextPane();
 		txtpnOValor.setEditable(false);
 		txtpnOValor.setFont(new Font("Dialog", Font.PLAIN, 11));
-		txtpnOValor.setText("* O valor desses serviços é adicionado ao montante total a ser pago uma unica vez.");
+		txtpnOValor.setText("* Taxa única. O valor desse serviço é adicionado ao montante total a ser pago uma unica vez.");
 		txtpnOValor.setBounds(47, 533, 491, 23);
 		panelServicos.add(txtpnOValor);
 		
@@ -142,8 +142,8 @@ public class Info extends JPanel {
 		String[][] dados = new String[][]{
 			    {"Automovel Luxo", "R$ 100.00", "?"},
 			    {"Automovel Executivo", "R$ 60.00", "?"},
-			    {"Tanque Cheio* (taxa unica)", "R$ " + Double.toString(hotel.Carro.VALOR_TANQUE_CHEIO), "?"},
-			    {"Seguro* (taxa unica)", "R$ " + Double.toString(hotel.Carro.VALOR_DO_SEGURO), "?"}
+			    {"Tanque Cheio*", "R$ " + Double.toString(hotel.Carro.VALOR_TANQUE_CHEIO), "--", "--"},
+			    {"Seguro*", "R$ " + Double.toString(hotel.Carro.VALOR_DO_SEGURO), "--", "--"}
 		};
 		
 		JTable tabela = new JTable();
