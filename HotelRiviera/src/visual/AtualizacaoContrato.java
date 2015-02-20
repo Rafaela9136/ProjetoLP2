@@ -192,11 +192,15 @@ public class AtualizacaoContrato extends JPanel {
 		btnCancelarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				if(removeServico(linha)){
-					AvisoSucesso sucesso = new AvisoSucesso();
-					sucesso.setVisible(true);
-				} else {
-					AvisoErro erro = new AvisoErro();
+				AvisoErro erro = new AvisoErro();
+				try {
+					if(removeServico(linha)){
+						AvisoSucesso sucesso = new AvisoSucesso();
+						sucesso.setVisible(true);
+					} else {
+						erro.setVisible(true);
+					}
+				} catch (RemocaoInvalidaException e1) {
 					erro.setVisible(true);
 				}
 			}
@@ -309,7 +313,7 @@ public class AtualizacaoContrato extends JPanel {
 		textFieldTotal.setText(Double.toString(Acoes.getContratoPesquisado().calculaValorTotalServicos()));
 	}
 	
-	private boolean removeServico(int linha) {
+	private boolean removeServico(int linha) throws RemocaoInvalidaException {
 		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
 			if(i == linha){
 				Acoes.getContratoPesquisado().removeServico(Acoes.getContratoPesquisado().getServicos().get(i));
