@@ -63,6 +63,14 @@ public class Info extends JPanel {
 		JPanel panelOpinioes = new JPanel();
 		panelOpinioes.setBackground(Color.WHITE);
 		panel.add(panelOpinioes, "opinioes");
+		panelOpinioes.setLayout(null);
+		
+		JTextPane txtpnOpiniesDosClientes = new JTextPane();
+		txtpnOpiniesDosClientes.setText("Opiniões dos hospedes");
+		txtpnOpiniesDosClientes.setFont(new Font("Dialog", Font.PLAIN, 15));
+		txtpnOpiniesDosClientes.setEditable(false);
+		txtpnOpiniesDosClientes.setBounds(47, 24, 185, 24);
+		panelOpinioes.add(txtpnOpiniesDosClientes);
 	}
 
 	private void panelServicos(JPanel panel) {
@@ -179,6 +187,14 @@ public class Info extends JPanel {
 		JPanel panelHotel = new JPanel();
 		panelHotel.setBackground(Color.WHITE);
 		panel.add(panelHotel, "estabelecimento");
+		panelHotel.setLayout(null);
+		
+		JTextPane txtpnHotelRivieraCampina = new JTextPane();
+		txtpnHotelRivieraCampina.setText("Hotel Riviera Campina");
+		txtpnHotelRivieraCampina.setFont(new Font("Dialog", Font.PLAIN, 15));
+		txtpnHotelRivieraCampina.setEditable(false);
+		txtpnHotelRivieraCampina.setBounds(47, 24, 185, 24);
+		panelHotel.add(txtpnHotelRivieraCampina);
 	}
 	
 	//Seleciona a tela a ser mostrada
