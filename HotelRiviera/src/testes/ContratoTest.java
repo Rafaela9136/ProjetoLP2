@@ -1,21 +1,6 @@
 package testes;
 
-import hotel.Baba;
-import hotel.Carro;
-import hotel.ContaRestaurante;
-import hotel.Contrato;
-import hotel.EstrategiaAplicavel;
-import hotel.EstrategiaNatalReveillon;
-import hotel.EstrategiaSaoJoaoPremium;
-import hotel.Frigobar;
-import hotel.Hospede;
-import hotel.QuartoLuxo;
-import hotel.SuitePresidencial;
-import hotel.TipoCarro;
-import hotel.Quarto;
-import hotel.QuartoExecutivo;
-import hotel.Servico;
-import hotel.TiposDeQuarto;
+import hotel.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
