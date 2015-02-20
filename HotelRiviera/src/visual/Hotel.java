@@ -59,8 +59,6 @@ public class Hotel extends JFrame {
 		panelRecursos.setLayout(null);
 		
 		Acoes panel = new Acoes();
-		panel.setBorder(new LineBorder(new Color(51, 0, 0), 3));
-		panel.setBackground(Color.WHITE);
 		panel.setBounds(228, 12, 764, 612);
 		panelRecursos.add(panel);
 		
@@ -82,6 +80,50 @@ public class Hotel extends JFrame {
 		});
 		panelRecursos.add(btnPesquisarContrato);
 		
+		botaoSair(panelRecursos);
+	}
+	
+	private void info(JTabbedPane tabbedPane) {
+		JPanel panelInfo = new JPanel();
+		panelInfo.setBorder(new LineBorder(new Color(51, 0, 0), 2));
+		tabbedPane.addTab("Informa\u00E7\u00F5es", null, panelInfo, null);
+		panelInfo.setLayout(null);
+		
+		Info panel = new Info();
+		panel.setBounds(228, 12, 764, 612);
+		panelInfo.add(panel);
+		
+		JButton btnEstabelecimento = new JButton("Estabelecimento");
+		btnEstabelecimento.setBounds(12, 37, 204, 49);
+		btnEstabelecimento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Info.selecionaTela("estabelecimento");
+			}
+		});
+		panelInfo.add(btnEstabelecimento);
+		
+		JButton btnServios = new JButton("Serviços");
+		btnServios.setBounds(12, 109, 204, 49);
+		btnServios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Info.selecionaTela("servicos");
+			}
+		});
+		panelInfo.add(btnServios);
+		
+		JButton btnOpinies = new JButton("Opiniões");
+		btnOpinies.setBounds(12, 179, 204, 49);
+		btnOpinies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Info.selecionaTela("opinioes");
+			}
+		});
+		panelInfo.add(btnOpinies);
+		
+		botaoSair(panelInfo);
+	}
+
+	private void botaoSair(JPanel panelInfo) {
 		JButton btnSair = new JButton("Sair");
 		btnSair.setBounds(12, 575, 204, 49);
 		btnSair.addActionListener(new ActionListener() {
@@ -89,11 +131,6 @@ public class Hotel extends JFrame {
 				System.exit(0);
 			}
 		});
-		panelRecursos.add(btnSair);
-	}
-	
-	private void info(JTabbedPane tabbedPane) {
-		Info panelInfo = new Info();
-		tabbedPane.addTab("Informa\u00E7\u00F5es", null, panelInfo, null);
+		panelInfo.add(btnSair);
 	}
 }

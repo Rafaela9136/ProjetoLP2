@@ -8,7 +8,7 @@ package hotel;
 public class SuitePresidencial extends Quarto {
 
 	private final static boolean TEM_CAMA_EXTRA = false;
-	private final static double DIARIA_SUITE_PRESIDENCIAL = 1200.0;
+	public final static double DIARIA_SUITE_PRESIDENCIAL = 1200.0;
 	public final static int MAX_HOSPEDES = 4;
 	public final static int TOTAL_DISPONIVEL = 5;
 	public static final String DESCRICAO_PRESIDENCIAL = Quarto.DESCRICAO
