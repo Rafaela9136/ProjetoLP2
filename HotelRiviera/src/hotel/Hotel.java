@@ -4,7 +4,16 @@ import java.util.*;
 
 public class Hotel {
 		
-		private double dispesasTotais;
+		private int numExecSimplesDesocupados = 5;
+		private int numExecDuploDesocupados = 15;
+		private int numExecTriploDesocupados = 20;
+		
+		private int numLuxoSimplesDesocupados = 5;
+		private int numLuxoDuploDesocupados = 15;
+		private int numLuxoTriploDesocupados = 20;
+		
+		private int numPresidencialDesocupados = 5;
+		
 		private static List<Contrato> contratosHotel = new ArrayList<Contrato>();
 		
 		public static void adicionaContrato(Contrato contrato){
@@ -27,10 +36,6 @@ public class Hotel {
 				}
 			}
 			return contratosEncontrados;
-		}
-		
-		private double calculaCustoFinal(Contrato contrato) {
-			return 0;
 		}
 		
 		public static void removeContrato(Contrato contrato) {
