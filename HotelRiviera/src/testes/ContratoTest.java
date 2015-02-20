@@ -40,6 +40,7 @@ import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
 import excecoes.NumeroInvalidoException;
+import excecoes.RemocaoInvalidaException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.ValorNegativoException;
@@ -270,7 +271,34 @@ public class ContratoTest {
 				.get(contrato1.getServicos().size() - 1).equals(carro));
 
 	}// testAdicionaServico
-
+	
+	@Test
+	public void testRemoveServico() throws RemocaoInvalidaException {
+		contrato1.removeServico(quarto4);
+		List<Servico> servicos = new ArrayList<Servico>();
+		
+		servicos.add(carro);
+		servicos.add(baba);
+		servicos.add(quarto1);
+		servicos.add(quarto2);
+		servicos.add(quarto3);
+		
+		Assert.assertEquals(contrato1.getServicos(), servicos);
+		
+		contrato1.removeServico(quarto3);
+		contrato1.removeServico(quarto2);
+		
+		try {
+			contrato1.removeServico(quarto1);
+			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
+		} catch (RemocaoInvalidaException e) {
+			
+		} catch (Exception e) {
+			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
+		}// try-catch
+		
+	}// testRemoveServico
+	
 	@Test
 	public void testCalculaValorTotalServicos() throws ValorNegativoException,
 			NullPointerException, DataInvalidaException {

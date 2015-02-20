@@ -15,14 +15,15 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeInvalidoException;
 import excecoes.NotaInvalidaException;
+import excecoes.RemocaoInvalidaException;
 
 /**
- * 
+ *
+ *  Classe responsavel por criar um contrato contendo hospedes com
+ * suas informacoes, datas de comeco e fim do contrato, opiniao sobre o
+ * servico prestado, entre outras coisas.
  * @author Grupinho da Alegria
  * @version 2.0
- * @see nothing Classe responsavel por criar um contrato contendo hospedes com
- *      suas informacoes, datas de comeco e fim do contrato, opiniao sobre o
- *      servico prestado, entre outras coisas.
  */
 public class Contrato {
 	public static final boolean CONTRATO_ABERTO = true;
@@ -106,7 +107,7 @@ public class Contrato {
 	}// Construtor
 
 	/**
-	 * @see nothing Recupera a informacao sobre o contrato que diz se ele esta
+	 * Recupera a informacao sobre o contrato que diz se ele esta
 	 *      aberto ou nao.
 	 * @return Retorna true se o contrato estiver aberto e false se nao.
 	 */
@@ -115,7 +116,7 @@ public class Contrato {
 	}// getIsReserva
 
 	/**
-	 * @see nothing Recupera a estrategia do contrato.
+	 * Recupera a estrategia do contrato.
 	 * @return Retorna a estrategia a ser aplicada no preco do contrato.
 	 */
 	public Estrategias getEstrategia() {
@@ -123,7 +124,7 @@ public class Contrato {
 	}// getEstrategia
 
 	/**
-	 * @see nothing Recupera a lista com o nome dos acompanhantes do hospede
+	 * Recupera a lista com o nome dos acompanhantes do hospede
 	 *      titular.
 	 * @return Retorna a lista com o nome dos acompanhantes.
 	 */
@@ -132,7 +133,7 @@ public class Contrato {
 	}// getAcompanhantes
 
 	/**
-	 * @see nothing Recupera a Opiniao do hospede sobre o servico do hotel.
+	 * Recupera a Opiniao do hospede sobre o servico do hotel.
 	 * @return Retorna a opiniao do hospede.
 	 */
 	public Opiniao getOpiniao() {
@@ -140,7 +141,7 @@ public class Contrato {
 	}// getOpiniao
 
 	/**
-	 * @see nothing Recupera em que o contrato come�a a valer e deixa de ser
+	 * Recupera em que o contrato come�a a valer e deixa de ser
 	 *      uma reserva.
 	 * @return Retorna a data inicial do contrato.
 	 */
@@ -149,7 +150,7 @@ public class Contrato {
 	}// getDataCheckIn
 
 	/**
-	 * @see nothing Recupera a lista com todos os servicos do contrato,
+	 * Recupera a lista com todos os servicos do contrato,
 	 *      inclusive os quartos.
 	 * @return Retorna a lista dos servicos.
 	 */
@@ -158,7 +159,7 @@ public class Contrato {
 	}// getServicos
 
 	/**
-	 * @see nothing Recupera a data de termino do contrato.
+	 * Recupera a data de termino do contrato.
 	 * @return Retorna a data onde acaba o contrato
 	 */
 	public Calendar getDataCheckOut() {
@@ -166,7 +167,7 @@ public class Contrato {
 	}// getDataCheckOut
 
 	/**
-	 * @see nothing Recupera as despesas adicionais do contrato, como alguma
+	 * Recupera as despesas adicionais do contrato, como alguma
 	 *      despesa por dano a algo do hotel ou por algum servico diferente que
 	 *      nao faca parte do programa.
 	 * @return Retorna as despesas adicionais.
@@ -176,7 +177,7 @@ public class Contrato {
 	}// getDespesasTotais
 
 	/**
-	 * @see nothing Recupera o estado do contrato, se esta aberto ou nao.
+	 * Recupera o estado do contrato, se esta aberto ou nao.
 	 * @return Retorna true se o contrato estiver aberto e falso caso contrario.
 	 */
 	public boolean getIsAberto() {
@@ -184,7 +185,7 @@ public class Contrato {
 	}// getIsAberto
 
 	/**
-	 * @see nothing Recupera o hospede titular do contrato.
+	 * Recupera o hospede titular do contrato.
 	 * @return Retorna o hospede titular no contrato.
 	 */
 	public Hospede getHospedeTitular() {
@@ -199,7 +200,7 @@ public class Contrato {
 	}// setHospedeTitular
 
 	/**
-	 * @see Estabelece um valor ao atributo que diz se o contrato esta aberto ou
+	 * Estabelece um valor ao atributo que diz se o contrato esta aberto ou
 	 *      nao.
 	 * @param estado
 	 *            Valor a ser estabelecido.
@@ -221,7 +222,7 @@ public class Contrato {
 	}// setIsAberto
 
 	/**
-	 * @see nothing Metodo responsavel por estabelecer um valor para variavel
+	 * Metodo responsavel por estabelecer um valor para variavel
 	 *      que diz se o contrato e reserva ou nao.
 	 * @param estado
 	 *            Estado em que o contrato deve estar. True para ser uma reserva
@@ -232,7 +233,7 @@ public class Contrato {
 	}// setIsReserva
 
 	/**
-	 * @see nothing Metodo responsavel por estabelecer uma nova data final para
+	 * Metodo responsavel por estabelecer uma nova data final para
 	 *      o contrato.
 	 * @param novaData
 	 *            Data a ser estabelecida.
@@ -250,7 +251,7 @@ public class Contrato {
 	}// setDataCheckOut
 
 	/**
-	 * @see nothing Metodo responsavel por estabelecer uma nova data inicial
+	 * Metodo responsavel por estabelecer uma nova data inicial
 	 *      para o contrato.
 	 * @param novaData
 	 *            Data a ser estabelecida.
@@ -268,7 +269,7 @@ public class Contrato {
 	}// setDataCheckIn
 
 	/**
-	 * @see nothing Adiciona um acompanante a lista de acompanhantes.
+	 * Adiciona um acompanante a lista de acompanhantes.
 	 * @param acompanhante
 	 *            Acompanhante a ser adicionado.
 	 * @throws NullPointerException
@@ -285,7 +286,7 @@ public class Contrato {
 
 	/**
 	 * 
-	 * @see nothing Remove um acompanante a lista de acompanhantes.
+	 * Remove um acompanante a lista de acompanhantes.
 	 * @param acompanhante
 	 *            Acompanhante a ser adicionado.
 	 * @return Retorna verdadeiro se o acompanhante foi removido e falso caso
@@ -302,7 +303,7 @@ public class Contrato {
 	}// removeAcompanhante
 
 	/**
-	 * @see nothing Metodo responsavel por adicionar novos servicos na lista de
+	 * Metodo responsavel por adicionar novos servicos na lista de
 	 *      servicos do contrato.
 	 * @param servico
 	 *            Servico a ser adicionado a lista de servicos.
@@ -326,17 +327,20 @@ public class Contrato {
 	}// adicionaServico
 
 	/**
-	 * @see nothing Remove um servico da lista de servicos
-	 * @param servico
-	 *            Servico a ser removido da lista de servicos
+	 * Remove um servico da lista de servicos
+	 * @param servico Servico a ser removido da lista de servicos
+	 * @throws RemocaoInvalidaException Excecao lancada caso o servico passado seja um quarto e o 
 	 * @return Retorna true se o servico foi removido e false caso contrario.
 	 */
-	public boolean removeServico(Servico servico) {
-		return servicos.remove(servico);
+	public boolean removeServico(Servico servico) throws RemocaoInvalidaException {
+		if((servico instanceof Quarto) && !verificaQuantQuartosMaiorQueUm())
+			throw new RemocaoInvalidaException();
+			return servicos.remove(servico);
 	}// removeServico
-
+	
+	
 	/**
-	 * @see nothing Metodo responsavel por inicializar o objeto Opiniao do
+	 * Metodo responsavel por inicializar o objeto Opiniao do
 	 *      contrato que contem uma nota do cliente sobre o que ele achou dos
 	 *      servicos e de sua estadia em geral no hotel.
 	 * @param nota
@@ -353,7 +357,7 @@ public class Contrato {
 	}// setOpiniao
 
 	/**
-	 * @see nothing Metodo responsavel por adicionar alguma despesa extra ao
+	 * Metodo responsavel por adicionar alguma despesa extra ao
 	 *      contrato.
 	 * @param valor
 	 *            Valor a ser adicionado.
@@ -363,13 +367,13 @@ public class Contrato {
 	}// adicionaDespesa
 
 	/**
-	 * @see nothing Metodo responsavel por calcular o numero de dias que o
+	 * Metodo responsavel por calcular o numero de dias que o
 	 *      contrato durara.
 	 * @throws NullPointerException Excecao lancada caso o objeto Calendar passado nao tenha sido inicializado.
 	 * @return Retorna o numero de dias. Se a data de saida do hospede for depois da data de checkOut ele pagara
 	 *      a diaria dos dias que ele passou no hotel mais um dia.
 	 */
-	public int getNumeroDeDias(Calendar dataSaida) throws NullPointerException {
+	private int getNumeroDeDias(Calendar dataSaida) throws NullPointerException {
 		if(dataSaida == null)
 			throw new NullPointerException();
 		
@@ -390,7 +394,7 @@ public class Contrato {
 	}// getNumeroDeDias
 
 	/**
-	 * @see nothing Metodo responsavel por calcular o valor total do contrato.
+	 * Metodo responsavel por calcular o valor total do contrato.
 	 * @return Retorna o valor total.
 	 */
 	public double calculaValorTotalServicos() {
@@ -423,7 +427,7 @@ public class Contrato {
 	}// calculaValorTotalServicos
 	
 	/**
-	 * @see nothing Metodo responsavel por calcular o valor total do contrato e
+	 * Metodo responsavel por calcular o valor total do contrato e
 	 *      ja multiplicando pela porcentagem da estrategia.
 	 * @return Retorna o valor total.
 	 */
@@ -541,6 +545,18 @@ public class Contrato {
 			throw new ContratoSemQuartoException();
 
 	}// verificaServicosValido
+	
+	private boolean verificaQuantQuartosMaiorQueUm() {
+		boolean verificador = false;
+		for (Servico servico: servicos) {
+			if(servico instanceof Quarto) {
+				if(verificador)
+					return true;
+				verificador = true;
+			}// if
+		}// for
+		return false;
+	}// verificaQuantQuartosMaiorQueUm
 
 	private void verificaAcompanhanteValido(String acompanhante)
 			throws NullPointerException, NomeInvalidoException {
