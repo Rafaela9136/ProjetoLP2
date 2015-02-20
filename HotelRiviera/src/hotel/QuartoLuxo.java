@@ -51,7 +51,13 @@ public class QuartoLuxo extends Quarto{
 	
 	@Override
 	public String getNome() {
-		return "Quarto Luxo";
+		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
+			return "Quarto Luxo Simples";
+		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
+			return "Quarto Luxo Duplo";
+		} else {
+			return "Quarto Luxo Triplo";
+		}
 	}// getNome
 	
 	/**

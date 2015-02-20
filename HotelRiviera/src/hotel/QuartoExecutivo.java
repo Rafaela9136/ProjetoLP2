@@ -67,7 +67,13 @@ public class QuartoExecutivo extends Quarto{
 	
 	@Override
 	public String getNome() {
-		return "Quarto Executivo";
+		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
+			return "Quarto Executivo Simples";
+		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
+			return "Quarto Executivo Duplo";
+		} else {
+			return "Quarto Executivo Triplo";
+		}
 	}// getNome
 	
 	/**
