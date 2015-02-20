@@ -365,13 +365,27 @@ public class Contrato {
 	/**
 	 * @see nothing Metodo responsavel por calcular o numero de dias que o
 	 *      contrato durara.
-	 * @return Retorna o numero de dias.
+	 * @throws NullPointerException Excecao lancada caso o objeto Calendar passado nao tenha sido inicializado.
+	 * @return Retorna o numero de dias. Se a data de saida do hospede for depois da data de checkOut ele pagara
+	 *      a diaria dos dias que ele passou no hotel mais um dia.
 	 */
-	public int getNumeroDeDias() {
+	public int getNumeroDeDias(Calendar dataSaida) throws NullPointerException {
+		if(dataSaida == null)
+			throw new NullPointerException();
+		
 		long tempoInicial = getDataCheckIn().getTimeInMillis();
-		long tempoFinal = getDataCheckOut().getTimeInMillis();
+		long tempoFinal;
+		if(dataSaida.after(getDataCheckOut())) {
+			tempoFinal = dataSaida.getTimeInMillis();
+			int numDeDias = (int) Math
+					.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA)) + 1;
+			return numDeDias;
+		}// if
+		
+		tempoFinal = getDataCheckOut().getTimeInMillis();
 		int numDeDias = (int) Math
 				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
+	
 		return numDeDias;
 	}// getNumeroDeDias
 
@@ -381,15 +395,30 @@ public class Contrato {
 	 */
 	public double calculaValorTotalServicos() {
 		double valor = 0;
+		if(Calendar.getInstance().after(getDataCheckOut())) {
+			for (Servico servico : servicos) {
+				if (servico instanceof Quarto) {
+					Quarto umQuarto = (Quarto) servico;
+					valor += umQuarto.getPreco() * getNumeroDeDias(Calendar.getInstance());
+					valor += umQuarto.getFrigobar().getPreco();
+					continue;
+				}// if
+				valor += servico.getPreco();
+			}// for
+			return valor;
+		}// if
+		
 		for (Servico servico : servicos) {
 			if (servico instanceof Quarto) {
 				Quarto umQuarto = (Quarto) servico;
-				valor += umQuarto.getPreco() * getNumeroDeDias();
+				valor += umQuarto.getPreco() * getNumeroDeDias(getDataCheckOut());
 				valor += umQuarto.getFrigobar().getPreco();
 				continue;
 			}// if
 			valor += servico.getPreco();
 		}// for
+			
+		
 		return valor;
 	}// calculaValorTotalServicos
 	
@@ -400,15 +429,30 @@ public class Contrato {
 	 */
 	public double calculaValorTotalServicosComEstrategia() {
 		double valor = 0;
+		if(Calendar.getInstance().after(getDataCheckOut())) {
+			for (Servico servico : servicos) {
+				if (servico instanceof Quarto) {
+					Quarto umQuarto = (Quarto) servico;
+					valor += umQuarto.getPreco() * getNumeroDeDias(Calendar.getInstance());
+					valor += umQuarto.getFrigobar().getPreco();
+					continue;
+				}// if
+				valor += servico.getPreco();
+			}// for
+			return valor * estrategia.getPorcentagem();
+		}// if
+		
 		for (Servico servico : servicos) {
 			if (servico instanceof Quarto) {
 				Quarto umQuarto = (Quarto) servico;
-				valor += umQuarto.getPreco() * getNumeroDeDias();
+				valor += umQuarto.getPreco() * getNumeroDeDias(getDataCheckOut());
 				valor += umQuarto.getFrigobar().getPreco();
 				continue;
 			}// if
 			valor += servico.getPreco();
 		}// for
+			
+		
 		return valor * estrategia.getPorcentagem();
 	}// calculaValorTotalServicosComEstrategia
 
