@@ -2,7 +2,6 @@ package visual;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 
 import java.awt.Color;
@@ -11,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
+import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
 
 public class Hotel extends JFrame {
 
@@ -25,6 +26,7 @@ public class Hotel extends JFrame {
 	 * @throws ParseException 
 	 */
 	public Hotel() throws ParseException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/475949883.jpg")));
 		inicializa();
 		telaAbas();
 	}
@@ -35,7 +37,7 @@ public class Hotel extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 705);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(51, 51, 0), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 	}
@@ -52,10 +54,12 @@ public class Hotel extends JFrame {
 
 	private void recursos(JTabbedPane tabbedPane) throws ParseException {
 		JPanel panelRecursos = new JPanel();
+		panelRecursos.setBorder(new LineBorder(new Color(51, 0, 0), 2));
 		tabbedPane.addTab("Recursos", null, panelRecursos, null);
 		panelRecursos.setLayout(null);
 		
 		Acoes panel = new Acoes();
+		panel.setBorder(new LineBorder(new Color(51, 0, 0), 3));
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(228, 12, 764, 612);
 		panelRecursos.add(panel);

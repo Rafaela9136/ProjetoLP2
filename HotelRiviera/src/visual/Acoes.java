@@ -31,6 +31,7 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 
 public class Acoes extends JPanel {
 
@@ -75,6 +76,7 @@ public class Acoes extends JPanel {
 		
 		// Cria o painel base, que sera o container para os outros paineis
 		panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(51, 0, 0), 2));
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 764, 612);
 		add(panel);
@@ -575,8 +577,7 @@ public class Acoes extends JPanel {
 		comboBoxPaises.setSelectedIndex(0);
 		comboBoxEstados.setSelectedIndex(0);
 		rdbtnCamaExtra.setSelected(false);
-		textAreaAcompanhantes.setText("");;
-		
+		textAreaAcompanhantes.setText("");
 	}
 	
 	// metodo para selecionar a tela a que aparece

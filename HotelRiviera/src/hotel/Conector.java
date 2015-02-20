@@ -46,6 +46,11 @@ public class Conector {
 				Integer.parseInt(diaMesAno[0]));
 		return c;
 	}
+	
+	public static String transformaData(Calendar data) {
+		String novaData = (Integer.toString(Calendar.DAY_OF_MONTH) + "/" + Integer.toString(Calendar.MONTH) + "/" + Integer.toString(Calendar.YEAR));
+		return novaData;
+	}
 
 	public static Calendar transformaDataHora(String data, String hora) {
 		Calendar c = Calendar.getInstance();

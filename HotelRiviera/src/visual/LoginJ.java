@@ -14,8 +14,8 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class LoginJ extends JFrame {
 
@@ -55,6 +55,7 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/475949883.jpg")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 464, 413);
@@ -93,7 +94,7 @@ public class LoginJ extends JFrame {
 		txtpnLogin.setBounds(79, 245, 64, 32);
 		txtpnLogin.setEditable(false);
 		txtpnLogin.setFont(new Font("Verdana", Font.PLAIN, 16));
-		txtpnLogin.setBackground(SystemColor.activeCaptionBorder);
+		txtpnLogin.setBackground(Color.WHITE);
 		txtpnLogin.setText("Login:");
 		contentPane.add(txtpnLogin);
 
@@ -102,7 +103,7 @@ public class LoginJ extends JFrame {
 		txtpnSenha.setEditable(false);
 		txtpnSenha.setText("Senha:");
 		txtpnSenha.setFont(new Font("Verdana", Font.PLAIN, 16));
-		txtpnSenha.setBackground(UIManager.getColor("Button.background"));
+		txtpnSenha.setBackground(Color.WHITE);
 		contentPane.add(txtpnSenha);
 
 		JButton btnCancelar = new JButton("Cancelar");
