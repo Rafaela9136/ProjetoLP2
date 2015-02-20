@@ -32,7 +32,12 @@ public class SuitePresidencial extends Quarto {
 	@Override
 	public double getPreco() {
 		return DIARIA_SUITE_PRESIDENCIAL;
-	}
+	}// getPreco
+	
+	@Override
+	public String getNome() {
+		return "Suite Presidencial";
+	}// getNome
 
 	/**
 	 * Compara duas suites presidenciais e informa se se sao iguais ou nao.

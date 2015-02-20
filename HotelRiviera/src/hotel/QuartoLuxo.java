@@ -27,7 +27,7 @@ public class QuartoLuxo extends Quarto{
 	 * @param tipoDeQuarto
 	 * 			indica o tipo de quarto (simples, duplo ou triplo). Cada tipo tem suas especificacoes.
 	 * @throws NullPointerException 
-	 * 			Quando o objeto referente ao tipoDeQuarto é null.
+	 * 			Quando o objeto referente ao tipoDeQuarto ï¿½ null.
 	 * 
 	 */
 	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException, CamaExtraException {
@@ -47,7 +47,12 @@ public class QuartoLuxo extends Quarto{
 	 */
 	public TiposDeQuarto getTipoDeQuarto() {
 		return tipoDeQuarto;
-	}
+	}// getTipoDeQuarto
+	
+	@Override
+	public String getNome() {
+		return "Quarto Luxo";
+	}// getNome
 	
 	/**
 	 * Informa o preco da diaria do quarto de acordo com o tipo de quarto, sendo o simples o mais barato e o triplo o mais caro.
@@ -67,7 +72,7 @@ public class QuartoLuxo extends Quarto{
 	
 	/**
 	 * Compara dois objetos QuartoLuxo e informa se sao iguais ou nao.
-	 * Dois quartos Luxos são iguais se forem iguais no preco, na solicitacao de cama extra e no tipo (simples, duplo ou triplo).
+	 * Dois quartos Luxos sï¿½o iguais se forem iguais no preco, na solicitacao de cama extra e no tipo (simples, duplo ou triplo).
 	 * 
 	 * @return true se os quartos forem iguais.
 	 */

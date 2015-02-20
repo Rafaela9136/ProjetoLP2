@@ -35,11 +35,6 @@ public abstract class Quarto implements Servico{
 	 */
 	public abstract double getPreco();
 	
-	@Override
-	public String getNome() {
-		return "Quarto";
-	}// getNome
-	
 	/**
 	 * Informa se o cliente solicitou uma cama extra no quarto.
 	 * 

@@ -26,7 +26,7 @@ public class QuartoExecutivo extends Quarto{
 	 * @param tipoDeQuarto
 	 * 			indica o tipo de quarto (simples, duplo ou triplo). Cada tipo tem suas especificacoes.
 	 * @throws NullPointerException 
-	 * 			Quando o objeto referente ao tipoDeQuarto é null.
+	 * 			Quando o objeto referente ao tipoDeQuarto ï¿½ null.
 	 * 
 	 */
 	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException, CamaExtraException {
@@ -63,11 +63,16 @@ public class QuartoExecutivo extends Quarto{
 		} else {
 			return DIARIA_EXECUTIVO_TRIPLO;
 		}
-	}
+	}// getPreco
+	
+	@Override
+	public String getNome() {
+		return "Quarto Executivo";
+	}// getNome
 	
 	/**
 	 * Compara dois objetos QuartoExecutivo e informa se sao iguais ou nao.
-	 * Dois quartos Executivos são iguais se forem iguais no preco, na solicitacao de cama extra e no tipo (simples, duplo ou triplo).
+	 * Dois quartos Executivos sï¿½o iguais se forem iguais no preco, na solicitacao de cama extra e no tipo (simples, duplo ou triplo).
 	 * 
 	 * @return true se os quartos forem iguais.
 	 */
