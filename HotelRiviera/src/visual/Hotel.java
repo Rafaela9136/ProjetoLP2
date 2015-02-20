@@ -93,7 +93,7 @@ public class Hotel extends JFrame {
 	}
 	
 	private void info(JTabbedPane tabbedPane) {
-		JPanel panelInfo = new JPanel();
+		Info panelInfo = new Info();
 		tabbedPane.addTab("Informa\u00E7\u00F5es", null, panelInfo, null);
 	}
 }

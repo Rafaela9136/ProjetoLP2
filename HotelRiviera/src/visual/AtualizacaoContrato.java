@@ -54,6 +54,7 @@ public class AtualizacaoContrato extends JPanel {
 	
 	// Variaveis para criar objetos
 	private String[] colunas;	
+	private JTextField textFieldTotal;
 	
 	/**
 	 * Create the panel.
@@ -131,6 +132,35 @@ public class AtualizacaoContrato extends JPanel {
 		hospedeDadosPrincipais(editarDadosHospede);
 		
 		hospedeEndereco(editarDadosHospede);
+		
+		JButton btnConfirma_2 = new JButton("Confirmar");
+		btnConfirma_2.setBounds(618, 546, 135, 25);
+		btnConfirma_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AvisoErro erro = new AvisoErro();
+				
+				try {
+					atualizaDados();
+					
+					AvisoSucesso sucesso = new AvisoSucesso();
+					sucesso.setVisible(true);
+					
+				} catch (NullPointerException e1) {
+					erro.setVisible(true);
+				} catch (StringVaziaException e1) {
+					erro.setVisible(true);
+				} catch (StringInvalidaException e1) {
+					erro.setVisible(true);
+				} catch (NumeroInvalidoException e1) {
+					erro.setVisible(true);
+				} catch (CPFInvalidoException e1) {
+					erro.setVisible(true);
+				} catch (CartaoInvalidoException e1) {
+					erro.setVisible(true);
+				}
+			}
+		});
+		editarDadosHospede.add(btnConfirma_2);
 	}
 
 	private void editarServicos() throws ParseException {
@@ -149,7 +179,7 @@ public class AtualizacaoContrato extends JPanel {
 		desenhaTabela(editarServicos);
 		
 		JButton btnAtualizarTabela = new JButton("Atualizar tabela");
-		btnAtualizarTabela.setBounds(28, 273, 135, 25);
+		btnAtualizarTabela.setBounds(28, 288, 135, 25);
 		btnAtualizarTabela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				atualizaTabela();
@@ -158,7 +188,7 @@ public class AtualizacaoContrato extends JPanel {
 		editarServicos.add(btnAtualizarTabela);
 		
 		JButton btnCancelarServico = new JButton("Cancelar servico");
-		btnCancelarServico.setBounds(598, 273, 135, 25);
+		btnCancelarServico.setBounds(598, 288, 135, 25);
 		btnCancelarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
@@ -177,19 +207,19 @@ public class AtualizacaoContrato extends JPanel {
 		txtpnAdicionarServicos.setEditable(false);
 		txtpnAdicionarServicos.setText("Adicionar servicos");
 		txtpnAdicionarServicos.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		txtpnAdicionarServicos.setBounds(28, 320, 172, 32);
+		txtpnAdicionarServicos.setBounds(28, 335, 172, 32);
 		editarServicos.add(txtpnAdicionarServicos);
 		
 		JTextPane txtpnTipoDeServico = new JTextPane();
 		txtpnTipoDeServico.setEditable(false);
 		txtpnTipoDeServico.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTipoDeServico.setText("Tipo de servico:");
-		txtpnTipoDeServico.setBounds(30, 357, 104, 22);
+		txtpnTipoDeServico.setBounds(30, 372, 104, 22);
 		editarServicos.add(txtpnTipoDeServico);
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Baba", "Carro", "Restaurante"}));
-		comboBox.setBounds(140, 359, 141, 20);
+		comboBox.setBounds(140, 374, 141, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBox.getSelectedItem().equals("Baba"))
@@ -203,7 +233,8 @@ public class AtualizacaoContrato extends JPanel {
 		editarServicos.add(comboBox);
 		
 		EdicaoServicos edicaoServico = new EdicaoServicos();
-		edicaoServico.setLocation(32, 391);
+		edicaoServico.setSize(705, 130);
+		edicaoServico.setLocation(28, 406);
 		editarServicos.add(edicaoServico);
 		
 		JButton btnConfirmar_1 = new JButton("Confirmar");
@@ -214,6 +245,16 @@ public class AtualizacaoContrato extends JPanel {
 			}
 		});
 		editarServicos.add(btnConfirmar_1);
+		
+		JTextPane txtpnCustoAtual = new JTextPane();
+		txtpnCustoAtual.setText("Custo atual:");
+		txtpnCustoAtual.setBounds(501, 250, 94, 25);
+		editarServicos.add(txtpnCustoAtual);
+		
+		textFieldTotal = new JTextField();
+		textFieldTotal.setBounds(599, 250, 134, 21);
+		editarServicos.add(textFieldTotal);
+		textFieldTotal.setColumns(10);
 		
 		fechaContrato();
 	}
@@ -249,7 +290,7 @@ public class AtualizacaoContrato extends JPanel {
 		model = new DefaultTableModel(new String[0][2] , colunas );
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(28, 60, 705, 200);
+		scroll.setBounds(28, 60, 705, 178);
 		scroll.setViewportView(tabela);
 		editarServicos.add(scroll);
 	}
@@ -263,6 +304,9 @@ public class AtualizacaoContrato extends JPanel {
 		
 		model = new DefaultTableModel(dados , colunas );
 		tabela.setModel(model);
+		
+		// Atualiza o total
+		textFieldTotal.setText(Double.toString(Acoes.getContratoPesquisado().calculaValorTotalServicos()));
 	}
 	
 	private boolean removeServico(int linha) {
@@ -454,7 +498,7 @@ public class AtualizacaoContrato extends JPanel {
 		textFieldCidade.setColumns(10);
 		
 		comboBoxPaises = new JComboBox<String>();
-		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"Afeganist\u00E3o", "\u00C1frica do Sul", "Akrotiri", "Alb\u00E2nia", "Alemanha", "Andorra", "Angola", "Anguila", "Ant\u00E1rctida", "Ant\u00EDgua e Barbuda", "Antilhas Neerlandesas", "Ar\u00E1bia Saudita", "Arctic Ocean", "Arg\u00E9lia", "Argentina", "Arm\u00E9nia", "Aruba", "Ashmore and Cartier Islands", "Atlantic Ocean", "Austr\u00E1lia", "\u00C1ustria", "Azerbaij\u00E3o", "Baamas", "Bangladeche", "Barbados", "Bar\u00E9m", "B\u00E9lgica", "Belize", "Benim", "Bermudas", "Bielorr\u00FAssia", "Birm\u00E2nia", "Bol\u00EDvia", "B\u00F3snia e Herzegovina", "Botsuana", "Brasil", "Brunei", "Bulg\u00E1ria", "Burquina Faso", "Bur\u00FAndi", "But\u00E3o", "Cabo Verde", "Camar\u00F5es", "Camboja", "Canad\u00E1", "Catar", "Cazaquist\u00E3o", "Chade", "Chile", "China", "Chipre", "Clipperton Island", "Col\u00F4mbia", "Comores", "Congo-Brazzaville", "Congo-Kinshasa", "Coral Sea Islands", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Cro\u00E1cia", "Cuba", "Dhekelia", "Dinamarca", "Dom\u00EDnica", "Egipto", "Emiratos \u00C1rabes Unidos", "Equador", "Eritreia", "Eslov\u00E1quia", "Eslov\u00E9nia", "Espanha", "Estados Unidos", "Est\u00F3nia", "Eti\u00F3pia", "Faro\u00E9", "Fiji", "Filipinas", "Finl\u00E2ndia", "Fran\u00E7a", "Gab\u00E3o", "G\u00E2mbia", "Gana", "Gaza Strip", "Ge\u00F3rgia", "Ge\u00F3rgia do Sul e Sandwich do Sul", "Gibraltar", "Granada", "Gr\u00E9cia", "Gronel\u00E2ndia", "Guame", "Guatemala", "Guernsey", "Guiana", "Guin\u00E9", "Guin\u00E9 Equatorial", "Guin\u00E9-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "I\u00E9men", "Ilha Bouvet", "Ilha do Natal", "Ilha Norfolk", "Ilhas Caim\u00E3o", "Ilhas Cook", "Ilhas dos Cocos", "Ilhas Falkland", "Ilhas Heard e McDonald", "Ilhas Marshall", "Ilhas Salom\u00E3o", "Ilhas Turcas e Caicos", "Ilhas Virgens Americanas", "Ilhas Virgens Brit\u00E2nicas", "\u00CDndia", "Indian Ocean", "Indon\u00E9sia", "Ir\u00E3o", "Iraque", "Irlanda", "Isl\u00E2ndia", "Israel", "It\u00E1lia", "Jamaica", "Jan Mayen", "Jap\u00E3o", "Jersey", "Jibuti", "Jord\u00E2nia", "Kuwait", "Laos", "Lesoto", "Let\u00F3nia", "L\u00EDbano", "Lib\u00E9ria", "L\u00EDbia", "Listenstaine", "Litu\u00E2nia", "Luxemburgo", "Macau", "Maced\u00F3nia", "Madag\u00E1scar", "Mal\u00E1sia", "Mal\u00E1vi", "Maldivas", "Mali", "Malta", "Man, Isle of", "Marianas do Norte", "Marrocos", "Maur\u00EDcia", "Maurit\u00E2nia", "Mayotte", "M\u00E9xico", "Micron\u00E9sia", "Mo\u00E7ambique", "Mold\u00E1via", "M\u00F3naco", "Mong\u00F3lia", "Monserrate", "Montenegro", "Mundo", "Nam\u00EDbia", "Nauru", "Navassa Island", "Nepal", "Nicar\u00E1gua", "N\u00EDger", "Nig\u00E9ria", "Niue", "Noruega", "Nova Caled\u00F3nia", "Nova Zel\u00E2ndia", "Om\u00E3", "Pacific Ocean", "Pa\u00EDses Baixos", "Palau", "Panam\u00E1", "Papua-Nova Guin\u00E9", "Paquist\u00E3o", "Paracel Islands", "Paraguai", "Peru", "Pitcairn", "Polin\u00E9sia Francesa", "Pol\u00F3nia", "Porto Rico", "Portugal", "Qu\u00E9nia", "Quirguizist\u00E3o", "Quirib\u00E1ti", "Reino Unido", "Rep\u00FAblica Centro-Africana", "Rep\u00FAblica Checa", "Rep\u00FAblica Dominicana", "Rom\u00E9nia", "Ruanda", "R\u00FAssia", "Salvador", "Samoa", "Samoa Americana", "Santa Helena", "Santa L\u00FAcia", "S\u00E3o Crist\u00F3v\u00E3o e Neves", "S\u00E3o Marinho", "S\u00E3o Pedro e Miquelon", "S\u00E3o Tom\u00E9 e Pr\u00EDncipe", "S\u00E3o Vicente e Granadinas", "Sara Ocidental", "Seicheles", "Senegal", "Serra Leoa", "S\u00E9rvia", "Singapura", "S\u00EDria", "Som\u00E1lia", "Southern Ocean", "Spratly Islands", "Sri Lanca", "Suazil\u00E2ndia", "Sud\u00E3o", "Su\u00E9cia", "Su\u00ED\u00E7a", "Suriname", "Svalbard e Jan Mayen", "Tail\u00E2ndia", "Taiwan", "Tajiquist\u00E3o", "Tanz\u00E2nia", "Territ\u00F3rio Brit\u00E2nico do Oceano \u00CDndico", "Territ\u00F3rios Austrais Franceses", "Timor Leste", "Togo", "Tokelau", "Tonga", "Trindade e Tobago", "Tun\u00EDsia", "Turquemenist\u00E3o", "Turquia", "Tuvalu", "Ucr\u00E2nia", "Uganda", "Uni\u00E3o Europeia", "Uruguai", "Usbequist\u00E3o", "Vanuatu", "Vaticano", "Venezuela", "Vietname", "Wake Island", "Wallis e Futuna", "West Bank", "Z\u00E2mbia", "Zimbabu\u00E9"}));
+		comboBoxPaises.setModel(new DefaultComboBoxModel<String>(new String[] {"Afeganistao", "Africa do Sul", "Akrotiri", "Albania", "Alemanha", "Andorra", "Angola", "Anguila", "Antarctida", "Antigua e Barbuda", "Antilhas Neerlandesas", "Arabia Saudita", "Arctic Ocean", "Argelia", "Argentina", "Armenia", "Aruba", "Ashmore and Cartier Islands", "Atlantic Ocean", "Australia", "Austria", "Azerbaijao", "Baamas", "Bangladeche", "Barbados", "Barem", "Belgica", "Belize", "Benim", "Bermudas", "Bielorrussia", "Birmania", "Bolivia", "Bosnia e Herzegovina", "Botsuana", "Brasil", "Brunei", "Bulgaria", "Burquina Faso", "Burundi", "Butao", "Cabo Verde", "Camaroes", "Camboja", "Canada", "Catar", "Cazaquistao", "Chade", "Chile", "China", "Chipre", "Clipperton Island", "Colombia", "Comores", "Congo-Brazzaville", "Congo-Kinshasa", "Coral Sea Islands", "Coreia do Norte", "Coreia do Sul", "Costa do Marfim", "Costa Rica", "Croacia", "Cuba", "Dhekelia", "Dinamarca", "Dominica", "Egipto", "Emiratos Arabes Unidos", "Equador", "Eritreia", "Eslovaquia", "Eslovenia", "Espanha", "Estados Unidos", "Estonia", "Etiopia", "Faroe", "Fiji", "Filipinas", "Finlandia", "França", "Gabao", "Gambia", "Gana", "Gaza Strip", "Georgia", "Georgia do Sul e Sandwich do Sul", "Gibraltar", "Granada", "Grecia", "Gronelandia", "Guame", "Guatemala", "Guernsey", "Guiana", "Guine", "Guine Equatorial", "Guine-Bissau", "Haiti", "Honduras", "Hong Kong", "Hungria", "Iemen", "Ilha Bouvet", "Ilha do Natal", "Ilha Norfolk", "Ilhas Caimao", "Ilhas Cook", "Ilhas dos Cocos", "Ilhas Falkland", "Ilhas Heard e McDonald", "Ilhas Marshall", "Ilhas Salomao", "Ilhas Turcas e Caicos", "Ilhas Virgens Americanas", "Ilhas Virgens Britanicas", "India", "Indian Ocean", "Indonesia", "Irao", "Iraque", "Irlanda", "Islandia", "Israel", "Italia", "Jamaica", "Jan Mayen", "Japao", "Jersey", "Jibuti", "Jordania", "Kuwait", "Laos", "Lesoto", "Letonia", "Libano", "Liberia", "Libia", "Listenstaine", "Lituania", "Luxemburgo", "Macau", "Macedonia", "Madagascar", "Malasia", "Malavi", "Maldivas", "Mali", "Malta", "Isle of Man ", "Marianas do Norte", "Marrocos", "Mauricia", "Mauritania", "Mayotte", "Mexico", "Micronesia", "Mocambique", "Moldavia", "Monaco", "Mongolia", "Monserrate", "Montenegro", "Mundo", "Namibia", "Nauru", "Navassa Island", "Nepal", "Nicaragua", "Niger", "Nigeria", "Niue", "Noruega", "Nova Caledonia", "Nova Zelandia", "Oma", "Pacific Ocean", "Paises Baixos", "Palau", "Panama", "Papua-Nova Guine", "Paquistao", "Paracel Islands", "Paraguai", "Peru", "Pitcairn", "Polinesia Francesa", "Polonia", "Porto Rico", "Portugal", "Quenia", "Quirguizistao", "Quiribati", "Reino Unido", "Republica Centro-Africana", "Republica Checa", "Republica Dominicana", "Romenia", "Ruanda", "Russia", "Salvador", "Samoa", "Samoa Americana", "Santa Helena", "Santa Lucia", "Sao Cristovao e Neves", "Sao Marinho", "Sao Pedro e Miquelon", "Sao Tome e Principe", "Sao Vicente e Granadinas", "Sara Ocidental", "Seicheles", "Senegal", "Serra Leoa", "Servia", "Singapura", "Siria", "Somalia", "Southern Ocean", "Spratly Islands", "Sri Lanca", "Suazilandia", "Sudao", "Suecia", "Suiça", "Suriname", "Svalbard e Jan Mayen", "Tailandia", "Taiwan", "Tajiquistao", "Tanzania", "Territorio Britanico do Oceano Indico", "Territorios Austrais Franceses", "Timor Leste", "Togo", "Tokelau", "Tonga", "Trindade e Tobago", "Tunisia", "Turquemenistao", "Turquia", "Tuvalu", "Ucrania", "Uganda", "Uniao Europeia", "Uruguai", "Usbequistao", "Vanuatu", "Vaticano", "Venezuela", "Vietname", "Wake Island", "Wallis e Futuna", "West Bank", "Zambia", "Zimbabue"}));
 		comboBoxPaises.setBounds(179, 130, 163, 22);
 		comboBoxPaises.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -500,6 +544,16 @@ public class AtualizacaoContrato extends JPanel {
 		comboBoxEstados.setSelectedItem(Acoes.getContratoPesquisado().getHospedeTitular().getEstado());
 	}
 	
-	
-
+	private void atualizaDados() throws NullPointerException, StringVaziaException, StringInvalidaException, NumeroInvalidoException, CPFInvalidoException, CartaoInvalidoException{
+		Acoes.getContratoPesquisado().getHospedeTitular().setNome(textFieldNome.getText());
+		Acoes.getContratoPesquisado().getHospedeTitular().setCartaoDeCredito(formattedTextFieldCartao.getText());
+		Acoes.getContratoPesquisado().getHospedeTitular().setPais((String) comboBoxPaises.getSelectedItem());
+		if(comboBoxPaises.getSelectedItem().equals("Brasil")){
+			Acoes.getContratoPesquisado().getHospedeTitular().setNumero(textFieldNumero.getText());
+			Acoes.getContratoPesquisado().getHospedeTitular().setCidade(textFieldCidade.getText());
+			Acoes.getContratoPesquisado().getHospedeTitular().setLogradouro(textFieldLogradouro.getText());
+			Acoes.getContratoPesquisado().getHospedeTitular().setCpf(formattedTextFieldCPF.getText());
+			Acoes.getContratoPesquisado().getHospedeTitular().setEstado(Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()));
+		}
+	}
 }
