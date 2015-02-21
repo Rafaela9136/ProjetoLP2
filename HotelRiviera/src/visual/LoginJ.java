@@ -10,12 +10,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.border.LineBorder;
 
 public class LoginJ extends JFrame {
 
@@ -26,8 +27,9 @@ public class LoginJ extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField passwordField;
-	private JTextPane txtpnLogin;
-	private JTextPane txtpnSenha;
+	private JLabel lblNewLabel;
+	private JLabel lblLogin;
+	private JLabel lblSenha;
 
 	/**
 	 * Launch the application.
@@ -55,17 +57,17 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/475949883.jpg")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 464, 413);
+		setBounds(100, 100, 529, 374);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new LineBorder(new Color(102, 51, 0), 2));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JButton btnOk = new JButton("Ok");
-		btnOk.setBounds(79, 322, 117, 25);
+		btnOk.setBounds(106, 302, 117, 25);
 		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,42 +80,30 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
-		contentPane.setLayout(null);
 		contentPane.add(btnOk);
 
-		textField = new JTextField();
-		textField.setBounds(153, 245, 227, 25);
-		contentPane.add(textField);
-		textField.setColumns(10);
-
 		passwordField = new JPasswordField();
-		passwordField.setBounds(153, 282, 227, 25);
+		passwordField.setBounds(67, 261, 158, 25);
 		contentPane.add(passwordField);
 
-		txtpnLogin = new JTextPane();
-		txtpnLogin.setBounds(79, 245, 64, 32);
-		txtpnLogin.setEditable(false);
-		txtpnLogin.setFont(new Font("Verdana", Font.PLAIN, 16));
-		txtpnLogin.setBackground(Color.WHITE);
-		txtpnLogin.setText("Login:");
-		contentPane.add(txtpnLogin);
-
-		txtpnSenha = new JTextPane();
-		txtpnSenha.setBounds(79, 282, 64, 32);
-		txtpnSenha.setEditable(false);
-		txtpnSenha.setText("Senha:");
-		txtpnSenha.setFont(new Font("Verdana", Font.PLAIN, 16));
-		txtpnSenha.setBackground(Color.WHITE);
-		contentPane.add(txtpnSenha);
-
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(263, 322, 117, 25);
-		btnCancelar.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-			}
-		});
-		contentPane.add(btnCancelar);
+		textField = new JTextField();
+		textField.setBounds(67, 220, 158, 25);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		lblLogin = new JLabel("Login:");
+		lblLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		lblLogin.setBounds(18, 221, 46, 25);
+		contentPane.add(lblLogin);
+		
+		lblSenha = new JLabel("Senha:");
+		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		lblSenha.setBounds(18, 261, 46, 25);
+		contentPane.add(lblSenha);
+		
+		lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(LoginJ.class.getResource("/resources/logo.png")));
+		lblNewLabel.setBounds(2, 1, 519, 343);
+		contentPane.add(lblNewLabel);
 	}
 }
