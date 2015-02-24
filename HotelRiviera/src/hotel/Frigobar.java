@@ -2,7 +2,7 @@ package hotel;
 
 import excecoes.ValorNegativoException;
 
-public class Frigobar implements Servico {
+public class Frigobar {
 	private double preco;
 
 	@Override
@@ -28,12 +28,10 @@ public class Frigobar implements Servico {
 		return true;
 	}
 	
-	@Override
 	public String getNome() {
 		return "Frigobar";
 	}// getNome
 
-	@Override
 	public double getPreco() {
 		return preco;
 	}// getPreco

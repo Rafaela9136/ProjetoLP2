@@ -25,15 +25,15 @@ public class Baba implements Servico {
 	public static final int FIM_HORA_DOBRADA = 7;
 	private static final int MILISSEGUNDOS_EM_UMA_HORA = 3600000;
 
-	private Calendar dataInicio;
-	private Calendar dataTermino;
+	private Calendar dataCheckIn;
+	private Calendar dataCheckOut;
 
 	/**
 	 * Cria o servico de Babysitter com uma data inicial e uma data de termino.
 	 * 
-	 * @param dataInicio
+	 * @param dataCheckIn
 	 *            A data de inicio.
-	 * @param dataTermino
+	 * @param dataCheckOut
 	 *            A data de termino.
 	 * @throws NullPointerException
 	 *             Caso alguma das datas tenha valor nulo.
@@ -41,11 +41,11 @@ public class Baba implements Servico {
 	 *             Caso a data inicial seja antes da data atual ou a data de
 	 *             termino seja antes da data de inicio.
 	 */
-	public Baba(Calendar dataInicio, Calendar dataTermino)
+	public Baba(Calendar dataCheckIn, Calendar dataCheckOut)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(dataInicio, dataTermino);
-		this.dataInicio = dataInicio;
-		this.dataTermino = dataTermino;
+		verificaData(dataCheckIn, dataCheckOut);
+		this.dataCheckIn = dataCheckIn;
+		this.dataCheckOut = dataCheckOut;
 	}
 
 	/**
@@ -53,8 +53,9 @@ public class Baba implements Servico {
 	 * 
 	 * @return A data inicial.
 	 */
-	public Calendar getDataInicio() {
-		return dataInicio;
+	@Override
+	public Calendar getDataCheckIn() {
+		return dataCheckIn;
 	}
 
 	/**
@@ -62,8 +63,9 @@ public class Baba implements Servico {
 	 * 
 	 * @return A data final.
 	 */
-	public Calendar getDataTermino() {
-		return dataTermino;
+	@Override
+	public Calendar getDataCheckOut() {
+		return dataCheckOut;
 	}
 
 	/**
@@ -76,10 +78,10 @@ public class Baba implements Servico {
 	 * @throws DataInvalidaException
 	 *             Caso a nova data de termino seja antes da data de inicio.
 	 */
-	public void setDataTermino(Calendar novaDataTermino)
+	public void setDataCheckOut(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(dataInicio, novaDataTermino);
-		dataTermino = novaDataTermino;
+		verificaData(dataCheckIn, novaDataTermino);
+		dataCheckOut = novaDataTermino;
 	}
 
 	/**
@@ -93,10 +95,10 @@ public class Baba implements Servico {
 	 *             Caso a nova data de inicio seja antes da data atual ou seja
 	 *             depois da data de termino.
 	 */
-	public void setDataInicio(Calendar novaDataInicio)
+	public void setDataCheckIn(Calendar novaDataInicio)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(novaDataInicio, dataTermino);
-		dataInicio = novaDataInicio;
+		verificaData(novaDataInicio, dataCheckOut);
+		dataCheckIn = novaDataInicio;
 	}
 
 	/**
@@ -108,7 +110,7 @@ public class Baba implements Servico {
 	@Override
 	public double getPreco() {
 		double preco = 0;
-		int hora = dataInicio.get(Calendar.HOUR_OF_DAY);
+		int hora = dataCheckIn.get(Calendar.HOUR_OF_DAY);
 
 		for (int i = 0; i < getNumeroDeHoras(); i++) {
 			if (verificaSeEHoraDobrada(hora))
@@ -131,8 +133,8 @@ public class Baba implements Servico {
 	 * @return O numero de horas do servico.
 	 */
 	public int getNumeroDeHoras() {
-		long tempoInicial = dataInicio.getTimeInMillis();
-		long tempoFinal = dataTermino.getTimeInMillis();
+		long tempoInicial = dataCheckIn.getTimeInMillis();
+		long tempoFinal = dataCheckOut.getTimeInMillis();
 		int numDeHoras = (int) Math
 				.ceil(((double) (tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UMA_HORA));
 		return numDeHoras;
@@ -166,8 +168,8 @@ public class Baba implements Servico {
 	public String toString() {
 		return "SERVICO BABYSITTER\n" + "Preco Total: R$ " + getPreco()
 				+ "\nDuracao: " + getNumeroDeHoras() + " horas"
-				+ "\nData Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataInicio.getTime())
-				+ "\nData Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataTermino.getTime())
+				+ "\nData Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime())
+				+ "\nData Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime())
 				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
@@ -176,9 +178,9 @@ public class Baba implements Servico {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((dataInicio == null) ? 0 : dataInicio.hashCode());
+				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
 		result = prime * result
-				+ ((dataTermino == null) ? 0 : dataTermino.hashCode());
+				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
 		return result;	
 	}
 
@@ -195,8 +197,8 @@ public class Baba implements Servico {
 		}
 		Baba outra = (Baba) obj;
 		return (getPreco() == outra.getPreco() 
-				&& getDataInicio().equals(outra.getDataInicio()) && getDataTermino()
-				.equals(outra.getDataTermino()));
+				&& getDataCheckIn().equals(outra.getDataCheckIn()) && getDataCheckOut()
+				.equals(outra.getDataCheckOut()));
 	}
 	
 	@Override

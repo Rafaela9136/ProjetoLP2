@@ -27,8 +27,8 @@ public class Carro implements Servico {
 	private TipoCarro tipoDeCarro;
 	private boolean isTanqueCheio;
 	private boolean isAssegurado;
-	private Calendar dataInicio;
-	private Calendar dataTermino;
+	private Calendar dataCheckIn;
+	private Calendar dataCheckOut;
 	private int numDeDias;
 
 	/**
@@ -39,9 +39,9 @@ public class Carro implements Servico {
 	 * @param tipoDeCarro
 	 *            O tipo do carro a ser alugado, podendo apenas ser Luxo ou
 	 *            Executivo.
-	 * @param dataInicio
+	 * @param dataCheckIn
 	 *            A data e hora de inicio do servico.
-	 * @param dataTermino
+	 * @param dataCheckOut
 	 *            A data e hora de termino do servico.
 	 * @param isTanqueCheio
 	 *            True para tanque cheio incluso, ou false caso contrario.
@@ -53,16 +53,16 @@ public class Carro implements Servico {
 	 *             Caso a data inicial inserida seja anterior a data atual ou a
 	 *             data de termino seja anterior a data inicial.
 	 */
-	public Carro(TipoCarro tipoDeCarro, Calendar dataInicio,
-			Calendar dataTermino, boolean isTanqueCheio, boolean isAssegurado)
+	public Carro(TipoCarro tipoDeCarro, Calendar dataCheckIn,
+			Calendar dataCheckOut, boolean isTanqueCheio, boolean isAssegurado)
 			throws NullPointerException, DataInvalidaException {
 		verificaTipo(tipoDeCarro);
-		verificaData(dataInicio, dataTermino);
+		verificaData(dataCheckIn, dataCheckOut);
 		this.tipoDeCarro = tipoDeCarro;
 		this.isTanqueCheio = isTanqueCheio;
 		this.isAssegurado = isAssegurado;
-		this.dataInicio = dataInicio;
-		this.dataTermino = dataTermino;
+		this.dataCheckIn = dataCheckIn;
+		this.dataCheckOut = dataCheckOut;
 	}
 
 	/**
@@ -85,10 +85,10 @@ public class Carro implements Servico {
 	 *             Se a nova data for antes da data atual e depois da data de
 	 *             termino.
 	 */
-	public void setDataInicio(Calendar novaDataInicio)
+	public void setDataCheckIn(Calendar novaDataInicio)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(novaDataInicio, dataTermino);
-		dataInicio = novaDataInicio;
+		verificaData(novaDataInicio, dataCheckOut);
+		dataCheckIn = novaDataInicio;
 	}
 
 	/**
@@ -101,10 +101,10 @@ public class Carro implements Servico {
 	 * @throws DataInvalidaException
 	 *             Se a data for antes da data de inicio.
 	 */
-	public void setDataTermino(Calendar novaDataTermino)
+	public void setDataCheckOut(Calendar novaDataTermino)
 			throws NullPointerException, DataInvalidaException {
-		verificaData(dataInicio, novaDataTermino);
-		dataTermino = novaDataTermino;
+		verificaData(dataCheckIn, novaDataTermino);
+		dataCheckOut = novaDataTermino;
 	}
 
 	/**
@@ -112,8 +112,9 @@ public class Carro implements Servico {
 	 * 
 	 * @return Data e hora de inicio do servico.
 	 */
-	public Calendar getDataInicio() {
-		return dataInicio;
+	@Override
+	public Calendar getDataCheckIn() {
+		return dataCheckIn;
 	}
 
 	/**
@@ -121,8 +122,9 @@ public class Carro implements Servico {
 	 * 
 	 * @return Data e hora de termino do servico.
 	 */
-	public Calendar getDataTermino() {
-		return dataTermino;
+	@Override
+	public Calendar getDataCheckOut() {
+		return dataCheckOut;
 	}
 
 	/**
@@ -174,8 +176,8 @@ public class Carro implements Servico {
 	 * @return A quantidade de dias do servico.
 	 */
 	public int getNumeroDeDias() {
-		long tempoInicial = getDataInicio().getTimeInMillis();
-		long tempoFinal = getDataTermino().getTimeInMillis();
+		long tempoInicial = getDataCheckIn().getTimeInMillis();
+		long tempoFinal = getDataCheckOut().getTimeInMillis();
 		numDeDias = (int) Math
 				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
 		return numDeDias;
@@ -223,10 +225,10 @@ public class Carro implements Servico {
 				+ " dias"
 				+ "\nData Inicio: "
 				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
-						.format(getDataInicio().getTime())
+						.format(getDataCheckIn().getTime())
 				+ "\nData Termino: "
 				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
-						.format(getDataTermino().getTime());
+						.format(getDataCheckOut().getTime());
 	}
 
 	/**
@@ -237,9 +239,9 @@ public class Carro implements Servico {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((dataInicio == null) ? 0 : dataInicio.hashCode());
+				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
 		result = prime * result
-				+ ((dataTermino == null) ? 0 : dataTermino.hashCode());
+				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
 		result = prime * result + (isAssegurado ? 1231 : 1237);
 		result = prime * result + (isTanqueCheio ? 1231 : 1237);
 		result = prime * result + numDeDias;
@@ -263,7 +265,7 @@ public class Carro implements Servico {
 				&& getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
 				&& getIsAssegurado() == outroCarro.getIsAssegurado()
 				&& getPreco() == outroCarro.getPreco()
-				&& getDataInicio().equals(outroCarro.getDataInicio()) && getDataTermino()
-				.equals(outroCarro.getDataTermino()));
+				&& getDataCheckIn().equals(outroCarro.getDataCheckIn()) && getDataCheckOut()
+				.equals(outroCarro.getDataCheckOut()));
 	}
 }

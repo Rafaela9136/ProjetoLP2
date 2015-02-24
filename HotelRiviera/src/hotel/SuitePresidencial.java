@@ -1,5 +1,9 @@
 package hotel;
 
+import java.util.Calendar;
+
+import excecoes.DataInvalidaException;
+
 /**
  * Representa uma suite presidencial do hotel. As suites presidenciais nao
  * permitem cama extra como os outros quartos.
@@ -19,9 +23,10 @@ public class SuitePresidencial extends Quarto {
 	 * Construtor da classe SuitePresidencial que chama o construtor da super
 	 * classe (Quarto).
 	 */
-	public SuitePresidencial() {
-		super(TEM_CAMA_EXTRA);
-	}
+	public SuitePresidencial(Calendar dataCheckIn, Calendar dataCheckOut)
+			throws NullPointerException, DataInvalidaException {
+		super(TEM_CAMA_EXTRA, dataCheckOut, dataCheckOut);
+	}// Construtor
 
 	/**
 	 * Informa o preco da diaria da suite presidencial. Esse preco e unico pois
@@ -33,7 +38,7 @@ public class SuitePresidencial extends Quarto {
 	public double getPreco() {
 		return DIARIA_SUITE_PRESIDENCIAL + getFrigobar().getPreco();
 	}// getPreco
-	
+
 	@Override
 	public String getNome() {
 		return "Suite Presidencial";
@@ -57,4 +62,4 @@ public class SuitePresidencial extends Quarto {
 		return super.equals(outro);
 	}
 
-}
+}// SuitePresidencial

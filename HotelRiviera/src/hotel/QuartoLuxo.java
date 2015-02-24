@@ -1,6 +1,9 @@
 package hotel;
 
+import java.util.Calendar;
+
 import excecoes.CamaExtraException;
+import excecoes.DataInvalidaException;
 
 /**
  * Representa um quarto do tipo luxo. Os quartos luxos podem ser simples(1 hospede),
@@ -27,11 +30,13 @@ public class QuartoLuxo extends Quarto{
 	 * @param tipoDeQuarto
 	 * 			indica o tipo de quarto (simples, duplo ou triplo). Cada tipo tem suas especificacoes.
 	 * @throws NullPointerException 
-	 * 			Quando o objeto referente ao tipoDeQuarto � null.
+	 * 			Excecao lancada quando algum dos parametros e null.
+	 * 
+	 * @throws DataInvalidaException Excecao lancada quando uma das datas passadas como parametro e invalida.
 	 * 
 	 */
-	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto) throws NullPointerException, CamaExtraException {
-		super(temCamaExtra);
+	public QuartoLuxo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto, Calendar dataCheckIn, Calendar dataCheckOut) throws NullPointerException, CamaExtraException, DataInvalidaException {
+		super(temCamaExtra, dataCheckIn, dataCheckOut);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
 		} else if(!tipoDeQuarto.isPERMITE_CAMA_EXTRA() && temCamaExtra == true)
