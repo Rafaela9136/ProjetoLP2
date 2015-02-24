@@ -11,6 +11,7 @@ import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+import java.awt.Toolkit;
 
 public class Hotel extends JFrame {
 
@@ -25,6 +26,7 @@ public class Hotel extends JFrame {
 	 * @throws ParseException 
 	 */
 	public Hotel() throws ParseException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/icon.jpg")));
 		inicializa();
 		telaAbas();
 	}
