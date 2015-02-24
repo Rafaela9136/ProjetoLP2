@@ -59,7 +59,7 @@ public class LoginJ extends JFrame {
 	public LoginJ() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 529, 374);
+		setBounds(100, 100, 519, 374);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new LineBorder(new Color(102, 51, 0), 2));
@@ -93,17 +93,17 @@ public class LoginJ extends JFrame {
 		
 		lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblLogin.setBounds(18, 221, 46, 25);
+		lblLogin.setBounds(12, 220, 46, 25);
 		contentPane.add(lblLogin);
 		
 		lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblSenha.setBounds(18, 261, 46, 25);
+		lblSenha.setBounds(12, 261, 52, 25);
 		contentPane.add(lblSenha);
 		
 		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(LoginJ.class.getResource("/resources/logo.png")));
-		lblNewLabel.setBounds(2, 1, 519, 343);
+		lblNewLabel.setIcon(new ImageIcon(LoginJ.class.getResource("/resources/image.jpg")));
+		lblNewLabel.setBounds(0, 0, 519, 351);
 		contentPane.add(lblNewLabel);
 	}
 }
