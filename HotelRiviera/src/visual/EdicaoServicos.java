@@ -157,12 +157,12 @@ public class EdicaoServicos extends JPanel {
 		txtpnDataFinal.setBounds(262, 12, 82, 23);
 		baba.add(txtpnDataFinal);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setText("Hora inicial:");
-		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		textPane.setEditable(false);
-		textPane.setBounds(262, 47, 82, 23);
-		baba.add(textPane);
+		JTextPane txtpnHoraFinal = new JTextPane();
+		txtpnHoraFinal.setText("Hora final:");
+		txtpnHoraFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtpnHoraFinal.setEditable(false);
+		txtpnHoraFinal.setBounds(262, 47, 82, 23);
+		baba.add(txtpnHoraFinal);
 		
 		formattedTextField = new JFormattedTextField(dataMask);
 		formattedTextField.setBounds(107, 15, 139, 20);

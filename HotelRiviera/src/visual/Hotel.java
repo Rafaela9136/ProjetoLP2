@@ -26,7 +26,7 @@ public class Hotel extends JFrame {
 	 * @throws ParseException 
 	 */
 	public Hotel() throws ParseException {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/icon.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/logo.png")));
 		inicializa();
 		telaAbas();
 	}
@@ -125,7 +125,7 @@ public class Hotel extends JFrame {
 		btnEstatisticas.setBounds(12, 247, 204, 49);
 		btnEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Info.selecionaTela("estatisticas");
+				Info.selecionaTela("estatistica");
 			}
 		});
 		panelInfo.add(btnEstatisticas);

@@ -57,7 +57,7 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/icon.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/logo.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 519, 374);
