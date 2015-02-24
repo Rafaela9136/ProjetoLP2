@@ -31,7 +31,7 @@ public class SuitePresidencial extends Quarto {
 	 */
 	@Override
 	public double getPreco() {
-		return DIARIA_SUITE_PRESIDENCIAL;
+		return DIARIA_SUITE_PRESIDENCIAL + getFrigobar().getPreco();
 	}// getPreco
 	
 	@Override

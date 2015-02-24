@@ -450,7 +450,6 @@ public class Contrato {
 			if (servico instanceof Quarto) {
 				Quarto umQuarto = (Quarto) servico;
 				valor += umQuarto.getPreco() * getNumeroDeDias(getDataCheckOut());
-				valor += umQuarto.getFrigobar().getPreco();
 				continue;
 			}// if
 			valor += servico.getPreco();

@@ -57,11 +57,11 @@ public class QuartoExecutivo extends Quarto{
 	@Override
 	public double getPreco() {
 		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
-			return DIARIA_EXECUTIVO_SIMPLES;
+			return DIARIA_EXECUTIVO_SIMPLES + getFrigobar().getPreco();
 		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
-			return DIARIA_EXECUTIVO_DUPLO;
+			return DIARIA_EXECUTIVO_DUPLO + getFrigobar().getPreco();
 		} else {
-			return DIARIA_EXECUTIVO_TRIPLO;
+			return DIARIA_EXECUTIVO_TRIPLO + getFrigobar().getPreco();
 		}
 	}// getPreco
 	
