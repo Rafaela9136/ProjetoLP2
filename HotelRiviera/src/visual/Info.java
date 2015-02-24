@@ -57,6 +57,14 @@ public class Info extends JPanel {
 		JPanel estatistica = new JPanel();
 		estatistica.setBackground(Color.WHITE);
 		panel.add(estatistica, "estatistica");
+		estatistica.setLayout(null);
+		
+		JTextPane txtpnEstatisticas = new JTextPane();
+		txtpnEstatisticas.setBounds(47, 24, 166, 24);
+		txtpnEstatisticas.setText("Estatisticas");
+		txtpnEstatisticas.setFont(new Font("Dialog", Font.PLAIN, 15));
+		txtpnEstatisticas.setEditable(false);
+		estatistica.add(txtpnEstatisticas);
 	}
 
 	private void panelOpinioes(JPanel panel) {

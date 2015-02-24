@@ -205,24 +205,35 @@ public class Acoes extends JPanel {
 		
 		AvisoErro erro = new AvisoErro();
 		if(comboBoxQuarto.getSelectedItem().equals("Presidencial")){
-			quarto = new SuitePresidencial();
+			try {
+				quarto = new SuitePresidencial(Conector.transformaData(formattedTextFieldCheckIn.getText()), Conector.transformaData(formattedTextFieldCheckOut.getText()));
+				servicos.add(quarto);
+			} catch (NullPointerException e) {
+				erro.setVisible(true);
+			} catch (DataInvalidaException e) {
+				erro.setVisible(true);
+			}
 			servicos.add(quarto);
 		} if(comboBoxQuarto.getSelectedItem().equals("Executivo")){
 			try {
-				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
+				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()), Conector.transformaData(formattedTextFieldCheckIn.getText()), Conector.transformaData(formattedTextFieldCheckOut.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
 				erro.setVisible(true);
 			} catch (CamaExtraException e1) {
+				erro.setVisible(true);
+			}  catch (DataInvalidaException e) {
 				erro.setVisible(true);
 			}
 		} if(comboBoxQuarto.getSelectedItem().equals("Luxo")){
 			try {
-				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()));
+				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(), Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()), Conector.transformaData(formattedTextFieldCheckIn.getText()), Conector.transformaData(formattedTextFieldCheckOut.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
 				erro.setVisible(true);
 			} catch (CamaExtraException e1) {
+				erro.setVisible(true);
+			} catch (DataInvalidaException e) {
 				erro.setVisible(true);
 			}
 		}
