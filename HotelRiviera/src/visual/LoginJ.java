@@ -66,6 +66,7 @@ public class LoginJ extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(102, 51, 0), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(106, 302, 117, 25);

@@ -40,6 +40,7 @@ public class Hotel extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(51, 51, 0), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setLocationRelativeTo(null);
 	}
 
 	private void telaAbas() throws ParseException {
