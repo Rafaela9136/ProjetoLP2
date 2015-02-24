@@ -73,11 +73,11 @@ public class QuartoLuxo extends Quarto{
 	@Override
 	public double getPreco() {
 		if (tipoDeQuarto.equals(TiposDeQuarto.SIMPLES)) {
-			return DIARIA_LUXO_SIMPLES + getFrigobar().getPreco();
+			return DIARIA_LUXO_SIMPLES;
 		} else if (tipoDeQuarto.equals(TiposDeQuarto.DUPLO)) {
-			return DIARIA_LUXO_DUPLO + getFrigobar().getPreco();
+			return DIARIA_LUXO_DUPLO;
 		} else {
-			return DIARIA_LUXO_TRIPLO + getFrigobar().getPreco();
+			return DIARIA_LUXO_TRIPLO;
 		}
 	}
 	

@@ -450,6 +450,7 @@ public class Contrato {
 			if (servico instanceof Quarto) {
 				Quarto umQuarto = (Quarto) servico;
 				valor += umQuarto.getPreco() * getNumeroDeDias(getDataCheckOut());
+				valor += umQuarto.getFrigobar().getPreco();
 				continue;
 			}// if
 			valor += servico.getPreco();
@@ -459,11 +460,62 @@ public class Contrato {
 		return valor * estrategia.getPorcentagem();
 	}// calculaValorTotalServicosComEstrategia
 
-	private void verificaHospedeTitularValido(Hospede hospede)
-			throws NullPointerException {
-		if (hospede == null)
-			throw new NullPointerException();
-	}// verificaHospedeTitularValido
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((acompanhantes == null) ? 0 : acompanhantes.hashCode());
+		result = prime * result
+				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
+		result = prime * result
+				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
+		result = prime * result + Float.floatToIntBits(despesasAdicionais);
+		result = prime * result
+				+ ((estrategia == null) ? 0 : estrategia.hashCode());
+		result = prime * result
+				+ ((hospedeTitular == null) ? 0 : hospedeTitular.hashCode());
+		result = prime * result + (isAberto ? 1231 : 1237);
+		result = prime * result + (isReserva ? 1231 : 1237);
+		result = prime * result + ((opiniao == null) ? 0 : opiniao.hashCode());
+		result = prime * result
+				+ ((servicos == null) ? 0 : servicos.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contrato other = (Contrato) obj;
+		if (!acompanhantes.equals(other.acompanhantes))
+			return false;
+		if (!dataCheckIn.equals(other.dataCheckIn))
+			return false;
+		if (!dataCheckOut.equals(other.dataCheckOut))
+			return false;
+		if (Float.floatToIntBits(despesasAdicionais) != Float
+				.floatToIntBits(other.despesasAdicionais))
+			return false;
+		if (!estrategia.equals(other.estrategia))
+			return false;
+		if (!hospedeTitular.equals(other.hospedeTitular))
+			return false;
+		if (isAberto != other.isAberto)
+			return false;
+		if (isReserva != other.isReserva)
+			return false;
+		if (opiniao == null) {
+			if (other.opiniao != null)
+				return false;
+		} else if (!opiniao.equals(other.opiniao))
+			return false;
+		if (!servicos.equals(other.servicos))
+			return false;
+		return true;
+	}// equals
 
 	@Override
 	public String toString() {
@@ -485,7 +537,13 @@ public class Contrato {
 				+ "\nDespesas Adicionais: " + despesasAdicionais
 				+ "\nReserva: " + isReserva + "\nContrato Aberto: " + isAberto
 				+ "\n";
-	}
+	}// toString
+	
+	private void verificaHospedeTitularValido(Hospede hospede)
+			throws NullPointerException {
+		if (hospede == null)
+			throw new NullPointerException();
+	}// verificaHospedeTitularValido
 
 	private Estrategias estrategiaAAplicar(Calendar dataCheckIn,
 			Calendar dataCheckOut) {
@@ -565,61 +623,5 @@ public class Contrato {
 			throw new NomeInvalidoException();
 	}// verificaAcompananteValido
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((acompanhantes == null) ? 0 : acompanhantes.hashCode());
-		result = prime * result
-				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
-		result = prime * result
-				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
-		result = prime * result + Float.floatToIntBits(despesasAdicionais);
-		result = prime * result
-				+ ((estrategia == null) ? 0 : estrategia.hashCode());
-		result = prime * result
-				+ ((hospedeTitular == null) ? 0 : hospedeTitular.hashCode());
-		result = prime * result + (isAberto ? 1231 : 1237);
-		result = prime * result + (isReserva ? 1231 : 1237);
-		result = prime * result + ((opiniao == null) ? 0 : opiniao.hashCode());
-		result = prime * result
-				+ ((servicos == null) ? 0 : servicos.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contrato other = (Contrato) obj;
-		if (!acompanhantes.equals(other.acompanhantes))
-			return false;
-		if (!dataCheckIn.equals(other.dataCheckIn))
-			return false;
-		if (!dataCheckOut.equals(other.dataCheckOut))
-			return false;
-		if (Float.floatToIntBits(despesasAdicionais) != Float
-				.floatToIntBits(other.despesasAdicionais))
-			return false;
-		if (!estrategia.equals(other.estrategia))
-			return false;
-		if (!hospedeTitular.equals(other.hospedeTitular))
-			return false;
-		if (isAberto != other.isAberto)
-			return false;
-		if (isReserva != other.isReserva)
-			return false;
-		if (opiniao == null) {
-			if (other.opiniao != null)
-				return false;
-		} else if (!opiniao.equals(other.opiniao))
-			return false;
-		if (!servicos.equals(other.servicos))
-			return false;
-		return true;
-	}// equals
 
 }// Contrato
