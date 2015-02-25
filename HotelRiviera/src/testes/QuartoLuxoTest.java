@@ -10,7 +10,7 @@ import hotel.*;
 
 public class QuartoLuxoTest {
 
-	private Quarto quarto1, quarto2, quarto3;
+	private QuartoLuxo quarto1, quarto2, quarto3;
 
 	private Calendar momentoAgr;
 	private Calendar dataCheckIn;
@@ -23,13 +23,16 @@ public class QuartoLuxoTest {
 	public void criaObjetos() throws NullPointerException, CamaExtraException,
 			DataInvalidaException {
 		momentoAgr = new GregorianCalendar();
-		dataCheckIn = new GregorianCalendar();
+		dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
+		
 		dataCheckOut = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 2);
 
 		quarto1 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES,
-				dataCheckOut, dataCheckOut);
+				dataCheckIn, dataCheckOut);
 		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO,
 				dataCheckIn, dataCheckOut);
 		quarto3 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO,
@@ -38,7 +41,7 @@ public class QuartoLuxoTest {
 	}// criaObjetos
 
 	@Test
-	public void testCriaQuartoExecutivo() throws CamaExtraException,
+	public void testCriaQuartoLuxo() throws CamaExtraException,
 			NullPointerException, DataInvalidaException {
 		try {
 			quarto1 = new QuartoLuxo(TEM_CAMA_EXTRA, null, dataCheckIn,
@@ -119,7 +122,7 @@ public class QuartoLuxoTest {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
-	}// testCriaQuartoExecutivo
+	}// testCriaQuartoLuxo
 
 	@Test
 	public void testaGetPreco() {
@@ -130,17 +133,46 @@ public class QuartoLuxoTest {
 		Assert.assertEquals(quarto3.getPreco(), QuartoLuxo.DIARIA_LUXO_TRIPLO,
 				0.001);
 	}
-
+	
 	@Test
-	public void testEquals() throws NullPointerException, CamaExtraException, DataInvalidaException {
-		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckIn);
+	public void testEquals() throws NullPointerException, CamaExtraException,
+			DataInvalidaException {
+		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES,
+				dataCheckIn, dataCheckOut);
 		Assert.assertTrue(quarto1.equals(quarto2));
 
-		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO, dataCheckIn, dataCheckIn);
+		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO,
+				dataCheckIn, dataCheckOut);
 		Assert.assertFalse(quarto1.equals(quarto2));
 
-		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckIn);
+		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA,
+				TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckOut);
 		Assert.assertFalse(quarto1.equals(quarto2));
+
+		Calendar dataCheckIn = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR), momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 2);
+
+		Calendar dataCheckOut = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR), momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 7);
+
+		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES,
+				dataCheckIn, this.dataCheckOut);
+		Assert.assertFalse(quarto1.equals(quarto2));
+
+		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA,
+				TiposDeQuarto.SIMPLES, this.dataCheckIn, this.dataCheckOut);
+		Assert.assertTrue(quarto1.equals(quarto2));
+
+		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA,
+				TiposDeQuarto.SIMPLES, this.dataCheckIn, dataCheckOut);
+		Assert.assertFalse(quarto1.equals(quarto2));
+
+		quarto2 = new QuartoLuxo(TEM_CAMA_EXTRA,
+				TiposDeQuarto.SIMPLES, this.dataCheckIn, this.dataCheckOut);
+		Assert.assertTrue(quarto1.equals(quarto2));
+
 	}// testEquals
 
 }// TestQuartoExecutivo

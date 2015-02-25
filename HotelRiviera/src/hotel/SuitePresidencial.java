@@ -25,7 +25,7 @@ public class SuitePresidencial extends Quarto {
 	 */
 	public SuitePresidencial(Calendar dataCheckIn, Calendar dataCheckOut)
 			throws NullPointerException, DataInvalidaException {
-		super(TEM_CAMA_EXTRA, dataCheckOut, dataCheckOut);
+		super(TEM_CAMA_EXTRA, dataCheckIn, dataCheckOut);
 	}// Construtor
 
 	/**

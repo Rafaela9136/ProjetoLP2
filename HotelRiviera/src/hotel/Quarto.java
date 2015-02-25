@@ -98,8 +98,10 @@ public abstract class Quarto implements Servico {
 			return false;
 		}
 		Quarto outro = (Quarto) obj;
-		return (this.getPreco() == outro.getPreco() && this.isCamaExtra() == outro
-				.isCamaExtra());
+		return (this.getPreco() == outro.getPreco()
+				&& this.isCamaExtra() == outro.isCamaExtra()
+				&& this.getDataCheckIn().equals(outro.getDataCheckIn()) && this
+				.getDataCheckOut().equals(outro.getDataCheckOut()));
 	}
 
 	/**
@@ -110,7 +112,7 @@ public abstract class Quarto implements Servico {
 		return "Quarto [preco=" + this.getPreco() + ", camaExtra=" + CamaExtra
 				+ "]";
 	}// toString
-	
+
 	// adicionar testes referente a essas excecoes
 	private void verificaDatasValidas(Calendar dataCheckIn,
 			Calendar dataCheckOut) throws DataInvalidaException,
