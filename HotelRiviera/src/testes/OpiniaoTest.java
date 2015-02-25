@@ -1,5 +1,7 @@
 package testes;
 
+import java.util.Calendar;
+
 import hotel.Opiniao;
 
 import org.junit.Assert;
@@ -83,14 +85,21 @@ public class OpiniaoTest {
 	public void testToString() throws NullPointerException,
 			NotaInvalidaException, EstouroDeCaracteresException,
 			ComentarioVazioException {
+		Calendar momentoAgr = Calendar.getInstance();
 		Assert.assertEquals(
 				opiniao.toString(),
 				"Opiniao: "
 						+ "\nComentario: 'Programacao II Universidade Federal de Campina Grande'"
-						+ "\nNota: 1.0");
+						+ "\nNota: 1.0"
+						+ "\nData: " + momentoAgr.get(Calendar.DAY_OF_MONTH)
+						+ "/" + momentoAgr.get(Calendar.MONTH)
+						+ "/" + momentoAgr.get(Calendar.YEAR));
 		Opiniao opiniao2 = new Opiniao("Muito bom, gostei bastante!", 10);
 		Assert.assertEquals(opiniao2.toString(), "Opiniao: "
 				+ "\nComentario: 'Muito bom, gostei bastante!'"
-				+ "\nNota: 10.0");
+				+ "\nNota: 10.0"
+				+ "\nData: " + momentoAgr.get(Calendar.DAY_OF_MONTH)
+				+ "/" + momentoAgr.get(Calendar.MONTH)
+				+ "/" + momentoAgr.get(Calendar.YEAR));
 	}
 }

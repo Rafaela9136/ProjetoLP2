@@ -1,5 +1,7 @@
 package hotel;
 
+import java.util.Calendar;
+
 import excecoes.ComentarioVazioException;
 import excecoes.EstouroDeCaracteresException;
 import excecoes.NotaInvalidaException;
@@ -11,12 +13,13 @@ import excecoes.NotaInvalidaException;
  * @author Grupo
  * @version 1.0
  */
-public class Opiniao {
+public class Opiniao implements Comparable<Opiniao> {
 	public static final float NOTA_MAX = 10;
 	public static final float NOTA_MIN = 0;
 
 	private String comentario;
 	private float nota;
+	private Calendar data;
 
 	/**
 	 * Cria uma opiniao com um comentario e uma nota.
@@ -42,6 +45,7 @@ public class Opiniao {
 		verificaComentarioValido(comentario);
 		this.comentario = comentario;
 		this.nota = nota;
+		this.data = Calendar.getInstance();
 	}// Construtor
 
 	/**
@@ -52,6 +56,15 @@ public class Opiniao {
 	public String getComentario() {
 		return comentario;
 	}// getComentario
+
+	/**
+	 * Recupera a data de criacao da opiniao.
+	 * 
+	 * @return Retorna a data.
+	 */
+	public Calendar getData() {
+		return data;
+	}// getData
 
 	/**
 	 * Recupera a nota do Objeto Opiniao.
@@ -88,7 +101,8 @@ public class Opiniao {
 	@Override
 	public String toString() {
 		return "Opiniao: \nComentario: '" + getComentario() + "'\nNota: "
-				+ getNota() + "";
+				+ getNota() + "\nData: " + data.get(Calendar.DAY_OF_MONTH) + "/"
+				+ data.get(Calendar.MONTH) + "/" + data.get(Calendar.YEAR);
 	}
 
 	@Override
@@ -97,6 +111,7 @@ public class Opiniao {
 		int result = 1;
 		result = prime * result
 				+ ((comentario == null) ? 0 : comentario.hashCode());
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + Float.floatToIntBits(nota);
 		return result;
 	}
@@ -113,7 +128,20 @@ public class Opiniao {
 			return false;
 		Opiniao outra = (Opiniao) obj;
 		return getNota() == outra.getNota()
-				&& getComentario().equals(outra.getComentario());
+				&& getComentario().equals(outra.getComentario())
+				&& getData().equals(outra.getData());
+	}
+
+	@Override
+	public int compareTo(Opiniao outraOpiniao) {
+		if(outraOpiniao == null)
+			throw new NullPointerException();
+		
+		if(getNota() > outraOpiniao.getNota())
+			return 1;
+		if(getNota() < outraOpiniao.getNota())
+			return -1;
+		return 0;
 	}
 
 }// Opiniao
