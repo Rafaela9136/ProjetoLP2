@@ -40,7 +40,7 @@ public class QuartoExecutivo extends Quarto {
 	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto,
 			Calendar dataCheckIn, Calendar dataCheckOut)
 			throws NullPointerException, CamaExtraException, DataInvalidaException {
-		super(temCamaExtra, dataCheckIn, dataCheckIn);
+		super(temCamaExtra, dataCheckIn, dataCheckOut);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
 		} else if (!tipoDeQuarto.isPERMITE_CAMA_EXTRA() && temCamaExtra == true)

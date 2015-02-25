@@ -21,7 +21,6 @@ import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
-import excecoes.FrigobarEmListServicosException;
 import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
 import excecoes.NumeroInvalidoException;
@@ -59,10 +58,9 @@ public class ContratoTest {
 	@Before
 	public void criaObjetos() throws NullPointerException,
 			CPFInvalidoException, ContratoSemQuartoException,
-			FrigobarEmListServicosException, DataInvalidaException,
-			NomeVazioException, StringVaziaException, CartaoInvalidoException,
-			CamaExtraException, StringInvalidaException,
-			NumeroInvalidoException {
+			DataInvalidaException, NomeVazioException, StringVaziaException,
+			CartaoInvalidoException, CamaExtraException,
+			StringInvalidaException, NumeroInvalidoException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento,
 				"0123.4567.8999.9999");
@@ -83,11 +81,15 @@ public class ContratoTest {
 		carro = new Carro(TipoCarro.EXECUTIVO, dataCheckIn, dataCheckOut,
 				isTanqueCheio, isAssegurado);
 
-		quarto1 = new QuartoExecutivo(TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO);
-		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
-		quarto3 = new SuitePresidencial();
-		quarto4 = new QuartoExecutivo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.SIMPLES);
-		quarto5 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO);
+		quarto1 = new QuartoExecutivo(TEM_CAMA_EXTRA, TiposDeQuarto.DUPLO,
+				dataCheckIn, dataCheckOut);
+		quarto2 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO,
+				dataCheckIn, dataCheckOut);
+		quarto3 = new SuitePresidencial(dataCheckIn, dataCheckIn);
+		quarto4 = new QuartoExecutivo(NAO_TEM_CAMA_EXTRA,
+				TiposDeQuarto.SIMPLES, dataCheckIn, dataCheckIn);
+		quarto5 = new QuartoLuxo(NAO_TEM_CAMA_EXTRA, TiposDeQuarto.TRIPLO,
+				dataCheckIn, dataCheckIn);
 
 		acompanhantes.add("Jusefa mulher do vidaloka");
 		acompanhantes.add("Filho do vidaloka");
@@ -108,7 +110,7 @@ public class ContratoTest {
 
 	@Test
 	public void testCriaContrato() throws ContratoSemQuartoException,
-			FrigobarEmListServicosException, DataInvalidaException {
+			DataInvalidaException {
 		try {
 			contrato1 = new Contrato(null, acompanhantes, dataCheckIn,
 					dataCheckOut, servicos);
@@ -171,6 +173,35 @@ public class ContratoTest {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 		
+		Calendar dataAnteriorCheckIn = new GregorianCalendar(
+				dataCheckIn.get(Calendar.YEAR),
+				dataCheckIn.get(Calendar.MONTH),
+				dataCheckIn.get(Calendar.DAY_OF_MONTH) - 1);
+		
+		try {
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
+					dataAnteriorCheckIn, dataCheckOut, servicos);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
+		} catch (DataInvalidaException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+		
+		Calendar dataPosteriorCheckOut = new GregorianCalendar(
+				dataCheckOut.get(Calendar.YEAR),
+				dataCheckOut.get(Calendar.MONTH),
+				dataCheckOut.get(Calendar.DAY_OF_MONTH) + 1);
+		
+		try {
+			contrato1 = new Contrato(hospedeTitular, acompanhantes,
+					dataCheckIn, dataPosteriorCheckOut, servicos);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
+		} catch (DataInvalidaException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
 
 		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
 
@@ -187,6 +218,7 @@ public class ContratoTest {
 		this.dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
+
 
 		List<Servico> servicos = new ArrayList<Servico>();
 
@@ -214,34 +246,10 @@ public class ContratoTest {
 
 		servicos.remove(0);
 
-		Frigobar frigobar = new Frigobar();
-		servicos.add(frigobar);
-
-		try {
-			contrato1 = new Contrato(hospedeTitular, acompanhantes,
-					dataCheckIn, dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
-		} catch (FrigobarEmListServicosException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-
 	}// testCriaContrato
 
 	@Test
-	public void testAdicionaServico() throws FrigobarEmListServicosException,
-			AddQuartoContratoException {
-		Frigobar frigobar1 = new Frigobar();
-
-		try {
-			contrato1.adicionaServico(frigobar1);
-			Assert.fail("Deveria ter lancado FrigobarEmListServicosException");
-		} catch (FrigobarEmListServicosException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+	public void testAdicionaServico() throws AddQuartoContratoException {
 		try {
 			contrato1.adicionaServico(quarto5);
 			Assert.fail("Deveria ter lancado AddQuartoContratoException");
@@ -256,34 +264,34 @@ public class ContratoTest {
 				.get(contrato1.getServicos().size() - 1).equals(carro));
 
 	}// testAdicionaServico
-	
+
 	@Test
 	public void testRemoveServico() throws RemocaoInvalidaException {
 		contrato1.removeServico(quarto4);
 		List<Servico> servicos = new ArrayList<Servico>();
-		
+
 		servicos.add(carro);
 		servicos.add(baba);
 		servicos.add(quarto1);
 		servicos.add(quarto2);
 		servicos.add(quarto3);
-		
+
 		Assert.assertEquals(contrato1.getServicos(), servicos);
-		
+
 		contrato1.removeServico(quarto3);
 		contrato1.removeServico(quarto2);
-		
+
 		try {
 			contrato1.removeServico(quarto1);
 			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
 		} catch (RemocaoInvalidaException e) {
-			
+
 		} catch (Exception e) {
 			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
 		}// try-catch
-		
+
 	}// testRemoveServico
-	
+
 	@Test
 	public void testCalculaValorTotalServicos() throws ValorNegativoException,
 			NullPointerException, DataInvalidaException {
@@ -348,11 +356,10 @@ public class ContratoTest {
 
 	@Test
 	public void testEquals() throws NullPointerException,
-			ContratoSemQuartoException, FrigobarEmListServicosException,
-			DataInvalidaException, CPFInvalidoException,
-			AddQuartoContratoException, StringVaziaException,
-			CartaoInvalidoException, StringInvalidaException,
-			NumeroInvalidoException {
+			ContratoSemQuartoException, DataInvalidaException,
+			CPFInvalidoException, AddQuartoContratoException,
+			StringVaziaException, CartaoInvalidoException,
+			StringInvalidaException, NumeroInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
