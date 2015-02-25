@@ -278,8 +278,6 @@ public class Acoes extends JPanel {
 					erro.setVisible(true);
 				} catch (ContratoSemQuartoException e1) {
 					erro.setVisible(true);
-				} catch (FrigobarEmListServicosException e1) {
-					erro.setVisible(true);
 				} catch (DataInvalidaException e1) {
 					erro.setVisible(true);
 				}

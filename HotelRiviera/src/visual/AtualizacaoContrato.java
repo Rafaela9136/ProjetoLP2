@@ -280,8 +280,6 @@ public class AtualizacaoContrato extends JPanel {
 			sucesso.setVisible(true);
 		} catch (AddQuartoContratoException e) {
 			erro.setVisible(true);
-		} catch (FrigobarEmListServicosException e) {
-			erro.setVisible(true);
 		}
 		
 	}
