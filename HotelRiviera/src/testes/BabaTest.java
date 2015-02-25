@@ -36,171 +36,200 @@ public class BabaTest {
 			DataInvalidaException {
 		try {
 			new Baba(null, horarioFim1);
+			Assert.fail("Nao deveria ter lancado essa NullPointerException");
 		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
+			
+		} catch(Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
 		try {
 			new Baba(horarioInicio1, null);
+			Assert.fail("Nao deveria ter lancado essa NullPointerException");
 		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
-		}
-
-		try {
-			new Baba(null, null);
-		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
+			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
 		try {
 			new Baba(horarioInicio1, horarioInicio1);
+			Assert.fail("Nao deveria ter lancado essa DataInvalidaException");
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
 		try {
 			new Baba(horarioFim1, horarioFim1);
+			Assert.fail("Nao deveria ter lancado essa DataInvalidaException");
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch(Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
 		try {
 			new Baba(horarioFim1, horarioInicio1);
+			Assert.fail("Nao deveria ter lancado essa DataInvalidaException");
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch(Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 
 		try {
 			new Baba(new GregorianCalendar(), new GregorianCalendar(2015,
 					Calendar.FEBRUARY, 5));
+			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch(Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 	}
 	
 	@Test
 	public void testaSetDataInicio() throws DataInvalidaException {
-		Assert.assertEquals(baba1.getDataInicio(), horarioInicio1);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.DAY_OF_MONTH), 31);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.MONTH), Calendar.DECEMBER);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.YEAR), 2015);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.HOUR_OF_DAY), 22);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.MINUTE), 0);
+		Assert.assertEquals(baba1.getDataCheckIn(), horarioInicio1);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.DAY_OF_MONTH), 31);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.MONTH), Calendar.DECEMBER);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.HOUR_OF_DAY), 22);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.MINUTE), 0);
 		
-		Assert.assertEquals(baba2.getDataInicio(), horarioInicio2);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.DAY_OF_MONTH), 20);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.MONTH), Calendar.JUNE);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.YEAR), 2015);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.HOUR_OF_DAY), 13);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.MINUTE), 0);
+		Assert.assertEquals(baba2.getDataCheckIn(), horarioInicio2);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.DAY_OF_MONTH), 20);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.MONTH), Calendar.JUNE);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.HOUR_OF_DAY), 13);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.MINUTE), 0);
 		
 		try {
-			baba1.setDataInicio(null);
+			baba1.setDataCheckIn(null);
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
+			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 		
 		Calendar novaDataInicio = new GregorianCalendar(2016, Calendar.JANUARY, 2, 15, 0);
-		Assert.assertTrue(novaDataInicio.after(baba1.getDataTermino()));
+		Assert.assertTrue(novaDataInicio.after(baba1.getDataCheckOut()));
 		try {
-			baba1.setDataInicio(novaDataInicio);
+			baba1.setDataCheckIn(novaDataInicio);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 		
 		try {
-			baba1.setDataInicio(new GregorianCalendar(2010, Calendar.JANUARY, 10));
+			baba1.setDataCheckIn(new GregorianCalendar(2010, Calendar.JANUARY, 10));
 		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
+			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 		
-		baba1.setDataInicio(horarioInicio2);
-		Assert.assertEquals(baba1.getDataInicio(), horarioInicio2);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.DAY_OF_MONTH), 20);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.MONTH), Calendar.JUNE);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.YEAR), 2015);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.HOUR_OF_DAY), 13);
-		Assert.assertEquals(baba1.getDataInicio().get(Calendar.MINUTE), 0);
+		baba1.setDataCheckIn(horarioInicio2);
+		Assert.assertEquals(baba1.getDataCheckIn(), horarioInicio2);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.DAY_OF_MONTH), 20);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.MONTH), Calendar.JUNE);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.HOUR_OF_DAY), 13);
+		Assert.assertEquals(baba1.getDataCheckIn().get(Calendar.MINUTE), 0);
 		
-		baba2.setDataInicio(new GregorianCalendar(2015, Calendar.MAY, 15, 18, 30));
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.DAY_OF_MONTH), 15);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.MONTH), Calendar.MAY);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.YEAR), 2015);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.HOUR_OF_DAY), 18);
-		Assert.assertEquals(baba2.getDataInicio().get(Calendar.MINUTE), 30);
+		baba2.setDataCheckIn(new GregorianCalendar(2015, Calendar.MAY, 15, 18, 30));
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.DAY_OF_MONTH), 15);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.MONTH), Calendar.MAY);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.HOUR_OF_DAY), 18);
+		Assert.assertEquals(baba2.getDataCheckIn().get(Calendar.MINUTE), 30);
 	}
 	
 	@Test
 	public void testaSetDataTermino() throws DataInvalidaException {
-		Assert.assertEquals(baba1.getDataTermino(), horarioFim1);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.DAY_OF_MONTH), 1);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.MONTH), Calendar.JANUARY);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.YEAR), 2016);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.HOUR_OF_DAY), 7);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.MINUTE), 0);
+		Assert.assertEquals(baba1.getDataCheckOut(), horarioFim1);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.DAY_OF_MONTH), 1);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.MONTH), Calendar.JANUARY);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.YEAR), 2016);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.HOUR_OF_DAY), 7);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.MINUTE), 0);
 		
-		Assert.assertEquals(baba2.getDataTermino(), horarioFim2);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.DAY_OF_MONTH), 21);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.MONTH), Calendar.JUNE);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.YEAR), 2015);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.HOUR_OF_DAY), 19);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.MINUTE), 0);
+		Assert.assertEquals(baba2.getDataCheckOut(), horarioFim2);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.DAY_OF_MONTH), 21);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.MONTH), Calendar.JUNE);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.YEAR), 2015);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.HOUR_OF_DAY), 19);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.MINUTE), 0);
 		
 		try {
-			baba1.setDataTermino(null);
+			baba1.setDataCheckOut(null);
+			Assert.fail("Deveria ter lancado NullPointerExeption.");
 		} catch (NullPointerException e) {
 			
+		} catch(Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 		
 		Calendar novaDataTermino = new GregorianCalendar(2015, Calendar.DECEMBER, 25, 16, 40);
-		Assert.assertTrue(novaDataTermino.before(baba1.getDataInicio()));
+		Assert.assertTrue(novaDataTermino.before(baba1.getDataCheckIn()));
 		try {
-			baba1.setDataTermino(novaDataTermino);
+			baba1.setDataCheckOut(novaDataTermino);
+			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
 		}
 		
 		try {
-			baba2.setDataTermino(new GregorianCalendar(2014, Calendar.APRIL, 20, 20, 18));
+			baba2.setDataCheckOut(new GregorianCalendar(2014, Calendar.APRIL, 20, 20, 18));
+			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
 			
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa exececao");
 		}
 		
-		baba1.setDataInicio(new GregorianCalendar(2015, Calendar.DECEMBER, 26));
-		baba1.setDataTermino(new GregorianCalendar(2015, Calendar.DECEMBER, 28));
-		Assert.assertTrue(baba1.getDataInicio().before(baba1.getDataTermino()));
+		baba1.setDataCheckIn(new GregorianCalendar(2015, Calendar.DECEMBER, 26));
+		baba1.setDataCheckOut(new GregorianCalendar(2015, Calendar.DECEMBER, 28));
+		Assert.assertTrue(baba1.getDataCheckIn().before(baba1.getDataCheckOut()));
 		
-		baba1.setDataTermino(new GregorianCalendar(2016, Calendar.JANUARY, 1));
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.YEAR), 2016);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.MONTH), Calendar.JANUARY);
-		Assert.assertEquals(baba1.getDataTermino().get(Calendar.DAY_OF_MONTH), 1);
-		baba2.setDataTermino(baba1.getDataTermino());
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.YEAR), 2016);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.MONTH), Calendar.JANUARY);
-		Assert.assertEquals(baba2.getDataTermino().get(Calendar.DAY_OF_MONTH), 1);
+		baba1.setDataCheckOut(new GregorianCalendar(2016, Calendar.JANUARY, 1));
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.YEAR), 2016);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.MONTH), Calendar.JANUARY);
+		Assert.assertEquals(baba1.getDataCheckOut().get(Calendar.DAY_OF_MONTH), 1);
+		baba2.setDataCheckOut(baba1.getDataCheckOut());
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.YEAR), 2016);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.MONTH), Calendar.JANUARY);
+		Assert.assertEquals(baba2.getDataCheckOut().get(Calendar.DAY_OF_MONTH), 1);
 	}
 	
 	@Test
 	public void testaGetPreco() throws NullPointerException, DataInvalidaException {
 		Assert.assertEquals(baba1.getNumeroDeHoras(), 9);
 		Assert.assertEquals(baba1.getPreco(), 450, 0.0001);
-		baba1.setDataTermino(new GregorianCalendar(2016, Calendar.JANUARY, 1, 23, 30));
+		baba1.setDataCheckOut(new GregorianCalendar(2016, Calendar.JANUARY, 1, 23, 30));
 		Assert.assertEquals(baba1.getNumeroDeHoras(), 26);
 		Assert.assertEquals(baba1.getPreco(), 1025, 0.0001);
-		baba1.setDataTermino(new GregorianCalendar(2016, Calendar.JANUARY, 5, 17, 4));
-		baba1.setDataInicio(new GregorianCalendar(2016, Calendar.JANUARY, 5, 0, 40));
+		baba1.setDataCheckOut(new GregorianCalendar(2016, Calendar.JANUARY, 5, 17, 4));
+		baba1.setDataCheckIn(new GregorianCalendar(2016, Calendar.JANUARY, 5, 0, 40));
 		Assert.assertEquals(baba1.getNumeroDeHoras(), 17);
 		Assert.assertEquals(baba1.getPreco(), 600, 0.0001);
 		
 		Assert.assertEquals(baba2.getNumeroDeHoras(), 30);
 		Assert.assertEquals(baba2.getPreco(), 1100, 0.0001);
-		baba2.setDataTermino(new GregorianCalendar(2015, Calendar.JUNE, 21, 13, 50));
+		baba2.setDataCheckOut(new GregorianCalendar(2015, Calendar.JUNE, 21, 13, 50));
 		Assert.assertEquals(baba2.getNumeroDeHoras(), 25);
 		Assert.assertEquals(baba2.getPreco(), 950, 0.0001);
-		baba2.setDataInicio(new GregorianCalendar(2015, Calendar.JUNE, 21, 2, 30));
+		baba2.setDataCheckIn(new GregorianCalendar(2015, Calendar.JUNE, 21, 2, 30));
 		Assert.assertEquals(baba2.getNumeroDeHoras(), 12);
 		Assert.assertEquals(baba2.getPreco(), 425, 0.0001);
-		baba2.setDataTermino(new GregorianCalendar(2015, Calendar.JUNE, 21, 20, 20));
+		baba2.setDataCheckOut(new GregorianCalendar(2015, Calendar.JUNE, 21, 20, 20));
 		Assert.assertEquals(baba2.getNumeroDeHoras(), 18);
 		Assert.assertEquals(baba2.getPreco(), 625, 0.0001);
 	}
