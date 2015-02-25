@@ -255,7 +255,18 @@ public class Acoes extends JPanel {
 					Contrato contrato = new Contrato(hospede, acompanhantes, Conector.transformaData(formattedTextFieldCheckIn.getText()),
 							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
 					
-					hotel.Hotel.adicionaContrato(contrato);
+					try {
+						hotel.Hotel.adicionaContrato(contrato);
+					} catch (ExecutivosDuploOcupadosException
+							| LuxosSimplesOcupadosException
+							| LuxosDuploOcupadosException
+							| LuxosTriploOcupadosException
+							| ExecutivosSimplesOcupadosException
+							| ExecutivosTriploOcupadosException
+							| SuitesPresidenciaisOcupadasException e1) {
+						AvisoQuartoIndisponivel aviso = new AvisoQuartoIndisponivel();
+						aviso.setVisible(true);
+					}
 					
 					
 					AvisoSucesso sucesso = new AvisoSucesso();

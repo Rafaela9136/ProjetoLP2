@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.CardLayout;
 
 import javax.swing.JTextPane;
+
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.CategoryDataset;
 
 import java.awt.Font;
 
@@ -54,6 +59,10 @@ public class Info extends JPanel {
 		panel.add(vazio, "vazio");
 		layout.show(panel, "vazio");
 		
+		panelEstatistica();
+	}
+
+	private void panelEstatistica() {
 		JPanel estatistica = new JPanel();
 		estatistica.setBackground(Color.WHITE);
 		panel.add(estatistica, "estatistica");
@@ -65,6 +74,19 @@ public class Info extends JPanel {
 		txtpnEstatisticas.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtpnEstatisticas.setEditable(false);
 		estatistica.add(txtpnEstatisticas);
+		
+		criaGrafico(estatistica);
+		
+	}
+
+	private void criaGrafico(JPanel estatistica) {
+		CategoryDataset dataset = GeradorDeGrafico.createDataset();
+		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setLocation(52, 208);
+		panel.setSize(660, 343);
+		panel.setPreferredSize(new Dimension(400, 300));
+		estatistica.add(panel);
 	}
 
 	private void panelOpinioes(JPanel panel) {
@@ -74,7 +96,7 @@ public class Info extends JPanel {
 		panelOpinioes.setLayout(null);
 		
 		JTextPane txtpnOpiniesDosClientes = new JTextPane();
-		txtpnOpiniesDosClientes.setText("Opiniões dos hospedes");
+		txtpnOpiniesDosClientes.setText("Opinioes dos hospedes");
 		txtpnOpiniesDosClientes.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtpnOpiniesDosClientes.setEditable(false);
 		txtpnOpiniesDosClientes.setBounds(47, 24, 185, 24);
@@ -123,7 +145,7 @@ public class Info extends JPanel {
 		JTextPane txtpnOValor = new JTextPane();
 		txtpnOValor.setEditable(false);
 		txtpnOValor.setFont(new Font("Dialog", Font.PLAIN, 11));
-		txtpnOValor.setText("* Taxa única. O valor desse serviço é adicionado ao montante total a ser pago uma unica vez.");
+		txtpnOValor.setText("* Taxa unica. O valor desse servico e adicionado ao montante total a ser pago uma unica vez.");
 		txtpnOValor.setBounds(47, 533, 491, 23);
 		panelServicos.add(txtpnOValor);
 		
