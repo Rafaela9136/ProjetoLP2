@@ -103,7 +103,7 @@ public class Hotel extends JFrame {
 		});
 		panelInfo.add(btnEstabelecimento);
 		
-		JButton btnServios = new JButton("Serviços");
+		JButton btnServios = new JButton("Servi\u00E7os");
 		btnServios.setBounds(12, 109, 204, 49);
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -112,7 +112,7 @@ public class Hotel extends JFrame {
 		});
 		panelInfo.add(btnServios);
 		
-		JButton btnOpinies = new JButton("Opiniões");
+		JButton btnOpinies = new JButton("Opini\u00F5es");
 		btnOpinies.setBounds(12, 180, 204, 49);
 		btnOpinies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

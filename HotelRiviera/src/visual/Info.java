@@ -1,7 +1,6 @@
 package visual;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -83,9 +82,7 @@ public class Info extends JPanel {
 		CategoryDataset dataset = GeradorDeGrafico.createDataset();
 		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);
-		panel.setLocation(52, 208);
-		panel.setSize(660, 343);
-		panel.setPreferredSize(new Dimension(400, 300));
+		panel.setBounds(52, 208, 660, 343);
 		estatistica.add(panel);
 	}
 
