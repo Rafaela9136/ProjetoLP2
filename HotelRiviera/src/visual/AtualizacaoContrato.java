@@ -34,9 +34,10 @@ public class AtualizacaoContrato extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -6722604404024761631L;
-	private final CardLayout layout = new CardLayout();
+	private static final CardLayout layout = new CardLayout();
 	
-	private JPanel panel;
+	private static JPanel panel;
+	private static JTextArea textAreaDadosHospede;
 	private JComboBox<String> comboBoxNota;
 	private JTextArea textArea;
 	private JTable tabela;
@@ -82,7 +83,7 @@ public class AtualizacaoContrato extends JPanel {
 		toolBar.setBounds(0, 0, 764, 32);
 		add(toolBar);
 		
-		JButton btnEditarDados = new JButton("   Editar dados do hospede titular   ");
+		JButton btnEditarDados = new JButton("  Editar dados do hospede titular ");
 		btnEditarDados.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,9 +91,18 @@ public class AtualizacaoContrato extends JPanel {
 				setaDados();
 			}
 		});
+		
+		JButton btnInformacoesGerais = new JButton(" Informacoes gerais ");
+		btnInformacoesGerais.setFont(new Font("Dialog", Font.PLAIN, 14));
+		toolBar.add(btnInformacoesGerais);
+		btnInformacoesGerais.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				layout.show(panel, "infoGerais");
+			}
+		});
 		toolBar.add(btnEditarDados);
 		
-		JButton btnEditarServicos = new JButton("   Adicionar e remover servicos   ");
+		JButton btnEditarServicos = new JButton(" Adicionar e remover servicos ");
 		btnEditarServicos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnEditarServicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +112,7 @@ public class AtualizacaoContrato extends JPanel {
 		});
 		toolBar.add(btnEditarServicos);
 		
-		JButton btnFecharContrato = new JButton("   Finalizar contrato   ");
+		JButton btnFecharContrato = new JButton(" Finalizar contrato ");
 		btnFecharContrato.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnFecharContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,10 +134,23 @@ public class AtualizacaoContrato extends JPanel {
 		panel.add(editarDadosHospede, "editarDadosHospede");
 		editarDadosHospede.setLayout(null);
 		
-		JPanel vazio = new JPanel();
-		vazio.setBackground(Color.WHITE);
-		panel.add(vazio, "vazio");
-		layout.show(panel, "vazio");
+		JPanel infoGerais = new JPanel();
+		infoGerais.setBackground(Color.WHITE);
+		panel.add(infoGerais, "infoGerais");
+		infoGerais.setLayout(null);
+		
+		textAreaDadosHospede = new JTextArea();
+		textAreaDadosHospede.setBackground(Color.WHITE);
+		textAreaDadosHospede.setEnabled(false);
+		textAreaDadosHospede.setFont(new Font("Dialog", Font.PLAIN, 14));
+		textAreaDadosHospede.setEditable(false);
+		textAreaDadosHospede.setBounds(47, 24, 681, 245);
+		infoGerais.add(textAreaDadosHospede);
+		
+		JTextArea textAreaDadosServicos = new JTextArea();
+		textAreaDadosServicos.setBounds(47, 282, 681, 264);
+		infoGerais.add(textAreaDadosServicos);
+		layout.show(panel, "infoGerais");
 		
 		hospedeDadosPrincipais(editarDadosHospede);
 		
@@ -161,6 +184,10 @@ public class AtualizacaoContrato extends JPanel {
 			}
 		});
 		editarDadosHospede.add(btnConfirma_2);
+	}
+
+	static void setaInfoGerais() {
+		textAreaDadosHospede.setText(Acoes.getContratoPesquisado().getHospedeTitular().toString());
 	}
 
 	private void editarServicos() throws ParseException {
@@ -557,5 +584,13 @@ public class AtualizacaoContrato extends JPanel {
 			Acoes.getContratoPesquisado().getHospedeTitular().setCpf(formattedTextFieldCPF.getText());
 			Acoes.getContratoPesquisado().getHospedeTitular().setEstado(Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()));
 		}
+	}
+	
+	public void limpaOpiniao(){
+		textArea = null;
+	}
+
+	public static void selecionaTela(String string) {
+		layout.show(panel, string);
 	}
 }

@@ -250,10 +250,12 @@ public class Acoes extends JPanel {
 				
 				criaQuarto(servicos);
 				criaHospede();
-				
+			
 				try {
 					Contrato contrato = new Contrato(hospede, acompanhantes, Conector.transformaData(formattedTextFieldCheckIn.getText()),
 							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
+
+
 					
 					try {
 						hotel.Hotel.adicionaContrato(contrato);
@@ -289,9 +291,13 @@ public class Acoes extends JPanel {
 	private void criaHospede() {
 		AvisoErro erro = new AvisoErro();
 		try {
-			hospede = new Hospede(textFieldNome.getText(), Conector.transformaData(formattedTextFieldData.getText()), (String) comboBoxPaises.getSelectedItem(),
-					Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()), textFieldCidade.getText(), textFieldLogradouro.getText(), textFieldNumero.getText(),
-					formattedTextFieldCPF.getText(), formattedTextFieldCartao.getText());
+			if(comboBoxPaises.getSelectedItem().equals("Brasil")){
+				hospede = new Hospede(textFieldNome.getText(), Conector.transformaData(formattedTextFieldData.getText()), (String) comboBoxPaises.getSelectedItem(),
+						Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()), textFieldCidade.getText(), textFieldLogradouro.getText(), textFieldNumero.getText(),
+						formattedTextFieldCPF.getText(), formattedTextFieldCartao.getText());
+			} else {
+				hospede = new Hospede(textFieldNome.getText(), Conector.transformaData(formattedTextFieldData.getText()),formattedTextFieldCartao.getText());
+			}
 		} catch (NullPointerException e1) {
 			erro.setVisible(true);
 		} catch (CPFInvalidoException e1) {
@@ -509,8 +515,10 @@ public class Acoes extends JPanel {
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				if(selecionaContrato(linha))
+				if(selecionaContrato(linha)){
 					layout.show(panel, "atualizaContrato");
+					AtualizacaoContrato.setaInfoGerais();
+				}
 			}
 		});
 		panelPesquisarContrato.add(btnAtualizarContrato);	

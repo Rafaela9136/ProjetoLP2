@@ -77,6 +77,7 @@ public class Hotel extends JFrame {
 		btnPesquisarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Acoes.selecionaTela("pesquisaContrato");
+				AtualizacaoContrato.selecionaTela("infoGerais");
 			}
 		});
 		panelRecursos.add(btnPesquisarContrato);
