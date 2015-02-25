@@ -25,7 +25,6 @@ public class Hotel {
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
 			ExecutivosTriploOcupadosException, FileNotFoundException,
 			ClassNotFoundException, IOException {
-
 		atualizaQuantQuartosParaContratosNovos(contrato);
 		List<Contrato> contratos = (List<Contrato>) InputObjetos(PATH_CONTRATOS);
 		contratos.add(contrato);
@@ -40,7 +39,7 @@ public class Hotel {
 		
 		for(Contrato contrato : contratos) 
 			opinioes.add(contrato.getOpiniao());
-		opinioes.sort(new OpiniaoComparator());
+		((Object) opinioes).sort(new OpiniaoComparator());
 		return opinioes;
 	}// getOpinioesComMaioresNotas
 
@@ -86,7 +85,14 @@ public class Hotel {
 			inputArquivo = new ObjectInputStream(new BufferedInputStream(
 					new FileInputStream(pathArquivo)));
 			obj = (Object) inputArquivo.readObject();
+		} catch(FileNotFoundException e) {
+			System.out.println("Entrou File");
+		} catch (IOException e) {
+			System.out.println("Entrou IOE");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Entrou class");
 		} finally {
+		
 			if (inputArquivo != null)
 				inputArquivo.close();
 		}
@@ -167,7 +173,7 @@ public class Hotel {
 			}// if(servico instanceof Quarto)
 		}// for
 		return quantASerRetirada;
-	}
+	}// quantASerRetirada
 
 	private static void atualizaQuantQuartosParaContratosNovos(Contrato contrato)
 			throws SuitesPresidenciaisOcupadasException,
@@ -183,14 +189,14 @@ public class Hotel {
 		int[] quantQuartosDesocupados = (int[]) InputObjetos(PATH_QUARTOS_DESOCUPADOS);
 
 		for (int i = 0; i < quantQuartosDesocupados.length; i++)
-			quantQuartosDesocupados[i] += quantASerRetirada[i];
+			quantQuartosDesocupados[i] -= quantASerRetirada[i];
 
 		outputObjetos(quantQuartosDesocupados, PATH_QUARTOS_DESOCUPADOS);
 
 	}// atualizaQuantQuartosParaContratosNovos
 
 	/*
-	 * para criaçao dos arquivos
+	 * para criaï¿½ao dos arquivos
 	 */
 //	public static void main(String[] args) throws FileNotFoundException,
 //			IOException, ClassNotFoundException {

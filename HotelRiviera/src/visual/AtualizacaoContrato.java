@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
@@ -54,6 +55,7 @@ public class AtualizacaoContrato extends JPanel {
 	private JTextField textFieldNome;
 	
 	// Variaveis para criar objetos
+	private AvisoErro erro = new AvisoErro();
 	private String[] colunas;	
 	private JTextField textFieldTotal;
 	
@@ -160,7 +162,6 @@ public class AtualizacaoContrato extends JPanel {
 		btnConfirma_2.setBounds(618, 546, 135, 25);
 		btnConfirma_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AvisoErro erro = new AvisoErro();
 				
 				try {
 					atualizaDados();
@@ -219,7 +220,6 @@ public class AtualizacaoContrato extends JPanel {
 		btnCancelarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				AvisoErro erro = new AvisoErro();
 				try {
 					if(removeServico(linha)){
 						AvisoSucesso sucesso = new AvisoSucesso();
@@ -291,7 +291,6 @@ public class AtualizacaoContrato extends JPanel {
 	}
 	
 	private void criaObjetosServicos(){
-		AvisoErro erro = new AvisoErro();
 		Servico servico = null;
 		if(comboBox.getSelectedItem().equals("Baba"))
 			servico = EdicaoServicos.contrataBaba();
@@ -397,7 +396,6 @@ public class AtualizacaoContrato extends JPanel {
 	}
 	
 	private void removeContrato() {
-		AvisoErro erro = new AvisoErro();
 		try {					
 			Acoes.getContratoPesquisado().inicializaOpiniao(Conector.trasformaNota((String) comboBoxNota.getSelectedItem()), textArea.getText());
 		} catch (NullPointerException e1) {
@@ -418,7 +416,11 @@ public class AtualizacaoContrato extends JPanel {
 			erro.setVisible(true);
 		}
 		
-		hotel.Hotel.removeContrato(Acoes.getContratoPesquisado());
+		try {
+			hotel.Hotel.removeContrato(Acoes.getContratoPesquisado());
+		} catch (ClassNotFoundException | IOException e) {
+			erro.setVisible(true);
+		}
 		
 		AvisoSucesso sucesso = new AvisoSucesso();
 		sucesso.setVisible(true);

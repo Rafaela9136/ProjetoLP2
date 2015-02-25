@@ -14,6 +14,8 @@ import javax.swing.JTextPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +62,7 @@ public class Acoes extends JPanel {
 	private JTable tabela;
 	
 	// Variaveis para criacao do contrato
+	private AvisoErro erro = new AvisoErro();
 	private List<String> acompanhantes;
 	private Quarto quarto;
 	private Hospede hospede;
@@ -203,7 +206,6 @@ public class Acoes extends JPanel {
 	
 	private void criaQuarto(List<Servico> servicos) {
 		
-		AvisoErro erro = new AvisoErro();
 		if(comboBoxQuarto.getSelectedItem().equals("Presidencial")){
 			try {
 				quarto = new SuitePresidencial(Conector.transformaData(formattedTextFieldCheckIn.getText()), Conector.transformaData(formattedTextFieldCheckOut.getText()));
@@ -245,7 +247,7 @@ public class Acoes extends JPanel {
 		btnConfirmar.setBounds(600, 574, 135, 25);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AvisoErro erro = new AvisoErro();
+				
 				List<Servico> servicos = new ArrayList<Servico>();
 				
 				criaQuarto(servicos);
@@ -265,7 +267,9 @@ public class Acoes extends JPanel {
 							| LuxosTriploOcupadosException
 							| ExecutivosSimplesOcupadosException
 							| ExecutivosTriploOcupadosException
-							| SuitesPresidenciaisOcupadasException e1) {
+							| SuitesPresidenciaisOcupadasException 
+							| ClassNotFoundException 
+							| IOException e1) {
 						AvisoQuartoIndisponivel aviso = new AvisoQuartoIndisponivel();
 						aviso.setVisible(true);
 					}
@@ -289,7 +293,6 @@ public class Acoes extends JPanel {
 	}
 	
 	private void criaHospede() {
-		AvisoErro erro = new AvisoErro();
 		try {
 			if(comboBoxPaises.getSelectedItem().equals("Brasil")){
 				hospede = new Hospede(textFieldNome.getText(), Conector.transformaData(formattedTextFieldData.getText()), (String) comboBoxPaises.getSelectedItem(),
@@ -494,7 +497,11 @@ public class Acoes extends JPanel {
 		btnAtualizarTabela.setBounds(47, 115, 135, 25);
 		btnAtualizarTabela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				atualizaTabela();
+				try {
+					atualizaTabela();
+				} catch (ClassNotFoundException | IOException e1) {
+					erro.setVisible(true);
+				}
 			}
 		});
 		panelPesquisarContrato.add(btnAtualizarTabela);
@@ -503,7 +510,11 @@ public class Acoes extends JPanel {
 		btnPesquisarContrato.setBounds(600, 113, 135, 25);
 		btnPesquisarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pesquisaTabela();
+				try {
+					pesquisaTabela();
+				} catch (ClassNotFoundException | IOException e1) {
+					erro.setVisible(true);
+				}
 			}
 		});
 		panelPesquisarContrato.add(btnPesquisarContrato);
@@ -515,9 +526,13 @@ public class Acoes extends JPanel {
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				if(selecionaContrato(linha)){
-					layout.show(panel, "atualizaContrato");
-					AtualizacaoContrato.setaInfoGerais();
+				try {
+					if(selecionaContrato(linha)){
+						layout.show(panel, "atualizaContrato");
+						AtualizacaoContrato.setaInfoGerais();
+					}
+				} catch (ClassNotFoundException | IOException e1) {
+					erro.setVisible(true);
 				}
 			}
 		});
@@ -525,7 +540,7 @@ public class Acoes extends JPanel {
 	}
 	
 	// ***ERRO*** Corrigir o erro de pesquisa substituindo ou usando dados.letgh pra pegar a informacao correta
-	private boolean selecionaContrato(int linha){
+	private boolean selecionaContrato(int linha) throws FileNotFoundException, ClassNotFoundException, IOException{
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
 			if(i == linha){
 				contratoPesquisado = hotel.Hotel.getContratos().get(i);
@@ -553,7 +568,7 @@ public class Acoes extends JPanel {
 		panelPesquisarContrato.add(scroll);
 	}
 	
-	private void pesquisaTabela(){
+	private void pesquisaTabela() throws FileNotFoundException, ClassNotFoundException, IOException{
 		String[][] dados = new String[hotel.Hotel.getContratos().size()][2];
 		int cont = 0;
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
@@ -576,7 +591,7 @@ public class Acoes extends JPanel {
 		tabela.setModel(model);		
 	}
 	
-	private void atualizaTabela() {
+	private void atualizaTabela() throws FileNotFoundException, ClassNotFoundException, IOException {
 		String[][] dados = new String[hotel.Hotel.getContratos().size()][2];
 		for (int i = 0; i < hotel.Hotel.getContratos().size(); i++) {
 			dados[i][0] = hotel.Hotel.getContratos().get(i).getHospedeTitular().getNome();

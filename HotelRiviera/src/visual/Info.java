@@ -82,7 +82,7 @@ public class Info extends JPanel {
 		CategoryDataset dataset = GeradorDeGrafico.createDataset();
 		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);
-		panel.setBounds(52, 208, 660, 343);
+		panel.setBounds(47, 287, 680, 296);
 		estatistica.add(panel);
 	}
 
@@ -143,7 +143,7 @@ public class Info extends JPanel {
 		txtpnOValor.setEditable(false);
 		txtpnOValor.setFont(new Font("Dialog", Font.PLAIN, 11));
 		txtpnOValor.setText("* Taxa unica. O valor desse servico e adicionado ao montante total a ser pago uma unica vez.");
-		txtpnOValor.setBounds(47, 533, 491, 23);
+		txtpnOValor.setBounds(47, 533, 682, 23);
 		panelServicos.add(txtpnOValor);
 		
 		
