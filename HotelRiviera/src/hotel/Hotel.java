@@ -14,16 +14,6 @@ import java.io.*;
 
 public class Hotel {
 
-	private static int numExecSimplesDesocupados = 5;
-	private static int numExecDuploDesocupados = 15;
-	private static int numExecTriploDesocupados = 20;
-
-	private static int numLuxoSimplesDesocupados = 5;
-	private static int numLuxoDuploDesocupados = 15;
-	private static int numLuxoTriploDesocupados = 20;
-
-	private static int numPresidencialDesocupados = 5;
-
 	private static final String PATH_CONTRATOS = "contratosHotel.dat";
 
 	private static final String PATH_QUARTOS_DESOCUPADOS = "quantQuartosDesocupados.dat";
@@ -104,10 +94,24 @@ public class Hotel {
 			Contrato contrato) throws FileNotFoundException, ClassNotFoundException, IOException {
 		
 		int[] quantASerRetirada = new int[7];
+		quantASerRetirada = quantidadeASerRetirada(contrato);
 		
-		for (int i = 0; i < quantASerRetirada.length; i++) {
+		int[] quantQuartosDesocupados = (int[]) InputObjetos(PATH_QUARTOS_DESOCUPADOS);
+		
+				
+		for (int i = 0; i < quantQuartosDesocupados.length; i++) 
+			quantQuartosDesocupados[i] += quantASerRetirada[i];
+		
+		outputObjetos(quantQuartosDesocupados, PATH_QUARTOS_DESOCUPADOS);
+		
+	}// atualizaQuantQuartosParaContratosVelhos
+
+	private static int[] quantidadeASerRetirada(Contrato contrato) {
+		int[] quantASerRetirada = new int[7];
+		
+		for (int i = 0; i < quantASerRetirada.length; i++)
 			quantASerRetirada[i] = 0;
-		}// for
+		
 		
 		for (Servico servico : contrato.getServicos()) {
 			if (servico instanceof Quarto) {
@@ -144,85 +148,27 @@ public class Hotel {
 
 			}// if(servico instanceof Quarto)
 		}// for
-		
-		int[] quantQuartosDesocupados = (int[]) InputObjetos(PATH_QUARTOS_DESOCUPADOS);
-		
-				
-		for (int i = 0; i < quantQuartosDesocupados.length; i++) 
-			quantQuartosDesocupados[i] += quantASerRetirada[i];
-		
-		outputObjetos(quantQuartosDesocupados, PATH_QUARTOS_DESOCUPADOS);
-		
-	}// atualizaQuantQuartosParaContratosVelhos
+		return quantASerRetirada;
+	}
 
 	private static void atualizaQuantQuartosParaContratosNovos(Contrato contrato)
 			throws SuitesPresidenciaisOcupadasException,
 			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
-			ExecutivosDuploOcupadosException, ExecutivosTriploOcupadosException {
-		int quantPresidenciais = 0;
-
-		int quantLuxoSimples = 0;
-		int quantLuxoDuplo = 0;
-		int quantLuxoTriplo = 0;
-
-		int quantExecutivoSimples = 0;
-		int quantExecutivoDuplo = 0;
-		int quantExecutivoTriplo = 0;
-		for (Servico servico : contrato.getServicos()) {
-			if (servico instanceof Quarto) {
-				if (servico instanceof SuitePresidencial) {
-					if (numPresidencialDesocupados == 0)
-						throw new SuitesPresidenciaisOcupadasException();
-					quantPresidenciais++;
-				} else if (servico instanceof QuartoLuxo) {
-					QuartoLuxo quarto = (QuartoLuxo) servico;
-					if (quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES)) {
-						if (numLuxoSimplesDesocupados == 0)
-							throw new LuxosSimplesOcupadosException();
-						quantLuxoSimples++;
-					} else if (quarto.getTipoDeQuarto().equals(
-							TiposDeQuarto.DUPLO)) {
-						if (numLuxoDuploDesocupados == 0)
-							throw new LuxosDuploOcupadosException();
-						quantLuxoDuplo++;
-					} else {
-						if (numLuxoTriploDesocupados == 0)
-							throw new LuxosTriploOcupadosException();
-						quantLuxoTriplo++;
-					}// if(quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES))-else
-				} else {
-					QuartoExecutivo quarto = (QuartoExecutivo) servico;
-					if (quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES)) {
-						if (numExecSimplesDesocupados == 0)
-							throw new ExecutivosSimplesOcupadosException();
-						quantExecutivoSimples++;
-					} else if (quarto.getTipoDeQuarto().equals(
-							TiposDeQuarto.DUPLO)) {
-						if (numExecDuploDesocupados == 0)
-							throw new ExecutivosDuploOcupadosException();
-						quantExecutivoDuplo++;
-					} else {
-						if (numExecTriploDesocupados == 0)
-							throw new ExecutivosTriploOcupadosException();
-						quantExecutivoTriplo++;
-					}// if(quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES))
-
-				}// if (servico instanceof SuitePresidencial)-else
-
-			}// if(servico instanceof Quarto)
-		}// for
-
-		numPresidencialDesocupados -= quantPresidenciais;
-
-		numExecSimplesDesocupados -= quantExecutivoSimples;
-		numExecDuploDesocupados -= quantExecutivoDuplo;
-		numExecTriploDesocupados -= quantExecutivoTriplo;
-
-		numLuxoSimplesDesocupados -= quantLuxoSimples;
-		numLuxoDuploDesocupados -= quantLuxoDuplo;
-		numLuxoTriploDesocupados -= quantLuxoTriplo;
-	}// atualizaQuantidadeDeQuartos
+			ExecutivosDuploOcupadosException, ExecutivosTriploOcupadosException, FileNotFoundException, IOException, ClassNotFoundException {
+		
+		int[] quantASerRetirada = new int[7];
+		quantASerRetirada = quantidadeASerRetirada(contrato);
+		
+		int[] quantQuartosDesocupados = (int[]) InputObjetos(PATH_QUARTOS_DESOCUPADOS);
+		
+		
+		for (int i = 0; i < quantQuartosDesocupados.length; i++) 
+			quantQuartosDesocupados[i] += quantASerRetirada[i];
+		
+		outputObjetos(quantQuartosDesocupados, PATH_QUARTOS_DESOCUPADOS);
+		
+	}// atualizaQuantQuartosParaContratosNovos
 
 	/*
 	 * para criaçao dos arquivos
