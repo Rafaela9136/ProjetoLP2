@@ -17,7 +17,7 @@ import javax.swing.border.LineBorder;
 
 import java.awt.Toolkit;
 
-public class Hotel extends JFrame {
+public class Principal extends JFrame {
 
 	/**
 	 * 
@@ -27,12 +27,10 @@ public class Hotel extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param quartosDesocupados 
-	 * @param contratos 
 	 * @throws ParseException 
 	 */
-	public Hotel(List<Contrato> contratos, int[] quartosDesocupados) throws ParseException {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/logo.png")));
+	public Principal() throws ParseException {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/resources/logo.png")));
 		inicializa();
 		telaAbas();
 	}

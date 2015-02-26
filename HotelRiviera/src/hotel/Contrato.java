@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,7 +26,7 @@ import excecoes.RemocaoInvalidaException;
  * @author Grupinho da Alegria
  * @version 2.0
  */
-public class Contrato {
+public class Contrato implements Serializable {
 	public static final boolean CONTRATO_ABERTO = true;
 	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;
 

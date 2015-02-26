@@ -1,6 +1,7 @@
 package visual;
 
 import hotel.Contrato;
+import hotel.Hotel;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -57,6 +58,7 @@ public class LoginJ extends JFrame {
 	 */
 	public static void main(String[] args) throws IOException, ParseException {
 		ObjectInputStream inputHotel = null;
+
 		try{
 			inputHotel = new ObjectInputStream(new BufferedInputStream(new FileInputStream(PATH_HOTEL)));
 			hotel = (Hotel) inputHotel.readObject();
@@ -91,6 +93,7 @@ public class LoginJ extends JFrame {
 		try {
 			
 		outputHotel = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(PATH_HOTEL)));
+		outputHotel.writeObject(hotel);
 		} finally {
 			if(outputHotel != null)
 				outputHotel.close();
@@ -118,7 +121,7 @@ public class LoginJ extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Hotel frame = hotel;
+					Principal frame = new Principal();
 					frame.setVisible(true);
 					dispose();
 				} catch (Exception e1) {

@@ -12,11 +12,7 @@ import excecoes.SuitesPresidenciaisOcupadasException;
 
 import java.io.*;
 
-public class Hotel {
-
-	public static final String PATH_CONTRATOS = "contratosHotel.dat";
-	public static final String PATH_OPINIOES = "opinioes.dat";
-	public static final String PATH_QUARTOS_DESOCUPADOS = "quantQuartosDesocupados.dat";
+public class Hotel implements Serializable {
 
 	private List<Contrato> contratos;
 	private int[] quantQuartosDesocupados;
