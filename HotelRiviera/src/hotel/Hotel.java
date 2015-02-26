@@ -76,14 +76,14 @@ public class Hotel implements Serializable {
 	private void atualizaQuantQuartosParaContratosVelhos(Contrato contrato) {
 
 		int[] quantASerSomada = new int[7];
-		quantASerSomada = quantidadeASerRetirada(contrato);
+		quantASerSomada = quantidadeDeQuartos(contrato);
 
 		for (int i = 0; i < quartosDesocupados.length; i++)
 			quartosDesocupados[i] += quantASerSomada[i];
 
 	}// atualizaQuantQuartosParaContratosVelhos
 
-	private int[] quantidadeASerRetirada(Contrato contrato) {
+	private int[] quantidadeDeQuartos(Contrato contrato) {
 		int[] quantASerRetirada = new int[7];
 
 		for (int i = 0; i < quantASerRetirada.length; i++)
@@ -137,7 +137,7 @@ public class Hotel implements Serializable {
 			ExecutivosDuploOcupadosException, ExecutivosTriploOcupadosException {
 
 		int[] quantASerRetirada = new int[7];
-		quantASerRetirada = quantidadeASerRetirada(contrato);
+		quantASerRetirada = quantidadeDeQuartos(contrato);
 
 		for (int i = 0; i < quartosDesocupados.length; i++)
 			quartosDesocupados[i] -= quantASerRetirada[i];
