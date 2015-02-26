@@ -553,6 +553,13 @@ public class Contrato implements Serializable {
 			return false;
 		return true;
 	}// equals
+	
+	private String toStringOpiniao() {
+		if(opiniao == null)
+			return "--";
+		
+		return opiniao.toString();
+	}// toStringOpiniao
 
 	@Override
 	public String toString() {
@@ -564,7 +571,7 @@ public class Contrato implements Serializable {
 				+ "\n\nServicos: \n"
 				+ servicos
 				+ "\n\nOpiniao: "
-				+ opiniao
+				+ toStringOpiniao()
 				+ "\nCheckIn: "
 				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn
 						.getTime())
