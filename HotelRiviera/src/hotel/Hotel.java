@@ -20,20 +20,17 @@ public class Hotel implements Serializable {
 	private static final long serialVersionUID = 5360355918182446792L;
 	private List<Contrato> contratos;
 	private int[] quartosDesocupados;
+	private List<Opiniao> opinioes;
 	
-	public Hotel(List<Contrato> contratos, int[] quartosDesocupados) throws NullPointerException {
-		if(contratos == null || quartosDesocupados == null)
+	public Hotel(List<Contrato> contratos, int[] quartosDesocupados, List<Opiniao> opinioes) throws NullPointerException {
+		if(contratos == null || quartosDesocupados == null || opinioes == null)
 			throw new NullPointerException();
 		
 		this.contratos = contratos;
 		this.quartosDesocupados = quartosDesocupados;
+		this.opinioes = opinioes;
 	}// Construtor
 	
-	@Override
-	public String toString() {
-		return "Hotel";
-	}
-
 	public void adicionaContrato(Contrato contrato)
 			throws ExecutivosDuploOcupadosException,
 			SuitesPresidenciaisOcupadasException,
@@ -45,19 +42,17 @@ public class Hotel implements Serializable {
 
 	}// adicionaContrato
 
-	public List<Opiniao> getOpinioesOrdenadas() throws FileNotFoundException,
-			ClassNotFoundException, IOException {
-		List<Opiniao> opinioes = new ArrayList<Opiniao>();
-
-		for (Contrato contrato : contratos)
-			opinioes.add(contrato.getOpiniao());
+	public List<Opiniao> getOpinioesOrdenadas() {
 		opinioes.sort(new OpiniaoComparator());
 		return opinioes;
 	}// getOpinioesComMaioresNotas
 
 	public boolean removeContrato(Contrato contrato) {
 		atualizaQuantQuartosParaContratosVelhos(contrato);
-		return contratos.remove(contrato);
+		boolean saida = contratos.remove(contrato);
+		if(saida)
+			opinioes.add(contrato.getOpiniao());
+		return saida;
 	}// removeContrato
 
 	public List<Contrato> getContratos() {
@@ -152,41 +147,48 @@ public class Hotel implements Serializable {
 	public int[] getQuartosDesocupados() {
 		return quartosDesocupados;
 	}
+	
+	@Override
+	public String toString() {
+		return "Hotel";
+	}
+
 
 	/*
-	 * para cria�ao dos arquivos
+	 * para criacao dos arquivos
 	 */
-	 public static void main(String[] args) throws FileNotFoundException,
-	 IOException, ClassNotFoundException {
-	
-	 int[] quartosDesocupados = new int[7];
-	
-	 quartosDesocupados[0] = 5;
-	 quartosDesocupados[1] = 15;
-	 quartosDesocupados[2] = 20;
-	 quartosDesocupados[3] = 5;
-	 quartosDesocupados[4] = 15;
-	 quartosDesocupados[5] = 20;
-	 quartosDesocupados[6] = 5;
-	 
-	 List<Contrato> contratos = new ArrayList<Contrato>();
-	
-	 List<Opiniao> opinioes = new ArrayList<Opiniao>();
-	 
-	ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("hotel.dat")));
-	out.writeObject(new Hotel(contratos, quartosDesocupados));
-	 out.close();
-	 System.out.println("Gravados com sucesso");
-	 
-	 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("hotel.dat")));
-	 Hotel hotel1 = (Hotel) in.readObject();
-	 in.close();
-	
-	 for (int i = 0; i < quartosDesocupados.length; i++) {
-	 System.out.println(hotel1.toString());
-	 System.out.println(hotel1.getContratos().size());
-	 System.out.println(hotel1.getQuartosDesocupados()[i]);
-	 }
-	 }// main
+//	 public static void main(String[] args) throws FileNotFoundException,
+//	 IOException, ClassNotFoundException {
+//	
+//	 int[] quartosDesocupados = new int[7];
+//	
+//	 quartosDesocupados[0] = 5;
+//	 quartosDesocupados[1] = 15;
+//	 quartosDesocupados[2] = 20;
+//	 quartosDesocupados[3] = 5;
+//	 quartosDesocupados[4] = 15;
+//	 quartosDesocupados[5] = 20;
+//	 quartosDesocupados[6] = 5;
+//	 
+//	 List<Contrato> contratos = new ArrayList<Contrato>();
+//	
+//	 List<Opiniao> opinioes = new ArrayList<Opiniao>();
+//	 
+// 
+//	ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("hotel.dat")));
+//	out.writeObject(new Hotel(contratos, quartosDesocupados, opinioes));
+//	 out.close();
+//	 System.out.println("Gravados com sucesso");
+//	 
+//	 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("hotel.dat")));
+//	 Hotel hotel1 = (Hotel) in.readObject();
+//	 in.close();
+//	
+//	 for (int i = 0; i < quartosDesocupados.length; i++) {
+//	 System.out.println(hotel1.toString());
+//	 System.out.println(hotel1.getContratos().size());
+//	 System.out.println(hotel1.getQuartosDesocupados()[i]);
+//	 }
+//	 }// main
 
 }// Hotel
