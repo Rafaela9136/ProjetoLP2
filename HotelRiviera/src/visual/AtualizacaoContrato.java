@@ -399,6 +399,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeContrato();
+				Acoes.selecionaTela("vazio");
 			}
 		});
 		fecharContrato.add(btnConfirmar);

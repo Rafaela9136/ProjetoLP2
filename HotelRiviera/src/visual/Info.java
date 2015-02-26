@@ -1,6 +1,6 @@
 package visual;
 
-import hotel.IndexQuartosDesocupados;
+import hotel.*;
 
 import java.awt.Color;
 
@@ -154,19 +154,19 @@ public class Info extends JPanel {
 	private void tabelaQuarto(JPanel panelServicos) {
 		String[] colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
 		String[][] dados = new String[][]{
-		    {"Presidencial", "R$ " + Double.toString(hotel.SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
+		    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.SUITE_PRESIDENCIAL.ordinal()))},
-		    {"Luxo Simples", "R$ " + Double.toString(hotel.QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
+		    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_SIMPLES.ordinal()))},
-		    {"Luxo Duplo", "R$ " + Double.toString(hotel.QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
+		    {"Luxo Duplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_DUPLO.ordinal()))},
-		    {"Luxo Triplo", "R$ " + Double.toString(hotel.QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
+		    {"Luxo Triplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_TRIPLO.ordinal()))},
-		    {"Executivo Simples", "R$ " + Double.toString(hotel.QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
+		    {"Executivo Simples", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_SIMPLES.ordinal()))},
-		    {"Executivo Duplo", "R$ " + Double.toString(hotel.QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
+		    {"Executivo Duplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
 		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_DUPLO.ordinal()))},
-		    {"Executivo Triplo", "R$ " + Double.toString(hotel.QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
+		    {"Executivo Triplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
 		    		Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_TRIPLO.ordinal()))},
 		};
 		
@@ -182,12 +182,12 @@ public class Info extends JPanel {
 	}
 
 	private void tabelaCarro(JPanel panelServicos) {
-		String[] colunas = new String[]{"Aluguel de carro","Valor da diaria","Total no hotel", "Total disponivel"};
+		String[] colunas = new String[]{"Aluguel de carro","Valor da diaria"};
 		String[][] dados = new String[][]{
-			    {"Automovel Luxo", "R$ 100.00", "?"},
-			    {"Automovel Executivo", "R$ 60.00", "?"},
-			    {"Tanque Cheio*", "R$ " + Double.toString(hotel.Carro.VALOR_TANQUE_CHEIO), "--", "--"},
-			    {"Seguro*", "R$ " + Double.toString(hotel.Carro.VALOR_DO_SEGURO), "--", "--"}
+			    {"Automovel Luxo", "R$ 100.00"},
+			    {"Automovel Executivo", "R$ 60.00"},
+			    {"Tanque Cheio*", "R$ " + Double.toString(Carro.VALOR_TANQUE_CHEIO)},
+			    {"Seguro*", "R$ " + Double.toString(Carro.VALOR_DO_SEGURO)}
 		};
 		
 		JTable tabela = new JTable();
@@ -204,8 +204,8 @@ public class Info extends JPanel {
 	private void tabelaBaba(JPanel panelServicos) {
 		String[] colunas = new String[]{"Servico babysitter","Valor"};
 		String[][] dados = new String[][]{
-				{"Babysitter (hora normal)", "R$ " + Double.toString(hotel.Baba.VALOR_HORA)},
-			    {"Babysitter (hora dobrada)", "R$ " + Double.toString(hotel.Baba.VALOR_HORA_DOBRADA)},
+				{"Babysitter (hora normal)", "R$ " + Double.toString(Baba.VALOR_HORA)},
+			    {"Babysitter (hora dobrada)", "R$ " + Double.toString(Baba.VALOR_HORA_DOBRADA)},
 		};
 		
 		JTable tabela = new JTable();
