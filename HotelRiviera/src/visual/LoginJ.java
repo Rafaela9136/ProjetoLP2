@@ -1,5 +1,7 @@
 package visual;
 
+import hotel.Contrato;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +15,23 @@ import javax.swing.UIManager;
 
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
+
 import java.awt.Toolkit;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginJ extends JFrame {
 
@@ -30,11 +45,32 @@ public class LoginJ extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblLogin;
 	private JLabel lblSenha;
+	
+	private static Hotel hotel;
+	
+	private final static String PATH_HOTEL = "hotel.dat";
 
 	/**
 	 * Launch the application.
+	 * @throws IOException 
+	 * @throws ParseException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException, ParseException {
+		ObjectInputStream inputHotel = null;
+		try{
+			inputHotel = new ObjectInputStream(new BufferedInputStream(new FileInputStream(PATH_HOTEL)));
+			hotel = (Hotel) inputHotel.readObject();
+
+		} catch(ClassNotFoundException e) {
+			System.out.println("Deu ClasshNotFoundException, ou seja, fudeu!!");
+		
+		}finally {
+		if(inputHotel != null)
+			inputHotel.close();
+			
+		}// if
+		
+
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 		} catch (Throwable e) {
@@ -51,7 +87,15 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
-	}
+		ObjectOutputStream outputHotel = null;
+		try {
+			
+		outputHotel = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(PATH_HOTEL)));
+		} finally {
+			if(outputHotel != null)
+				outputHotel.close();
+		}// try-catch
+	}// main
 
 	/**
 	 * Create the frame.
@@ -74,7 +118,7 @@ public class LoginJ extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Hotel frame = new Hotel();
+					Hotel frame = hotel;
 					frame.setVisible(true);
 					dispose();
 				} catch (Exception e1) {
@@ -108,4 +152,6 @@ public class LoginJ extends JFrame {
 		lblNewLabel.setBounds(0, 0, 519, 351);
 		contentPane.add(lblNewLabel);
 	}
+	
+	
 }

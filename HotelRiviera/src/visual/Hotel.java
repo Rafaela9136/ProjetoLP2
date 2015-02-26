@@ -1,5 +1,7 @@
 package visual;
 
+import hotel.Contrato;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -8,9 +10,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
+
 import java.awt.Toolkit;
 
 public class Hotel extends JFrame {
@@ -23,9 +27,11 @@ public class Hotel extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param quartosDesocupados 
+	 * @param contratos 
 	 * @throws ParseException 
 	 */
-	public Hotel() throws ParseException {
+	public Hotel(List<Contrato> contratos, int[] quartosDesocupados) throws ParseException {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Hotel.class.getResource("/resources/logo.png")));
 		inicializa();
 		telaAbas();
