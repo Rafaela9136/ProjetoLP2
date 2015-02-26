@@ -638,8 +638,6 @@ public class Contrato implements Serializable {
 			throws NullPointerException, NomeInvalidoException {
 		if (acompanhantes == null)
 			throw new NullPointerException();
-		if (acompanhantes.contains(""))
-			throw new NomeInvalidoException();
 	}// verificaAcompananteValido
 
 }// Contrato
