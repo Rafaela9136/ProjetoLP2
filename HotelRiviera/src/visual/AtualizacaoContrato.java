@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
@@ -684,10 +683,16 @@ public class AtualizacaoContrato extends JPanel {
 							Conector.selecionaEstado((String) comboBoxEstados
 									.getSelectedItem()));
 		}
+		try {
+			Acoes.getContratoPesquisado().adicionaAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
+					.getText().split(",")));
+		} catch (NomeInvalidoException e) {
+			erro.setVisible(true);
+		};
 	}
 
 	public void limpaOpiniao() {
-		textArea = null;
+		textArea.setText("");
 	}
 
 	public static void selecionaTela(String string) {

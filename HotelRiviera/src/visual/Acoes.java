@@ -304,6 +304,8 @@ public class Acoes extends JPanel {
 					erro.setVisible(true);
 				} catch (DataInvalidaException e1) {
 					erro.setVisible(true);
+				} catch (NomeInvalidoException e2) {
+					erro.setVisible(true);
 				}
 			}
 		});
