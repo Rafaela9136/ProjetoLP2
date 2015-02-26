@@ -561,7 +561,7 @@ public class Contrato implements Serializable {
 				+ hospedeTitular
 				+ "\n\nAcompanhantes: "
 				+ acompanhantes
-				+ "\n\nServicos: "
+				+ "\n\nServicos: \n"
 				+ servicos
 				+ "\n\nOpiniao: "
 				+ opiniao

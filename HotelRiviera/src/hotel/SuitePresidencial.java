@@ -65,7 +65,7 @@ public class SuitePresidencial extends Quarto {
 
 	@Override
 	public String toString() {
-		return "Suite Presidencial: " + getPreco() + super.toString();
+		return "\nSuite Presidencial: " + getPreco() + super.toString();
 	}
 	
 	
