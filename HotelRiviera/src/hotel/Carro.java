@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ import excecoes.DataInvalidaException;
  * @version 1.0
  *
  */
-public class Carro implements Servico {
+public class Carro implements Servico, Serializable {
 	public static final double VALOR_TANQUE_CHEIO = 150;
 	public static final double VALOR_DO_SEGURO = 100;
 	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;

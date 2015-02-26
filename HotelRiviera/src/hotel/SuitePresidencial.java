@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.DataInvalidaException;

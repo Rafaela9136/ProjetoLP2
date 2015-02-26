@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.ValorNegativoException;
@@ -10,7 +11,7 @@ import excecoes.ValorNegativoException;
  * @version Final.
  *
  */
-public class ContaRestaurante implements Servico {
+public class ContaRestaurante implements Servico, Serializable {
 	private Calendar data;
 	private double valor;
 	

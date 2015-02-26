@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.ComentarioVazioException;
@@ -13,7 +14,7 @@ import excecoes.NotaInvalidaException;
  * @author Grupo
  * @version 1.0
  */
-public class Opiniao implements Comparable<Opiniao> {
+public class Opiniao implements Comparable<Opiniao>, Serializable {
 	public static final float NOTA_MAX = 10;
 	public static final float NOTA_MIN = 0;
 

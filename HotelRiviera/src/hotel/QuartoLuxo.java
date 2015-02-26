@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.CamaExtraException;
@@ -10,7 +11,7 @@ import excecoes.DataInvalidaException;
  * duplo (2 hospedes) ou triplo (tres hospedes).
  * 
  */
-public class QuartoLuxo extends Quarto{
+public class QuartoLuxo extends Quarto {
 	
 	public static final double DIARIA_LUXO_SIMPLES = 520.0;
 	public static final double DIARIA_LUXO_DUPLO = 570.0;

@@ -25,6 +25,7 @@ import java.awt.Toolkit;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -91,6 +92,10 @@ public class LoginJ extends JFrame {
 				}
 			}
 		});
+
+	}// main
+
+	static void salvaHotel() throws IOException, FileNotFoundException {
 		ObjectOutputStream outputHotel = null;
 		try {
 
@@ -102,7 +107,7 @@ public class LoginJ extends JFrame {
 			if (outputHotel != null)
 				outputHotel.close();
 		}// try-finally
-	}// main
+	}
 
 	public static Hotel getHotel() {
 		return hotel;

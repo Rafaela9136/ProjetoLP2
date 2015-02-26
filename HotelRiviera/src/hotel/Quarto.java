@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.DataInvalidaException;
@@ -8,7 +9,7 @@ import excecoes.DataInvalidaException;
  * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e presidencial.
  * Quartos do tipo executivo e luxo existem nas categorias simples, duplo e triplo.
  */
-public abstract class Quarto implements Servico {
+public abstract class Quarto implements Servico, Serializable {
 
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";
 	private boolean CamaExtra;

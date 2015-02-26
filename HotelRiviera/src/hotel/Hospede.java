@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -22,7 +23,7 @@ import excecoes.StringVaziaException;
  * @version 1.0
  *
  */
-public class Hospede {
+public class Hospede implements Serializable {
 
 	private static final String SET_NAO_MORA_NO_BRASIL = "--";
 	public static final boolean NAO_BRASILEIRO = false;

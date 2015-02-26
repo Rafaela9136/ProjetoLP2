@@ -1,6 +1,8 @@
 package hotel;
 
-public enum TipoCarro {
+import java.io.Serializable;
+
+public enum TipoCarro implements Serializable {
 	LUXO("Luxo", 100), EXECUTIVO("Executivo", 60);
 
 	private String nome;

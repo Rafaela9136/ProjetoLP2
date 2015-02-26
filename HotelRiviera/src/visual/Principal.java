@@ -3,12 +3,15 @@ package visual;
 import hotel.Contrato;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.List;
 
@@ -16,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
 import java.awt.Toolkit;
+import java.io.IOException;
 
 public class Principal extends JFrame {
 
@@ -38,14 +42,30 @@ public class Principal extends JFrame {
 	private void inicializa() {
 		setTitle("Hotel Riviera Campina");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 1024, 705);
 		contentPane = new JPanel();
 		contentPane.setBorder(new LineBorder(new Color(51, 51, 0), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		
+		
+		addWindowFocusListener(new WindowAdapter() {  
+		    public void windowClosing(WindowEvent evt) {  
+		        if (JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
+		        	try {
+						LoginJ.salvaHotel();
+					} catch (IOException e) {
+						AvisoErro erro = new AvisoErro();
+						erro.setVisible(true);
+						e.printStackTrace();
+					}
+		        	System.exit(0);
+		}  
+		    }});
 	}
+
 
 	private void telaAbas() throws ParseException {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -143,6 +163,12 @@ public class Principal extends JFrame {
 		btnSair.setBounds(12, 575, 204, 49);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					LoginJ.salvaHotel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				System.exit(0);
 			}
 		});

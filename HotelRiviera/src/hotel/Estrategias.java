@@ -1,9 +1,10 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public enum Estrategias {
+public enum Estrategias implements Serializable {
 	SAO_JOAO_PREMIUM("Sao Joao Premium +50%%", 23, 29, Calendar.JUNE,
 			Calendar.JUNE, 1.5, Calendar.getInstance().YEAR),
 	SAO_JOAO("Sao Joao +10%%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.1,

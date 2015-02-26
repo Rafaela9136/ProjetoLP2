@@ -1,10 +1,11 @@
 package hotel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Conector {
+public class Conector implements Serializable {
 
 	private static List<String> lista = new ArrayList<String>();
 

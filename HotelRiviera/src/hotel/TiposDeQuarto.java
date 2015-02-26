@@ -1,6 +1,8 @@
 package hotel;
 
-public enum TiposDeQuarto {
+import java.io.Serializable;
+
+public enum TiposDeQuarto implements Serializable {
 	SIMPLES(1, 5, true), DUPLO(2, 15, true), TRIPLO(3, 20, false);
 	
 	private int MAX_HOSPEDES;

@@ -1,5 +1,6 @@
 package hotel;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -16,7 +17,7 @@ import excecoes.DataInvalidaException;
  * @version 1.0
  *
  */
-public class Baba implements Servico {
+public class Baba implements Servico, Serializable {
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
 	public static final int INICIO_HORA_DOBRADA = 18; // entre 18h e 7h o preco

@@ -19,14 +19,14 @@ public class Hotel implements Serializable {
 	 */
 	private static final long serialVersionUID = 5360355918182446792L;
 	private List<Contrato> contratos;
-	private int[] quantQuartosDesocupados;
+	private int[] quartosDesocupados;
 	
-	public Hotel(List<Contrato> contratos, int[] quantQuartosDesocupados) throws NullPointerException {
-		if(contratos == null || quantQuartosDesocupados == null)
+	public Hotel(List<Contrato> contratos, int[] quartosDesocupados) throws NullPointerException {
+		if(contratos == null || quartosDesocupados == null)
 			throw new NullPointerException();
 		
 		this.contratos = contratos;
-		this.quantQuartosDesocupados = quantQuartosDesocupados;
+		this.quartosDesocupados = quartosDesocupados;
 	}// Construtor
 	
 	@Override
@@ -83,8 +83,8 @@ public class Hotel implements Serializable {
 		int[] quantASerSomada = new int[7];
 		quantASerSomada = quantidadeASerRetirada(contrato);
 
-		for (int i = 0; i < quantQuartosDesocupados.length; i++)
-			quantQuartosDesocupados[i] += quantASerSomada[i];
+		for (int i = 0; i < quartosDesocupados.length; i++)
+			quartosDesocupados[i] += quantASerSomada[i];
 
 	}// atualizaQuantQuartosParaContratosVelhos
 
@@ -144,40 +144,49 @@ public class Hotel implements Serializable {
 		int[] quantASerRetirada = new int[7];
 		quantASerRetirada = quantidadeASerRetirada(contrato);
 
-		for (int i = 0; i < quantQuartosDesocupados.length; i++)
-			quantQuartosDesocupados[i] -= quantASerRetirada[i];
+		for (int i = 0; i < quartosDesocupados.length; i++)
+			quartosDesocupados[i] -= quantASerRetirada[i];
 
 	}// atualizaQuantQuartosParaContratosNovos
+	
+	public int[] getQuartosDesocupados() {
+		return quartosDesocupados;
+	}
 
 	/*
 	 * para cria�ao dos arquivos
 	 */
-	// public static void main(String[] args) throws FileNotFoundException,
-	// IOException, ClassNotFoundException {
-	//
-	// int[] quartosDesocupados = new int[7];
-	//
-	// quartosDesocupados[0] = 5;
-	// quartosDesocupados[1] = 15;
-	// quartosDesocupados[2] = 20;
-	// quartosDesocupados[3] = 5;
-	// quartosDesocupados[4] = 15;
-	// quartosDesocupados[5] = 20;
-	// quartosDesocupados[6] = 5;
-	// outputObjetos(quartosDesocupados, PATH_QUARTOS_DESOCUPADOS);
-	//
-	// List<Contrato> contratos = new ArrayList<Contrato>();
-	// outputObjetos(contratos, PATH_CONTRATOS);
-	//
-	// List<Opiniao> opinioes = new ArrayList<Opiniao>();
-	// outputObjetos(opinioes, PATH_OPINIOES);
-	//
-	// System.out.println("Gravados com sucesso");
-	// quartosDesocupados = (int[]) InputObjetos(PATH_QUARTOS_DESOCUPADOS);
-	//
-	// for (int i = 0; i < quartosDesocupados.length; i++) {
-	// System.out.println(quartosDesocupados[i]);
-	// }
-	// }// main
+	 public static void main(String[] args) throws FileNotFoundException,
+	 IOException, ClassNotFoundException {
+	
+	 int[] quartosDesocupados = new int[7];
+	
+	 quartosDesocupados[0] = 5;
+	 quartosDesocupados[1] = 15;
+	 quartosDesocupados[2] = 20;
+	 quartosDesocupados[3] = 5;
+	 quartosDesocupados[4] = 15;
+	 quartosDesocupados[5] = 20;
+	 quartosDesocupados[6] = 5;
+	 
+	 List<Contrato> contratos = new ArrayList<Contrato>();
+	
+	 List<Opiniao> opinioes = new ArrayList<Opiniao>();
+	 
+	ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("hotel.dat")));
+	out.writeObject(new Hotel(contratos, quartosDesocupados));
+	 out.close();
+	 System.out.println("Gravados com sucesso");
+	 
+	 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("hotel.dat")));
+	 Hotel hotel1 = (Hotel) in.readObject();
+	 in.close();
+	
+	 for (int i = 0; i < quartosDesocupados.length; i++) {
+	 System.out.println(hotel1.toString());
+	 System.out.println(hotel1.getContratos().size());
+	 System.out.println(hotel1.getQuartosDesocupados()[i]);
+	 }
+	 }// main
 
 }// Hotel
