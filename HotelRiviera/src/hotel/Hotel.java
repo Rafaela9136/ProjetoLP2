@@ -14,6 +14,10 @@ import java.io.*;
 
 public class Hotel implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5360355918182446792L;
 	private List<Contrato> contratos;
 	private int[] quantQuartosDesocupados;
 	
@@ -23,6 +27,7 @@ public class Hotel implements Serializable {
 		
 		this.contratos = contratos;
 		this.quantQuartosDesocupados = quantQuartosDesocupados;
+		
 	}// Construtor
 
 	public void adicionaContrato(Contrato contrato)
