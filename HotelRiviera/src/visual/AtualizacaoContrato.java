@@ -16,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -91,6 +92,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layout.show(panel, "editarDadosHospede");
+				System.out.println(Acoes.getContratoPesquisado().toString());
 				setaDados();
 			}
 		});
@@ -144,16 +146,14 @@ public class AtualizacaoContrato extends JPanel {
 		infoGerais.setLayout(null);
 
 		textAreaDadosHospede = new JTextArea();
-		textAreaDadosHospede.setBackground(Color.WHITE);
+		textAreaDadosHospede.setForeground(Color.BLACK);
 		textAreaDadosHospede.setEnabled(false);
+		textAreaDadosHospede.setLineWrap(true);
+		textAreaDadosHospede.setBackground(Color.WHITE);
 		textAreaDadosHospede.setFont(new Font("Dialog", Font.PLAIN, 14));
 		textAreaDadosHospede.setEditable(false);
-		textAreaDadosHospede.setBounds(47, 24, 681, 245);
+		textAreaDadosHospede.setBounds(47, 24, 681, 510);
 		infoGerais.add(textAreaDadosHospede);
-
-		JTextArea textAreaDadosServicos = new JTextArea();
-		textAreaDadosServicos.setBounds(47, 282, 681, 264);
-		infoGerais.add(textAreaDadosServicos);
 		layout.show(panel, "infoGerais");
 
 		hospedeDadosPrincipais(editarDadosHospede);
@@ -190,8 +190,7 @@ public class AtualizacaoContrato extends JPanel {
 	}
 
 	static void setaInfoGerais() {
-		textAreaDadosHospede.setText(Acoes.getContratoPesquisado()
-				.getHospedeTitular().toString());
+		textAreaDadosHospede.setText(Acoes.getContratoPesquisado().toString());
 	}
 
 	private void editarServicos() throws ParseException {
@@ -310,6 +309,10 @@ public class AtualizacaoContrato extends JPanel {
 			sucesso.setVisible(true);
 		} catch (AddQuartoContratoException e) {
 			erro.setVisible(true);
+		} catch (NullPointerException e) {
+			erro.setVisible(true);
+		} catch (ServicoInvalidoException e) {
+			erro.setVisible(true);
 		}
 
 	}
@@ -348,8 +351,10 @@ public class AtualizacaoContrato extends JPanel {
 	private boolean removeServico(int linha) throws RemocaoInvalidaException {
 		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
 			if (i == linha) {
-				Acoes.getContratoPesquisado().removeServico(
-						Acoes.getContratoPesquisado().getServicos().get(i));
+				if(JOptionPane.showConfirmDialog(null,"Deseja cancelar esse servico?")==JOptionPane.OK_OPTION){
+					Acoes.getContratoPesquisado().removeServico(
+							Acoes.getContratoPesquisado().getServicos().get(i));
+				}
 				return true;
 			}
 		}
@@ -425,13 +430,11 @@ public class AtualizacaoContrato extends JPanel {
 		} catch (ContratoFechadoException e1) {
 			erro.setVisible(true);
 		} catch (ContratoSemOpiniaoException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Tente novamente!");
 		}
-
+		
+		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
 		LoginJ.getHotel().removeContrato(Acoes.getContratoPesquisado());
-
-		AvisoSucesso sucesso = new AvisoSucesso();
-		sucesso.setVisible(true);
 	}
 
 	private void hospedeDadosPrincipais(JPanel panelNovoContrato)

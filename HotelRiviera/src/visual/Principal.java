@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
@@ -18,13 +19,14 @@ import javax.swing.border.LineBorder;
 import java.awt.Toolkit;
 import java.io.IOException;
 
-public class Principal extends JFrame {
+public class Principal extends JFrame implements WindowListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3535604559092678721L;
 	private JPanel contentPane;
+	private AvisoErro erro = new AvisoErro();
 
 	/**
 	 * Create the frame.
@@ -48,15 +50,13 @@ public class Principal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		
-		addWindowFocusListener(new WindowAdapter() {  
+		addWindowListener(new WindowAdapter() {  
 		    public void windowClosing(WindowEvent evt) {  
 		        if (JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
 		        	try {
 						LoginJ.salvaHotel();
 					} catch (IOException e) {
-						AvisoErro erro = new AvisoErro();
 						erro.setVisible(true);
-						e.printStackTrace();
 					}
 		        	System.exit(0);
 		}  
@@ -160,15 +160,44 @@ public class Principal extends JFrame {
 		btnSair.setBounds(12, 575, 204, 49);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					LoginJ.salvaHotel();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
+					try {
+						LoginJ.salvaHotel();
+					} catch (IOException e1) {
+						erro.setVisible(true);
+					}
+					System.exit(0);
 				}
-				System.exit(0);
 			}
 		});
 		panel.add(btnSair);
+	}
+	
+	@Override
+	public void windowActivated(WindowEvent e) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {	
 	}
 }

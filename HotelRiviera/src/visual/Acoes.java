@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -62,7 +63,6 @@ public class Acoes extends JPanel {
 	private JTable tabela;
 
 	// Variaveis para criacao do contrato
-	private AvisoErro erro = new AvisoErro();
 	private List<String> acompanhantes;
 	private Quarto quarto;
 	private Hospede hospede;
@@ -217,9 +217,9 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 			} catch (DataInvalidaException e) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 			}
 			servicos.add(quarto);
 		}
@@ -234,11 +234,11 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Não é possível adicionar mais camas!");
 			} catch (DataInvalidaException e) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 			}
 		}
 		if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
@@ -252,11 +252,11 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Não é possível adicionar mais camas!");
 			} catch (DataInvalidaException e) {
-				erro.setVisible(true);
+				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 			}
 		}
 	}
@@ -289,23 +289,21 @@ public class Acoes extends JPanel {
 							| ExecutivosSimplesOcupadosException
 							| ExecutivosTriploOcupadosException
 							| SuitesPresidenciaisOcupadasException e1) {
-						AvisoQuartoIndisponivel aviso = new AvisoQuartoIndisponivel();
-						aviso.setVisible(true);
+						JOptionPane.showMessageDialog(null,"Algo está errado. Quarto indisponível!");
 					}
 
-					AvisoSucesso sucesso = new AvisoSucesso();
-					sucesso.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Contrato criado com sucesso!");
 
 					layout.show(panel, "vazio");
 					limpaCampos();
 				} catch (NullPointerException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 				} catch (ContratoSemQuartoException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Adicione pelo menos um quarto!");
 				} catch (DataInvalidaException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 				} catch (NomeInvalidoException e2) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Nome invalido!");
 				}
 			}
 		});
@@ -331,19 +329,17 @@ public class Acoes extends JPanel {
 								.getText()), formattedTextFieldCartao.getText());
 			}
 		} catch (NullPointerException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 		} catch (CPFInvalidoException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número do CPF!");
 		} catch (DataInvalidaException e1) {
-			erro.setVisible(true);
-		} catch (StringVaziaException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 		} catch (CartaoInvalidoException e1) {
-			erro.setVisible(true);
-		} catch (StringInvalidaException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número do cartão!");
+		} catch (StringVaziaException | StringInvalidaException e1) {
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
 		} catch (NumeroInvalidoException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique seu numero!");
 		}
 	}// **
 
@@ -623,7 +619,7 @@ public class Acoes extends JPanel {
 				try {
 					atualizaTabela();
 				} catch (ClassNotFoundException | IOException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});
@@ -636,7 +632,7 @@ public class Acoes extends JPanel {
 				try {
 					pesquisaTabela();
 				} catch (ClassNotFoundException | IOException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});
@@ -655,7 +651,7 @@ public class Acoes extends JPanel {
 						AtualizacaoContrato.setaInfoGerais();
 					}
 				} catch (ClassNotFoundException | IOException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});
