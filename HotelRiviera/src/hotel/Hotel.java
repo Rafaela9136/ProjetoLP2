@@ -157,38 +157,38 @@ public class Hotel implements Serializable {
 	/*
 	 * para criacao dos arquivos
 	 */
-//	 public static void main(String[] args) throws FileNotFoundException,
-//	 IOException, ClassNotFoundException {
-//	
-//	 int[] quartosDesocupados = new int[7];
-//	
-//	 quartosDesocupados[0] = 5;
-//	 quartosDesocupados[1] = 15;
-//	 quartosDesocupados[2] = 20;
-//	 quartosDesocupados[3] = 5;
-//	 quartosDesocupados[4] = 15;
-//	 quartosDesocupados[5] = 20;
-//	 quartosDesocupados[6] = 5;
-//	 
-//	 List<Contrato> contratos = new ArrayList<Contrato>();
-//	
-//	 List<Opiniao> opinioes = new ArrayList<Opiniao>();
-//	 
-// 
-//	ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("hotel.dat")));
-//	out.writeObject(new Hotel(contratos, quartosDesocupados, opinioes));
-//	 out.close();
-//	 System.out.println("Gravados com sucesso");
-//	 
-//	 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("hotel.dat")));
-//	 Hotel hotel1 = (Hotel) in.readObject();
-//	 in.close();
-//	
-//	 for (int i = 0; i < quartosDesocupados.length; i++) {
-//	 System.out.println(hotel1.toString());
-//	 System.out.println(hotel1.getContratos().size());
-//	 System.out.println(hotel1.getQuartosDesocupados()[i]);
-//	 }
-//	 }// main
+	 public static void main(String[] args) throws FileNotFoundException,
+	 IOException, ClassNotFoundException {
+	
+	 int[] quartosDesocupados = new int[7];
+	
+	 quartosDesocupados[0] = 5;
+	 quartosDesocupados[1] = 15;
+	 quartosDesocupados[2] = 20;
+	 quartosDesocupados[3] = 5;
+	 quartosDesocupados[4] = 15;
+	 quartosDesocupados[5] = 20;
+	 quartosDesocupados[6] = 5;
+	 
+	 List<Contrato> contratos = new ArrayList<Contrato>();
+	
+	 List<Opiniao> opinioes = new ArrayList<Opiniao>();
+	 
+ 
+	ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("hotel.dat")));
+	out.writeObject(new Hotel(contratos, quartosDesocupados, opinioes));
+	 out.close();
+	 System.out.println("Gravados com sucesso");
+	 
+	 ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("hotel.dat")));
+	 Hotel hotel1 = (Hotel) in.readObject();
+	 in.close();
+	
+	 for (int i = 0; i < quartosDesocupados.length; i++) {
+	 System.out.println(hotel1.toString());
+	 System.out.println(hotel1.getContratos().size());
+	 System.out.println(hotel1.getQuartosDesocupados(i));
+	 }
+	 }// main
 
 }// Hotel
