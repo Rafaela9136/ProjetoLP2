@@ -1,6 +1,5 @@
 package visual;
 
-import hotel.Contrato;
 import hotel.Hotel;
 
 import java.awt.EventQueue;
@@ -29,11 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginJ extends JFrame {
 

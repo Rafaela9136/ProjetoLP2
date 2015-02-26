@@ -1,7 +1,5 @@
 package visual;
 
-import hotel.Contrato;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;

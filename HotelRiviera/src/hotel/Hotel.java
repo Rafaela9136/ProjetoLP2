@@ -43,7 +43,7 @@ public class Hotel implements Serializable {
 	}// adicionaContrato
 
 	public List<Opiniao> getOpinioesOrdenadas() {
-		opinioes.sort(new OpiniaoComparator());
+//		opinioes.sort(new OpiniaoComparator());
 		return opinioes;
 	}// getOpinioesComMaioresNotas
 
