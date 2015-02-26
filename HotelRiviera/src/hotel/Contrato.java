@@ -560,6 +560,14 @@ public class Contrato implements Serializable {
 		
 		return opiniao.toString();
 	}// toStringOpiniao
+	
+	private String toStringAcompanhantes() {
+		String acompanhantesFormatados = "";
+		for (int i = 0; i < acompanhantes.size(); i++) {
+			acompanhantesFormatados += "\n" + acompanhantes.get(i);
+		}// for
+		return acompanhantesFormatados;
+	}// toStringAcompanhantes
 
 	@Override
 	public String toString() {
@@ -567,7 +575,7 @@ public class Contrato implements Serializable {
 				+ "\n\nHospedeTitular: "
 				+ hospedeTitular
 				+ "\n\nAcompanhantes: "
-				+ acompanhantes
+				+ toStringAcompanhantes()
 				+ "\n\nServicos: \n"
 				+ servicos
 				+ "\n\nOpiniao: "
