@@ -73,7 +73,9 @@ public class LoginJ extends JFrame {
 			if (inputHotel != null)
 				inputHotel.close();
 
-		}// if
+		}// try-catch-finally
+		
+		System.out.println(hotel.getOpinioesOrdenadas());
 
 		try {
 			UIManager

@@ -103,7 +103,7 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 	public String toString() {
 		return "Opiniao: \nComentario: '" + getComentario() + "'\nNota: "
 				+ getNota() + "\nData: " + data.get(Calendar.DAY_OF_MONTH) + "/"
-				+ data.get(Calendar.MONTH) + "/" + data.get(Calendar.YEAR);
+				+ (data.get(Calendar.MONTH)+ 1) + "/" + data.get(Calendar.YEAR);
 	}
 
 	@Override

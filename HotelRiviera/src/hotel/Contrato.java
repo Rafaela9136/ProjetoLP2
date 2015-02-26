@@ -75,11 +75,12 @@ public class Contrato implements Serializable {
 	 *             Excecao lancada quando a data final do contrato esta para
 	 *             antes do inicio do contrato, ou quando alguma das duas datas
 	 *             esta setada para um dia que ja passou.
+	 * @throws NomeInvalidoException Lancada quando algum dos nomes do acompanhantes e uma string vazia.
 	 */
 	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
 			Calendar dataCheckIn, Calendar dataCheckOut, List<Servico> servicos)
 			throws NullPointerException, ContratoSemQuartoException,
-			DataInvalidaException {
+			DataInvalidaException, NomeInvalidoException {
 
 		verificaHospedeTitularValido(hospedeTitular);
 		verificaAcompanhantesValidos(hospedesAcompanhantes);
@@ -287,10 +288,10 @@ public class Contrato implements Serializable {
 	 *             Excecao lancada quando o nome do acompanhante e uma string
 	 *             vazia.
 	 */
-	public void adicionaAcompanhante(String acompanhante)
+	public void adicionaAcompanhantes(List<String> acompanhantes)
 			throws NullPointerException, NomeInvalidoException {
-		verificaAcompanhanteValido(acompanhante);
-		acompanhantes.add(acompanhante);
+		verificaAcompanhantesValidos(acompanhantes);
+		acompanhantes.addAll(acompanhantes);
 	}// adicionaAcompanhante
 
 	/**
@@ -577,12 +578,6 @@ public class Contrato implements Serializable {
 		return Estrategias.DEFAULT;
 	}// estrategiaAAplicar
 
-	private void verificaAcompanhantesValidos(List<String> hospedesAcompanhantes)
-			throws NullPointerException {
-		if (hospedesAcompanhantes == null)
-			throw new NullPointerException();
-	} // verificaAcompanhantesValidos
-
 	private void verificaDatasValidas(Calendar dataCheckIn,
 			Calendar dataCheckOut) throws NullPointerException,
 			DataInvalidaException {
@@ -639,11 +634,11 @@ public class Contrato implements Serializable {
 		return false;
 	}// verificaQuantQuartosMaiorQueUm
 
-	private void verificaAcompanhanteValido(String acompanhante)
+	private void verificaAcompanhantesValidos(List<String> acompanhantes)
 			throws NullPointerException, NomeInvalidoException {
-		if (acompanhante == null)
+		if (acompanhantes == null)
 			throw new NullPointerException();
-		if (acompanhante.isEmpty())
+		if (acompanhantes.contains(""))
 			throw new NomeInvalidoException();
 	}// verificaAcompananteValido
 

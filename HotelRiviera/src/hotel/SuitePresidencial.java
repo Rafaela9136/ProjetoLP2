@@ -63,4 +63,11 @@ public class SuitePresidencial extends Quarto {
 		return super.equals(outro);
 	}
 
+	@Override
+	public String toString() {
+		return "Suite Presidencial: " + getPreco() + super.toString();
+	}
+	
+	
+
 }// SuitePresidencial

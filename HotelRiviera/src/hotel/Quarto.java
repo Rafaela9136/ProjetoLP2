@@ -12,7 +12,7 @@ import excecoes.DataInvalidaException;
 public abstract class Quarto implements Servico, Serializable {
 
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";
-	private boolean CamaExtra;
+	private boolean camaExtra;
 	private Frigobar frigobar;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut;
@@ -30,7 +30,7 @@ public abstract class Quarto implements Servico, Serializable {
 
 		this.dataCheckIn = dataCheckIn;
 		this.dataCheckOut = dataCheckOut;
-		this.CamaExtra = camaExtra;
+		this.camaExtra = camaExtra;
 		this.frigobar = new Frigobar();
 	}// Construtor
 
@@ -74,7 +74,7 @@ public abstract class Quarto implements Servico, Serializable {
 	 * @return Retorna true se o cliente solicitou uma cama extra no quarto.
 	 */
 	public boolean isCamaExtra() {
-		return CamaExtra;
+		return camaExtra;
 	}
 
 	/**
@@ -85,7 +85,7 @@ public abstract class Quarto implements Servico, Serializable {
 	 *            O novo valor (true/false) a ser definido para a camaExtra.
 	 */
 	public void setCamaExtra(boolean temCamaExtra) {
-		this.CamaExtra = temCamaExtra;
+		this.camaExtra = temCamaExtra;
 	}
 
 	/**
@@ -104,15 +104,27 @@ public abstract class Quarto implements Servico, Serializable {
 				&& this.getDataCheckIn().equals(outro.getDataCheckIn()) && this
 				.getDataCheckOut().equals(outro.getDataCheckOut()));
 	}
+	
+	private String resultadoCamaExtra() {
+		if(camaExtra)
+			return "Sim";
+		return "Nao";
+	}// resultadoCamaExtra
 
 	/**
 	 * Retorna uma representacao em String do objeto.
 	 */
 	@Override
 	public String toString() {
-		return "Quarto [preco=" + this.getPreco() + ", camaExtra=" + CamaExtra
-				+ "]";
-	}// toString
+		return "\nCamaExtra: " + resultadoCamaExtra()
+				+ "\nFrigobar: " + frigobar.getPreco()
+				+ "\nData Inicial: " + dataCheckIn.get(Calendar.DAY_OF_MONTH)
+				+ "/" + (dataCheckIn.get(Calendar.MONTH) + 1)
+				+ "/" + dataCheckIn.get(Calendar.YEAR) 
+				+ "\nData Final: " + dataCheckOut.get(Calendar.DAY_OF_MONTH)
+				+ "/" + (dataCheckOut.get(Calendar.MONTH) + 1)
+				+ "/" + dataCheckOut.get(Calendar.YEAR);
+	}
 
 	// adicionar testes referente a essas excecoes
 	private void verificaDatasValidas(Calendar dataCheckIn,
@@ -124,5 +136,7 @@ public abstract class Quarto implements Servico, Serializable {
 				|| dataCheckIn.before(Calendar.getInstance()))
 			throw new DataInvalidaException();
 	}// verificaDatasValidas
+
+
 
 }

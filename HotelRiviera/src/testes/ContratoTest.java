@@ -21,6 +21,7 @@ import excecoes.ContratoSemOpiniaoException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
+import excecoes.NomeInvalidoException;
 import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
 import excecoes.NumeroInvalidoException;
@@ -60,7 +61,7 @@ public class ContratoTest {
 			CPFInvalidoException, ContratoSemQuartoException,
 			DataInvalidaException, NomeVazioException, StringVaziaException,
 			CartaoInvalidoException, CamaExtraException,
-			StringInvalidaException, NumeroInvalidoException {
+			StringInvalidaException, NumeroInvalidoException, NomeInvalidoException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento,
 				"0123.4567.8999.9999");
@@ -359,7 +360,7 @@ public class ContratoTest {
 			ContratoSemQuartoException, DataInvalidaException,
 			CPFInvalidoException, AddQuartoContratoException,
 			StringVaziaException, CartaoInvalidoException,
-			StringInvalidaException, NumeroInvalidoException {
+			StringInvalidaException, NumeroInvalidoException, NomeInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,

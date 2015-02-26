@@ -96,6 +96,10 @@ public class QuartoLuxo extends Quarto {
 		QuartoLuxo outro = (QuartoLuxo) obj;
 		return super.equals(outro) && this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
 	}
-	
+
+	@Override
+	public String toString() {
+		return "\nQuarto Luxo " + tipoDeQuarto.getNome() + ": " + getPreco() + super.toString();
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import excecoes.ValorNegativoException;
 
 public class Frigobar implements Serializable {
+
 	private double preco;
 
 	@Override
@@ -48,5 +49,10 @@ public class Frigobar implements Serializable {
 			throw new ValorNegativoException();
 		preco += valor;
 	}// setPreco
+	
+	@Override
+	public String toString() {
+		return "Frigobar" + "\nPreco: " + preco;
+	}
 
 }// Frigobar

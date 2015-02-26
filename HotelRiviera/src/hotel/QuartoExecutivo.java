@@ -104,5 +104,10 @@ public class QuartoExecutivo extends Quarto {
 		return super.equals(outro)
 				&& this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
 	}
+	
+	@Override
+	public String toString() {
+		return "\nQuarto Executivo " + tipoDeQuarto.getNome()+ ": " + getPreco() + super.toString();
+	}
 
 }
