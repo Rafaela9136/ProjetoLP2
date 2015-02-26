@@ -144,8 +144,8 @@ public class Hotel implements Serializable {
 
 	}// atualizaQuantQuartosParaContratosNovos
 	
-	public int[] getQuartosDesocupados() {
-		return quartosDesocupados;
+	public int getQuartosDesocupados(int indice) {
+		return quartosDesocupados[indice];
 	}
 	
 	@Override
