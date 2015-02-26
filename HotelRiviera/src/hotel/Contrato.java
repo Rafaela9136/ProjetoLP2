@@ -557,13 +557,13 @@ public class Contrato implements Serializable {
 	@Override
 	public String toString() {
 		return "\nCONTRATO "
-				+ "\nHospedeTitular: "
+				+ "\n\nHospedeTitular: "
 				+ hospedeTitular
-				+ "\nAcompanhantes: "
+				+ "\n\nAcompanhantes: "
 				+ acompanhantes
-				+ "\nServicos: "
+				+ "\n\nServicos: "
 				+ servicos
-				+ "\nOpiniao: "
+				+ "\n\nOpiniao: "
 				+ opiniao
 				+ "\nCheckIn: "
 				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn

@@ -11,7 +11,7 @@ public enum Estrategias implements Serializable {
 			Calendar.getInstance().YEAR),
 	NATAL_REVEILLON("Natal/Reveillon 20%%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
 			1.2, Calendar.getInstance().YEAR + 1),
-	AGOSTO("Mês Agosto -20%%", 1, 31, Calendar.AUGUST, Calendar.AUGUST, 0.8, Calendar.getInstance().YEAR),
+	AGOSTO("Mes Agosto -20%%", 1, 31, Calendar.AUGUST, Calendar.AUGUST, 0.8, Calendar.getInstance().YEAR),
 	// O mes de agosto inteiro e de baixa estacao (20% de desconto).
 	DEFAULT("Sem estrategia +0%%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
 			0, Calendar.getInstance().YEAR);
@@ -49,9 +49,14 @@ public enum Estrategias implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Estrategia=" + nomeEstrategia + "," + "DataInicial="
-				+ dataInicial + "," + "DataFinal=" + dataFinal + ","
-				+ "Porcentagem=" + porcentagem;
-	}
+		return nomeEstrategia + "\nData Inicial da Estrategia: "
+				+ dataInicial.get(Calendar.DAY_OF_MONTH)
+				+ "/" + (dataInicial.get(Calendar.MONTH) + 1) 
+				+ "/" + dataInicial.get(Calendar.YEAR) 
+				+ "\nData Final Estrategia: " 
+				+ dataFinal.get(Calendar.DAY_OF_MONTH)
+				+ "/" + (dataFinal.get(Calendar.MONTH) + 1) 
+				+ "/" + dataFinal.get(Calendar.YEAR);
+	}// toString
 
 }// Estrategias
