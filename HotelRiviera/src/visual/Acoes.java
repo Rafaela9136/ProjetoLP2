@@ -707,8 +707,7 @@ public class Acoes extends JPanel {
 		}// for
 
 		if (cont == 0) {
-			AvisoNaoEncontrado aviso = new AvisoNaoEncontrado();
-			aviso.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Contrato não encontrado!");
 		}
 
 		model = new DefaultTableModel(dados, colunas);

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -63,21 +64,18 @@ public class LoginJ extends JFrame {
 			hotel = (Hotel) inputHotel.readObject();
 
 		} catch (ClassNotFoundException e) {
-			System.out.println("Deu ClasshNotFoundException, ou seja, fudeu!!");
-
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		} finally {
 			if (inputHotel != null)
 				inputHotel.close();
 
 		}// try-catch-finally
-		
-		System.out.println(hotel.getOpinioesOrdenadas());
 
 		try {
 			UIManager
 					.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 		} catch (Throwable e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -86,7 +84,7 @@ public class LoginJ extends JFrame {
 					frame.setVisible(true);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});
@@ -115,6 +113,7 @@ public class LoginJ extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginJ() {
+		setTitle("Hotel Riviera Campina");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				LoginJ.class.getResource("/resources/logo.png")));
 		setResizable(false);
@@ -137,7 +136,7 @@ public class LoginJ extends JFrame {
 					frame.setVisible(true);
 					dispose();
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});

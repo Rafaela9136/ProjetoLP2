@@ -26,7 +26,6 @@ public class Principal extends JFrame implements WindowListener{
 	 */
 	private static final long serialVersionUID = 3535604559092678721L;
 	private JPanel contentPane;
-	private AvisoErro erro = new AvisoErro();
 
 	/**
 	 * Create the frame.
@@ -56,7 +55,7 @@ public class Principal extends JFrame implements WindowListener{
 		        	try {
 						LoginJ.salvaHotel();
 					} catch (IOException e) {
-						erro.setVisible(true);
+						JOptionPane.showMessageDialog(null,"Algo está errado!");
 					}
 		        	System.exit(0);
 		}  
@@ -164,7 +163,7 @@ public class Principal extends JFrame implements WindowListener{
 					try {
 						LoginJ.salvaHotel();
 					} catch (IOException e1) {
-						erro.setVisible(true);
+						JOptionPane.showMessageDialog(null,"Algo está errado!");
 					}
 					System.exit(0);
 				}

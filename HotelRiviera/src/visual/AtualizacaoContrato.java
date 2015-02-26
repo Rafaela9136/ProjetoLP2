@@ -38,6 +38,7 @@ public class AtualizacaoContrato extends JPanel {
 	private static final CardLayout layout = new CardLayout();
 
 	private static JPanel panel;
+	private static JPanel infoGerais;
 	private static JTextArea textAreaDadosHospede;
 	private JComboBox<String> comboBoxNota;
 	private JTextArea textArea;
@@ -55,7 +56,6 @@ public class AtualizacaoContrato extends JPanel {
 	private JTextField textFieldNome;
 
 	// Variaveis para criar objetos
-	private AvisoErro erro = new AvisoErro();
 	private String[] colunas;
 	private JTextField textFieldTotal;
 
@@ -92,7 +92,6 @@ public class AtualizacaoContrato extends JPanel {
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layout.show(panel, "editarDadosHospede");
-				System.out.println(Acoes.getContratoPesquisado().toString());
 				setaDados();
 			}
 		});
@@ -140,21 +139,7 @@ public class AtualizacaoContrato extends JPanel {
 		panel.add(editarDadosHospede, "editarDadosHospede");
 		editarDadosHospede.setLayout(null);
 
-		JPanel infoGerais = new JPanel();
-		infoGerais.setBackground(Color.WHITE);
-		panel.add(infoGerais, "infoGerais");
-		infoGerais.setLayout(null);
-
-		textAreaDadosHospede = new JTextArea();
-		textAreaDadosHospede.setForeground(Color.BLACK);
-		textAreaDadosHospede.setEnabled(false);
-		textAreaDadosHospede.setLineWrap(true);
-		textAreaDadosHospede.setBackground(Color.WHITE);
-		textAreaDadosHospede.setFont(new Font("Dialog", Font.PLAIN, 14));
-		textAreaDadosHospede.setEditable(false);
-		textAreaDadosHospede.setBounds(47, 24, 681, 510);
-		infoGerais.add(textAreaDadosHospede);
-		layout.show(panel, "infoGerais");
+		panelInfoGerais();
 
 		hospedeDadosPrincipais(editarDadosHospede);
 
@@ -168,28 +153,42 @@ public class AtualizacaoContrato extends JPanel {
 				try {
 					atualizaDados();
 
-					AvisoSucesso sucesso = new AvisoSucesso();
-					sucesso.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Dados editados com sucesso!");
 
 				} catch (NullPointerException e1) {
-					erro.setVisible(true);
-				} catch (StringVaziaException e1) {
-					erro.setVisible(true);
-				} catch (StringInvalidaException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+				} catch (StringVaziaException | StringInvalidaException e1) {
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
 				} catch (NumeroInvalidoException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número!");
 				} catch (CPFInvalidoException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o CPF!");
 				} catch (CartaoInvalidoException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número do cartão!");
 				}
 			}
 		});
 		editarDadosHospede.add(btnConfirma_2);
 	}
 
+	private void panelInfoGerais() {
+		infoGerais = new JPanel();
+		infoGerais.setBackground(Color.WHITE);
+		panel.add(infoGerais, "infoGerais");
+		infoGerais.setLayout(null);
+	}
+
 	static void setaInfoGerais() {
+		textAreaDadosHospede = new JTextArea();
+		textAreaDadosHospede.setForeground(Color.BLACK);
+		textAreaDadosHospede.setEnabled(false);
+		textAreaDadosHospede.setLineWrap(true);
+		textAreaDadosHospede.setBackground(Color.WHITE);
+		textAreaDadosHospede.setFont(new Font("Dialog", Font.PLAIN, 14));
+		textAreaDadosHospede.setEditable(false);
+		textAreaDadosHospede.setBounds(47, 24, 681, 510);
+		infoGerais.add(textAreaDadosHospede);
+		layout.show(panel, "infoGerais");
 		textAreaDadosHospede.setText(Acoes.getContratoPesquisado().toString());
 	}
 
@@ -223,14 +222,10 @@ public class AtualizacaoContrato extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
 				try {
-					if (removeServico(linha)) {
-						AvisoSucesso sucesso = new AvisoSucesso();
-						sucesso.setVisible(true);
-					} else {
-						erro.setVisible(true);
-					}
+					if(removeServico(linha))
+						JOptionPane.showMessageDialog(null,"Serviço removido com sucesso!");
 				} catch (RemocaoInvalidaException e1) {
-					erro.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
 				}
 			}
 		});
@@ -305,14 +300,13 @@ public class AtualizacaoContrato extends JPanel {
 		try {
 			Acoes.getContratoPesquisado().adicionaServico(servico);
 
-			AvisoSucesso sucesso = new AvisoSucesso();
-			sucesso.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Serviço adicionado com sucesso!");
 		} catch (AddQuartoContratoException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		} catch (NullPointerException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 		} catch (ServicoInvalidoException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os serviços!");
 		}
 
 	}
@@ -415,26 +409,24 @@ public class AtualizacaoContrato extends JPanel {
 			Acoes.getContratoPesquisado().inicializaOpiniao(
 					Conector.trasformaNota((String) comboBoxNota
 							.getSelectedItem()), textArea.getText());
-		} catch (NullPointerException e1) {
-			erro.setVisible(true);
+		} catch (ComentarioVazioException | NullPointerException e1) {
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campor!");
 		} catch (NotaInvalidaException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique a nota!");
 		} catch (EstouroDeCaracteresException e1) {
-			erro.setVisible(true);
-		} catch (ComentarioVazioException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Ocorreu estouro de caracteres!");
 		}
 
 		try {
 			Acoes.getContratoPesquisado().setIsAberto(false);
 		} catch (ContratoFechadoException e1) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		} catch (ContratoSemOpiniaoException e1) {
 			JOptionPane.showMessageDialog(null,"Algo está errado. Tente novamente!");
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
-		LoginJ.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			LoginJ.getHotel().removeContrato(Acoes.getContratoPesquisado());
 	}
 
 	private void hospedeDadosPrincipais(JPanel panelNovoContrato)
@@ -690,7 +682,7 @@ public class AtualizacaoContrato extends JPanel {
 			Acoes.getContratoPesquisado().adicionaAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
 					.getText().split(",")));
 		} catch (NomeInvalidoException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
 		};
 	}
 

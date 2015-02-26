@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 import java.awt.Font;
 import java.text.ParseException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
@@ -203,45 +204,40 @@ public class EdicaoServicos extends JPanel {
 	}
 	
 	static ContaRestaurante geraContaRestaurante(){
-		AvisoErro erro = new AvisoErro();
 		
 		ContaRestaurante conta = null;
 		try {
 			conta = new ContaRestaurante(Double.parseDouble(textField.getText()));
-		} catch (NumberFormatException e) {
-			erro.setVisible(true);
-		} catch (ValorNegativoException e) {
-			erro.setVisible(true);
+		} catch (NumberFormatException | ValorNegativoException e) {
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o valor da conta!");
 		}
 		return conta;
 	}
 	
 	static Baba contrataBaba(){
-		AvisoErro erro = new AvisoErro();
 		
 		Baba baba = null;
 		try {
 			baba = new Baba(Conector.transformaDataHora(formattedTextField.getText(),(String) comboBoxHoraI.getSelectedItem()),
 					Conector.transformaDataHora(formattedTextFieldFinal.getText(), (String) comboBoxHoraF.getSelectedItem()));
 		} catch (NullPointerException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 		} catch (DataInvalidaException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 		}
 		return baba;
 	}
 	
 	static Carro alugaCarro(){
-		AvisoErro erro = new AvisoErro();
 		
 		Carro carro = null;
 		try {
 			carro = new Carro(Conector.selecionaTipoCarro((String) comboBoxCarros.getSelectedItem()), Conector.transformaData(formattedTextFieldDataI.getText()),
 					Conector.transformaData(formattedTextFieldDataF.getText()), rdbtnTanqueCheio.isSelected(), rdbtnSeguro.isSelected());
 		} catch (NullPointerException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 		} catch (DataInvalidaException e) {
-			erro.setVisible(true);
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 		}
 		return carro;
 	}
