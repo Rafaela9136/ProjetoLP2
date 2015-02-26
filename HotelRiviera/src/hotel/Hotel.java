@@ -27,8 +27,12 @@ public class Hotel implements Serializable {
 		
 		this.contratos = contratos;
 		this.quantQuartosDesocupados = quantQuartosDesocupados;
-		
 	}// Construtor
+	
+	@Override
+	public String toString() {
+		return "Hotel";
+	}
 
 	public void adicionaContrato(Contrato contrato)
 			throws ExecutivosDuploOcupadosException,

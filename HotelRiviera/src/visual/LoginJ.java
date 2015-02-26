@@ -1,5 +1,6 @@
 package visual;
 
+import hotel.Contrato;
 import hotel.Hotel;
 
 import java.awt.EventQueue;
@@ -27,8 +28,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginJ extends JFrame {
 
@@ -42,35 +46,37 @@ public class LoginJ extends JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblLogin;
 	private JLabel lblSenha;
-	
+
 	private static Hotel hotel;
-	
+
 	private final static String PATH_HOTEL = "hotel.dat";
 
 	/**
 	 * Launch the application.
-	 * @throws IOException 
-	 * @throws ParseException 
+	 * 
+	 * @throws IOException
+	 * @throws ParseException
 	 */
 	public static void main(String[] args) throws IOException, ParseException {
 		ObjectInputStream inputHotel = null;
 
-		try{
-			inputHotel = new ObjectInputStream(new BufferedInputStream(new FileInputStream(PATH_HOTEL)));
+		try {
+			inputHotel = new ObjectInputStream(new BufferedInputStream(
+					new FileInputStream(PATH_HOTEL)));
 			hotel = (Hotel) inputHotel.readObject();
 
-		} catch(ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			System.out.println("Deu ClasshNotFoundException, ou seja, fudeu!!");
-		
-		}finally {
-		if(inputHotel != null)
-			inputHotel.close();
-			
+
+		} finally {
+			if (inputHotel != null)
+				inputHotel.close();
+
 		}// if
-		
 
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+			UIManager
+					.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -87,20 +93,27 @@ public class LoginJ extends JFrame {
 		});
 		ObjectOutputStream outputHotel = null;
 		try {
-			
-		outputHotel = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(PATH_HOTEL)));
-		outputHotel.writeObject(hotel);
+
+			outputHotel = new ObjectOutputStream(new BufferedOutputStream(
+					new FileOutputStream(PATH_HOTEL)));
+			outputHotel.writeObject(hotel);
+
 		} finally {
-			if(outputHotel != null)
+			if (outputHotel != null)
 				outputHotel.close();
-		}// try-catch
+		}// try-finally
 	}// main
+
+	public static Hotel getHotel() {
+		return hotel;
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public LoginJ() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginJ.class.getResource("/resources/logo.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				LoginJ.class.getResource("/resources/logo.png")));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 519, 374);
@@ -135,20 +148,22 @@ public class LoginJ extends JFrame {
 		textField.setBounds(67, 220, 158, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		lblLogin.setBounds(12, 220, 46, 25);
 		contentPane.add(lblLogin);
-		
+
 		lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		lblSenha.setBounds(12, 261, 52, 25);
 		contentPane.add(lblSenha);
-		
+
 		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(LoginJ.class.getResource("/resources/image.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(LoginJ.class
+				.getResource("/resources/image.jpg")));
 		lblNewLabel.setBounds(0, 0, 519, 351);
 		contentPane.add(lblNewLabel);
 	}
+
 }
