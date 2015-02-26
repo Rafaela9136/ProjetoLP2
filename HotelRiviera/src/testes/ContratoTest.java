@@ -26,6 +26,7 @@ import excecoes.NomeVazioException;
 import excecoes.NotaInvalidaException;
 import excecoes.NumeroInvalidoException;
 import excecoes.RemocaoInvalidaException;
+import excecoes.ServicoInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.ValorNegativoException;
@@ -61,7 +62,8 @@ public class ContratoTest {
 			CPFInvalidoException, ContratoSemQuartoException,
 			DataInvalidaException, NomeVazioException, StringVaziaException,
 			CartaoInvalidoException, CamaExtraException,
-			StringInvalidaException, NumeroInvalidoException, NomeInvalidoException {
+			StringInvalidaException, NumeroInvalidoException,
+			NomeInvalidoException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento,
 				"0123.4567.8999.9999");
@@ -173,12 +175,12 @@ public class ContratoTest {
 		} catch (Exception e) {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
-		
+
 		Calendar dataAnteriorCheckIn = new GregorianCalendar(
 				dataCheckIn.get(Calendar.YEAR),
 				dataCheckIn.get(Calendar.MONTH),
 				dataCheckIn.get(Calendar.DAY_OF_MONTH) - 1);
-		
+
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataAnteriorCheckIn, dataCheckOut, servicos);
@@ -188,12 +190,12 @@ public class ContratoTest {
 		} catch (Exception e) {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
-		
+
 		Calendar dataPosteriorCheckOut = new GregorianCalendar(
 				dataCheckOut.get(Calendar.YEAR),
 				dataCheckOut.get(Calendar.MONTH),
 				dataCheckOut.get(Calendar.DAY_OF_MONTH) + 1);
-		
+
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataPosteriorCheckOut, servicos);
@@ -219,7 +221,6 @@ public class ContratoTest {
 		this.dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
-
 
 		List<Servico> servicos = new ArrayList<Servico>();
 
@@ -250,7 +251,9 @@ public class ContratoTest {
 	}// testCriaContrato
 
 	@Test
-	public void testAdicionaServico() throws AddQuartoContratoException {
+	public void testAdicionaServico() throws AddQuartoContratoException,
+			NullPointerException, ServicoInvalidoException,
+			DataInvalidaException, ContratoSemQuartoException, NomeInvalidoException {
 		try {
 			contrato1.adicionaServico(quarto5);
 			Assert.fail("Deveria ter lancado AddQuartoContratoException");
@@ -260,9 +263,66 @@ public class ContratoTest {
 			Assert.fail("Nao deveria ter lancado essa excecao");
 		}// try-catch
 
-		contrato1.adicionaServico(carro);
+		try {
+			contrato1.adicionaServico(null);
+			Assert.fail("Deveria ter lancado NullPointerException");
+		} catch (NullPointerException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+
+		Calendar dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
+
+		Carro carro = new Carro(TipoCarro.EXECUTIVO, dataCheckIn, dataCheckOut,
+				isTanqueCheio, isAssegurado);
+		
+		Calendar dataCheckIn2 = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 2);
+		
+		Calendar dataCheckOut2 = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR),
+				momentoAgr.get(Calendar.MONTH) + 1,
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 6);
+		
+		Quarto suitePresidencial = new SuitePresidencial(dataCheckIn2, dataCheckOut2);
+		
+		List<String> acomp = new ArrayList<String>();
+		
+		List<Servico> servs = new ArrayList<Servico>();
+		
+		servs.add(suitePresidencial);
+		
+		Contrato contr = new Contrato(hospedeTitular, acomp, dataCheckIn2, dataCheckOut2, servicos);
+		
+		try {
+			contr.adicionaServico(carro);
+			Assert.fail("Deveria ter lancado ServicoInvalidException");
+		} catch (ServicoInvalidoException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+
+
+		carro = new Carro(TipoCarro.EXECUTIVO, this.dataCheckIn, dataCheckOut2,
+				isTanqueCheio, isAssegurado);
+
+		try {
+			contrato1.adicionaServico(carro);
+			Assert.fail("Deveria ter lancado ServicoInvalidoException");
+		} catch (ServicoInvalidoException e) {
+
+		} catch (Exception e) {
+			Assert.fail("Nao deveria ter lancado essa excecao");
+		}// try-catch
+		
+		contrato1.adicionaServico(this.carro);
 		Assert.assertTrue(contrato1.getServicos()
-				.get(contrato1.getServicos().size() - 1).equals(carro));
+				.get(contrato1.getServicos().size() - 1).equals(this.carro));
 
 	}// testAdicionaServico
 
@@ -360,7 +420,8 @@ public class ContratoTest {
 			ContratoSemQuartoException, DataInvalidaException,
 			CPFInvalidoException, AddQuartoContratoException,
 			StringVaziaException, CartaoInvalidoException,
-			StringInvalidaException, NumeroInvalidoException, NomeInvalidoException {
+			StringInvalidaException, NumeroInvalidoException,
+			NomeInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,

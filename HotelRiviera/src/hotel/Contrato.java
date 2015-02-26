@@ -16,6 +16,7 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.NomeInvalidoException;
 import excecoes.NotaInvalidaException;
 import excecoes.RemocaoInvalidaException;
+import excecoes.ServicoInvalidoException;
 
 /**
  *
@@ -75,7 +76,9 @@ public class Contrato implements Serializable {
 	 *             Excecao lancada quando a data final do contrato esta para
 	 *             antes do inicio do contrato, ou quando alguma das duas datas
 	 *             esta setada para um dia que ja passou.
-	 * @throws NomeInvalidoException Lancada quando algum dos nomes do acompanhantes e uma string vazia.
+	 * @throws NomeInvalidoException
+	 *             Lancada quando algum dos nomes do acompanhantes e uma string
+	 *             vazia.
 	 */
 	public Contrato(Hospede hospedeTitular, List<String> hospedesAcompanhantes,
 			Calendar dataCheckIn, Calendar dataCheckOut, List<Servico> servicos)
@@ -291,7 +294,7 @@ public class Contrato implements Serializable {
 	public void adicionaAcompanhantes(List<String> acompanhantes)
 			throws NullPointerException, NomeInvalidoException {
 		verificaAcompanhantesValidos(acompanhantes);
-		acompanhantes.addAll(acompanhantes);
+		this.acompanhantes.addAll(acompanhantes);
 	}// adicionaAcompanhante
 
 	/**
@@ -327,11 +330,25 @@ public class Contrato implements Serializable {
 	 *             Excecao lancada quando o servico a ser adicionado e um
 	 *             quarto, quartos so podem ter adicionados na criacao do
 	 *             contrato.
+	 * @throws ServicoInvalidoException
+	 *             Excecao lancada quando o servico adicionado possui uma data
+	 *             invalida, onde a check in seja antes da data de check in do
+	 *             contrato ou a check out seja depois da data de check out do
+	 *             contrato.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando o servico passado como parametro nao
+	 *             foi inicializado
 	 */
 	public void adicionaServico(Servico servico)
-			throws AddQuartoContratoException {
+			throws AddQuartoContratoException, ServicoInvalidoException,
+			NullPointerException {
+		if (servico == null)
+			throw new NullPointerException();
 		if (servico instanceof Quarto)
 			throw new AddQuartoContratoException();
+		if (servico.getDataCheckIn().before(dataCheckIn)
+				|| servico.getDataCheckOut().after(dataCheckOut))
+			throw new ServicoInvalidoException();
 		servicos.add(servico);
 	}// adicionaServico
 
@@ -599,14 +616,17 @@ public class Contrato implements Serializable {
 		if (data == null)
 			throw new NullPointerException();
 	}// verificaDataNull
-	
-	private void verificaQuartoValido(Quarto quarto) throws DataInvalidaException {
-		if(quarto.getDataCheckIn().before(dataCheckIn) || quarto.getDataCheckOut().after(dataCheckOut))
+
+	private void verificaQuartoValido(Quarto quarto)
+			throws DataInvalidaException {
+		if (quarto.getDataCheckIn().before(dataCheckIn)
+				|| quarto.getDataCheckOut().after(dataCheckOut))
 			throw new DataInvalidaException();
 	}// verificaQuartoValido
 
 	private void verificaServicosValido(List<Servico> servicos)
-			throws ContratoSemQuartoException, NullPointerException, DataInvalidaException {
+			throws ContratoSemQuartoException, NullPointerException,
+			DataInvalidaException {
 		if (servicos == null)
 			throw new NullPointerException();
 
