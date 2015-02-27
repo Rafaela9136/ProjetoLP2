@@ -43,7 +43,7 @@ public class Hotel implements Serializable {
 			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
 			ExecutivosTriploOcupadosException {
-		atualizaQuantQuartosParaContratosNovos(contrato);
+		quartosDesocupados = atualizaQuantQuartosParaContratosNovos(contrato);
 		contratos.add(contrato);
 
 	}// adicionaContrato
@@ -54,11 +54,11 @@ public class Hotel implements Serializable {
 	}// getOpinioesComMaioresNotas
 
 	public boolean removeContrato(Contrato contrato) {
-		atualizaQuantQuartosParaContratosVelhos(contrato);
 		boolean saida = contratos.remove(contrato);
 		if (saida) {
 			opinioes.add(contrato.getOpiniao());
 			contratosRemovidos.add(contrato);
+			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
 		}
 		return saida;
 	}// removeContrato
@@ -153,14 +153,20 @@ public class Hotel implements Serializable {
 		return contratosEncontrados;
 	}// pesquisaContrato
 
-	private void atualizaQuantQuartosParaContratosVelhos(Contrato contrato) {
+	private int[] atualizaQuantQuartosParaContratosVelhos(Contrato contrato) {
 
 		int[] quantASerSomada = new int[QUANT_TIPOS_DE_QUARTOS];
 		quantASerSomada = quantidadeDeQuartos(contrato);
-
-		for (int i = 0; i < quartosDesocupados.length; i++)
+		
+		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
+		
+		for (int i = 0; i < quartosDesocupados.length; i++) 
+			quartosDesocupados[i] = 0;
+		
+		
+		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] += quantASerSomada[i];
-
+		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosVelhos
 
 	private int[] quantidadeDeQuartos(Contrato contrato) {
@@ -203,18 +209,23 @@ public class Hotel implements Serializable {
 		return quantidade;
 	}// quantASerRetirada
 
-	private void atualizaQuantQuartosParaContratosNovos(Contrato contrato)
+	private int[] atualizaQuantQuartosParaContratosNovos(Contrato contrato)
 			throws SuitesPresidenciaisOcupadasException,
 			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
 			ExecutivosDuploOcupadosException, ExecutivosTriploOcupadosException {
 
-		int[] quantASerRetirada = new int[7];
+		int[] quantASerRetirada = new int[QUANT_TIPOS_DE_QUARTOS];
 		quantASerRetirada = quantidadeDeQuartos(contrato);
+		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
+		
+		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) 
+			quartosDesocupados[i] = 0;
+		
 
-		for (int i = 0; i < quartosDesocupados.length; i++)
+		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] -= quantASerRetirada[i];
-
+		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosNovos
 
 	public int getQuartosDesocupados(int indice) {
