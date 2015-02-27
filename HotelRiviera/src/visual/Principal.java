@@ -55,7 +55,7 @@ public class Principal extends JFrame implements WindowListener{
 		        	try {
 						LoginJ.salvaHotel();
 					} catch (IOException e) {
-						JOptionPane.showMessageDialog(null,"Algo está errado!");
+						JOptionPane.showMessageDialog(null,"Algo esta errado!");
 					}
 		        	System.exit(0);
 		}  
@@ -159,11 +159,11 @@ public class Principal extends JFrame implements WindowListener{
 		btnSair.setBounds(12, 575, 204, 49);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
+				if(JOptionPane.showConfirmDialog(null,"Deseja sair?")==JOptionPane.OK_OPTION){
 					try {
 						LoginJ.salvaHotel();
 					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(null,"Algo está errado!");
+						JOptionPane.showMessageDialog(null,"Algo esta errado!");
 					}
 					System.exit(0);
 				}

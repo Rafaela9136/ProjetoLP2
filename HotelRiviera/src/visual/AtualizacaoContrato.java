@@ -102,6 +102,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnInformacoesGerais.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layout.show(panel, "infoGerais");
+				setaInfoGerais();
 			}
 		});
 		toolBar.add(btnEditarDados);
@@ -176,9 +177,7 @@ public class AtualizacaoContrato extends JPanel {
 		infoGerais.setBackground(Color.WHITE);
 		panel.add(infoGerais, "infoGerais");
 		infoGerais.setLayout(null);
-	}
-
-	static void setaInfoGerais() {
+		
 		textAreaDadosHospede = new JTextArea();
 		textAreaDadosHospede.setForeground(Color.BLACK);
 		textAreaDadosHospede.setEnabled(false);
@@ -188,6 +187,9 @@ public class AtualizacaoContrato extends JPanel {
 		textAreaDadosHospede.setEditable(false);
 		textAreaDadosHospede.setBounds(47, 24, 681, 510);
 		infoGerais.add(textAreaDadosHospede);
+	}
+
+	static void setaInfoGerais() {
 		layout.show(panel, "infoGerais");
 		textAreaDadosHospede.setText(Acoes.getContratoPesquisado().toString());
 	}
@@ -223,9 +225,9 @@ public class AtualizacaoContrato extends JPanel {
 				int linha = tabela.getSelectedRow();
 				try {
 					if(removeServico(linha))
-						JOptionPane.showMessageDialog(null,"Serviço removido com sucesso!");
+						JOptionPane.showMessageDialog(null,"Servico removido com sucesso!");
 				} catch (RemocaoInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});
@@ -300,13 +302,13 @@ public class AtualizacaoContrato extends JPanel {
 		try {
 			Acoes.getContratoPesquisado().adicionaServico(servico);
 
-			JOptionPane.showMessageDialog(null,"Serviço adicionado com sucesso!");
+			JOptionPane.showMessageDialog(null,"Servico adicionado com sucesso!");
 		} catch (AddQuartoContratoException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado!");
 		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 		} catch (ServicoInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os serviços!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os servicos!");
 		}
 
 	}
@@ -411,19 +413,19 @@ public class AtualizacaoContrato extends JPanel {
 					Conector.trasformaNota((String) comboBoxNota
 							.getSelectedItem()), textArea.getText());
 		} catch (ComentarioVazioException | NullPointerException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campor!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campor!");
 		} catch (NotaInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique a nota!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique a nota!");
 		} catch (EstouroDeCaracteresException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Ocorreu estouro de caracteres!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Ocorreu estouro de caracteres!");
 		}
 
 		try {
 			Acoes.getContratoPesquisado().setIsAberto(false);
 		} catch (ContratoFechadoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado!");
 		} catch (ContratoSemOpiniaoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Tente novamente!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Tente novamente!");
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
@@ -683,7 +685,7 @@ public class AtualizacaoContrato extends JPanel {
 			Acoes.getContratoPesquisado().adicionaAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
 					.getText().split(",")));
 		} catch (NomeInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os nomes!");
 		};
 	}
 

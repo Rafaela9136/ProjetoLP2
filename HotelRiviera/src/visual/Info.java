@@ -76,11 +76,18 @@ public class Info extends JPanel {
 		txtpnEstatisticas.setEditable(false);
 		estatistica.add(txtpnEstatisticas);
 		
-		criaGrafico(estatistica);
+		criaGraficoHospedes();
+		
+		criaGraficoServicos(estatistica);
 		
 	}
 
-	private void criaGrafico(JPanel estatistica) {
+	private void criaGraficoHospedes() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void criaGraficoServicos(JPanel estatistica) {
 		CategoryDataset dataset = GeradorDeGrafico.createDataset();
 		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);

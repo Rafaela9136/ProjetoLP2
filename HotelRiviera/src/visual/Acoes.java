@@ -217,9 +217,9 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 			}
 			servicos.add(quarto);
 		}
@@ -234,11 +234,11 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Não é possível adicionar mais camas!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Nao e possivel adicionar mais camas!");
 			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 			}
 		}
 		if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
@@ -252,11 +252,11 @@ public class Acoes extends JPanel {
 								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Não é possível adicionar mais camas!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Nao e possivel adicionar mais camas!");
 			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 			}
 		}
 	}
@@ -289,7 +289,7 @@ public class Acoes extends JPanel {
 							| ExecutivosSimplesOcupadosException
 							| ExecutivosTriploOcupadosException
 							| SuitesPresidenciaisOcupadasException e1) {
-						JOptionPane.showMessageDialog(null,"Algo está errado. Quarto indisponível!");
+						JOptionPane.showMessageDialog(null,"Algo esta errado. Quarto indisponivel!");
 					}
 
 					JOptionPane.showMessageDialog(null,"Contrato criado com sucesso!");
@@ -297,13 +297,13 @@ public class Acoes extends JPanel {
 					layout.show(panel, "vazio");
 					limpaCampos();
 				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 				} catch (ContratoSemQuartoException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado. Adicione pelo menos um quarto!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Adicione pelo menos um quarto!");
 				} catch (DataInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 				} catch (NomeInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,"Algo está errado. Nome invalido!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
 				}
 			}
 		});
@@ -329,17 +329,17 @@ public class Acoes extends JPanel {
 								.getText()), formattedTextFieldCartao.getText());
 			}
 		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 		} catch (CPFInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número do CPF!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique o numero do CPF!");
 		} catch (DataInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 		} catch (CartaoInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número do cartão!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique o numero do cartao!");
 		} catch (StringVaziaException | StringInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os nomes!");
 		} catch (NumeroInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique seu numero!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique seu numero!");
 		}
 	}// **
 
@@ -619,7 +619,7 @@ public class Acoes extends JPanel {
 				try {
 					atualizaTabela();
 				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});
@@ -632,7 +632,7 @@ public class Acoes extends JPanel {
 				try {
 					pesquisaTabela();
 				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});
@@ -651,7 +651,7 @@ public class Acoes extends JPanel {
 						AtualizacaoContrato.setaInfoGerais();
 					}
 				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});
@@ -707,7 +707,7 @@ public class Acoes extends JPanel {
 		}// for
 
 		if (cont == 0) {
-			JOptionPane.showMessageDialog(null,"Contrato não encontrado!");
+			JOptionPane.showMessageDialog(null,"Contrato nao encontrado!");
 		}
 
 		model = new DefaultTableModel(dados, colunas);
