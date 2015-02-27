@@ -82,6 +82,15 @@ public class Hotel implements Serializable {
 				quantidadeTotal += quantQuartos[i];
 			}// for
 		}// for
+
+		for (Contrato contrato : contratosRemovidos) {
+			quantQuartos = quantidadeDeQuartos(contrato);
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				estatisticas[i] += quantQuartos[i];
+				quantidadeTotal += quantQuartos[i];
+			}// for
+		}// for
+
 		for (int i = 0; i < estatisticas.length; i++) {
 			estatisticas[i] /= quantidadeTotal;
 			estatisticas[i] *= 100;
@@ -96,6 +105,14 @@ public class Hotel implements Serializable {
 		for (Contrato contrato : contratos) {
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
 			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
+				estatisticas[i] += quantOutrosServicos[i];
+				quantidadeTotal += quantOutrosServicos[i];
+			}// for
+		}// for
+		
+		for (Contrato contrato : contratosRemovidos) {
+			quantOutrosServicos= quantidadeDeOutrosServicos(contrato);
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 				estatisticas[i] += quantOutrosServicos[i];
 				quantidadeTotal += quantOutrosServicos[i];
 			}// for
