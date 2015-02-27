@@ -64,7 +64,7 @@ public class LoginJ extends JFrame {
 			hotel = (Hotel) inputHotel.readObject();
 
 		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado!");
 		} finally {
 			if (inputHotel != null)
 				inputHotel.close();
@@ -75,7 +75,7 @@ public class LoginJ extends JFrame {
 			UIManager
 					.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 		} catch (Throwable e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado!");
+			JOptionPane.showMessageDialog(null,"Algo esta errado!");
 		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -84,7 +84,7 @@ public class LoginJ extends JFrame {
 					frame.setVisible(true);
 
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});
@@ -136,7 +136,7 @@ public class LoginJ extends JFrame {
 					frame.setVisible(true);
 					dispose();
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado!");
 				}
 			}
 		});

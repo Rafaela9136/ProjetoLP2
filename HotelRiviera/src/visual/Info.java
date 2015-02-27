@@ -19,6 +19,11 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Info extends JPanel {
 
@@ -27,8 +32,13 @@ public class Info extends JPanel {
 	 */
 	private static final long serialVersionUID = 5526402980300263893L;
 	private static CardLayout layout = new CardLayout();
+	
 	private static JPanel panel;
-
+	private static JPanel estatistica;
+	private static JComboBox<String> comboBoxMes;
+	private static JComboBox<String> comboBoxVisao;
+	private static JComboBox<String> comboBox;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -64,7 +74,7 @@ public class Info extends JPanel {
 	}
 
 	private void panelEstatistica() {
-		JPanel estatistica = new JPanel();
+		estatistica = new JPanel();
 		estatistica.setBackground(Color.WHITE);
 		panel.add(estatistica, "estatistica");
 		estatistica.setLayout(null);
@@ -72,26 +82,65 @@ public class Info extends JPanel {
 		JTextPane txtpnEstatisticas = new JTextPane();
 		txtpnEstatisticas.setBounds(47, 24, 166, 24);
 		txtpnEstatisticas.setText("Estatisticas");
-		txtpnEstatisticas.setFont(new Font("Dialog", Font.PLAIN, 15));
+		txtpnEstatisticas.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		txtpnEstatisticas.setEditable(false);
 		estatistica.add(txtpnEstatisticas);
 		
-		criaGraficoHospedes();
+		JTextPane txtpnSelecioneOTipo = new JTextPane();
+		txtpnSelecioneOTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtpnSelecioneOTipo.setText("Selecione o tipo de visao que deseja ter:");
+		txtpnSelecioneOTipo.setBounds(47, 65, 266, 24);
+		estatistica.add(txtpnSelecioneOTipo);
 		
-		criaGraficoServicos(estatistica);
+		comboBoxMes = new JComboBox<String>();
+		comboBoxMes.setModel(new DefaultComboBoxModel<String>(new String[] {"Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}));
+		comboBoxMes.setBounds(506, 97, 144, 24);
+		comboBoxMes.setEnabled(false);
+		estatistica.add(comboBoxMes);
 		
+		comboBoxVisao = new JComboBox<String>();
+		comboBoxVisao.setModel(new DefaultComboBoxModel<String>(new String[] {"Geral", "Mensal"}));
+		comboBoxVisao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboBoxVisao.getSelectedItem().equals("Mensal")) {
+					comboBoxMes.setEnabled(true);
+				} else {
+					comboBoxMes.setEnabled(false);
+				}
+			}
+		});
+		comboBoxVisao.setBounds(319, 97, 144, 24);
+		estatistica.add(comboBoxVisao);
+		
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
+		comboBox.setBounds(129, 98, 144, 24);
+		estatistica.add(comboBox);
+		
+		JTextPane txtpnOGrafico = new JTextPane();
+		txtpnOGrafico.setFont(new Font("Dialog", Font.PLAIN, 11));
+		txtpnOGrafico.setText("*O grafico exibe as estatisticas em relacao ao ano atual.");
+		txtpnOGrafico.setBounds(429, 470, 286, 24);
+		estatistica.add(txtpnOGrafico);		
+	}
+	
+	static String getOpcaoServico(){
+		return (String) comboBox.getSelectedItem();
+	}
+	
+	static String getOpcaoVisao(){
+		return (String) comboBoxVisao.getSelectedItem();
+	}
+	
+	static String getOpcaoMes(){
+		return (String) comboBoxMes.getSelectedItem();
 	}
 
-	private void criaGraficoHospedes() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void criaGraficoServicos(JPanel estatistica) {
+	static void criaGrafico() {
 		CategoryDataset dataset = GeradorDeGrafico.createDataset();
-		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
+		JFreeChart chart = GeradorDeGrafico.createLineChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);
-		panel.setBounds(47, 287, 680, 296);
+		panel.setBounds(47, 154, 668, 304);
 		estatistica.add(panel);
 	}
 
@@ -183,7 +232,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 91, 682, 172);
+		scroll.setBounds(47, 91, 682, 180);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -203,7 +252,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 419, 682, 110);
+		scroll.setBounds(47, 419, 682, 114);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -221,7 +270,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 305, 682, 67);
+		scroll.setBounds(47, 305, 682, 70);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
