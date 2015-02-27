@@ -155,19 +155,19 @@ public class Info extends JPanel {
 		String[] colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
 		String[][] dados = new String[][]{
 		    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.SUITE_PRESIDENCIAL.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
 		    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_SIMPLES.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()))},
 		    {"Luxo Duplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_DUPLO.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()))},
 		    {"Luxo Triplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.LUXO_TRIPLO.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()))},
 		    {"Executivo Simples", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_SIMPLES.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()))},
 		    {"Executivo Duplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_DUPLO.ordinal()))},
+		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()))},
 		    {"Executivo Triplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
-		    		Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartosDesocupados.EXECUTIVO_TRIPLO.ordinal()))},
+		    		Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
 		};
 		
 		JTable tabela = new JTable();

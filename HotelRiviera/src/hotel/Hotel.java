@@ -21,6 +21,7 @@ public class Hotel implements Serializable {
 	private List<Contrato> contratos;
 	private int[] quartosDesocupados;
 	private List<Opiniao> opinioes;
+	private List<Contrato> contratosRemovidos;
 	
 	public Hotel(List<Contrato> contratos, int[] quartosDesocupados, List<Opiniao> opinioes) throws NullPointerException {
 		if(contratos == null || quartosDesocupados == null || opinioes == null)
@@ -29,6 +30,7 @@ public class Hotel implements Serializable {
 		this.contratos = contratos;
 		this.quartosDesocupados = quartosDesocupados;
 		this.opinioes = opinioes;
+		contratosRemovidos = new ArrayList<Contrato>();
 	}// Construtor
 	
 	public void adicionaContrato(Contrato contrato)
@@ -50,14 +52,20 @@ public class Hotel implements Serializable {
 	public boolean removeContrato(Contrato contrato) {
 		atualizaQuantQuartosParaContratosVelhos(contrato);
 		boolean saida = contratos.remove(contrato);
-		if(saida)
+		if(saida) {
 			opinioes.add(contrato.getOpiniao());
+			contratosRemovidos.add(contrato);
+		}
 		return saida;
 	}// removeContrato
 
 	public List<Contrato> getContratos() {
 		return contratos;
 	}// getContratos
+	
+	public List<Contrato> getContratosRemovidos() {
+		return contratosRemovidos;
+	}// getContratosRemovidos
 
 	public List<Contrato> pesquisaContrato(String text) {
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
@@ -92,34 +100,34 @@ public class Hotel implements Serializable {
 		for (Servico servico : contrato.getServicos()) {
 			if (servico instanceof Quarto) {
 				if (servico instanceof SuitePresidencial) {
-					quantASerRetirada[IndexQuartosDesocupados.SUITE_PRESIDENCIAL
+					quantASerRetirada[IndexQuartos.SUITE_PRESIDENCIAL
 							.ordinal()]++;
 
 				} else if (servico instanceof QuartoLuxo) {
 					QuartoLuxo quarto = (QuartoLuxo) servico;
 					if (quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES)) {
-						quantASerRetirada[IndexQuartosDesocupados.LUXO_SIMPLES
+						quantASerRetirada[IndexQuartos.LUXO_SIMPLES
 								.ordinal()]++;
 					} else if (quarto.getTipoDeQuarto().equals(
 							TiposDeQuarto.DUPLO)) {
-						quantASerRetirada[IndexQuartosDesocupados.LUXO_DUPLO
+						quantASerRetirada[IndexQuartos.LUXO_DUPLO
 								.ordinal()]++;
 					} else {
-						quantASerRetirada[IndexQuartosDesocupados.LUXO_TRIPLO
+						quantASerRetirada[IndexQuartos.LUXO_TRIPLO
 								.ordinal()]++;
 					}// if(quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES))-else
 
 				} else {
 					QuartoExecutivo quarto = (QuartoExecutivo) servico;
 					if (quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES)) {
-						quantASerRetirada[IndexQuartosDesocupados.EXECUTIVO_SIMPLES
+						quantASerRetirada[IndexQuartos.EXECUTIVO_SIMPLES
 								.ordinal()]++;
 					} else if (quarto.getTipoDeQuarto().equals(
 							TiposDeQuarto.DUPLO)) {
-						quantASerRetirada[IndexQuartosDesocupados.EXECUTIVO_DUPLO
+						quantASerRetirada[IndexQuartos.EXECUTIVO_DUPLO
 								.ordinal()]++;
 					} else {
-						quantASerRetirada[IndexQuartosDesocupados.EXECUTIVO_TRIPLO
+						quantASerRetirada[IndexQuartos.EXECUTIVO_TRIPLO
 								.ordinal()]++;
 					}// if(quarto.getTipoDeQuarto().equals(TiposDeQuarto.SIMPLES))
 
