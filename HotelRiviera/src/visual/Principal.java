@@ -26,12 +26,14 @@ public class Principal extends JFrame implements WindowListener{
 	 */
 	private static final long serialVersionUID = 3535604559092678721L;
 	private JPanel contentPane;
+	private String tipoFuncionario;
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public Principal() throws ParseException {
+	public Principal(String tipoFuncionario) throws ParseException {
+		this.tipoFuncionario = tipoFuncionario;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/resources/logo.png")));
 		inicializa();
 		telaAbas();
@@ -71,6 +73,13 @@ public class Principal extends JFrame implements WindowListener{
 		recursos(tabbedPane);
 		
 		info(tabbedPane);
+		
+		if(tipoFuncionario.equals("gerente")){
+			JPanel panelFuncionarios = new JPanel();
+			panelFuncionarios.setBorder(new LineBorder(new Color(51, 0, 0), 2));
+			tabbedPane.addTab("Funcionarios", null, panelFuncionarios, null);
+			panelFuncionarios.setLayout(null);
+		}
 	}
 
 	private void recursos(JTabbedPane tabbedPane) throws ParseException {

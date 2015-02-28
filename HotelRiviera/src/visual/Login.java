@@ -53,7 +53,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) {
 					try {
-						Principal frame = new Principal();
+						Principal frame = new Principal(textField.getText());
 						frame.setVisible(true);
 						dispose();
 					} catch (Exception e1) {

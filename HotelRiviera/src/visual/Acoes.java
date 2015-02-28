@@ -221,7 +221,6 @@ public class Acoes extends JPanel {
 			} catch (DataInvalidaException e) {
 				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 			}
-			servicos.add(quarto);
 		}
 		if (comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 			try {
