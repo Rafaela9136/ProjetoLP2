@@ -12,13 +12,15 @@ public class Conta {
 	String senha;
 	String nomeCompleto;
 	TipoFuncionario tipo;
-	
+
 	public Conta(String login, String senha, String nomeCompleto,
-			TipoFuncionario tipo) throws LoginInvalidoException, NullPointerException, SenhaInvalidaException, NomeCompletoInvalidoException {
+			TipoFuncionario tipo) throws LoginInvalidoException,
+			NullPointerException, SenhaInvalidaException,
+			NomeCompletoInvalidoException {
 		verificaLoginValido(login);
 		verificaSenhaValida(senha);
 		verificaNomeCompletoValido(nomeCompleto);
-		if(tipo == null)
+		if (tipo == null)
 			throw new NullPointerException();
 		this.login = login;
 		this.senha = senha;
@@ -58,6 +60,43 @@ public class Conta {
 		return nomeCompleto;
 	}// getNomeCompleto
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result
+				+ ((nomeCompleto == null) ? 0 : nomeCompleto.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Conta))
+			return false;
+		Conta outraConta = (Conta) obj;
+		if (!getNomeCompleto().equals(outraConta.getNomeCompleto()))
+			return false;
+		if (!getLogin().equals(outraConta.getLogin()))
+			return false;
+		if (!getSenha().equals(outraConta.getSenha()))
+			return false;
+		if (!getTipo().equals(outraConta.getTipo()))
+			return false;
+		return true;
+	}// equals
+
+	@Override
+	public String toString() {
+		return "\nConta" 
+	+ "\nNome Completo: " + getNomeCompleto()
+	+ "\nTipo do Funcionario: " + getTipo().getNome() 
+	+ "\nLogin: "+ getLogin() 
+	+ "\nSenha: " + getSenha();
+	}// toString
+
 	private void verificaLoginValido(String login)
 			throws LoginInvalidoException, NullPointerException {
 		if (login == null)
@@ -74,11 +113,12 @@ public class Conta {
 		if (senha.contains(" ") || senha.length() < TAMANHO_MINIMO_LOGIN)
 			throw new SenhaInvalidaException();
 	}// verificaSenhaValida
-	
-	public void verificaNomeCompletoValido(String nomeCompleto) throws NomeCompletoInvalidoException {
-		if(nomeCompleto == null)
+
+	public void verificaNomeCompletoValido(String nomeCompleto)
+			throws NomeCompletoInvalidoException {
+		if (nomeCompleto == null)
 			throw new NullPointerException();
-		if(!nomeCompleto.contains(" "))
+		if (!nomeCompleto.contains(" "))
 			throw new NomeCompletoInvalidoException();
 	}// verificaNomeCompletoValido
 
