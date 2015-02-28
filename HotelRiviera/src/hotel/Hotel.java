@@ -11,6 +11,7 @@ import excecoes.LuxosSimplesOcupadosException;
 import excecoes.LuxosTriploOcupadosException;
 import excecoes.MesInvalidoException;
 import excecoes.NomeCompletoInvalidoException;
+import excecoes.SenhaInvalidaException;
 import excecoes.SuitesPresidenciaisOcupadasException;
 
 import java.io.*;
@@ -31,7 +32,9 @@ public class Hotel implements Serializable {
 	private static final int QUANT_OUTROS_SERVICOS = 3;
 
 	public Hotel(List<Contrato> contratos, int[] quartosDesocupados,
-			List<Opiniao> opinioes) throws NullPointerException {
+			List<Opiniao> opinioes) throws NullPointerException,
+			LoginInvalidoException, SenhaInvalidaException,
+			NomeCompletoInvalidoException {
 		if (contratos == null || quartosDesocupados == null || opinioes == null)
 			throw new NullPointerException();
 
@@ -40,6 +43,8 @@ public class Hotel implements Serializable {
 		this.opinioes = opinioes;
 		contratosRemovidos = new ArrayList<Contrato>();
 		contasHotel = new ArrayList<Conta>();
+		contasHotel.add(new Conta("gerente", "euamorafael", "Rafael Klynger",
+				TipoFuncionario.GERENTE));
 	}// Construtor
 
 	public void adicionaContrato(Contrato contrato)
@@ -81,21 +86,23 @@ public class Hotel implements Serializable {
 					.equals(conta.getNomeCompleto().trim()))
 				throw new NomeCompletoInvalidoException();
 		}// for
-		
+
 		contasHotel.add(contaNova);
 	}// adicionaConta
-	
+
 	public boolean removeConta(Conta conta) {
 		return contasHotel.remove(conta);
-	}//removeConta
-	
-	public boolean pesquisaConta(String login, String senha) throws NullPointerException {
-		if(login == null || senha == null)
+	}// removeConta
+
+	public boolean pesquisaConta(String login, String senha)
+			throws NullPointerException {
+		if (login == null || senha == null)
 			throw new NullPointerException();
-		for(Conta conta : contasHotel) 
-			if(conta.getLogin().equals(login) || conta.getSenha().equals(senha))
+		for (Conta conta : contasHotel)
+			if (conta.getLogin().equals(login)
+					|| conta.getSenha().equals(senha))
 				return true;
-		
+
 		return false;
 	}// pesquisaConta
 
@@ -364,7 +371,9 @@ public class Hotel implements Serializable {
 	 * para criacao dos arquivos
 	 */
 	public static void main(String[] args) throws FileNotFoundException,
-			IOException, ClassNotFoundException {
+			IOException, ClassNotFoundException, NullPointerException,
+			LoginInvalidoException, SenhaInvalidaException,
+			NomeCompletoInvalidoException {
 
 		int[] quartosDesocupados = new int[7];
 
