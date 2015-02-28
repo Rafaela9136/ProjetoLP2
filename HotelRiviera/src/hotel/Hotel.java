@@ -86,7 +86,7 @@ public class Hotel implements Serializable {
 					.equals(conta.getNomeCompleto().trim()))
 				throw new NomeCompletoInvalidoException();
 		}// for
-
+//d
 		contasHotel.add(contaNova);
 	}// adicionaConta
 
