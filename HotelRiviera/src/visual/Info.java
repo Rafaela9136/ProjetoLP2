@@ -38,7 +38,8 @@ public class Info extends JPanel {
 	private static JComboBox<String> comboBoxMes;
 	private static JComboBox<String> comboBoxVisao;
 	private static JComboBox<String> comboBox;
-	private static CategoryDataset dataset;
+	private static JComboBox<String> comboBoxSelecao;
+	private static CategoryDataset dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();;
 	
 	/**
 	 * Create the panel.
@@ -59,8 +60,6 @@ public class Info extends JPanel {
 		panel.setBounds(0, 0, 764, 612);
 		add(panel);
 		panel.setLayout(layout);
-		
-		panelHotel(panel);
 		
 		panelServicos(panel);
 		
@@ -120,8 +119,6 @@ public class Info extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBox.getSelectedItem().equals("Servicos adicionais"))
 					dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
-				else
-					dataset = GeradorDeGrafico.estatQuartoGeral();
 			}
 		});
 		estatistica.add(comboBox);
@@ -149,11 +146,26 @@ public class Info extends JPanel {
 		panelOpinioes.setLayout(null);
 		
 		JTextPane txtpnOpiniesDosClientes = new JTextPane();
+		txtpnOpiniesDosClientes.setBounds(47, 24, 185, 24);
 		txtpnOpiniesDosClientes.setText("Opinioes dos hospedes");
 		txtpnOpiniesDosClientes.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtpnOpiniesDosClientes.setEditable(false);
-		txtpnOpiniesDosClientes.setBounds(47, 24, 185, 24);
 		panelOpinioes.add(txtpnOpiniesDosClientes);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setText("Selecione o tipo de visao que deseja ter:");
+		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		textPane.setBounds(47, 72, 266, 24);
+		panelOpinioes.add(textPane);
+		
+		comboBoxSelecao = new JComboBox<String>();
+		comboBoxSelecao.setModel(new DefaultComboBoxModel<String>(new String[] {"Mais recentes", "Melhor/Pior opiniao"}));
+		comboBoxSelecao.setBounds(314, 74, 144, 22);
+		panelOpinioes.add(comboBoxSelecao);
+		
+		JScrollPane scrollPaneOpinioes = new JScrollPane();
+		scrollPaneOpinioes.setBounds(47, 108, 672, 475);
+		panelOpinioes.add(scrollPaneOpinioes);
 	}
 
 	private void panelServicos(JPanel panel) {
@@ -271,20 +283,6 @@ public class Info extends JPanel {
 		scroll.setBounds(47, 305, 682, 70);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
-	}
-
-	private void panelHotel(JPanel panel) {
-		JPanel panelHotel = new JPanel();
-		panelHotel.setBackground(Color.WHITE);
-		panel.add(panelHotel, "estabelecimento");
-		panelHotel.setLayout(null);
-		
-		JTextPane txtpnHotelRivieraCampina = new JTextPane();
-		txtpnHotelRivieraCampina.setText("Hotel Riviera Campina");
-		txtpnHotelRivieraCampina.setFont(new Font("Dialog", Font.PLAIN, 15));
-		txtpnHotelRivieraCampina.setEditable(false);
-		txtpnHotelRivieraCampina.setBounds(47, 24, 185, 24);
-		panelHotel.add(txtpnHotelRivieraCampina);
 	}
 	
 	//Seleciona a tela a ser mostrada

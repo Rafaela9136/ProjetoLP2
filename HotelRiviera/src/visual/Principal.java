@@ -115,17 +115,8 @@ public class Principal extends JFrame implements WindowListener{
 		panel.setBounds(228, 12, 764, 612);
 		panelInfo.add(panel);
 		
-		JButton btnEstabelecimento = new JButton("Estabelecimento");
-		btnEstabelecimento.setBounds(12, 37, 204, 49);
-		btnEstabelecimento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Info.selecionaTela("estabelecimento");
-			}
-		});
-		panelInfo.add(btnEstabelecimento);
-		
 		JButton btnServios = new JButton("Servi\u00E7os");
-		btnServios.setBounds(12, 109, 204, 49);
+		btnServios.setBounds(12, 37, 204, 49);
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("servicos");
@@ -134,7 +125,7 @@ public class Principal extends JFrame implements WindowListener{
 		panelInfo.add(btnServios);
 		
 		JButton btnOpinies = new JButton("Opini\u00F5es");
-		btnOpinies.setBounds(12, 180, 204, 49);
+		btnOpinies.setBounds(12, 109, 204, 49);
 		btnOpinies.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("opinioes");
@@ -143,7 +134,7 @@ public class Principal extends JFrame implements WindowListener{
 		panelInfo.add(btnOpinies);
 		
 		JButton btnEstatisticas = new JButton("Estatisticas");
-		btnEstatisticas.setBounds(12, 247, 204, 49);
+		btnEstatisticas.setBounds(12, 178, 204, 49);
 		btnEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("estatistica");

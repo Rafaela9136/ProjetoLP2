@@ -51,12 +51,16 @@ public class Login extends JFrame {
 		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-					dispose();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado!");
+				if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) {
+					try {
+						Principal frame = new Principal();
+						frame.setVisible(true);
+						dispose();
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, "Algo esta errado!");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Login e/ou senha incorreto!");
 				}
 			}
 		});
