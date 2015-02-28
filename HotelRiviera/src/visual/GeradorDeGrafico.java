@@ -18,30 +18,30 @@ public class GeradorDeGrafico extends JPanel {
 	static DefaultCategoryDataset createDataset( )
 	   {
 	      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-	    	  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[6], "Presidencial" , "");
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[3] , "Luxo Simples" , "" );
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[4] , "Luxo Duplo" ,  "" );
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[5], "Luxo Triplo" , "" );
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[0] , "Executivo Simples" , "" );
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[1] , "Executivo Duplo" , "" );
-		      dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[2] , "Executivo Triplo" , "" );
+	    	  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[6], "Presidencial" , "");
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[3] , "Luxo Simples" , "" );
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[4] , "Luxo Duplo" ,  "" );
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[5], "Luxo Triplo" , "" );
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[0] , "Executivo Simples" , "" );
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[1] , "Executivo Duplo" , "" );
+		      dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[2] , "Executivo Triplo" , "" );
 	      return dataset;
 	   }
 
 	private static void estatQuartosPorMes(DefaultCategoryDataset dataset) {
-		dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[6], "Presidencial" , "1970" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[3] , "Luxo Simples" , "1980" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[4] , "Luxo Duplo" ,  "1990" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[5], "Luxo Triplo" , "2000" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[0] , "Executivo Simples" , "2010" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[1] , "Executivo Duplo" , "2014" );
-		  dataset.addValue( LoginJ.getHotel().getEstatisticaGeralQuartos()[2] , "Executivo Triplo" , "2014" );
+		dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[6], "Presidencial" , "1970" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[3] , "Luxo Simples" , "1980" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[4] , "Luxo Duplo" ,  "1990" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[5], "Luxo Triplo" , "2000" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[0] , "Executivo Simples" , "2010" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[1] , "Executivo Duplo" , "2014" );
+		  dataset.addValue( LoginJ.getHotel().getEstatisticaQuartos()[2] , "Executivo Triplo" , "2014" );
 	}
 
 	private static void estatServicosAdicionais(DefaultCategoryDataset dataset) {
-		dataset.addValue( LoginJ.getHotel().getEstatisticaGeralOutrosServicos()[0], "Baba" , "1970" );
-		dataset.addValue( LoginJ.getHotel().getEstatisticaGeralOutrosServicos()[1], "Automoveis" , "1970" );
-		dataset.addValue( LoginJ.getHotel().getEstatisticaGeralOutrosServicos()[2], "Restaurante" , "1970" );
+		dataset.addValue( LoginJ.getHotel().getEstatisticaOutrosServicos()[0], "Baba" , "1970" );
+		dataset.addValue( LoginJ.getHotel().getEstatisticaOutrosServicos()[1], "Automoveis" , "1970" );
+		dataset.addValue( LoginJ.getHotel().getEstatisticaOutrosServicos()[2], "Restaurante" , "1970" );
 	}
 
 	static JFreeChart createLineChart(CategoryDataset dataset) {

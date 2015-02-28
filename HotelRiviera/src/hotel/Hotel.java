@@ -8,6 +8,7 @@ import excecoes.ExecutivosTriploOcupadosException;
 import excecoes.LuxosDuploOcupadosException;
 import excecoes.LuxosSimplesOcupadosException;
 import excecoes.LuxosTriploOcupadosException;
+import excecoes.MesInvalidoException;
 import excecoes.SuitesPresidenciaisOcupadasException;
 
 import java.io.*;
@@ -70,8 +71,50 @@ public class Hotel implements Serializable {
 	public List<Contrato> getContratosRemovidos() {
 		return contratosRemovidos;
 	}// getContratosRemovidos
+	
+	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn, Calendar dataCheckOut, int mesIndice) {
+		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut.get(Calendar.MONTH); i++) 
+			if(i == mesIndice)
+				return true;
+		return false;
+	}// verificaMesEmPeriodoDeContrato
+	
+	public double[] getEstatisticaQuartos(int mes) throws MesInvalidoException {
+		if(mes < 1)
+			throw new MesInvalidoException();
+		mes--;
+		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
+		int[] quantQuartos;
+		int quantidadeTotal = 0;
+		for(Contrato contrato : contratos) {
+			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+				quantQuartos = quantidadeDeQuartos(contrato);
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+					estatisticas[i] += quantQuartos[i];
+					quantidadeTotal += quantQuartos[i];
+				}// for
+			}// if
+		}// for
+		
+		for(Contrato contrato : contratosRemovidos) {
+			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+				quantQuartos = quantidadeDeQuartos(contrato);
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+					estatisticas[i] += quantQuartos[i];
+					quantidadeTotal += quantQuartos[i];
+				}// for
+			}// if
+		}// for
+		
+		for (int i = 0; i < estatisticas.length; i++) {
+			estatisticas[i] /= quantidadeTotal;
+			estatisticas[i] *= 100;
+		}// for
+		
+		return estatisticas;
+	}// getEstatisticaMensalQuartos
 
-	public double[] getEstatisticaGeralQuartos() {
+	public double[] getEstatisticaQuartos() {
 		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		int quantidadeTotal = 0;
@@ -98,7 +141,7 @@ public class Hotel implements Serializable {
 		return estatisticas;
 	}// getEstatisticaGeralQuartos
 
-	public double[] getEstatisticaGeralOutrosServicos() {
+	public double[] getEstatisticaOutrosServicos() {
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 		int quantidadeTotal = 0;
