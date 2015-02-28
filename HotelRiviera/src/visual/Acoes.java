@@ -281,7 +281,7 @@ public class Acoes extends JPanel {
 											.getText()), servicos);
 
 					try {
-						LoginJ.getHotel().adicionaContrato(contrato);
+						Main.getHotel().adicionaContrato(contrato);
 					} catch (ExecutivosDuploOcupadosException
 							| LuxosSimplesOcupadosException
 							| LuxosDuploOcupadosException
@@ -662,9 +662,9 @@ public class Acoes extends JPanel {
 	// pra pegar a informacao correta
 	private boolean selecionaContrato(int linha) throws FileNotFoundException,
 			ClassNotFoundException, IOException {
-		for (int i = 0; i < LoginJ.getHotel().getContratos().size(); i++) {
+		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
 			if (i == linha) {
-				contratoPesquisado = LoginJ.getHotel().getContratos().get(i);
+				contratoPesquisado = Main.getHotel().getContratos().get(i);
 				return true;
 			}
 		}
@@ -691,16 +691,16 @@ public class Acoes extends JPanel {
 
 	private void pesquisaTabela() throws FileNotFoundException,
 			ClassNotFoundException, IOException {
-		String[][] dados = new String[LoginJ.getHotel().getContratos().size()][2];
+		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
 		int cont = 0;
-		for (int i = 0; i < LoginJ.getHotel().getContratos().size(); i++) {
-			if (LoginJ.getHotel().getContratos().get(i).getHospedeTitular().getNome()
+		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
+			if (Main.getHotel().getContratos().get(i).getHospedeTitular().getNome()
 					.equals(textFieldPesquisa.getText())) {
-				dados[cont][0] = LoginJ.getHotel().getContratos().get(i)
+				dados[cont][0] = Main.getHotel().getContratos().get(i)
 						.getHospedeTitular().getNome();
-				if (LoginJ.getHotel().getContratos().get(i).getIsAberto())
+				if (Main.getHotel().getContratos().get(i).getIsAberto())
 					dados[cont][1] = "Aberto";
-				if (LoginJ.getHotel().getContratos().get(i).getIsReserva())
+				if (Main.getHotel().getContratos().get(i).getIsReserva())
 					dados[cont][1] = "Reserva";
 				cont++;
 			} // if
@@ -716,13 +716,13 @@ public class Acoes extends JPanel {
 
 	private void atualizaTabela() throws FileNotFoundException,
 			ClassNotFoundException, IOException {
-		String[][] dados = new String[LoginJ.getHotel().getContratos().size()][2];
-		for (int i = 0; i < LoginJ.getHotel().getContratos().size(); i++) {
-			dados[i][0] = LoginJ.getHotel().getContratos().get(i).getHospedeTitular()
+		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
+		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
+			dados[i][0] = Main.getHotel().getContratos().get(i).getHospedeTitular()
 					.getNome();
-			if (LoginJ.getHotel().getContratos().get(i).getIsAberto())
+			if (Main.getHotel().getContratos().get(i).getIsAberto())
 				dados[i][1] = "Aberto";
-			if (LoginJ.getHotel().getContratos().get(i).getIsReserva())
+			if (Main.getHotel().getContratos().get(i).getIsReserva())
 				dados[i][1] = "Reserva";
 		}// for
 

@@ -429,7 +429,7 @@ public class AtualizacaoContrato extends JPanel {
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
-			LoginJ.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
 	}
 
 	private void hospedeDadosPrincipais(JPanel panelNovoContrato)

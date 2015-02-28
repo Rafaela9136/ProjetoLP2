@@ -38,6 +38,7 @@ public class Info extends JPanel {
 	private static JComboBox<String> comboBoxMes;
 	private static JComboBox<String> comboBoxVisao;
 	private static JComboBox<String> comboBox;
+	private static CategoryDataset dataset;
 	
 	/**
 	 * Create the panel.
@@ -115,7 +116,17 @@ public class Info extends JPanel {
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
 		comboBox.setBounds(129, 98, 144, 24);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboBox.getSelectedItem().equals("Servicos adicionais"))
+					dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
+				else
+					dataset = GeradorDeGrafico.estatQuartoGeral();
+			}
+		});
 		estatistica.add(comboBox);
+		
+		criaGrafico();
 		
 		JTextPane txtpnOGrafico = new JTextPane();
 		txtpnOGrafico.setFont(new Font("Dialog", Font.PLAIN, 11));
@@ -124,20 +135,7 @@ public class Info extends JPanel {
 		estatistica.add(txtpnOGrafico);		
 	}
 	
-	static String getOpcaoServico(){
-		return (String) comboBox.getSelectedItem();
-	}
-	
-	static String getOpcaoVisao(){
-		return (String) comboBoxVisao.getSelectedItem();
-	}
-	
-	static String getOpcaoMes(){
-		return (String) comboBoxMes.getSelectedItem();
-	}
-
 	static void criaGrafico() {
-		CategoryDataset dataset = GeradorDeGrafico.createDataset();
 		JFreeChart chart = GeradorDeGrafico.createLineChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);
 		panel.setBounds(47, 154, 668, 304);
@@ -211,19 +209,19 @@ public class Info extends JPanel {
 		String[] colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
 		String[][] dados = new String[][]{
 		    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
 		    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()))},
 		    {"Luxo Duplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()))},
 		    {"Luxo Triplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()))},
 		    {"Executivo Simples", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()))},
 		    {"Executivo Duplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
-		    	Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()))},
+		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()))},
 		    {"Executivo Triplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
-		    		Integer.toString(LoginJ.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
+		    		Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
 		};
 		
 		JTable tabela = new JTable();

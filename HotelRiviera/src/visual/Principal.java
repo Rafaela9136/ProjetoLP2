@@ -53,7 +53,7 @@ public class Principal extends JFrame implements WindowListener{
 		    public void windowClosing(WindowEvent evt) {  
 		        if (JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
 		        	try {
-						LoginJ.salvaHotel();
+						Main.salvaHotel();
 					} catch (IOException e) {
 						JOptionPane.showMessageDialog(null,"Algo esta errado!");
 					}
@@ -147,7 +147,6 @@ public class Principal extends JFrame implements WindowListener{
 		btnEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("estatistica");
-				Info.criaGrafico();
 			}
 		});
 		panelInfo.add(btnEstatisticas);
@@ -162,7 +161,7 @@ public class Principal extends JFrame implements WindowListener{
 			public void actionPerformed(ActionEvent e) {
 				if(JOptionPane.showConfirmDialog(null,"Deseja sair?")==JOptionPane.OK_OPTION){
 					try {
-						LoginJ.salvaHotel();
+						Main.salvaHotel();
 					} catch (IOException e1) {
 						JOptionPane.showMessageDialog(null,"Algo esta errado!");
 					}
