@@ -89,7 +89,9 @@ public class Hotel implements Serializable {
 		return contasHotel.remove(conta);
 	}//removeConta
 	
-	public boolean pesquisaConta(String login, String senha) {
+	public boolean pesquisaConta(String login, String senha) throws NullPointerException {
+		if(login == null || senha == null)
+			throw new NullPointerException();
 		for(Conta conta : contasHotel) 
 			if(conta.getLogin().equals(login) || conta.getSenha().equals(senha))
 				return true;
