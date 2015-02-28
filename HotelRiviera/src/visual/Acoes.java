@@ -210,11 +210,8 @@ public class Acoes extends JPanel {
 
 		if (comboBoxQuarto.getSelectedItem().equals("Presidencial")) {
 			try {
-				quarto = new SuitePresidencial(
-						Conector.transformaData(formattedTextFieldCheckIn
-								.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut
-								.getText()));
+				quarto = new SuitePresidencial(Conector.transformaData(formattedTextFieldCheckIn.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e) {
 				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
@@ -225,12 +222,9 @@ public class Acoes extends JPanel {
 		if (comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 			try {
 				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
-						Conector.selecionaTipoQuarto(comboBoxQuartoT
-								.getSelectedItem()),
-						Conector.transformaData(formattedTextFieldCheckIn
-								.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut
-								.getText()));
+						Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()),
+						Conector.transformaData(formattedTextFieldCheckIn.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
 				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
@@ -243,12 +237,9 @@ public class Acoes extends JPanel {
 		if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
 			try {
 				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
-						Conector.selecionaTipoQuarto(comboBoxQuartoT
-								.getSelectedItem()),
-						Conector.transformaData(formattedTextFieldCheckIn
-								.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut
-								.getText()));
+						Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()),
+						Conector.transformaData(formattedTextFieldCheckIn.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
 				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
@@ -274,10 +265,8 @@ public class Acoes extends JPanel {
 
 				try {
 					Contrato contrato = new Contrato(hospede, acompanhantes,
-							Conector.transformaData(formattedTextFieldCheckIn
-									.getText()), Conector
-									.transformaData(formattedTextFieldCheckOut
-											.getText()), servicos);
+							Conector.transformaData(formattedTextFieldCheckIn.getText()),
+							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
 
 					try {
 						Main.getHotel().adicionaContrato(contrato);
@@ -313,11 +302,10 @@ public class Acoes extends JPanel {
 		try {
 			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 				hospede = new Hospede(textFieldNome.getText(),
-						Conector.transformaData(formattedTextFieldData
-								.getText()),
+						Conector.transformaData(formattedTextFieldData.getText()),
 						(String) comboBoxPaises.getSelectedItem(),
-						Conector.selecionaEstado((String) comboBoxEstados
-								.getSelectedItem()), textFieldCidade.getText(),
+						Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()), 
+						textFieldCidade.getText(),
 						textFieldLogradouro.getText(),
 						textFieldNumero.getText(),
 						formattedTextFieldCPF.getText(),
