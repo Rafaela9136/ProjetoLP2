@@ -100,7 +100,7 @@ public class Hotel implements Serializable {
 			throw new NullPointerException();
 		for (Conta conta : contasHotel)
 			if (conta.getLogin().equals(login)
-					|| conta.getSenha().equals(senha))
+					&& conta.getSenha().equals(senha))
 				return true;
 
 		return false;
