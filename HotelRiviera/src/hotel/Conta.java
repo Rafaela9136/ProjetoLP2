@@ -1,10 +1,22 @@
 package hotel;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import excecoes.LoginInvalidoException;
 import excecoes.NomeCompletoInvalidoException;
 import excecoes.SenhaInvalidaException;
 
-public class Conta {
+public class Conta implements Serializable {
 	public static final int TAMANHO_MINIMO_LOGIN = 6;
 	public static final int TAMANHO_MINIMO_SENHA = 6;
 
@@ -59,6 +71,11 @@ public class Conta {
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}// getNomeCompleto
+	
+	public void setNomeCompleto(String nomeCompleto) throws NomeCompletoInvalidoException {
+		verificaNomeCompletoValido(nomeCompleto);
+		this.nomeCompleto = nomeCompleto;
+	}// setNomeCompleto
 
 	@Override
 	public int hashCode() {
@@ -90,11 +107,9 @@ public class Conta {
 
 	@Override
 	public String toString() {
-		return "\nConta" 
-	+ "\nNome Completo: " + getNomeCompleto()
-	+ "\nTipo do Funcionario: " + getTipo().getNome() 
-	+ "\nLogin: "+ getLogin() 
-	+ "\nSenha: " + getSenha();
+		return "\nConta" + "\nNome Completo: " + getNomeCompleto()
+				+ "\nTipo do Funcionario: " + getTipo().getNome() + "\nLogin: "
+				+ getLogin() + "\nSenha: " + getSenha();
 	}// toString
 
 	private void verificaLoginValido(String login)
@@ -121,5 +136,28 @@ public class Conta {
 		if (!nomeCompleto.contains(" "))
 			throw new NomeCompletoInvalidoException();
 	}// verificaNomeCompletoValido
+
+	// Para reiniciar o arquivo das contas
+	public static void main(String[] args) throws FileNotFoundException,
+			IOException, LoginInvalidoException, NullPointerException,
+			SenhaInvalidaException, NomeCompletoInvalidoException, ClassNotFoundException {
+		List<Conta> contas = new ArrayList<Conta>();
+		Conta gerente = new Conta("gerente", "prog2ufcg", "Gerente do Hotel",
+				TipoFuncionario.GERENTE);
+		contas.add(gerente);
+		ObjectOutputStream out = new ObjectOutputStream(
+				new BufferedOutputStream(
+						new FileOutputStream("contasHotel.dat")));
+		out.writeObject(contas);
+		out.close();
+		
+		
+		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("contasHotel.dat")));
+		List<Conta> contasLidas = (List<Conta>) in.readObject();
+		in.close();
+		for (Conta conta : contasLidas) {
+			System.out.println(conta);
+		}// for
+	}// main
 
 }// Conta
