@@ -140,6 +140,42 @@ public class Hotel implements Serializable {
 		}// for
 		return estatisticas;
 	}// getEstatisticaGeralQuartos
+	
+	public double[] getEstatisticaOutrosServicos(int mes) throws MesInvalidoException {
+		if(mes < 1)
+			throw new MesInvalidoException();
+		mes--;
+		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
+		int[] quantOutrosServicos;
+		int quantidadeTotal = 0;
+		for (Contrato contrato : contratos) {
+			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
+			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
+				estatisticas[i] += quantOutrosServicos[i];
+				quantidadeTotal += quantOutrosServicos[i];
+			}// for
+			}// if
+		}// for
+		
+		for (Contrato contrato : contratosRemovidos) {
+			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+			quantOutrosServicos= quantidadeDeOutrosServicos(contrato);
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				estatisticas[i] += quantOutrosServicos[i];
+				quantidadeTotal += quantOutrosServicos[i];
+			}// for
+			}// if
+		}// for
+
+		for (int i = 0; i < estatisticas.length; i++) {
+			estatisticas[i] /= quantidadeTotal;
+			estatisticas[i] *= quantidadeTotal;
+		}// for
+
+		return estatisticas;
+
+	}// getEstatisticaOutrosServicos
 
 	public double[] getEstatisticaOutrosServicos() {
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
