@@ -138,26 +138,26 @@ public class Conta implements Serializable {
 	}// verificaNomeCompletoValido
 
 	// Para reiniciar o arquivo das contas
-	public static void main(String[] args) throws FileNotFoundException,
-			IOException, LoginInvalidoException, NullPointerException,
-			SenhaInvalidaException, NomeCompletoInvalidoException, ClassNotFoundException {
-		List<Conta> contas = new ArrayList<Conta>();
-		Conta gerente = new Conta("gerente", "prog2ufcg", "Gerente do Hotel",
-				TipoFuncionario.GERENTE);
-		contas.add(gerente);
-		ObjectOutputStream out = new ObjectOutputStream(
-				new BufferedOutputStream(
-						new FileOutputStream("contasHotel.dat")));
-		out.writeObject(contas);
-		out.close();
-		
-		
-		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("contasHotel.dat")));
-		List<Conta> contasLidas = (List<Conta>) in.readObject();
-		in.close();
-		for (Conta conta : contasLidas) {
-			System.out.println(conta);
-		}// for
-	}// main
+//	public static void main(String[] args) throws FileNotFoundException,
+//			IOException, LoginInvalidoException, NullPointerException,
+//			SenhaInvalidaException, NomeCompletoInvalidoException, ClassNotFoundException {
+//		List<Conta> contas = new ArrayList<Conta>();
+//		Conta gerente = new Conta("gerente", "prog2ufcg", "Gerente do Hotel",
+//				TipoFuncionario.GERENTE);
+//		contas.add(gerente);
+//		ObjectOutputStream out = new ObjectOutputStream(
+//				new BufferedOutputStream(
+//						new FileOutputStream("contasHotel.dat")));
+//		out.writeObject(contas);
+//		out.close();
+//		
+//		
+//		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("contasHotel.dat")));
+//		List<Conta> contasLidas = (List<Conta>) in.readObject();
+//		in.close();
+//		for (Conta conta : contasLidas) {
+//			System.out.println(conta);
+//		}// for
+//	}// main
 
 }// Conta

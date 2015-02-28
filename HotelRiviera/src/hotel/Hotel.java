@@ -5,10 +5,12 @@ import java.util.*;
 import excecoes.ExecutivosDuploOcupadosException;
 import excecoes.ExecutivosSimplesOcupadosException;
 import excecoes.ExecutivosTriploOcupadosException;
+import excecoes.LoginInvalidoException;
 import excecoes.LuxosDuploOcupadosException;
 import excecoes.LuxosSimplesOcupadosException;
 import excecoes.LuxosTriploOcupadosException;
 import excecoes.MesInvalidoException;
+import excecoes.NomeCompletoInvalidoException;
 import excecoes.SuitesPresidenciaisOcupadasException;
 
 import java.io.*;
@@ -23,6 +25,7 @@ public class Hotel implements Serializable {
 	private int[] quartosDesocupados;
 	private List<Opiniao> opinioes;
 	private List<Contrato> contratosRemovidos;
+	private List<Conta> contasHotel;
 
 	private static final int QUANT_TIPOS_DE_QUARTOS = 7;
 	private static final int QUANT_OUTROS_SERVICOS = 3;
@@ -36,6 +39,7 @@ public class Hotel implements Serializable {
 		this.quartosDesocupados = quartosDesocupados;
 		this.opinioes = opinioes;
 		contratosRemovidos = new ArrayList<Contrato>();
+		contasHotel = new ArrayList<Conta>();
 	}// Construtor
 
 	public void adicionaContrato(Contrato contrato)
@@ -64,6 +68,35 @@ public class Hotel implements Serializable {
 		return saida;
 	}// removeContrato
 
+	public void adicionaConta(Conta contaNova) throws LoginInvalidoException,
+			NullPointerException, NomeCompletoInvalidoException {
+		if (contaNova == null)
+			throw new NullPointerException();
+
+		for (Conta conta : contasHotel) {
+			if (contaNova.getLogin().equals(conta))
+				throw new LoginInvalidoException();
+
+			if (contaNova.getNomeCompleto().trim()
+					.equals(conta.getNomeCompleto().trim()))
+				throw new NomeCompletoInvalidoException();
+		}// for
+		
+		contasHotel.add(contaNova);
+	}// adicionaConta
+	
+	public boolean removeConta(Conta conta) {
+		return contasHotel.remove(conta);
+	}//removeConta
+	
+	public boolean pesquisaConta(String login, String senha) {
+		for(Conta conta : contasHotel) 
+			if(conta.getLogin().equals(login) || conta.getSenha().equals(senha))
+				return true;
+		
+		return false;
+	}// pesquisaConta
+
 	public List<Contrato> getContratos() {
 		return contratos;
 	}// getContratos
@@ -71,23 +104,30 @@ public class Hotel implements Serializable {
 	public List<Contrato> getContratosRemovidos() {
 		return contratosRemovidos;
 	}// getContratosRemovidos
-	
-	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn, Calendar dataCheckOut, int mesIndice) {
-		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut.get(Calendar.MONTH); i++) 
-			if(i == mesIndice)
+
+	public List<Conta> getContasHotel() {
+		return contasHotel;
+	}// getContasHotele
+
+	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
+			Calendar dataCheckOut, int mesIndice) {
+		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
+				.get(Calendar.MONTH); i++)
+			if (i == mesIndice)
 				return true;
 		return false;
 	}// verificaMesEmPeriodoDeContrato
-	
+
 	public double[] getEstatisticaQuartos(int mes) throws MesInvalidoException {
-		if(mes < 1)
+		if (mes < 1)
 			throw new MesInvalidoException();
 		mes--;
 		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		int quantidadeTotal = 0;
-		for(Contrato contrato : contratos) {
-			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+		for (Contrato contrato : contratos) {
+			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
+					contrato.getDataCheckOut(), mes)) {
 				quantQuartos = quantidadeDeQuartos(contrato);
 				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 					estatisticas[i] += quantQuartos[i];
@@ -95,9 +135,10 @@ public class Hotel implements Serializable {
 				}// for
 			}// if
 		}// for
-		
-		for(Contrato contrato : contratosRemovidos) {
-			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
+
+		for (Contrato contrato : contratosRemovidos) {
+			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
+					contrato.getDataCheckOut(), mes)) {
 				quantQuartos = quantidadeDeQuartos(contrato);
 				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 					estatisticas[i] += quantQuartos[i];
@@ -105,12 +146,12 @@ public class Hotel implements Serializable {
 				}// for
 			}// if
 		}// for
-		
+
 		for (int i = 0; i < estatisticas.length; i++) {
 			estatisticas[i] /= quantidadeTotal;
 			estatisticas[i] *= 100;
 		}// for
-		
+
 		return estatisticas;
 	}// getEstatisticaMensalQuartos
 
@@ -140,31 +181,34 @@ public class Hotel implements Serializable {
 		}// for
 		return estatisticas;
 	}// getEstatisticaGeralQuartos
-	
-	public double[] getEstatisticaOutrosServicos(int mes) throws MesInvalidoException {
-		if(mes < 1)
+
+	public double[] getEstatisticaOutrosServicos(int mes)
+			throws MesInvalidoException {
+		if (mes < 1)
 			throw new MesInvalidoException();
 		mes--;
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 		int quantidadeTotal = 0;
 		for (Contrato contrato : contratos) {
-			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
-			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
-				estatisticas[i] += quantOutrosServicos[i];
-				quantidadeTotal += quantOutrosServicos[i];
-			}// for
+			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
+					contrato.getDataCheckOut(), mes)) {
+				quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
+				for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
+					estatisticas[i] += quantOutrosServicos[i];
+					quantidadeTotal += quantOutrosServicos[i];
+				}// for
 			}// if
 		}// for
-		
+
 		for (Contrato contrato : contratosRemovidos) {
-			if(verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(), contrato.getDataCheckOut(), mes)) {
-			quantOutrosServicos= quantidadeDeOutrosServicos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
-				estatisticas[i] += quantOutrosServicos[i];
-				quantidadeTotal += quantOutrosServicos[i];
-			}// for
+			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
+					contrato.getDataCheckOut(), mes)) {
+				quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+					estatisticas[i] += quantOutrosServicos[i];
+					quantidadeTotal += quantOutrosServicos[i];
+				}// for
 			}// if
 		}// for
 
@@ -188,9 +232,9 @@ public class Hotel implements Serializable {
 				quantidadeTotal += quantOutrosServicos[i];
 			}// for
 		}// for
-		
+
 		for (Contrato contrato : contratosRemovidos) {
-			quantOutrosServicos= quantidadeDeOutrosServicos(contrato);
+			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
 			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 				estatisticas[i] += quantOutrosServicos[i];
 				quantidadeTotal += quantOutrosServicos[i];
@@ -236,13 +280,12 @@ public class Hotel implements Serializable {
 
 		int[] quantASerSomada = new int[QUANT_TIPOS_DE_QUARTOS];
 		quantASerSomada = quantidadeDeQuartos(contrato);
-		
+
 		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
-		
-		for (int i = 0; i < quartosDesocupados.length; i++) 
+
+		for (int i = 0; i < quartosDesocupados.length; i++)
 			quartosDesocupados[i] = 0;
-		
-		
+
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] += quantASerSomada[i];
 		return quartosDesocupados;
@@ -297,10 +340,9 @@ public class Hotel implements Serializable {
 		int[] quantASerRetirada = new int[QUANT_TIPOS_DE_QUARTOS];
 		quantASerRetirada = quantidadeDeQuartos(contrato);
 		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
-		
-		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) 
+
+		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] = 0;
-		
 
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] -= quantASerRetirada[i];
