@@ -18,7 +18,14 @@ import excecoes.ComentarioVazioException;
 import excecoes.ContratoSemQuartoException;
 import excecoes.DataInvalidaException;
 import excecoes.EstouroDeCaracteresException;
+import excecoes.ExecutivosDuploOcupadosException;
+import excecoes.ExecutivosSimplesOcupadosException;
+import excecoes.ExecutivosTriploOcupadosException;
+import excecoes.LoginExistenteException;
 import excecoes.LoginInvalidoException;
+import excecoes.LuxosDuploOcupadosException;
+import excecoes.LuxosSimplesOcupadosException;
+import excecoes.LuxosTriploOcupadosException;
 import excecoes.NomeCompletoInvalidoException;
 import excecoes.NomeInvalidoException;
 import excecoes.NotaInvalidaException;
@@ -26,6 +33,7 @@ import excecoes.NumeroInvalidoException;
 import excecoes.SenhaInvalidaException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
+import excecoes.SuitesPresidenciaisOcupadasException;
 
 public class HotelTest {
 
@@ -111,6 +119,55 @@ public class HotelTest {
 		try {
 			new Hotel(contratos, quartosDesocupados, null);
 		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Assert.assertEquals(hotel.getContratos(), contratos);
+		Assert.assertEquals(hotel.getOpinioes(), opinioes);
+	}
+
+	@Test
+	public void testaAdicionaRemoveContrato()
+			throws ExecutivosDuploOcupadosException,
+			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
+			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException {
+		try {
+			hotel.adicionaContrato(null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Assert.assertFalse(hotel.removeContrato(null));
+
+		Assert.assertTrue(hotel.getContratos().contains(contrato1));
+		Assert.assertTrue(hotel.getContratos().contains(contrato2));
+		Assert.assertTrue(hotel.getContratos().contains(contrato3));
+
+		Assert.assertTrue(hotel.removeContrato(contrato1));
+		Assert.assertFalse(hotel.getContratos().contains(contrato1));
+		Assert.assertFalse(hotel.removeContrato(contrato1));
+
+		hotel.adicionaContrato(contrato1);
+		Assert.assertTrue(hotel.getContratos().contains(contrato1));
+	}
+
+	@Test
+	public void AdicionaRemoveConta() throws LoginInvalidoException,
+			NomeCompletoInvalidoException, LoginExistenteException,
+			NullPointerException, SenhaInvalidaException {
+		try {
+			hotel.adicionaConta(null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Assert.assertEquals(hotel.getContasHotel().get(0).getLogin(), "gerente");
+		try {
+			hotel.adicionaConta(new Conta("gerente", "senha1",
+					"Nome completo aqui", TipoFuncionario.GERENTE));
+		} catch (LoginExistenteException e) {
 			Assert.assertTrue(true);
 		}
 	}

@@ -116,15 +116,10 @@ public class Conta implements Serializable {
 		if (!(obj instanceof Conta))
 			return false;
 		Conta outraConta = (Conta) obj;
-		if (!getNomeCompleto().equals(outraConta.getNomeCompleto()))
-			return false;
-		if (!getLogin().equals(outraConta.getLogin()))
-			return false;
-		if (!getSenha().equals(outraConta.getSenha()))
-			return false;
-		if (!getTipo().equals(outraConta.getTipo()))
-			return false;
-		return true;
+		return getNomeCompleto().equals(outraConta.getNomeCompleto())
+				&& getLogin().equals(outraConta.getLogin())
+				&& getSenha().equals(outraConta.getSenha())
+				&& getTipo().equals(outraConta.getTipo());
 	}// equals
 
 	// Para reiniciar o arquivo das contas
