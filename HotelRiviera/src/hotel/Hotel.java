@@ -16,6 +16,11 @@ import excecoes.SuitesPresidenciaisOcupadasException;
 
 import java.io.*;
 
+/**
+ * A classe Hotel guarda informações sobre contratos, quartos disponíveis, opiniões de clientes 
+ * e login dos funcionários do hotel Rivieira 
+ * 
+ */
 public class Hotel implements Serializable {
 
 	/**
@@ -30,7 +35,25 @@ public class Hotel implements Serializable {
 
 	private static final int QUANT_TIPOS_DE_QUARTOS = 7;
 	private static final int QUANT_OUTROS_SERVICOS = 3;
-
+	
+	/**
+	 * Cria um objeto do tipo Hotel.
+	 * 
+	 * @param contratos 
+	 * 				Uma lista com os contratos em vigor.
+	 * @param quartosDesocupados
+	 * 				Um array de int que informa a quantia de quartos desocupados dentre cada um dos quartos disponíveis.
+	 * @param opinioes
+	 * 				Uma lista com as Opinioes dos clientes sobre o hotel.
+	 * @throws NullPointerException
+	 * 				Se qualquer um dos parametros for null.
+	 * @throws LoginInvalidoException
+	 * 				Se o login contem espacos em branco ou se for menor que o TAMANHO_MINIMO_LOGIN, que e 6.
+	 * @throws SenhaInvalidaException
+	 * 				Se a senha contem espacos em branco ou se for menor que o TAMANHO_MINIMO_SENHA, que e 6.
+	 * @throws NomeCompletoInvalidoException
+	 * 				Se o nome completo nao contem nenhum espaco.
+	 */
 	public Hotel(List<Contrato> contratos, int[] quartosDesocupados,
 			List<Opiniao> opinioes) throws NullPointerException,
 			LoginInvalidoException, SenhaInvalidaException,
@@ -46,7 +69,27 @@ public class Hotel implements Serializable {
 		contasHotel.add(new Conta("gerente", "euamorafael", "Rafael Klynger",
 				TipoFuncionario.GERENTE));
 	}// Construtor
-
+	
+	/**
+	 * Adiciona um novo contrato a lista de contratos.
+	 * 
+	 * @param contrato
+	 * 				O novo contrato a ser adicionado.
+	 * @throws ExecutivosDuploOcupadosException
+	 * 				Se todos os quartos executivo duplo estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 * @throws SuitesPresidenciaisOcupadasException
+	 * 				Se todos as suites presidenciais estiverem ocupadas e for requisitada uma nova suite para o contrato.
+	 * @throws LuxosSimplesOcupadosException
+	 * 				Se todos os luxo simples estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 * @throws LuxosDuploOcupadosException
+	 * 				Se todos os quartos luxo duplo estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 * @throws LuxosTriploOcupadosException
+	 * 				Se todos os quartos luxo triplo estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 * @throws ExecutivosSimplesOcupadosException
+	 * 				Se todos os quartos executivo simples estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 * @throws ExecutivosTriploOcupadosException
+	 * 				Se todos os quartos executivo triplo estiverem ocupados e for requisitado um novo quarto para o contrato.
+	 */
 	public void adicionaContrato(Contrato contrato)
 			throws ExecutivosDuploOcupadosException,
 			SuitesPresidenciaisOcupadasException,
@@ -57,12 +100,25 @@ public class Hotel implements Serializable {
 		contratos.add(contrato);
 
 	}// adicionaContrato
-
+	
+	/**
+	 * Retorna a lista de opinioes do hotel.
+	 * 
+	 * @return a lista de opinioes do hotel.
+	 */
 	public List<Opiniao> getOpinioesOrdenadas() {
 		// opinioes.sort(new OpiniaoComparator());
 		return opinioes;
 	}// getOpinioesComMaioresNotas
-
+	
+	/**
+	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista de contratos removidos.
+	 * Também adiciona a opiniao do cliente do contrato a lista de opinioes do hotel.
+	 * 
+	 * @param contrato
+	 * 				O contrato a ser removido da lista.
+	 * @return "true" se o contrato existia na lista de contratos e foi removido com sucesso. 
+	 */
 	public boolean removeContrato(Contrato contrato) {
 		boolean saida = contratos.remove(contrato);
 		if (saida) {
@@ -72,7 +128,19 @@ public class Hotel implements Serializable {
 		}
 		return saida;
 	}// removeContrato
-
+	
+	/**
+	 * Adiciona uma nova conta para login a lista de contas dos funcionarios do hotel.
+	 * 
+	 * @param contaNova
+	 * 				A nova conta a ser adicionada.
+	 * @throws LoginInvalidoException
+	 * 				Se o login da nova conta ja existir em alguma conta na lista de contas do hotel.
+	 * @throws NullPointerException
+	 * 				Se o parametro for null.
+	 * @throws NomeCompletoInvalidoException
+	 * 				Se o nome completo ja existir em alguma conta na lista de contas do hotel.
+	 */
 	public void adicionaConta(Conta contaNova) throws LoginInvalidoException,
 			NullPointerException, NomeCompletoInvalidoException {
 		if (contaNova == null)
@@ -89,11 +157,29 @@ public class Hotel implements Serializable {
 //d
 		contasHotel.add(contaNova);
 	}// adicionaConta
-
+	
+	/**
+	 * Remove uma conta da lista de contas do hotel.
+	 * 	
+	 * @param conta
+	 * 			A conta a ser removida
+	 * @return "true" se a conta foi removida com sucesso.
+	 */
 	public boolean removeConta(Conta conta) {
 		return contasHotel.remove(conta);
 	}// removeConta
-
+	
+	/**
+	 * Pesquisa uma conta na lista de contas do hotel.
+	 * 
+	 * @param login
+	 * 			O login da conta que se quer pesquisar.
+	 * @param senha
+	 * 			A senha da conta que se quer pesquisar.
+	 * @return	"true" se a conta existir na lista de contas do hotel.
+	 * @throws NullPointerException
+	 * 			Se quaisquer dos parametros forem null.
+	 */
 	public boolean pesquisaConta(String login, String senha)
 			throws NullPointerException {
 		if (login == null || senha == null)
@@ -105,19 +191,46 @@ public class Hotel implements Serializable {
 
 		return false;
 	}// pesquisaConta
-
+	
+	/**
+	 * Retorna a lista de contratos em voga do hotel.
+	 * 
+	 * @return a lista de contratos em voga do hotel.
+	 */
 	public List<Contrato> getContratos() {
 		return contratos;
 	}// getContratos
-
+	
+	/**
+	 * Retorna a lista de contratos já fechados do hotel. 
+	 * 
+	 * @return A lista de contratos removidos.
+	 */
 	public List<Contrato> getContratosRemovidos() {
 		return contratosRemovidos;
 	}// getContratosRemovidos
+	
+	/**
+	 * Retorna a lista de contas dos funcionários do hotel.
+	 * 
+	 * @return  a lista de contas dos funcionários do hotel.
 
+	 */
 	public List<Conta> getContasHotel() {
 		return contasHotel;
 	}// getContasHotele
-
+	
+	/**
+	 * Verifica se determinado mes esta entre (inclusivo) as dataCheckIn e dataCheckOut de um contrato.
+	 * 
+	 * @param dataCheckIn
+	 * 				A data de abertura/check in do contrato.
+	 * @param dataCheckOut
+	 * 				A data de encerramento/ check out do contrato.
+	 * @param mesIndice
+	 * 				Um indice (0 a 11) que representa o mês do ano.
+	 * @return	"true" se o mesIndice estiver entre as datas de abertura e encerramento do contrato.
+	 */
 	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
 			Calendar dataCheckOut, int mesIndice) {
 		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
@@ -126,7 +239,17 @@ public class Hotel implements Serializable {
 				return true;
 		return false;
 	}// verificaMesEmPeriodoDeContrato
-
+	
+	/**
+	 * Informa as estatisticas sobre os quartos alugados em determinado mes do ano.
+	 * 
+	 * @param mes
+	 * 			Um int (1 a 12) que representa o mes para o qual as estatisticas serao dadas.
+	 * @return 
+	 * 			Um array de double com valores que representam a porcentagem de aluguel dos quartos com relacao ao total alugado naquele mes.
+	 * @throws MesInvalidoException
+	 * 			Se o valor do mes passado como parametro for invalido (menor que um).
+	 */
 	public double[] getEstatisticaQuartos(int mes) throws MesInvalidoException {
 		if (mes < 1)
 			throw new MesInvalidoException();
@@ -163,7 +286,13 @@ public class Hotel implements Serializable {
 
 		return estatisticas;
 	}// getEstatisticaMensalQuartos
-
+	
+	/**
+	 * Informa as estatisticas gerais sobre os quartos alugados no hotel. 
+	 * 
+	 * @return 
+	 * 			Um array de double com valores que representam a porcentagem de aluguel dos quartos com relacao ao total alugado ate entao.
+	 */
 	public double[] getEstatisticaQuartos() {
 		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
@@ -190,7 +319,17 @@ public class Hotel implements Serializable {
 		}// for
 		return estatisticas;
 	}// getEstatisticaGeralQuartos
-
+	
+	/**
+	 * Informa as estatisticas sobre os servicos contratados no hotel (com excecao dos quartos alugados) em determinado mes do ano.
+	 *  
+	 * @param mes
+	 * 			Um int (1 a 12) que representa o mes para o qual as estatisticas serao dadas.
+	 * @return
+	 * 			Um array de double com valores que representam a porcentagem de contratacao de cada tipo de servico com relacao ao total contratado naquele mes.
+	 * @throws MesInvalidoException
+	 * 			Se o valor do mes passado como parametro for invalido (menor que um).
+	 */
 	public double[] getEstatisticaOutrosServicos(int mes)
 			throws MesInvalidoException {
 		if (mes < 1)
@@ -229,7 +368,13 @@ public class Hotel implements Serializable {
 		return estatisticas;
 
 	}// getEstatisticaOutrosServicos
-
+	
+	/**
+	 * Informa as estatisticas gerais sobre os quartos alugados no hotel. 
+	 * 
+	 * @return 
+	 * 			Um array de double com valores que representam a porcentagem de aluguel dos quartos com relacao ao total alugado ate entao.
+	 */
 	public double[] getEstatisticaOutrosServicos() {
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
@@ -257,7 +402,15 @@ public class Hotel implements Serializable {
 
 		return estatisticas;
 	}// getEstatisticaGeralOutrosServicos
-
+	
+	/**
+	 * Informa os servicos contratados (com excecao dos quartos alugados) em um contrato.
+	 * 
+	 * @param contrato
+	 * 				O contrato para o qual se quer saber os servicos contratados.
+	 * @return Um array de int com indices que representam se o o servico correspondente a cada indice foi ou nao contratado.
+	 * 	
+	 */
 	public int[] quantidadeDeOutrosServicos(Contrato contrato) {
 		int[] servicos = new int[QUANT_OUTROS_SERVICOS];
 		for (Servico servico : contrato.getServicos()) {
@@ -270,7 +423,14 @@ public class Hotel implements Serializable {
 		}// for
 		return servicos;
 	}// quantidadeOutrosServicos
-
+	
+	/**
+	 * Pesquisa um contrato em aberto no hotel pelo nome do titular ou de um hospede acompanhante.
+	 * 
+	 * @param text
+	 * 			Um String que representa o nome do titular ou de um acompanhante.
+	 * @return Uma lista com os contratos encontrados.
+	 */
 	public List<Contrato> pesquisaContrato(String text) {
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
@@ -284,7 +444,15 @@ public class Hotel implements Serializable {
 		}// for
 		return contratosEncontrados;
 	}// pesquisaContrato
-
+	
+	/**
+	 * Atualiza a quatidade (por tipo) de quartos desocupados. O contrato passado como parametro foi encerrado e os quartos
+	 * que estavam ocupados agora nao estao mais.
+	 * 
+	 * @param contrato
+	 * 				O contrato cujos quartos foram desocupados e agoram ja podem ser alugados novamente.
+	 * @return A lista atualizada de quartosDesocupados.
+	 */
 	private int[] atualizaQuantQuartosParaContratosVelhos(Contrato contrato) {
 
 		int[] quantASerSomada = new int[QUANT_TIPOS_DE_QUARTOS];
@@ -299,7 +467,14 @@ public class Hotel implements Serializable {
 			quartosDesocupados[i] += quantASerSomada[i];
 		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosVelhos
-
+	
+	/**
+	 * Retorna a quantidade de quartos por tipo alugados em um contrato.
+	 * 
+	 * @param contrato
+	 * 				O contrato para o qual se deseja saber os quartos alugados.
+	 * @return	Um array de int com informacoes que representam o(s) tipo(s) de quarto(s) alugado(s) no contrato.
+	 */
 	private int[] quantidadeDeQuartos(Contrato contrato) {
 		int[] quantidade = new int[QUANT_TIPOS_DE_QUARTOS];
 
@@ -339,7 +514,16 @@ public class Hotel implements Serializable {
 		}// for
 		return quantidade;
 	}// quantASerRetirada
-
+	
+	/**
+	 * Atualiza a quatidade (por tipo) de quartos desocupados. O contrato passado como parametro foi aberto e os quartos
+	 * que foram alugados agoram nao estao mais desocupados.
+	 * 
+	 * @param contrato
+	 * 				O contrato que foi aberto, ocupando pelo menos um quarto.
+	 * @return	A lista atualizada de quartosDesocupados.
+	 * 
+	 */
 	private int[] atualizaQuantQuartosParaContratosNovos(Contrato contrato)
 			throws SuitesPresidenciaisOcupadasException,
 			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,

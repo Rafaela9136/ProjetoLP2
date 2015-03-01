@@ -1,8 +1,6 @@
 package hotel;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import excecoes.LoginInvalidoException;
 import excecoes.NomeCompletoInvalidoException;
@@ -12,9 +10,7 @@ public class Conta implements Serializable {
 	public static final int TAMANHO_MINIMO_LOGIN = 6;
 	public static final int TAMANHO_MINIMO_SENHA = 6;
 
-	String login;
-	String senha;
-	String nomeCompleto;
+	String login, senha, nomeCompleto;
 	TipoFuncionario tipo;
 
 	public Conta(String login, String senha, String nomeCompleto,
@@ -69,6 +65,40 @@ public class Conta implements Serializable {
 		this.nomeCompleto = nomeCompleto;
 	}// setNomeCompleto
 
+	private void verificaParametroNulo(String param) {
+		if (param == null)
+			throw new NullPointerException();
+	}
+	
+	private void verificaLoginValido(String login)
+			throws LoginInvalidoException, NullPointerException {
+		verificaParametroNulo(login);
+		if (login.contains(" ") || login.length() < TAMANHO_MINIMO_LOGIN)
+			throw new LoginInvalidoException();
+
+	}// verificaLoginValido
+
+	private void verificaSenhaValida(String senha)
+			throws SenhaInvalidaException, NullPointerException {
+		verificaParametroNulo(senha);
+		if (senha.contains(" ") || senha.length() < TAMANHO_MINIMO_LOGIN)
+			throw new SenhaInvalidaException();
+	}// verificaSenhaValida
+
+	private void verificaNomeCompletoValido(String nomeCompleto)
+			throws NomeCompletoInvalidoException {
+		verificaParametroNulo(nomeCompleto);
+		if (!nomeCompleto.contains(" "))
+			throw new NomeCompletoInvalidoException();
+	}// verificaNomeCompletoValido
+	
+	@Override
+	public String toString() {
+		return "\nConta" + "\nNome Completo: " + getNomeCompleto()
+				+ "\nTipo do Funcionario: " + getTipo().getNome() + "\nLogin: "
+				+ getLogin() + "\nSenha: " + getSenha();
+	}// toString
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -96,38 +126,6 @@ public class Conta implements Serializable {
 			return false;
 		return true;
 	}// equals
-
-	@Override
-	public String toString() {
-		return "\nConta" + "\nNome Completo: " + getNomeCompleto()
-				+ "\nTipo do Funcionario: " + getTipo().getNome() + "\nLogin: "
-				+ getLogin() + "\nSenha: " + getSenha();
-	}// toString
-
-	private void verificaLoginValido(String login)
-			throws LoginInvalidoException, NullPointerException {
-		if (login == null)
-			throw new NullPointerException();
-		if (login.contains(" ") || login.length() < TAMANHO_MINIMO_LOGIN)
-			throw new LoginInvalidoException();
-
-	}// verificaLoginValido
-
-	private void verificaSenhaValida(String senha)
-			throws SenhaInvalidaException, NullPointerException {
-		if (senha == null)
-			throw new NullPointerException();
-		if (senha.contains(" ") || senha.length() < TAMANHO_MINIMO_LOGIN)
-			throw new SenhaInvalidaException();
-	}// verificaSenhaValida
-
-	public void verificaNomeCompletoValido(String nomeCompleto)
-			throws NomeCompletoInvalidoException {
-		if (nomeCompleto == null)
-			throw new NullPointerException();
-		if (!nomeCompleto.contains(" "))
-			throw new NomeCompletoInvalidoException();
-	}// verificaNomeCompletoValido
 
 	// Para reiniciar o arquivo das contas
 //	public static void main(String[] args) throws FileNotFoundException,
