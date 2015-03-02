@@ -14,11 +14,6 @@ import java.awt.CardLayout;
 
 import javax.swing.JTextPane;
 
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,11 +30,13 @@ public class Info extends JPanel {
 	private static CardLayout layout = new CardLayout();
 	
 	private static JPanel panel;
-	private static JPanel estatistica;
 	private static JComboBox<String> comboBoxMes;
 	private static JComboBox<String> comboBoxVisao;
 	private static JComboBox<String> comboBox;
 	private static JComboBox<String> comboBoxSelecao;
+	private static String[] colunas;
+	private static JTable tabela;
+	private static DefaultTableModel model;
 	
 	/**
 	 * Create the panel.
@@ -47,12 +44,6 @@ public class Info extends JPanel {
 	public Info() {
 		setBorder(new LineBorder(new Color(102, 51, 0), 2));
 		inicializa();
-	}
-	
-	private void inicializa() {
-		setBackground(Color.WHITE);
-		setBounds(228, 12, 764, 612);
-		setLayout(null);
 		
 		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(102, 51, 0), 2));
@@ -72,9 +63,15 @@ public class Info extends JPanel {
 		
 		panelEstatistica();
 	}
+	
+	private void inicializa() {
+		setBackground(Color.WHITE);
+		setBounds(228, 12, 764, 612);
+		setLayout(null);
+	}
 
 	private void panelEstatistica() {
-		estatistica = new JPanel();
+		JPanel estatistica = new JPanel();
 		estatistica.setBackground(Color.WHITE);
 		panel.add(estatistica, "estatistica");
 		estatistica.setLayout(null);
@@ -117,39 +114,19 @@ public class Info extends JPanel {
 		comboBox.setBounds(129, 98, 144, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBox.getSelectedItem().equals("Quartos"))
-					criaGraficoQuarto();
-				if(comboBox.getSelectedItem().equals("Servicos adicionais"));
-					criaGraficoServicos();
+				if(comboBox.getSelectedItem().equals("Servicos adicionais"))
+					GeradorDeGrafico.mudaTela("servicoGeral");
+				else
+					GeradorDeGrafico.mudaTela("quartoGeral");
 			}
 		});
-		estatistica.add(comboBox);
+		estatistica.add(comboBox);	
 		
-		JTextPane txtpnOGrafico = new JTextPane();
-		txtpnOGrafico.setFont(new Font("Dialog", Font.PLAIN, 11));
-		txtpnOGrafico.setText("*O grafico exibe as estatisticas em relacao ao ano atual.");
-		txtpnOGrafico.setBounds(429, 470, 286, 24);
-		estatistica.add(txtpnOGrafico);		
+		GeradorDeGrafico graficos = new GeradorDeGrafico();
+		graficos.setBounds(47, 156, 658, 350);
+		estatistica.add(graficos);
 	}
 	
-	static void criaGraficoQuarto() {
-		DefaultCategoryDataset dataset = GeradorDeGrafico.estatQuartoGeral();
-				
-		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
-		ChartPanel panel = new ChartPanel(chart);
-		panel.setBounds(47, 154, 668, 304);
-		estatistica.add(panel);
-	}
-	
-	static void criaGraficoServicos() {
-		DefaultCategoryDataset dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
-		
-		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
-		ChartPanel panel = new ChartPanel(chart);
-		panel.setBounds(47, 154, 668, 304);
-		estatistica.add(panel);
-	}
-
 	private void panelOpinioes(JPanel panel) {
 		JPanel panelOpinioes = new JPanel();
 		panelOpinioes.setBackground(Color.WHITE);
@@ -229,7 +206,36 @@ public class Info extends JPanel {
 	}
 
 	private void tabelaQuarto(JPanel panelServicos) {
-		String[] colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
+		colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
+		String[][] dados = new String[][]{
+			    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
+			    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()))},
+			    {"Luxo Duplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()))},
+			    {"Luxo Triplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()))},
+			    {"Executivo Simples", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()))},
+			    {"Executivo Duplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
+			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()))},
+			    {"Executivo Triplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
+			    		Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
+			};
+		
+		tabela = new JTable();
+		tabela.setEnabled(false);
+		model = new DefaultTableModel(dados , colunas);
+		panelServicos.setLayout(null);
+		tabela.setModel(model);
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(47, 91, 682, 180);
+		scroll.setViewportView(tabela);
+		panelServicos.add(scroll);
+	}
+
+	static void atualizaServico() {
 		String[][] dados = new String[][]{
 		    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
 		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
@@ -247,15 +253,8 @@ public class Info extends JPanel {
 		    		Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
 		};
 		
-		JTable tabela = new JTable();
-		tabela.setEnabled(false);
-		DefaultTableModel model = new DefaultTableModel(dados , colunas );
-		panelServicos.setLayout(null);
+		model = new DefaultTableModel(dados , colunas );
 		tabela.setModel(model);
-		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 91, 682, 180);
-		scroll.setViewportView(tabela);
-		panelServicos.add(scroll);
 	}
 
 	private void tabelaCarro(JPanel panelServicos) {

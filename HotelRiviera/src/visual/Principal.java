@@ -157,6 +157,7 @@ public class Principal extends JFrame implements WindowListener{
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("servicos");
+				Info.atualizaServico();
 			}
 		});
 		panelInfo.add(btnServios);
