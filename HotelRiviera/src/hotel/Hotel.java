@@ -19,8 +19,8 @@ import excecoes.LoginExistenteException;
 import java.io.*;
 
 /**
- * A classe Hotel guarda informações sobre contratos, quartos disponíveis,
- * opiniões de clientes e login dos funcionários do hotel Rivieira
+ * A classe Hotel guarda informaï¿½ï¿½es sobre contratos, quartos disponï¿½veis,
+ * opiniï¿½es de clientes e login dos funcionï¿½rios do hotel Rivieira
  * 
  */
 public class Hotel implements Serializable {
@@ -45,7 +45,7 @@ public class Hotel implements Serializable {
 	 *            Uma lista com os contratos em vigor.
 	 * @param quartosDesocupados
 	 *            Um array de int que informa a quantia de quartos desocupados
-	 *            dentre cada um dos quartos disponíveis.
+	 *            dentre cada um dos quartos disponï¿½veis.
 	 * @param opinioes
 	 *            Uma lista com as Opinioes dos clientes sobre o hotel.
 	 * @throws NullPointerException
@@ -139,7 +139,7 @@ public class Hotel implements Serializable {
 
 	/**
 	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Também adiciona a opiniao do cliente do contrato
+	 * de contratos removidos. Tambï¿½m adiciona a opiniao do cliente do contrato
 	 * a lista de opinioes do hotel.
 	 * 
 	 * @param contrato
@@ -223,10 +223,11 @@ public class Hotel implements Serializable {
 	 * @throws NullPointerException
 	 *             Se o login passado for null.
 	 */
-	public boolean pesquisaConta(String login) throws NullPointerException {
+	public boolean pesquisaConta(String login, String senha) throws NullPointerException {
 		verificaParametroNull(login);
+		verificaParametroNull(senha);
 		for (Conta conta : contasHotel) {
-			if (conta.getLogin().equals(login)) {
+			if (conta.getLogin().equals(login) && conta.getSenha().equals(senha)) {
 				return true;
 			}
 		}
@@ -243,7 +244,7 @@ public class Hotel implements Serializable {
 	}// getContratos
 
 	/**
-	 * Retorna a lista de contratos já fechados do hotel.
+	 * Retorna a lista de contratos jï¿½ fechados do hotel.
 	 * 
 	 * @return A lista de contratos removidos.
 	 */
@@ -252,9 +253,9 @@ public class Hotel implements Serializable {
 	}// getContratosRemovidos
 
 	/**
-	 * Retorna a lista de contas dos funcionários do hotel.
+	 * Retorna a lista de contas dos funcionï¿½rios do hotel.
 	 * 
-	 * @return a lista de contas dos funcionários do hotel.
+	 * @return a lista de contas dos funcionï¿½rios do hotel.
 	 */
 	public List<Conta> getContasHotel() {
 		return contasHotel;
@@ -269,7 +270,7 @@ public class Hotel implements Serializable {
 	 * @param dataCheckOut
 	 *            A data de encerramento/ check out do contrato.
 	 * @param mesIndice
-	 *            Um indice (0 a 11) que representa o mês do ano.
+	 *            Um indice (0 a 11) que representa o mï¿½s do ano.
 	 * @return "true" se o mesIndice estiver entre as datas de abertura e
 	 *         encerramento do contrato.
 	 */
