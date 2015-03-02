@@ -42,10 +42,12 @@ import excecoes.SuitesPresidenciaisOcupadasException;
 public class HotelTest {
 
 	private Hotel hotel;
-	private Contrato contrato1, contrato2, contrato3, contrato4;
+	private Contrato contrato1, contrato2, contrato3, contrato4, contrato5,
+			contrato6, contrato7;
 	private List<Opiniao> opinioes;
 	private List<Contrato> contratos;
-	private List<Servico> servicos1, servicos2, servicos3, servicos4;
+	private List<Servico> servicos1, servicos2, servicos3, servicos4,
+			servicos5, servicos6, servicos7;
 	private List<String> acompanhantes;
 	private int[] quartosDesocupados = { 5, 15, 20, 5, 15, 20, 5 };
 
@@ -64,6 +66,9 @@ public class HotelTest {
 		servicos2 = new ArrayList<Servico>();
 		servicos3 = new ArrayList<Servico>();
 		servicos4 = new ArrayList<Servico>();
+		servicos5 = new ArrayList<Servico>();
+		servicos6 = new ArrayList<Servico>();
+		servicos7 = new ArrayList<Servico>();
 		acompanhantes = new ArrayList<String>();
 		acompanhantes.add("Joao");
 		acompanhantes.add("Maria");
@@ -103,6 +108,32 @@ public class HotelTest {
 				acompanhantes,
 				new GregorianCalendar(2016, Calendar.OCTOBER, 14),
 				new GregorianCalendar(2016, Calendar.OCTOBER, 20), servicos4);
+
+		servicos5.add(new QuartoExecutivo(false, TiposDeQuarto.TRIPLO,
+				new GregorianCalendar(2016, Calendar.MAY, 5),
+				new GregorianCalendar(2016, Calendar.MAY, 8)));
+		contrato5 = new Contrato(new Hospede("Marta", new GregorianCalendar(
+				1982, Calendar.MARCH, 25), "5461.4310.3216.7941"),
+				acompanhantes, new GregorianCalendar(2016, Calendar.MAY, 5),
+				new GregorianCalendar(2016, Calendar.MAY, 8), servicos5);
+
+		servicos6.add(new QuartoLuxo(false, TiposDeQuarto.DUPLO,
+				new GregorianCalendar(2016, Calendar.DECEMBER, 4),
+				new GregorianCalendar(2016, Calendar.DECEMBER, 10)));
+		contrato6 = new Contrato(new Hospede("Pedro", new GregorianCalendar(
+				1985, Calendar.SEPTEMBER, 13), "6457.1345.1037.9471"),
+				acompanhantes,
+				new GregorianCalendar(2016, Calendar.DECEMBER, 4),
+				new GregorianCalendar(2016, Calendar.DECEMBER, 10), servicos6);
+
+		servicos7.add(new QuartoLuxo(false, TiposDeQuarto.TRIPLO,
+				new GregorianCalendar(2016, Calendar.AUGUST, 22),
+				new GregorianCalendar(2016, Calendar.AUGUST, 27)));
+		contrato7 = new Contrato(new Hospede("Nobrega Duarte",
+				new GregorianCalendar(1970, Calendar.MAY, 20),
+				"1342.6794.2451.1308"), acompanhantes, new GregorianCalendar(
+				2016, Calendar.AUGUST, 22), new GregorianCalendar(2016,
+				Calendar.AUGUST, 27), servicos7);
 
 		opinioes.add(new Opiniao("Razoavel", 5));
 		opinioes.add(new Opiniao("Bom", 7));
@@ -256,15 +287,35 @@ public class HotelTest {
 			NumeroInvalidoException {
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
 				"[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+
 		hotel.adicionaContrato(contrato1);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
 				"[2.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+
 		hotel.adicionaContrato(contrato2);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
 				"[2.0, 0.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+
 		hotel.adicionaContrato(contrato4);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
 				"[2.0, 1.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+
+		hotel.removeContrato(contrato1);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 1.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+
+		hotel.adicionaContrato(contrato5);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 1.0, 1.0, 2.0, 0.0, 0.0, 1.0]");
+
+		hotel.adicionaContrato(contrato6);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0]");
+
+		hotel.adicionaContrato(contrato7);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0]");
+
 	}
 
 }
