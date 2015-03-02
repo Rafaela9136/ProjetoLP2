@@ -1,5 +1,6 @@
 package testes;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecoes.AddQuartoContratoException;
 import excecoes.CPFInvalidoException;
 import excecoes.CamaExtraException;
 import excecoes.CartaoInvalidoException;
@@ -32,6 +34,7 @@ import excecoes.NomeInvalidoException;
 import excecoes.NotaInvalidaException;
 import excecoes.NumeroInvalidoException;
 import excecoes.SenhaInvalidaException;
+import excecoes.ServicoInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.SuitesPresidenciaisOcupadasException;
@@ -39,10 +42,10 @@ import excecoes.SuitesPresidenciaisOcupadasException;
 public class HotelTest {
 
 	private Hotel hotel;
-	private Contrato contrato1, contrato2, contrato3;
+	private Contrato contrato1, contrato2, contrato3, contrato4;
 	private List<Opiniao> opinioes;
 	private List<Contrato> contratos;
-	private List<Servico> servicos1, servicos2, servicos3;
+	private List<Servico> servicos1, servicos2, servicos3, servicos4;
 	private List<String> acompanhantes;
 	private int[] quartosDesocupados = { 5, 15, 20, 5, 15, 20, 5 };
 
@@ -60,6 +63,7 @@ public class HotelTest {
 		servicos1 = new ArrayList<Servico>();
 		servicos2 = new ArrayList<Servico>();
 		servicos3 = new ArrayList<Servico>();
+		servicos4 = new ArrayList<Servico>();
 		acompanhantes = new ArrayList<String>();
 		acompanhantes.add("Joao");
 		acompanhantes.add("Maria");
@@ -90,6 +94,15 @@ public class HotelTest {
 				"5461.3120.8746.9130"), acompanhantes, new GregorianCalendar(
 				2016, Calendar.APRIL, 20), new GregorianCalendar(2016,
 				Calendar.APRIL, 23), servicos3);
+
+		servicos4.add(new QuartoExecutivo(false, TiposDeQuarto.DUPLO,
+				new GregorianCalendar(2016, Calendar.OCTOBER, 14),
+				new GregorianCalendar(2016, Calendar.OCTOBER, 20)));
+		contrato4 = new Contrato(new Hospede("Juca", new GregorianCalendar(
+				1980, Calendar.JANUARY, 5), "9681.1349.6472.1307"),
+				acompanhantes,
+				new GregorianCalendar(2016, Calendar.OCTOBER, 14),
+				new GregorianCalendar(2016, Calendar.OCTOBER, 20), servicos4);
 
 		opinioes.add(new Opiniao("Razoavel", 5));
 		opinioes.add(new Opiniao("Bom", 7));
@@ -166,7 +179,7 @@ public class HotelTest {
 
 		Assert.assertEquals(hotel.getContasHotel().get(0).getLogin(), "gerente");
 		try {
-			hotel.adicionaConta(new Conta("gerente", "senha1",
+			hotel.adicionaConta(new Conta("gerente", "outrasenha",
 					"Nome completo aqui", TipoFuncionario.GERENTE));
 		} catch (LoginExistenteException e) {
 			Assert.assertTrue(true);
@@ -183,7 +196,75 @@ public class HotelTest {
 				"Nome Completo Conta", TipoFuncionario.BALCONISTA));
 		Assert.assertFalse(hotel.removeConta("login"));
 		Assert.assertTrue(hotel.removeConta("loginconta"));
+	}
 
+	@Test
+	public void testaPesquisaConta() throws LoginInvalidoException,
+			NullPointerException, SenhaInvalidaException,
+			NomeCompletoInvalidoException, LoginExistenteException {
+		try {
+			hotel.pesquisaConta(null, "senhaa");
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+		try {
+			hotel.pesquisaConta("user", null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Conta conta = new Conta("usuario", "senhadousuario",
+				"Nome completo usuario", TipoFuncionario.BALCONISTA);
+		Assert.assertFalse(hotel.pesquisaConta(conta.getLogin(),
+				conta.getSenha()));
+		hotel.adicionaConta(conta);
+		Assert.assertTrue(hotel.pesquisaConta(conta.getLogin(),
+				conta.getSenha()));
+	}
+
+	@Test
+	public void testaGetContratosRemovidos() {
+		Assert.assertTrue(hotel.getContratos().contains(contrato1));
+		Assert.assertTrue(hotel.getContratos().contains(contrato2));
+		Assert.assertTrue(hotel.getContratos().contains(contrato3));
+
+		hotel.removeContrato(contrato1);
+		Assert.assertFalse(hotel.getContratos().contains(contrato1));
+		Assert.assertTrue(hotel.getContratosRemovidos().contains(contrato1));
+
+		hotel.removeContrato(contrato2);
+		Assert.assertFalse(hotel.getContratos().contains(contrato2));
+		Assert.assertTrue(hotel.getContratosRemovidos().contains(contrato2));
+
+		hotel.removeContrato(contrato3);
+		Assert.assertFalse(hotel.getContratos().contains(contrato3));
+		Assert.assertTrue(hotel.getContratosRemovidos().contains(contrato3));
+	}
+
+	@Test
+	public void testaGetEstatisticaQuartos()
+			throws ExecutivosDuploOcupadosException,
+			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
+			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException, NullPointerException,
+			AddQuartoContratoException, ServicoInvalidoException,
+			CamaExtraException, DataInvalidaException,
+			ContratoSemQuartoException, NomeInvalidoException,
+			CPFInvalidoException, StringVaziaException,
+			CartaoInvalidoException, StringInvalidaException,
+			NumeroInvalidoException {
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+		hotel.adicionaContrato(contrato1);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+		hotel.adicionaContrato(contrato2);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 0.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+		hotel.adicionaContrato(contrato4);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2.0, 1.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
 	}
 
 }
