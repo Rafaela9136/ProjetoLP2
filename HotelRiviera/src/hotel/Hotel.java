@@ -253,35 +253,13 @@ public class Hotel implements Serializable {
 	}// getContratosRemovidos
 
 	/**
-	 * Retorna a lista de contas dos funcion�rios do hotel.
+	 * Retorna a lista de contas dos funcionarios do hotel.
 	 * 
-	 * @return a lista de contas dos funcion�rios do hotel.
+	 * @return a lista de contas dos funcionarios do hotel.
 	 */
 	public List<Conta> getContasHotel() {
 		return contasHotel;
 	}// getContasHotele
-
-	/**
-	 * Verifica se determinado mes esta entre (inclusivo) as dataCheckIn e
-	 * dataCheckOut de um contrato.
-	 * 
-	 * @param dataCheckIn
-	 *            A data de abertura/check in do contrato.
-	 * @param dataCheckOut
-	 *            A data de encerramento/ check out do contrato.
-	 * @param mesIndice
-	 *            Um indice (0 a 11) que representa o m�s do ano.
-	 * @return "true" se o mesIndice estiver entre as datas de abertura e
-	 *         encerramento do contrato.
-	 */
-	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
-			Calendar dataCheckOut, int mesIndice) {
-		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
-				.get(Calendar.MONTH); i++)
-			if (i == mesIndice)
-				return true;
-		return false;
-	}// verificaMesEmPeriodoDeContrato
 
 	/**
 	 * Informa as estatisticas sobre os quartos alugados em determinado mes do
@@ -290,7 +268,7 @@ public class Hotel implements Serializable {
 	 * @param mes
 	 *            Um int (1 a 12) que representa o mes para o qual as
 	 *            estatisticas serao dadas.
-	 * @return Um array de double com valores que representam a porcentagem de
+	 * @return Um array de double com valores que representam a quantidade de
 	 *         aluguel dos quartos com relacao ao total alugado naquele mes.
 	 * @throws MesInvalidoException
 	 *             Se o valor do mes passado como parametro for invalido (menor
@@ -302,15 +280,12 @@ public class Hotel implements Serializable {
 		mes--;
 		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
-		int quantidadeTotal = 0;
 		for (Contrato contrato : contratos) {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
 					contrato.getDataCheckOut(), mes)) {
 				quantQuartos = quantidadeDeQuartos(contrato);
-				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 					estatisticas[i] += quantQuartos[i];
-					quantidadeTotal += quantQuartos[i];
-				}// for
 			}// if
 		}// for
 
@@ -318,51 +293,34 @@ public class Hotel implements Serializable {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
 					contrato.getDataCheckOut(), mes)) {
 				quantQuartos = quantidadeDeQuartos(contrato);
-				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 					estatisticas[i] += quantQuartos[i];
-					quantidadeTotal += quantQuartos[i];
-				}// for
 			}// if
 		}// for
-
-		for (int i = 0; i < estatisticas.length; i++) {
-			estatisticas[i] /= quantidadeTotal;
-			estatisticas[i] *= 100;
-		}// for
-
 		return estatisticas;
 	}// getEstatisticaMensalQuartos
 
 	/**
 	 * Informa as estatisticas gerais sobre os quartos alugados no hotel.
 	 * 
-	 * @return Um array de double com valores que representam a porcentagem de
+	 * @return Um array de double com valores que representam a quantidade de
 	 *         aluguel dos quartos com relacao ao total alugado ate entao.
 	 */
 	public double[] getEstatisticaQuartos() {
 		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
-		int quantidadeTotal = 0;
 		for (Contrato contrato : contratos) {
 			quantQuartos = quantidadeDeQuartos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) 
 				estatisticas[i] += quantQuartos[i];
-				quantidadeTotal += quantQuartos[i];
-			}// for
 		}// for
 
 		for (Contrato contrato : contratosRemovidos) {
 			quantQuartos = quantidadeDeQuartos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 				estatisticas[i] += quantQuartos[i];
-				quantidadeTotal += quantQuartos[i];
-			}// for
 		}// for
 
-		for (int i = 0; i < estatisticas.length; i++) {
-			estatisticas[i] /= quantidadeTotal;
-			estatisticas[i] *= 100;
-		}// for
 		return estatisticas;
 	}// getEstatisticaGeralQuartos
 
@@ -373,7 +331,7 @@ public class Hotel implements Serializable {
 	 * @param mes
 	 *            Um int (1 a 12) que representa o mes para o qual as
 	 *            estatisticas serao dadas.
-	 * @return Um array de double com valores que representam a porcentagem de
+	 * @return Um array de double com valores que representam a quantidade de
 	 *         contratacao de cada tipo de servico com relacao ao total
 	 *         contratado naquele mes.
 	 * @throws MesInvalidoException
@@ -387,15 +345,13 @@ public class Hotel implements Serializable {
 		mes--;
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
-		int quantidadeTotal = 0;
+
 		for (Contrato contrato : contratos) {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
 					contrato.getDataCheckOut(), mes)) {
 				quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-				for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
+				for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) 
 					estatisticas[i] += quantOutrosServicos[i];
-					quantidadeTotal += quantOutrosServicos[i];
-				}// for
 			}// if
 		}// for
 
@@ -403,16 +359,9 @@ public class Hotel implements Serializable {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
 					contrato.getDataCheckOut(), mes)) {
 				quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) 
 					estatisticas[i] += quantOutrosServicos[i];
-					quantidadeTotal += quantOutrosServicos[i];
-				}// for
 			}// if
-		}// for
-
-		for (int i = 0; i < estatisticas.length; i++) {
-			estatisticas[i] /= quantidadeTotal;
-			estatisticas[i] *= quantidadeTotal;
 		}// for
 
 		return estatisticas;
@@ -422,33 +371,24 @@ public class Hotel implements Serializable {
 	/**
 	 * Informa as estatisticas gerais sobre os quartos alugados no hotel.
 	 * 
-	 * @return Um array de double com valores que representam a porcentagem de
+	 * @return Um array de double com valores que representam a quantidade de
 	 *         aluguel dos quartos com relacao ao total alugado ate entao.
 	 */
 	public double[] getEstatisticaOutrosServicos() {
 		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
-		int quantidadeTotal = 0;
 		for (Contrato contrato : contratos) {
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
+			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++)
 				estatisticas[i] += quantOutrosServicos[i];
-				quantidadeTotal += quantOutrosServicos[i];
-			}// for
 		}// for
 
 		for (Contrato contrato : contratosRemovidos) {
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 				estatisticas[i] += quantOutrosServicos[i];
-				quantidadeTotal += quantOutrosServicos[i];
-			}// for
 		}// for
 
-		for (int i = 0; i < estatisticas.length; i++) {
-			estatisticas[i] /= quantidadeTotal;
-			estatisticas[i] *= quantidadeTotal;
-		}// for
 
 		return estatisticas;
 	}// getEstatisticaGeralOutrosServicos
@@ -498,6 +438,29 @@ public class Hotel implements Serializable {
 		}// for
 		return contratosEncontrados;
 	}// pesquisaContrato
+	
+
+	/**
+	 * Verifica se determinado mes esta entre (inclusivo) as dataCheckIn e
+	 * dataCheckOut de um contrato.
+	 * 
+	 * @param dataCheckIn
+	 *            A data de abertura/check in do contrato.
+	 * @param dataCheckOut
+	 *            A data de encerramento/ check out do contrato.
+	 * @param mesIndice
+	 *            Um indice (0 a 11) que representa o m�s do ano.
+	 * @return "true" se o mesIndice estiver entre as datas de abertura e
+	 *         encerramento do contrato.
+	 */
+	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
+			Calendar dataCheckOut, int mesIndice) {
+		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
+				.get(Calendar.MONTH); i++)
+			if (i == mesIndice)
+				return true;
+		return false;
+	}// verificaMesEmPeriodoDeContrato
 
 	/**
 	 * Atualiza a quatidade (por tipo) de quartos desocupados. O contrato
