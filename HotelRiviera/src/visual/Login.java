@@ -23,8 +23,8 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 4399034281301820841L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private final JTextField textField = new JTextField();;
+	private final JPasswordField passwordField = new JPasswordField();;
 	private JLabel lblNewLabel;
 	private JLabel lblLogin;
 	private JLabel lblSenha;
@@ -49,28 +49,12 @@ public class Login extends JFrame {
 		JButton btnOk = new JButton("Ok");
 		btnOk.setBounds(106, 302, 117, 25);
 		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) {
-					try {
-						Principal frame = new Principal(textField.getText());
-						frame.setVisible(true);
-						dispose();
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, "Algo esta errado!");
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Login e/ou senha incorreto!");
-				}
-			}
-		});
+		
 		contentPane.add(btnOk);
 
-		passwordField = new JPasswordField();
 		passwordField.setBounds(67, 261, 158, 25);
 		contentPane.add(passwordField);
 
-		textField = new JTextField();
 		textField.setBounds(67, 220, 158, 25);
 		contentPane.add(textField);
 		textField.setColumns(10);
@@ -90,5 +74,41 @@ public class Login extends JFrame {
 				.getResource("/resources/image.jpg")));
 		lblNewLabel.setBounds(0, 0, 519, 351);
 		contentPane.add(lblNewLabel);
+		
+	
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verificaLogin();
+			}
+		});	
+		
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verificaLogin();
+			}
+		});
+		
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verificaLogin();
+			}
+		});
 	}
+
+	private void verificaLogin() {
+		if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) {
+			try {
+				Principal frame = new Principal(textField.getText());
+				frame.setVisible(true);
+				dispose();
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(null, "Algo esta errado!");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Login e/ou senha incorreto!");
+		}//if
+	}// verificaLogin
+		
 }
+	
+	
