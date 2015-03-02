@@ -1,5 +1,7 @@
 package visual;
 
+import hotel.TipoFuncionario;
+
 import java.awt.Color;
 
 import javax.swing.JPanel;
@@ -11,6 +13,7 @@ import java.awt.CardLayout;
 import javax.swing.JTextPane;
 
 import java.awt.Font;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -104,8 +107,8 @@ public class Funcionarios extends JPanel {
 		txtpnSenha.setBounds(46, 190, 112, 27);
 		panelCadastro.add(txtpnSenha);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Gerente", "Outro '-'"}));
+		JComboBox<String> comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {TipoFuncionario.GERENTE.getNome(), TipoFuncionario.BALCONISTA.getNome()}));
 		comboBox.setBounds(179, 112, 144, 22);
 		panelCadastro.add(comboBox);
 		

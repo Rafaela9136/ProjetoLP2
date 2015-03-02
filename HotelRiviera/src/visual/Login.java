@@ -51,7 +51,7 @@ public class Login extends JFrame {
 		btnOk.setFont(new Font("Verdana", Font.PLAIN, 12));
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Main.getHotel().pesquisaConta(textField.getText())) { // String.valueOf(passwordField.getPassword()) <-- caso precise procurar pela senha também.
+				if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) { // String.valueOf(passwordField.getPassword()) <-- caso precise procurar pela senha tambï¿½m.
 					try {
 						Principal frame = new Principal(textField.getText());
 						frame.setVisible(true);
