@@ -1,5 +1,8 @@
 package visual;
 
+import hotel.IndexOutrosServicos;
+import hotel.IndexQuartos;
+
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -15,17 +18,16 @@ public class GeradorDeGrafico extends JPanel {
 	 */
 	private static final long serialVersionUID = -5929599302970979854L;
 
-	static DefaultCategoryDataset estatQuartoGeral( )
-	   {
+	static DefaultCategoryDataset estatQuartoGeral() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[6], "Presidencial", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[3], "Luxo Simples", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[4], "Luxo Duplo", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[5], "Luxo Triplo", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[0], "Executivo Simples", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[1], "Executivo Duplo", "");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[2], "Executivo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_SIMPLES.ordinal()], "Luxo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_DUPLO.ordinal()], "Luxo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_TRIPLO.ordinal()], "Luxo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()], "Executivo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_DUPLO.ordinal()], "Executivo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()], "Executivo Triplo", "");
 		return dataset;
 	}
 	
@@ -37,13 +39,13 @@ public class GeradorDeGrafico extends JPanel {
 	static DefaultCategoryDataset  estatQuartosPorMes() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 		
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[6], "Presidencial", "1970");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[3], "Luxo Simples", "1980");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[4], "Luxo Duplo", "1990");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[5], "Luxo Triplo", "2000");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[0], "Executivo Simples", "2010");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[1], "Executivo Duplo", "2014");
-		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[2], "Executivo Triplo", "2014");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_SIMPLES.ordinal()], "Luxo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_DUPLO.ordinal()], "Luxo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_TRIPLO.ordinal()], "Luxo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()], "Executivo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_DUPLO.ordinal()], "Executivo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()], "Executivo Triplo", "");
 		
 		return dataset;
 	}
@@ -51,14 +53,14 @@ public class GeradorDeGrafico extends JPanel {
 	static DefaultCategoryDataset estatServicosAdicionaisGeral() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 		
-		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[0], "Baba", "1970");
-		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[1], "Automoveis", "1970");
-		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[2], "Restaurante", "1970");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.BABA.ordinal()], "Baba", "1970");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CARRO.ordinal()], "Automoveis", "1970");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()], "Restaurante", "1970");
 		
 		return dataset;
 	}
 
-	static JFreeChart createLineChart(CategoryDataset dataset) {
+	static JFreeChart createBarChart(CategoryDataset dataset) {
 		JFreeChart chart = ChartFactory.createBarChart3D(
 				null, // Titulo
 				"Servico", // Eixo X

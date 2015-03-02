@@ -108,7 +108,11 @@ public class Funcionarios extends JPanel {
 		panelCadastro.add(txtpnSenha);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {TipoFuncionario.GERENTE.getNome(), TipoFuncionario.BALCONISTA.getNome()}));
+		String funcionarios[] = new String[TipoFuncionario.values().length];
+		for (int i = 0; i < TipoFuncionario.values().length; i++) {
+			funcionarios[i] = TipoFuncionario.values()[i].getNome();
+		}// for
+		comboBox.setModel(new DefaultComboBoxModel<String>(funcionarios));
 		comboBox.setBounds(179, 112, 144, 22);
 		panelCadastro.add(comboBox);
 		

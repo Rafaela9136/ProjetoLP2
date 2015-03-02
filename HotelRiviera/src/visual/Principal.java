@@ -53,7 +53,7 @@ public class Principal extends JFrame implements WindowListener{
 		
 		addWindowListener(new WindowAdapter() {  
 		    public void windowClosing(WindowEvent evt) {  
-		        if (JOptionPane.showConfirmDialog(null,"Deseja sair")==JOptionPane.OK_OPTION){
+		        if (JOptionPane.showConfirmDialog(null,"Deseja sair?")==JOptionPane.OK_OPTION){
 		        	try {
 						Main.salvaHotel();
 					} catch (IOException e) {

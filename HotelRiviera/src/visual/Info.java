@@ -17,6 +17,7 @@ import javax.swing.JTextPane;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -39,7 +40,6 @@ public class Info extends JPanel {
 	private static JComboBox<String> comboBoxVisao;
 	private static JComboBox<String> comboBox;
 	private static JComboBox<String> comboBoxSelecao;
-	private static CategoryDataset dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();;
 	
 	/**
 	 * Create the panel.
@@ -117,13 +117,13 @@ public class Info extends JPanel {
 		comboBox.setBounds(129, 98, 144, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBox.getSelectedItem().equals("Servicos adicionais"))
-					dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
+				if(comboBox.getSelectedItem().equals("Quartos"))
+					criaGraficoQuarto();
+				if(comboBox.getSelectedItem().equals("Servicos adicionais"));
+					criaGraficoServicos();
 			}
 		});
 		estatistica.add(comboBox);
-		
-		criaGrafico();
 		
 		JTextPane txtpnOGrafico = new JTextPane();
 		txtpnOGrafico.setFont(new Font("Dialog", Font.PLAIN, 11));
@@ -132,8 +132,19 @@ public class Info extends JPanel {
 		estatistica.add(txtpnOGrafico);		
 	}
 	
-	static void criaGrafico() {
-		JFreeChart chart = GeradorDeGrafico.createLineChart(dataset);
+	static void criaGraficoQuarto() {
+		DefaultCategoryDataset dataset = GeradorDeGrafico.estatQuartoGeral();
+				
+		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
+		ChartPanel panel = new ChartPanel(chart);
+		panel.setBounds(47, 154, 668, 304);
+		estatistica.add(panel);
+	}
+	
+	static void criaGraficoServicos() {
+		DefaultCategoryDataset dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
+		
+		JFreeChart chart = GeradorDeGrafico.createBarChart(dataset);
 		ChartPanel panel = new ChartPanel(chart);
 		panel.setBounds(47, 154, 668, 304);
 		estatistica.add(panel);
