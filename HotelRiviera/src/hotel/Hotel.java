@@ -5,6 +5,7 @@ import java.util.*;
 import excecoes.ExecutivosDuploOcupadosException;
 import excecoes.ExecutivosSimplesOcupadosException;
 import excecoes.ExecutivosTriploOcupadosException;
+import excecoes.ListaVaziaException;
 import excecoes.LoginInvalidoException;
 import excecoes.LuxosDuploOcupadosException;
 import excecoes.LuxosSimplesOcupadosException;
@@ -62,14 +63,9 @@ public class Hotel implements Serializable {
 			List<Opiniao> opinioes) throws NullPointerException,
 			LoginInvalidoException, SenhaInvalidaException,
 			NomeCompletoInvalidoException {
-		/*
-		 * verificar na lista de contratos se algum contrato tem valor null
-		 * verificar na lista de opinioes de alguma opiniao tem valor null
-		 */
 		if (contratos == null || quartosDesocupados == null || opinioes == null) {
 			throw new NullPointerException();
 		}
-
 		this.contratos = contratos;
 		this.quartosDesocupados = quartosDesocupados;
 		this.opinioes = opinioes;
@@ -189,7 +185,6 @@ public class Hotel implements Serializable {
 				throw new LoginExistenteException();
 			}
 		}// for
-			// d
 		contasHotel.add(contaNova);
 	}// adicionaConta
 
@@ -197,11 +192,24 @@ public class Hotel implements Serializable {
 	 * Remove uma conta da lista de contas do hotel.
 	 * 
 	 * @param conta
-	 *            A conta a ser removida
-	 * @return "true" se a conta foi removida com sucesso.
+	 *            A conta a ser removida.
+	 * @return True se a conta foi removida com sucesso ou False caso contrario.
+	 * @throws ListaVaziaException
+	 *             Se a lista de contas do hotel estiver vazia.
 	 */
-	public boolean removeConta(Conta conta) {
-		return contasHotel.remove(conta);
+	public boolean removeConta(String login) throws ListaVaziaException,
+			NullPointerException {
+		verificaParametroNull(login);
+		if (contasHotel.isEmpty()) {
+			throw new ListaVaziaException();
+		}
+		for (Conta conta : contasHotel) {
+			if (conta.getLogin().equals(login)) {
+				contasHotel.remove(conta);
+				return true;
+			}
+		}
+		return false;
 	}// removeConta
 
 	/**
@@ -213,17 +221,15 @@ public class Hotel implements Serializable {
 	 *            A senha da conta que se quer pesquisar.
 	 * @return "true" se a conta existir na lista de contas do hotel.
 	 * @throws NullPointerException
-	 *             Se quaisquer dos parametros forem null.
+	 *             Se o login passado for null.
 	 */
-	public boolean pesquisaConta(String login, String senha)
-			throws NullPointerException {
-		if (login == null || senha == null)
-			throw new NullPointerException();
-		for (Conta conta : contasHotel)
-			if (conta.getLogin().equals(login)
-					&& conta.getSenha().equals(senha))
+	public boolean pesquisaConta(String login) throws NullPointerException {
+		verificaParametroNull(login);
+		for (Conta conta : contasHotel) {
+			if (conta.getLogin().equals(login)) {
 				return true;
-
+			}
+		}
 		return false;
 	}// pesquisaConta
 
@@ -595,6 +601,13 @@ public class Hotel implements Serializable {
 
 	public int getQuartosDesocupados(int indice) {
 		return quartosDesocupados[indice];
+	}
+
+	private void verificaParametroNull(String param)
+			throws NullPointerException {
+		if (param == null) {
+			throw new NullPointerException();
+		}
 	}
 
 	@Override

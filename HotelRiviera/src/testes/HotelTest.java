@@ -21,6 +21,7 @@ import excecoes.EstouroDeCaracteresException;
 import excecoes.ExecutivosDuploOcupadosException;
 import excecoes.ExecutivosSimplesOcupadosException;
 import excecoes.ExecutivosTriploOcupadosException;
+import excecoes.ListaVaziaException;
 import excecoes.LoginExistenteException;
 import excecoes.LoginInvalidoException;
 import excecoes.LuxosDuploOcupadosException;
@@ -154,9 +155,9 @@ public class HotelTest {
 	}
 
 	@Test
-	public void AdicionaRemoveConta() throws LoginInvalidoException,
+	public void testaAdicionaRemoveConta() throws LoginInvalidoException,
 			NomeCompletoInvalidoException, LoginExistenteException,
-			NullPointerException, SenhaInvalidaException {
+			NullPointerException, SenhaInvalidaException, ListaVaziaException {
 		try {
 			hotel.adicionaConta(null);
 		} catch (NullPointerException e) {
@@ -170,6 +171,19 @@ public class HotelTest {
 		} catch (LoginExistenteException e) {
 			Assert.assertTrue(true);
 		}
+
+		Assert.assertTrue(hotel.removeConta("gerente"));
+		try {
+			hotel.removeConta("qualquer");
+		} catch (ListaVaziaException e) {
+			Assert.assertTrue(true);
+		}
+
+		hotel.adicionaConta(new Conta("loginconta", "senhaconta",
+				"Nome Completo Conta", TipoFuncionario.BALCONISTA));
+		Assert.assertFalse(hotel.removeConta("login"));
+		Assert.assertTrue(hotel.removeConta("loginconta"));
+
 	}
 
 }
