@@ -490,7 +490,7 @@ public class Hotel implements Serializable {
 		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
 
 		for (int i = 0; i < quartosDesocupados.length; i++) {
-			quartosDesocupados[i] = 0;
+			quartosDesocupados[i] = this.quartosDesocupados[i];
 		}
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 			quartosDesocupados[i] += quantASerSomada[i];
@@ -566,7 +566,7 @@ public class Hotel implements Serializable {
 		int[] quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
 
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
-			quartosDesocupados[i] = 0;
+			quartosDesocupados[i] = this.quartosDesocupados[i];
 
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] -= quantASerRetirada[i];
@@ -599,13 +599,13 @@ public class Hotel implements Serializable {
 
 		int[] quartosDesocupados = new int[7];
 
-		quartosDesocupados[0] = 5;
-		quartosDesocupados[1] = 15;
-		quartosDesocupados[2] = 20;
-		quartosDesocupados[3] = 5;
-		quartosDesocupados[4] = 15;
-		quartosDesocupados[5] = 20;
-		quartosDesocupados[6] = 5;
+		quartosDesocupados[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()] = 5;
+		quartosDesocupados[IndexQuartos.EXECUTIVO_DUPLO.ordinal()] = 15;
+		quartosDesocupados[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()] = 20;
+		quartosDesocupados[IndexQuartos.LUXO_SIMPLES.ordinal()] = 5;
+		quartosDesocupados[IndexQuartos.LUXO_DUPLO.ordinal()] = 15;
+		quartosDesocupados[IndexQuartos.LUXO_TRIPLO.ordinal()] = 20;
+		quartosDesocupados[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()] = 5;
 
 		List<Contrato> contratos = new ArrayList<Contrato>();
 
