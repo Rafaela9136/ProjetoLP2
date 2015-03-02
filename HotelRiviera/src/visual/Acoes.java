@@ -259,12 +259,13 @@ public class Acoes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				List<Servico> servicos = new ArrayList<Servico>();
+				Contrato contrato = null;
 
 				criaQuarto(servicos);
 				criaHospede();
 
 				try {
-					Contrato contrato = new Contrato(hospede, acompanhantes,
+					contrato = new Contrato(hospede, acompanhantes,
 							Conector.transformaData(formattedTextFieldCheckIn.getText()),
 							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
 
@@ -283,7 +284,6 @@ public class Acoes extends JPanel {
 					JOptionPane.showMessageDialog(null,"Contrato criado com sucesso!");
 
 					layout.show(panel, "vazio");
-					limpaCampos();
 				} catch (NullPointerException e1) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
 				} catch (ContratoSemQuartoException e1) {
@@ -292,6 +292,13 @@ public class Acoes extends JPanel {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
 				} catch (NomeInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
+				} finally {
+					try {
+						if(contrato != null)
+							novoContrato();
+					} catch (ParseException e1) {
+						JOptionPane.showMessageDialog(null,"Algo esta errado!");
+					}
 				}
 			}
 		});
@@ -716,24 +723,24 @@ public class Acoes extends JPanel {
 		model = new DefaultTableModel(dados, colunas);
 		tabela.setModel(model);
 	}
-
-	public void limpaCampos() {
-		textFieldNome.setText("");
-		textFieldNumero.setText("");
-		textFieldCidade.setText("");
-		textFieldLogradouro.setText("");
-		formattedTextFieldData.setText("");
-		formattedTextFieldCPF.setText("");
-		formattedTextFieldCartao.setText("");
-		formattedTextFieldCheckIn.setText("");
-		formattedTextFieldCheckOut.setText("");
-		comboBoxQuarto.setSelectedIndex(0);
-		comboBoxQuartoT.setSelectedIndex(0);
-		comboBoxPaises.setSelectedIndex(0);
-		comboBoxEstados.setSelectedIndex(0);
-		rdbtnCamaExtra.setSelected(false);
-		textAreaAcompanhantes.setText("");
-	}
+	
+//	public void limpaCampos() {
+//		textFieldNome.setText("");
+//		textFieldNumero.setText("");
+//		textFieldCidade.setText("");
+//		textFieldLogradouro.setText("");
+//		formattedTextFieldData.setText("");
+//		formattedTextFieldCPF.setText("");
+//		formattedTextFieldCartao.setText("");
+//		formattedTextFieldCheckIn.setText("");
+//		formattedTextFieldCheckOut.setText("");
+//		comboBoxQuarto.setSelectedIndex(0);
+//		comboBoxQuartoT.setSelectedIndex(0);
+//		comboBoxPaises.setSelectedIndex(0);
+//		comboBoxEstados.setSelectedIndex(0);
+//		rdbtnCamaExtra.setSelected(false);
+//		textAreaAcompanhantes.setText("");
+//	}
 
 	// metodo para selecionar a tela a que aparece
 	static void selecionaTela(String nomeDaTela) {
