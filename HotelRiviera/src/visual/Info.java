@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 public class Info extends JPanel {
 
@@ -37,6 +38,7 @@ public class Info extends JPanel {
 	private static String[] colunas;
 	private static JTable tabela;
 	private static DefaultTableModel model;
+	private static JTextArea textArea;
 	
 	/**
 	 * Create the panel.
@@ -141,19 +143,51 @@ public class Info extends JPanel {
 		panelOpinioes.add(txtpnOpiniesDosClientes);
 		
 		JTextPane textPane = new JTextPane();
+		textPane.setBounds(47, 72, 266, 24);
 		textPane.setText("Selecione o tipo de visao que deseja ter:");
 		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		textPane.setBounds(47, 72, 266, 24);
 		panelOpinioes.add(textPane);
 		
 		comboBoxSelecao = new JComboBox<String>();
-		comboBoxSelecao.setModel(new DefaultComboBoxModel<String>(new String[] {"Mais recentes", "Melhor/Pior opiniao"}));
 		comboBoxSelecao.setBounds(314, 74, 144, 22);
+		comboBoxSelecao.setModel(new DefaultComboBoxModel<String>(new String[] {"Mais recentes", "Por notas"}));
+		comboBoxSelecao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboBoxSelecao.getSelectedItem().equals("Por notas"))
+					opinioesPorNota();
+				else
+					opinioesRecentes();
+			}
+		});
 		panelOpinioes.add(comboBoxSelecao);
 		
-		JScrollPane scrollPaneOpinioes = new JScrollPane();
-		scrollPaneOpinioes.setBounds(47, 108, 672, 475);
-		panelOpinioes.add(scrollPaneOpinioes);
+		textArea = new JTextArea();
+		textArea.setWrapStyleWord(true);
+		textArea.setLineWrap(true);
+		textArea.setBounds(47, 122, 672, 464);
+		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(47, 107, 671, 466);
+		panelOpinioes.add(scrollPane);
+	
+	}
+
+	static void opinioesRecentes() {
+		String text = "";
+		for (int i = 0; i < Main.getHotel().getOpinioes().size(); i++) {
+			text += Main.getHotel().getOpinioes().get(i).toString() + "\n";
+		}
+		
+		textArea.setText(text);
+	}
+	
+	private void opinioesPorNota() {
+		String text = "";
+		for (int i = 0; i < Main.getHotel().getOpinioesOrdenadas().size(); i++) {
+			text += Main.getHotel().getOpinioesOrdenadas().get(i).toString() + "\n";
+		}
+		
+		textArea.setText(text);
 	}
 
 	private void panelServicos(JPanel panel) {
