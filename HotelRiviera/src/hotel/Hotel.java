@@ -437,7 +437,7 @@ public class Hotel implements Serializable {
 	 *         correspondente a cada indice foi ou nao contratado.
 	 * 
 	 */
-	public int[] quantidadeDeOutrosServicos(Contrato contrato) {
+	private int[] quantidadeDeOutrosServicos(Contrato contrato) {
 		int[] servicos = new int[QUANT_OUTROS_SERVICOS];
 		for (Servico servico : contrato.getServicos()) {
 			if (servico instanceof Baba)
@@ -593,15 +593,15 @@ public class Hotel implements Serializable {
 			Calendar dataCheckOut, int mesIndice) throws MesInvalidoException {
 		if (dataCheckOut.get(Calendar.YEAR) == dataCheckIn.get(Calendar.YEAR)) {
 			for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
-					.get(Calendar.MONTH); i++)
-				if (i == mesIndice)
+					.get(Calendar.MONTH); i++) {
+				if (i == mesIndice) {
 					return true;
-		} else if (dataCheckOut.get(Calendar.MONTH) < mesIndice
-				&& dataCheckIn.get(Calendar.MONTH) > mesIndice) {
-			return false;
-		} else
+				}// if
+			}// for
+		} else if (dataCheckOut.get(Calendar.MONTH) >= mesIndice
+				|| dataCheckIn.get(Calendar.MONTH) <= mesIndice) {
 			return true;
-
+		}
 		return false;
 	}// verificaMesEmPeriodoDeContrato
 

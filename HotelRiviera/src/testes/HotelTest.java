@@ -39,6 +39,7 @@ import excecoes.ServicoInvalidoException;
 import excecoes.StringInvalidaException;
 import excecoes.StringVaziaException;
 import excecoes.SuitesPresidenciaisOcupadasException;
+import excecoes.ValorNegativoException;
 
 public class HotelTest {
 
@@ -111,12 +112,13 @@ public class HotelTest {
 				new GregorianCalendar(2016, Calendar.OCTOBER, 20), servicos4);
 
 		servicos5.add(new QuartoExecutivo(false, TiposDeQuarto.TRIPLO,
-				new GregorianCalendar(2016, Calendar.MAY, 5),
-				new GregorianCalendar(2016, Calendar.MAY, 8)));
+				new GregorianCalendar(2016, Calendar.DECEMBER, 28),
+				new GregorianCalendar(2017, Calendar.JANUARY, 2)));
 		contrato5 = new Contrato(new Hospede("Marta", new GregorianCalendar(
 				1982, Calendar.MARCH, 25), "5461.4310.3216.7941"),
-				acompanhantes, new GregorianCalendar(2016, Calendar.MAY, 5),
-				new GregorianCalendar(2016, Calendar.MAY, 8), servicos5);
+				acompanhantes, new GregorianCalendar(2016, Calendar.DECEMBER,
+						28), new GregorianCalendar(2017, Calendar.JANUARY, 2),
+				servicos5);
 
 		servicos6.add(new QuartoLuxo(false, TiposDeQuarto.DUPLO,
 				new GregorianCalendar(2016, Calendar.DECEMBER, 4),
@@ -314,7 +316,7 @@ public class HotelTest {
 		} catch (MesInvalidoException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		try {
 			hotel.getEstatisticaQuartos(13);
 		} catch (MesInvalidoException e) {
@@ -344,11 +346,24 @@ public class HotelTest {
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(Calendar.NOVEMBER + 1)),
 				"[2, 0, 0, 0, 0, 0, 0]");
-		
+
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(Calendar.AUGUST + 1)),
 				"[0, 0, 0, 0, 0, 0, 0]");
 
+		hotel.adicionaContrato(contrato5);
+
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaQuartos(Calendar.DECEMBER + 1)),
+				"[0, 0, 1, 0, 0, 0, 0]");
+
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaQuartos(Calendar.JANUARY + 1)),
+				"[0, 0, 1, 0, 0, 0, 0]");
+
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaQuartos(Calendar.FEBRUARY + 1)),
+				"[0, 0, 0, 0, 0, 0, 0]");
 	}
 
 	@Test
@@ -455,8 +470,26 @@ public class HotelTest {
 				"[5, 15, 20, 5, 15, 20, 5]");
 	}
 
-	public void testaGetEstatisticaServicos() {
-
+	public void testaGetEstatisticaServicos()
+			throws AddQuartoContratoException, NullPointerException,
+			ServicoInvalidoException, DataInvalidaException,
+			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
+			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
+			ExecutivosDuploOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException, ValorNegativoException {
+		contrato4
+				.adicionaServico(new Carro(TipoCarro.LUXO,
+						new GregorianCalendar(2016, Calendar.OCTOBER, 15),
+						new GregorianCalendar(2016, Calendar.OCTOBER, 18),
+						false, true));
+		contrato4.adicionaServico(new Baba(new GregorianCalendar(2016,
+				Calendar.OCTOBER, 15), new GregorianCalendar(2016,
+				Calendar.OCTOBER, 18)));
+		contrato4.adicionaServico(new ContaRestaurante(500));
+		hotel.adicionaContrato(contrato4);
+		System.out
+				.println(Arrays.toString(hotel.getEstatisticaOutrosServicos()));
 	}
 
 	public void testaGetEstatisticaServicosPorMes() {
