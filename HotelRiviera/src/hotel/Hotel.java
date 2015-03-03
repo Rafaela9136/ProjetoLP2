@@ -61,7 +61,6 @@ public class Hotel implements Serializable {
 	 */
 	public Hotel() throws LoginInvalidoException, NullPointerException,
 			SenhaInvalidaException, NomeCompletoInvalidoException {
-
 		contratos = new ArrayList<Contrato>();
 		contratosRemovidos = new ArrayList<Contrato>();
 		opinioes = new ArrayList<Opiniao>();
@@ -69,8 +68,7 @@ public class Hotel implements Serializable {
 
 		contasHotel.add(new Conta("gerente", "euamorafael", "Rafael Klynger",
 				TipoFuncionario.GERENTE));
-		
-		
+
 		IndexQuartos[] index = IndexQuartos.values();
 		quartosDesocupados = new int[QUANT_TIPOS_DE_QUARTOS];
 		for (int i = 0; i < index.length; i++) {
@@ -108,11 +106,11 @@ public class Hotel implements Serializable {
 	 *             Se o contrato passado como parametro for null.
 	 */
 	public void adicionaContrato(Contrato contrato)
-			throws ExecutivosDuploOcupadosException,
-			SuitesPresidenciaisOcupadasException,
-			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
+			throws LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
-			ExecutivosTriploOcupadosException, NullPointerException {
+			ExecutivosDuploOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException {
 		if (contrato == null) {
 			throw new NullPointerException();
 		}
@@ -131,6 +129,21 @@ public class Hotel implements Serializable {
 	}
 
 	/**
+	 * Adiciona uma Opiniao a lista de opinioes do Hotel.
+	 * 
+	 * @param opiniao
+	 *            A opiniao a ser adicionada.
+	 * @throws NullPointerException
+	 *             Se a opiniao a ser adicionada for null.
+	 */
+	public void adicionaOpiniao(Opiniao opiniao) {
+		if (opiniao == null) {
+			throw new NullPointerException();
+		}
+		opinioes.add(opiniao);
+	}
+
+	/**
 	 * Retorna a lista de opinioes ordenada.
 	 * 
 	 * @return a lista de opinioes ordenada.
@@ -139,11 +152,11 @@ public class Hotel implements Serializable {
 		// opinioes.sort(new OpiniaoComparator());
 		return opinioes;
 	}// getOpinioesComMaioresNotas
-	
+
 	public int getQuartosDesocupados(int indice) {
 		return quartosDesocupados[indice];
 	}// getQuartosDesocupados
-	
+
 	public int[] getArrayQuartosDesocupados() {
 		return quartosDesocupados;
 	}// getArrayQuartosDesocupado
@@ -287,12 +300,12 @@ public class Hotel implements Serializable {
 	 *             Se o valor do mes passado como parametro for invalido (menor
 	 *             que um).
 	 */
-	public double[] getEstatisticaQuartos(int mes) throws MesInvalidoException {
+	public int[] getEstatisticaQuartos(int mes) throws MesInvalidoException {
 		if (mes < 1) {
 			throw new MesInvalidoException();
 		}// if
 		mes--;
-		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
+		int[] estatisticas = new int[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		for (Contrato contrato : contratos) {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
@@ -322,8 +335,8 @@ public class Hotel implements Serializable {
 	 * @return Um array de double com valores que representam a quantidade de
 	 *         aluguel dos quartos com relacao ao total alugado ate entao.
 	 */
-	public double[] getEstatisticaQuartos() {
-		double[] estatisticas = new double[QUANT_TIPOS_DE_QUARTOS];
+	public int[] getEstatisticaQuartos() {
+		int[] estatisticas = new int[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		for (Contrato contrato : contratos) {
 			quantQuartos = quantidadeDeQuartos(contrato);
@@ -461,7 +474,6 @@ public class Hotel implements Serializable {
 		return contratosEncontrados;
 	}// pesquisaContrato
 
-
 	/**
 	 * Atualiza a quatidade (por tipo) de quartos desocupados. O contrato
 	 * passado como parametro foi encerrado e os quartos que estavam ocupados
@@ -562,7 +574,7 @@ public class Hotel implements Serializable {
 			quartosDesocupados[i] -= quantASerRetirada[i];
 		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosNovos
-	
+
 	/**
 	 * Verifica se determinado mes esta entre (inclusivo) as dataCheckIn e
 	 * dataCheckOut de um contrato.
@@ -585,7 +597,6 @@ public class Hotel implements Serializable {
 		return false;
 	}// verificaMesEmPeriodoDeContrato
 
-
 	private void verificaParametroNull(String param)
 			throws NullPointerException {
 		if (param == null) {
@@ -606,7 +617,6 @@ public class Hotel implements Serializable {
 			LoginInvalidoException, SenhaInvalidaException,
 			NomeCompletoInvalidoException {
 
-
 		ObjectOutputStream out = new ObjectOutputStream(
 				new BufferedOutputStream(new FileOutputStream("hotel.dat")));
 		out.writeObject(new Hotel());
@@ -617,13 +627,15 @@ public class Hotel implements Serializable {
 				new FileInputStream("hotel.dat")));
 		Hotel hotel1 = (Hotel) in.readObject();
 		in.close();
-		
+
 		IndexQuartos[] index = IndexQuartos.values();
-		
+
 		System.out.println(hotel1.toString());
-		System.out.println("Quantidade inicial de Contratos: " + hotel1.getContratos().size());
+		System.out.println("Quantidade inicial de Contratos: "
+				+ hotel1.getContratos().size());
 		for (int i = 0; i < hotel1.getArrayQuartosDesocupados().length; i++) {
-			System.out.println(index[i].getNome() + ": " + hotel1.getQuartosDesocupados(i));
+			System.out.println(index[i].getNome() + ": "
+					+ hotel1.getQuartosDesocupados(i));
 		}
 	}// main
 

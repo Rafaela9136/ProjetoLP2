@@ -44,24 +44,24 @@ public class HotelTest {
 	private Hotel hotel;
 	private Contrato contrato1, contrato2, contrato3, contrato4, contrato5,
 			contrato6, contrato7;
-	private List<Opiniao> opinioes;
-	private List<Contrato> contratos;
 	private List<Servico> servicos1, servicos2, servicos3, servicos4,
 			servicos5, servicos6, servicos7;
 	private List<String> acompanhantes;
-	private int[] quartosDesocupados = { 5, 15, 20, 5, 15, 20, 5 };
 
 	@Before
-	public void criaObjetos() throws NullPointerException,
-			LoginInvalidoException, SenhaInvalidaException,
-			NomeCompletoInvalidoException, NotaInvalidaException,
-			EstouroDeCaracteresException, ComentarioVazioException,
-			ContratoSemQuartoException, DataInvalidaException,
+	public void criaObjetos() throws NullPointerException, CamaExtraException,
+			DataInvalidaException, ContratoSemQuartoException,
 			NomeInvalidoException, CPFInvalidoException, StringVaziaException,
 			CartaoInvalidoException, StringInvalidaException,
-			NumeroInvalidoException, CamaExtraException {
-		opinioes = new ArrayList<Opiniao>();
-		contratos = new ArrayList<Contrato>();
+			NumeroInvalidoException, LoginInvalidoException,
+			SenhaInvalidaException, NomeCompletoInvalidoException,
+			ExecutivosDuploOcupadosException, LuxosSimplesOcupadosException,
+			LuxosDuploOcupadosException, LuxosTriploOcupadosException,
+			ExecutivosSimplesOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException {
+		hotel = new Hotel();
+
 		servicos1 = new ArrayList<Servico>();
 		servicos2 = new ArrayList<Servico>();
 		servicos3 = new ArrayList<Servico>();
@@ -135,40 +135,10 @@ public class HotelTest {
 				2016, Calendar.AUGUST, 22), new GregorianCalendar(2016,
 				Calendar.AUGUST, 27), servicos7);
 
-		opinioes.add(new Opiniao("Razoavel", 5));
-		opinioes.add(new Opiniao("Bom", 7));
-		opinioes.add(new Opiniao("Otimo", 10));
+		hotel.adicionaContrato(contrato1);
+		hotel.adicionaContrato(contrato2);
+		hotel.adicionaContrato(contrato3);
 
-		contratos.add(contrato1);
-		contratos.add(contrato2);
-		contratos.add(contrato3);
-
-		hotel = new Hotel(contratos, quartosDesocupados, opinioes);
-	}
-
-	@Test
-	public void testaCriaHotel() throws LoginInvalidoException,
-			SenhaInvalidaException, NomeCompletoInvalidoException {
-		try {
-			new Hotel(null, quartosDesocupados, opinioes);
-		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
-		}
-
-		try {
-			new Hotel(contratos, null, opinioes);
-		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
-		}
-
-		try {
-			new Hotel(contratos, quartosDesocupados, null);
-		} catch (NullPointerException e) {
-			Assert.assertTrue(true);
-		}
-
-		Assert.assertEquals(hotel.getContratos(), contratos);
-		Assert.assertEquals(hotel.getOpinioes(), opinioes);
 	}
 
 	@Test
@@ -251,6 +221,10 @@ public class HotelTest {
 		hotel.adicionaConta(conta);
 		Assert.assertTrue(hotel.pesquisaConta(conta.getLogin(),
 				conta.getSenha()));
+		Assert.assertFalse(hotel.pesquisaConta(conta.getLogin(),
+				"senhadiferente"));
+		Assert.assertFalse(hotel.pesquisaConta("logindiferente",
+				conta.getSenha()));
 	}
 
 	@Test
@@ -286,36 +260,126 @@ public class HotelTest {
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+				"[1, 0, 0, 1, 0, 0, 1]");
 
 		hotel.adicionaContrato(contrato1);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]");
+				"[2, 0, 0, 1, 0, 0, 1]");
 
 		hotel.adicionaContrato(contrato2);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 0.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+				"[2, 0, 0, 2, 0, 0, 1]");
 
 		hotel.adicionaContrato(contrato4);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 1.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+				"[2, 1, 0, 2, 0, 0, 1]");
 
 		hotel.removeContrato(contrato1);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 1.0, 0.0, 2.0, 0.0, 0.0, 1.0]");
+				"[2, 1, 0, 2, 0, 0, 1]");
 
 		hotel.adicionaContrato(contrato5);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 1.0, 1.0, 2.0, 0.0, 0.0, 1.0]");
+				"[2, 1, 1, 2, 0, 0, 1]");
 
 		hotel.adicionaContrato(contrato6);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0]");
+				"[2, 1, 1, 2, 1, 0, 1]");
 
 		hotel.adicionaContrato(contrato7);
 		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
-				"[2.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0]");
+				"[2, 1, 1, 2, 1, 1, 1]");
 
+		contrato7
+				.adicionaServico(new Carro(TipoCarro.EXECUTIVO,
+						new GregorianCalendar(2016, Calendar.AUGUST, 23),
+						new GregorianCalendar(2016, Calendar.AUGUST, 25),
+						false, false));
+		hotel.adicionaContrato(contrato7);
+		Assert.assertEquals(Arrays.toString(hotel.getEstatisticaQuartos()),
+				"[2, 1, 1, 2, 1, 2, 1]");
+	}
+
+	@Test
+	public void testaAdicionaOpiniao() throws NullPointerException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
+		try {
+			hotel.adicionaOpiniao(null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Opiniao opiniao1 = new Opiniao("Muito bom", 7);
+		Opiniao opiniao2 = new Opiniao("Razoavel", 4);
+
+		hotel.adicionaOpiniao(opiniao1);
+		Assert.assertTrue(hotel.getOpinioes().contains(opiniao1));
+		Assert.assertFalse(hotel.getOpinioes().contains(opiniao2));
+
+		hotel.adicionaOpiniao(opiniao2);
+		Assert.assertTrue(hotel.getOpinioes().contains(opiniao2));
+	}
+
+	@Test
+	public void testaGetQuartosDesocupados()
+			throws LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
+			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
+			ExecutivosDuploOcupadosException,
+			ExecutivosTriploOcupadosException,
+			SuitesPresidenciaisOcupadasException {
+		hotel.removeContrato(contrato1);
+		hotel.removeContrato(contrato2);
+		hotel.removeContrato(contrato3);
+		
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()), 5);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()), 15);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()), 20);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()), 5);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()), 15);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()), 20);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()), 5);
+		
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[5, 15, 20, 5, 15, 20, 5]");
+		
+		hotel.adicionaContrato(contrato1);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()), 4);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 20, 5, 15, 20, 5]");
+		
+		hotel.adicionaContrato(contrato2);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()), 4);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 20, 4, 15, 20, 5]");
+		
+		hotel.adicionaContrato(contrato3);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()), 4);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 20, 4, 15, 20, 4]");
+		
+		hotel.adicionaContrato(contrato5);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()), 19);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 19, 4, 15, 20, 4]");
+		
+		hotel.removeContrato(contrato5);
+		Assert.assertEquals(hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()), 20);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 20, 4, 15, 20, 4]");
+		
+		hotel.removeContrato(contrato1);
+		hotel.removeContrato(contrato2);
+		hotel.removeContrato(contrato3);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[5, 15, 20, 5, 15, 20, 5]");
 	}
 
 }
