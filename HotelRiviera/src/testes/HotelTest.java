@@ -469,7 +469,7 @@ public class HotelTest {
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[5, 15, 20, 5, 15, 20, 5]");
 	}
-
+	@Test
 	public void testaGetEstatisticaServicos()
 			throws AddQuartoContratoException, NullPointerException,
 			ServicoInvalidoException, DataInvalidaException,
