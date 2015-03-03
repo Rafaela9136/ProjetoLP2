@@ -49,7 +49,7 @@ public class Main {
 					.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
 		} catch (Throwable e) {
 			JOptionPane.showMessageDialog(null,"Algo esta errado!");
-		}
+		}// try-catch
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,8 +58,8 @@ public class Main {
 
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado!");
-				}
-			}
+				}// try-catch
+			}// run
 		});
 
 	}// main
@@ -76,9 +76,9 @@ public class Main {
 			if (outputHotel != null)
 				outputHotel.close();
 		}// try-finally
-	}
+	}// salvaHotel
 
 	public static Hotel getHotel() {
 		return hotel;
-	}
-}
+	}// getHotel
+}// Main

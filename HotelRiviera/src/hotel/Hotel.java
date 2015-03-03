@@ -408,8 +408,8 @@ public class Hotel implements Serializable {
 	 * @return Um array de double com valores que representam a quantidade de
 	 *         aluguel dos quartos com relacao ao total alugado ate entao.
 	 */
-	public double[] getEstatisticaOutrosServicos() {
-		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
+	public int[] getEstatisticaOutrosServicos() {
+		int[] estatisticas = new int[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 		for (Contrato contrato : contratos) {
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
@@ -419,7 +419,7 @@ public class Hotel implements Serializable {
 
 		for (Contrato contrato : contratosRemovidos) {
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
 				estatisticas[i] += quantOutrosServicos[i];
 			}// for
 		}// for

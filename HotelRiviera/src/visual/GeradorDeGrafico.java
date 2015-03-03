@@ -37,15 +37,12 @@ public class GeradorDeGrafico extends JPanel {
 		
 		graficoQuarto();
 		
-		
 		graficoServicos();
-		
 
 	}
 
 	private void graficoServicos() {
 		DefaultCategoryDataset dataset = GeradorDeGrafico.estatServicosAdicionaisGeral();
-		
 		panelServicos = new JPanel();
 		panelServicos.setBackground(Color.WHITE);
 		panel.add(panelServicos, "servicoGeral");
@@ -56,7 +53,7 @@ public class GeradorDeGrafico extends JPanel {
 		panelServicos.add(chartPanel);
 		chartPanel.setLayout(null);
 		chartPanel.setBounds(0, 0, 658, 348);
-	}
+	}// graficoServicos
 
 	private void graficoQuarto() {
 		DefaultCategoryDataset dataset = GeradorDeGrafico.estatQuartoGeral();
@@ -102,7 +99,6 @@ public class GeradorDeGrafico extends JPanel {
 
 	private static DefaultCategoryDataset estatServicosAdicionaisGeral() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
-		
 		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.BABA.ordinal()], "Baba", "1970");
 		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CARRO.ordinal()], "Automoveis", "1970");
 		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()], "Restaurante", "1970");

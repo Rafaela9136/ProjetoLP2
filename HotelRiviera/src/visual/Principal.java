@@ -69,9 +69,7 @@ public class Principal extends JFrame implements WindowListener{
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1018, 677);
 		contentPane.add(tabbedPane);
-		
 		recursos(tabbedPane);
-		
 		info(tabbedPane);
 		
 		if(tipoFuncionario.equals("gerente")){
@@ -147,7 +145,6 @@ public class Principal extends JFrame implements WindowListener{
 		panelInfo.setBorder(new LineBorder(new Color(51, 0, 0), 2));
 		tabbedPane.addTab("Informa\u00E7\u00F5es", null, panelInfo, null);
 		panelInfo.setLayout(null);
-		
 		Info panel = new Info();
 		panel.setBounds(228, 12, 764, 612);
 		panelInfo.add(panel);

@@ -82,18 +82,7 @@ public class Login extends JFrame {
 			}
 		});	
 		
-		passwordField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				verificaLogin();
-			}
-		});
-		
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				verificaLogin();
-			}
-		});
-	}
+	}// Construtor
 
 	private void verificaLogin() {
 		if (Main.getHotel().pesquisaConta(textField.getText(), String.valueOf(passwordField.getPassword()))) {

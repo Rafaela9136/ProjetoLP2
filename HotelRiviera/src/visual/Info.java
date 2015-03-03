@@ -64,7 +64,7 @@ public class Info extends JPanel {
 		layout.show(panel, "vazio");
 		
 		panelEstatistica();
-	}
+	}// Construtor
 	
 	private void inicializa() {
 		setBackground(Color.WHITE);
@@ -123,11 +123,11 @@ public class Info extends JPanel {
 			}
 		});
 		estatistica.add(comboBox);	
-		
+
 		GeradorDeGrafico graficos = new GeradorDeGrafico();
 		graficos.setBounds(47, 156, 658, 350);
 		estatistica.add(graficos);
-	}
+	}// painelEstatistica
 	
 	private void panelOpinioes(JPanel panel) {
 		JPanel panelOpinioes = new JPanel();
@@ -174,18 +174,16 @@ public class Info extends JPanel {
 
 	static void opinioesRecentes() {
 		String text = "";
-		for (int i = 0; i < Main.getHotel().getOpinioes().size(); i++) {
-			text += Main.getHotel().getOpinioes().get(i).toString() + "\n";
-		}
+		for (Opiniao opiniao :Main.getHotel().getOpinioes()) 
+			text += opiniao.toString() + "\n";
 		
 		textArea.setText(text);
 	}
 	
 	private void opinioesPorNota() {
 		String text = "";
-		for (int i = 0; i < Main.getHotel().getOpinioesOrdenadas().size(); i++) {
-			text += Main.getHotel().getOpinioesOrdenadas().get(i).toString() + "\n";
-		}
+		for (Opiniao opiniao : Main.getHotel().getOpinioesOrdenadas())
+			text += opiniao.toString() + "\n";
 		
 		textArea.setText(text);
 	}
