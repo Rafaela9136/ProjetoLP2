@@ -56,7 +56,7 @@ public class Conector implements Serializable {
 	public static Calendar transformaDataHora(String data, String hora) {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
-		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]),
+		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
 				Integer.parseInt(diaMesAno[0]));
 		String[] horaMin = hora.split(":");
 		c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaMin[0]));
