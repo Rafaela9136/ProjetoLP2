@@ -163,8 +163,8 @@ public class Hotel implements Serializable {
 
 	/**
 	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do
-	 * contrato a lista de opinioes do hotel.
+	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
+	 * a lista de opinioes do hotel.
 	 * 
 	 * @param contrato
 	 *            O contrato a ser removido da lista.
@@ -444,7 +444,7 @@ public class Hotel implements Serializable {
 				servicos[IndexOutrosServicos.BABA.ordinal()]++;
 			else if (servico instanceof Carro)
 				servicos[IndexOutrosServicos.CARRO.ordinal()]++;
-			else if(servico instanceof ContaRestaurante)
+			else if (servico instanceof ContaRestaurante)
 				servicos[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()]++;
 		}// for
 		return servicos;
@@ -591,9 +591,11 @@ public class Hotel implements Serializable {
 	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
 			Calendar dataCheckOut, int mesIndice) {
 		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
-				.get(Calendar.MONTH); i++)
-			if (i == mesIndice)
+				.get(Calendar.MONTH); i++) {
+			if (i == mesIndice) {
 				return true;
+			}
+		}
 		return false;
 	}// verificaMesEmPeriodoDeContrato
 
