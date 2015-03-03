@@ -599,8 +599,8 @@ public class Hotel implements Serializable {
 		} else if (dataCheckOut.get(Calendar.MONTH) < mesIndice
 				&& dataCheckIn.get(Calendar.MONTH) > mesIndice) {
 			return false;
-			// return true;
-		}// if-else
+		} else
+			return true;
 
 		return false;
 	}// verificaMesEmPeriodoDeContrato
