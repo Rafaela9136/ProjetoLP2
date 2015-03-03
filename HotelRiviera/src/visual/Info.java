@@ -39,6 +39,7 @@ public class Info extends JPanel {
 	private static JTable tabela;
 	private static DefaultTableModel model;
 	private static JTextArea textArea;
+	private static String[][] dados;
 	
 	/**
 	 * Create the panel.
@@ -162,6 +163,7 @@ public class Info extends JPanel {
 		panelOpinioes.add(comboBoxSelecao);
 		
 		textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setWrapStyleWord(true);
 		textArea.setLineWrap(true);
 		textArea.setBounds(47, 122, 672, 464);
@@ -175,7 +177,7 @@ public class Info extends JPanel {
 	static void opinioesRecentes() {
 		String text = "";
 		for (Opiniao opiniao :Main.getHotel().getOpinioes()) 
-			text += opiniao.toString() + "\n";
+			text += opiniao.toString() + "\n\n";
 		
 		textArea.setText(text);
 	}
@@ -183,7 +185,7 @@ public class Info extends JPanel {
 	private void opinioesPorNota() {
 		String text = "";
 		for (Opiniao opiniao : Main.getHotel().getOpinioesOrdenadas())
-			text += opiniao.toString() + "\n";
+			text += opiniao.toString() + "\n\n";
 		
 		textArea.setText(text);
 	}
@@ -239,7 +241,7 @@ public class Info extends JPanel {
 
 	private void tabelaQuarto(JPanel panelServicos) {
 		colunas = new String[]{"Tipo de quarto","Valor da diaria","Total no hotel", "Total disponivel"};
-		String[][] dados = new String[][]{
+		dados = new String[][]{
 			    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
 			    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
 			    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
@@ -268,24 +270,15 @@ public class Info extends JPanel {
 	}
 
 	static void atualizaServico() {
-		String[][] dados = new String[][]{
-		    {"Presidencial", "R$ " + Double.toString(SuitePresidencial.DIARIA_SUITE_PRESIDENCIAL), Integer.toString(hotel.SuitePresidencial.TOTAL_DISPONIVEL),
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()))},
-		    {"Luxo Simples", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_SIMPLES), "5",
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()))},
-		    {"Luxo Duplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_DUPLO), "15", 
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()))},
-		    {"Luxo Triplo", "R$ " + Double.toString(QuartoLuxo.DIARIA_LUXO_TRIPLO), "20",
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()))},
-		    {"Executivo Simples", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_SIMPLES), "5",
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()))},
-		    {"Executivo Duplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_DUPLO), "15",
-		    	Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()))},
-		    {"Executivo Triplo", "R$ " + Double.toString(QuartoExecutivo.DIARIA_EXECUTIVO_TRIPLO), "20",
-		    		Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()))},
-		};
-		
-		model = new DefaultTableModel(dados , colunas );
+		dados[0][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL.ordinal()));
+		dados[1][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()));
+		dados[2][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()));
+		dados[3][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()));
+		dados[4][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES.ordinal()));
+		dados[5][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()));
+		dados[6][3] = Integer.toString(Main.getHotel().getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO.ordinal()));
+
+		DefaultTableModel model = new DefaultTableModel(dados , colunas );
 		tabela.setModel(model);
 	}
 

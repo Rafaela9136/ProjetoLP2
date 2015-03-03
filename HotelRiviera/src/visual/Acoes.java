@@ -610,24 +610,15 @@ public class Acoes extends JPanel {
 		btnAtualizarTabela.setBounds(47, 115, 135, 25);
 		btnAtualizarTabela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					atualizaTabela();
-				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado!");
-				}
-			}
-		});
+				atualizaTabela();
+		}});
 		panelPesquisarContrato.add(btnAtualizarTabela);
 
 		JButton btnPesquisarContrato = new JButton("Pesquisar");
 		btnPesquisarContrato.setBounds(600, 113, 135, 25);
 		btnPesquisarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					pesquisaTabela();
-				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado!");
-				}
+				pesquisaTabela();
 			}
 		});
 		panelPesquisarContrato.add(btnPesquisarContrato);
@@ -639,26 +630,19 @@ public class Acoes extends JPanel {
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				try {
-					if (selecionaContrato(linha)) {
-						layout.show(panel, "atualizaContrato");
-						AtualizacaoContrato.setaInfoGerais();
-					}
-				} catch (ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado!");
+				if (selecionaContrato(linha, Main.getHotel().getContratos())) {
+					layout.show(panel, "atualizaContrato");
+					AtualizacaoContrato.setaInfoGerais();
 				}
 			}
 		});
 		panelPesquisarContrato.add(btnAtualizarContrato);
 	}
 
-	// ***ERRO*** Corrigir o erro de pesquisa substituindo ou usando dados.letgh
-	// pra pegar a informacao correta
-	private boolean selecionaContrato(int linha) throws FileNotFoundException,
-			ClassNotFoundException, IOException {
-		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
+	private boolean selecionaContrato(int linha, List<Contrato> contratos) {
+		for (int i = 0; i < contratos.size(); i++) {
 			if (i == linha) {
-				contratoPesquisado = Main.getHotel().getContratos().get(i);
+				contratoPesquisado = contratos.get(i);
 				return true;
 			}
 		}
@@ -683,21 +667,17 @@ public class Acoes extends JPanel {
 		panelPesquisarContrato.add(scroll);
 	}
 
-	private void pesquisaTabela() throws FileNotFoundException,
-			ClassNotFoundException, IOException {
-		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
+	private void pesquisaTabela(){
+		String[][] dados = new String[Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).size()][2];
 		int cont = 0;
-		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
-			if (Main.getHotel().getContratos().get(i).getHospedeTitular().getNome()
-					.equals(textFieldPesquisa.getText())) {
-				dados[cont][0] = Main.getHotel().getContratos().get(i)
+		for (int i = 0; i < Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).size(); i++) {
+				dados[cont][0] = Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i)
 						.getHospedeTitular().getNome();
-				if (Main.getHotel().getContratos().get(i).getIsAberto())
+				if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i).getIsAberto())
 					dados[cont][1] = "Aberto";
-				if (Main.getHotel().getContratos().get(i).getIsReserva())
+				if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i).getIsReserva())
 					dados[cont][1] = "Reserva";
 				cont++;
-			} // if
 		}// for
 
 		if (cont == 0) {
@@ -708,8 +688,7 @@ public class Acoes extends JPanel {
 		tabela.setModel(model);
 	}
 
-	private void atualizaTabela() throws FileNotFoundException,
-			ClassNotFoundException, IOException {
+	private void atualizaTabela() {
 		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
 		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
 			dados[i][0] = Main.getHotel().getContratos().get(i).getHospedeTitular()
@@ -723,24 +702,6 @@ public class Acoes extends JPanel {
 		model = new DefaultTableModel(dados, colunas);
 		tabela.setModel(model);
 	}
-	
-//	public void limpaCampos() {
-//		textFieldNome.setText("");
-//		textFieldNumero.setText("");
-//		textFieldCidade.setText("");
-//		textFieldLogradouro.setText("");
-//		formattedTextFieldData.setText("");
-//		formattedTextFieldCPF.setText("");
-//		formattedTextFieldCartao.setText("");
-//		formattedTextFieldCheckIn.setText("");
-//		formattedTextFieldCheckOut.setText("");
-//		comboBoxQuarto.setSelectedIndex(0);
-//		comboBoxQuartoT.setSelectedIndex(0);
-//		comboBoxPaises.setSelectedIndex(0);
-//		comboBoxEstados.setSelectedIndex(0);
-//		rdbtnCamaExtra.setSelected(false);
-//		textAreaAcompanhantes.setText("");
-//	}
 
 	// metodo para selecionar a tela a que aparece
 	static void selecionaTela(String nomeDaTela) {

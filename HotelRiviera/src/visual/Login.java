@@ -80,7 +80,19 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				verificaLogin();
 			}
-		});	
+		});
+		
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verificaLogin();
+			}
+		});
+		
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				verificaLogin();
+			}
+		});
 		
 	}// Construtor
 
