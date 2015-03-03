@@ -584,28 +584,23 @@ public class Hotel implements Serializable {
 	 * @param dataCheckOut
 	 *            A data de encerramento/ check out do contrato.
 	 * @param mesIndice
-	 *            Um indice (0 a 11) que representa o m�s do ano.
+	 *            Um indice (1 a 12) que representa o m�s do ano.
 	 * @return "true" se o mesIndice estiver entre as datas de abertura e
 	 *         encerramento do contrato.
 	 * @throws MesInvalidoException
 	 */
 	private boolean verificaMesEmPeriodoDeContrato(Calendar dataCheckIn,
 			Calendar dataCheckOut, int mesIndice) throws MesInvalidoException {
-		if(mesIndice < 1 || mesIndice > 12)
-			throw new MesInvalidoException();
-		if(dataCheckOut.get(Calendar.YEAR) == dataCheckIn.get(Calendar.YEAR))
-		for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
-				.get(Calendar.MONTH); i++)
-			if (i == mesIndice)
-				return true;
-			else {
-				if(dataCheckOut
-				.get(Calendar.MONTH) < mesIndice && dataCheckIn
-				.get(Calendar.MONTH) > mesIndice)
-					return false;
-				return true;
-			}// if-else
-				
+		if (dataCheckOut.get(Calendar.YEAR) == dataCheckIn.get(Calendar.YEAR)) {
+			for (int i = dataCheckIn.get(Calendar.MONTH); i <= dataCheckOut
+					.get(Calendar.MONTH); i++)
+				if (i == mesIndice)
+					return true;
+		} else if (dataCheckOut.get(Calendar.MONTH) < mesIndice
+				&& dataCheckIn.get(Calendar.MONTH) > mesIndice) {
+			return false;
+			// return true;
+		}// if-else
 
 		return false;
 	}// verificaMesEmPeriodoDeContrato

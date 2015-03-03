@@ -314,6 +314,12 @@ public class HotelTest {
 		} catch (MesInvalidoException e) {
 			Assert.assertTrue(true);
 		}
+		
+		try {
+			hotel.getEstatisticaQuartos(13);
+		} catch (MesInvalidoException e) {
+			Assert.assertTrue(true);
+		}
 
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(Calendar.JANUARY + 1)),
@@ -332,12 +338,17 @@ public class HotelTest {
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(Calendar.NOVEMBER + 1)),
 				"[2, 0, 0, 0, 0, 0, 0]");
-		
+
 		hotel.removeContrato(contrato1);
-		
+
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(Calendar.NOVEMBER + 1)),
 				"[2, 0, 0, 0, 0, 0, 0]");
+		
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaQuartos(Calendar.AUGUST + 1)),
+				"[0, 0, 0, 0, 0, 0, 0]");
+
 	}
 
 	@Test
@@ -444,4 +455,11 @@ public class HotelTest {
 				"[5, 15, 20, 5, 15, 20, 5]");
 	}
 
+	public void testaGetEstatisticaServicos() {
+
+	}
+
+	public void testaGetEstatisticaServicosPorMes() {
+
+	}
 }
