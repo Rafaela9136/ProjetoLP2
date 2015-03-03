@@ -444,7 +444,7 @@ public class Hotel implements Serializable {
 				servicos[IndexOutrosServicos.BABA.ordinal()]++;
 			else if (servico instanceof Carro)
 				servicos[IndexOutrosServicos.CARRO.ordinal()]++;
-			else
+			else if(servico instanceof ContaRestaurante)
 				servicos[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()]++;
 		}// for
 		return servicos;
