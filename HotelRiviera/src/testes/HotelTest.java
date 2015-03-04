@@ -49,6 +49,7 @@ public class HotelTest {
 	private List<Servico> servicos1, servicos2, servicos3, servicos4,
 			servicos5, servicos6, servicos7;
 	private List<String> acompanhantes;
+	private Calendar dataAtual;
 
 	@Before
 	public void criaObjetos() throws NullPointerException, CamaExtraException,
@@ -62,6 +63,9 @@ public class HotelTest {
 			ExecutivosSimplesOcupadosException,
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException {
+		dataAtual = new GregorianCalendar();
+		int proxAno = dataAtual.get(Calendar.YEAR) + 1;
+		
 		hotel = new Hotel();
 
 		servicos1 = new ArrayList<Servico>();
@@ -76,66 +80,66 @@ public class HotelTest {
 		acompanhantes.add("Maria");
 
 		servicos1.add(new QuartoExecutivo(false, TiposDeQuarto.SIMPLES,
-				new GregorianCalendar(2016, Calendar.NOVEMBER, 22),
-				new GregorianCalendar(2016, Calendar.NOVEMBER, 28)));
+				new GregorianCalendar(proxAno, Calendar.NOVEMBER, 22),
+				new GregorianCalendar(proxAno, Calendar.NOVEMBER, 28)));
 		contrato1 = new Contrato(new Hospede("Joao Paulo",
 				new GregorianCalendar(1990, Calendar.JANUARY, 20),
 				"2264.5130.8467.0319"), acompanhantes, new GregorianCalendar(
-				2016, Calendar.NOVEMBER, 22), new GregorianCalendar(2016,
+				proxAno, Calendar.NOVEMBER, 22), new GregorianCalendar(proxAno,
 				Calendar.NOVEMBER, 28), servicos1);
 
 		servicos2.add(new QuartoLuxo(false, TiposDeQuarto.SIMPLES,
-				new GregorianCalendar(2016, Calendar.JULY, 2),
-				new GregorianCalendar(2016, Calendar.JULY, 7)));
+				new GregorianCalendar(proxAno, Calendar.JULY, 2),
+				new GregorianCalendar(proxAno, Calendar.JULY, 7)));
 		contrato2 = new Contrato(new Hospede("Carla Amorim",
 				new GregorianCalendar(1988, Calendar.JUNE, 10),
 				"3102.5431.9526.7314"), acompanhantes, new GregorianCalendar(
-				2016, Calendar.JULY, 2), new GregorianCalendar(2016,
+				proxAno, Calendar.JULY, 2), new GregorianCalendar(proxAno,
 				Calendar.JULY, 7), servicos2);
 
-		servicos3.add(new SuitePresidencial(new GregorianCalendar(2016,
-				Calendar.APRIL, 20), new GregorianCalendar(2016,
+		servicos3.add(new SuitePresidencial(new GregorianCalendar(proxAno,
+				Calendar.APRIL, 20), new GregorianCalendar(proxAno,
 				Calendar.APRIL, 23)));
 		contrato3 = new Contrato(new Hospede("Pedro Carvalho",
 				new GregorianCalendar(1984, Calendar.SEPTEMBER, 17),
 				"5461.3120.8746.9130"), acompanhantes, new GregorianCalendar(
-				2016, Calendar.APRIL, 20), new GregorianCalendar(2016,
+				proxAno, Calendar.APRIL, 20), new GregorianCalendar(proxAno,
 				Calendar.APRIL, 23), servicos3);
 
 		servicos4.add(new QuartoExecutivo(false, TiposDeQuarto.DUPLO,
-				new GregorianCalendar(2016, Calendar.OCTOBER, 14),
-				new GregorianCalendar(2016, Calendar.OCTOBER, 20)));
+				new GregorianCalendar(proxAno, Calendar.OCTOBER, 14),
+				new GregorianCalendar(proxAno, Calendar.OCTOBER, 20)));
 		contrato4 = new Contrato(new Hospede("Juca", new GregorianCalendar(
 				1980, Calendar.JANUARY, 5), "9681.1349.6472.1307"),
 				acompanhantes,
-				new GregorianCalendar(2016, Calendar.OCTOBER, 14),
-				new GregorianCalendar(2016, Calendar.OCTOBER, 20), servicos4);
+				new GregorianCalendar(proxAno, Calendar.OCTOBER, 14),
+				new GregorianCalendar(proxAno, Calendar.OCTOBER, 20), servicos4);
 
 		servicos5.add(new QuartoExecutivo(false, TiposDeQuarto.TRIPLO,
-				new GregorianCalendar(2016, Calendar.DECEMBER, 28),
-				new GregorianCalendar(2017, Calendar.JANUARY, 2)));
+				new GregorianCalendar(proxAno, Calendar.DECEMBER, 28),
+				new GregorianCalendar(proxAno+1, Calendar.JANUARY, 2)));
 		contrato5 = new Contrato(new Hospede("Marta", new GregorianCalendar(
 				1982, Calendar.MARCH, 25), "5461.4310.3216.7941"),
-				acompanhantes, new GregorianCalendar(2016, Calendar.DECEMBER,
-						28), new GregorianCalendar(2017, Calendar.JANUARY, 2),
+				acompanhantes, new GregorianCalendar(proxAno, Calendar.DECEMBER,
+						28), new GregorianCalendar(proxAno+1, Calendar.JANUARY, 2),
 				servicos5);
 
 		servicos6.add(new QuartoLuxo(false, TiposDeQuarto.DUPLO,
-				new GregorianCalendar(2016, Calendar.DECEMBER, 4),
-				new GregorianCalendar(2016, Calendar.DECEMBER, 10)));
+				new GregorianCalendar(proxAno, Calendar.DECEMBER, 4),
+				new GregorianCalendar(proxAno, Calendar.DECEMBER, 10)));
 		contrato6 = new Contrato(new Hospede("Pedro", new GregorianCalendar(
 				1985, Calendar.SEPTEMBER, 13), "6457.1345.1037.9471"),
 				acompanhantes,
-				new GregorianCalendar(2016, Calendar.DECEMBER, 4),
-				new GregorianCalendar(2016, Calendar.DECEMBER, 10), servicos6);
+				new GregorianCalendar(proxAno, Calendar.DECEMBER, 4),
+				new GregorianCalendar(proxAno, Calendar.DECEMBER, 10), servicos6);
 
 		servicos7.add(new QuartoLuxo(false, TiposDeQuarto.TRIPLO,
-				new GregorianCalendar(2016, Calendar.AUGUST, 22),
-				new GregorianCalendar(2016, Calendar.AUGUST, 27)));
+				new GregorianCalendar(proxAno, Calendar.AUGUST, 22),
+				new GregorianCalendar(proxAno, Calendar.AUGUST, 27)));
 		contrato7 = new Contrato(new Hospede("Nobrega Duarte",
 				new GregorianCalendar(1970, Calendar.MAY, 20),
 				"1342.6794.2451.1308"), acompanhantes, new GregorianCalendar(
-				2016, Calendar.AUGUST, 22), new GregorianCalendar(2016,
+				proxAno, Calendar.AUGUST, 22), new GregorianCalendar(proxAno,
 				Calendar.AUGUST, 27), servicos7);
 
 		hotel.adicionaContrato(contrato1);
@@ -469,6 +473,7 @@ public class HotelTest {
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[5, 15, 20, 5, 15, 20, 5]");
 	}
+	
 	@Test
 	public void testaGetEstatisticaServicos()
 			throws AddQuartoContratoException, NullPointerException,
@@ -486,12 +491,13 @@ public class HotelTest {
 		contrato4.adicionaServico(new Baba(new GregorianCalendar(2016,
 				Calendar.OCTOBER, 15), new GregorianCalendar(2016,
 				Calendar.OCTOBER, 18)));
-		contrato4.adicionaServico(new ContaRestaurante(500));
+//		contrato4.adicionaServico(new ContaRestaurante(500));
 		hotel.adicionaContrato(contrato4);
 		System.out
 				.println(Arrays.toString(hotel.getEstatisticaOutrosServicos()));
 	}
 
+	@Test
 	public void testaGetEstatisticaServicosPorMes() {
 
 	}
