@@ -45,11 +45,12 @@ public class HotelTest {
 
 	private Hotel hotel;
 	private Contrato contrato1, contrato2, contrato3, contrato4, contrato5,
-			contrato6, contrato7;
+			contrato6, contrato7, contrato8;
 	private List<Servico> servicos1, servicos2, servicos3, servicos4,
-			servicos5, servicos6, servicos7;
+			servicos5, servicos6, servicos7, servicos8;
 	private List<String> acompanhantes;
 	private Calendar dataAtual;
+	int diaAtual, mesAtual, anoAtual, proxAno;
 
 	@Before
 	public void criaObjetos() throws NullPointerException, CamaExtraException,
@@ -64,8 +65,11 @@ public class HotelTest {
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException {
 		dataAtual = new GregorianCalendar();
-		int proxAno = dataAtual.get(Calendar.YEAR) + 1;
-		
+		diaAtual = dataAtual.get(Calendar.DAY_OF_MONTH);
+		mesAtual = dataAtual.get(Calendar.MONTH);
+		anoAtual = dataAtual.get(Calendar.YEAR);
+		proxAno = anoAtual + 1;
+
 		hotel = new Hotel();
 
 		servicos1 = new ArrayList<Servico>();
@@ -75,6 +79,7 @@ public class HotelTest {
 		servicos5 = new ArrayList<Servico>();
 		servicos6 = new ArrayList<Servico>();
 		servicos7 = new ArrayList<Servico>();
+		servicos8 = new ArrayList<Servico>();
 		acompanhantes = new ArrayList<String>();
 		acompanhantes.add("Joao");
 		acompanhantes.add("Maria");
@@ -111,27 +116,27 @@ public class HotelTest {
 				new GregorianCalendar(proxAno, Calendar.OCTOBER, 20)));
 		contrato4 = new Contrato(new Hospede("Juca", new GregorianCalendar(
 				1980, Calendar.JANUARY, 5), "9681.1349.6472.1307"),
-				acompanhantes,
-				new GregorianCalendar(proxAno, Calendar.OCTOBER, 14),
-				new GregorianCalendar(proxAno, Calendar.OCTOBER, 20), servicos4);
+				acompanhantes, new GregorianCalendar(proxAno, Calendar.OCTOBER,
+						14), new GregorianCalendar(proxAno, Calendar.OCTOBER,
+						20), servicos4);
 
 		servicos5.add(new QuartoExecutivo(false, TiposDeQuarto.TRIPLO,
 				new GregorianCalendar(proxAno, Calendar.DECEMBER, 28),
-				new GregorianCalendar(proxAno+1, Calendar.JANUARY, 2)));
+				new GregorianCalendar(proxAno + 1, Calendar.JANUARY, 2)));
 		contrato5 = new Contrato(new Hospede("Marta", new GregorianCalendar(
 				1982, Calendar.MARCH, 25), "5461.4310.3216.7941"),
-				acompanhantes, new GregorianCalendar(proxAno, Calendar.DECEMBER,
-						28), new GregorianCalendar(proxAno+1, Calendar.JANUARY, 2),
-				servicos5);
+				acompanhantes, new GregorianCalendar(proxAno,
+						Calendar.DECEMBER, 28), new GregorianCalendar(
+						proxAno + 1, Calendar.JANUARY, 2), servicos5);
 
 		servicos6.add(new QuartoLuxo(false, TiposDeQuarto.DUPLO,
 				new GregorianCalendar(proxAno, Calendar.DECEMBER, 4),
 				new GregorianCalendar(proxAno, Calendar.DECEMBER, 10)));
 		contrato6 = new Contrato(new Hospede("Pedro", new GregorianCalendar(
 				1985, Calendar.SEPTEMBER, 13), "6457.1345.1037.9471"),
-				acompanhantes,
-				new GregorianCalendar(proxAno, Calendar.DECEMBER, 4),
-				new GregorianCalendar(proxAno, Calendar.DECEMBER, 10), servicos6);
+				acompanhantes, new GregorianCalendar(proxAno,
+						Calendar.DECEMBER, 4), new GregorianCalendar(proxAno,
+						Calendar.DECEMBER, 10), servicos6);
 
 		servicos7.add(new QuartoLuxo(false, TiposDeQuarto.TRIPLO,
 				new GregorianCalendar(proxAno, Calendar.AUGUST, 22),
@@ -142,10 +147,17 @@ public class HotelTest {
 				proxAno, Calendar.AUGUST, 22), new GregorianCalendar(proxAno,
 				Calendar.AUGUST, 27), servicos7);
 
+		servicos8.add(new QuartoExecutivo(false, TiposDeQuarto.SIMPLES,
+				new GregorianCalendar(), new GregorianCalendar(anoAtual,
+						mesAtual, diaAtual + 4)));
+		contrato8 = new Contrato(new Hospede("Pablo", new GregorianCalendar(
+				1990, Calendar.JUNE, 2), "5461.1320.8761.3490"), acompanhantes,
+				new GregorianCalendar(), new GregorianCalendar(anoAtual,
+						mesAtual, diaAtual + 4), servicos8);
+
 		hotel.adicionaContrato(contrato1);
 		hotel.adicionaContrato(contrato2);
 		hotel.adicionaContrato(contrato3);
-
 	}
 
 	@Test
@@ -473,7 +485,7 @@ public class HotelTest {
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[5, 15, 20, 5, 15, 20, 5]");
 	}
-	
+
 	@Test
 	public void testaGetEstatisticaServicos()
 			throws AddQuartoContratoException, NullPointerException,
@@ -491,10 +503,34 @@ public class HotelTest {
 		contrato4.adicionaServico(new Baba(new GregorianCalendar(2016,
 				Calendar.OCTOBER, 15), new GregorianCalendar(2016,
 				Calendar.OCTOBER, 18)));
-//		contrato4.adicionaServico(new ContaRestaurante(500));
 		hotel.adicionaContrato(contrato4);
-		System.out
-				.println(Arrays.toString(hotel.getEstatisticaOutrosServicos()));
+		Assert.assertEquals(
+				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
+				"[1, 1, 0]");
+		hotel.removeContrato(contrato4);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
+				"[1, 1, 0]");
+
+		contrato8.adicionaServico(new Carro(TipoCarro.EXECUTIVO,
+				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 1),
+				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 2), false,
+				true));
+		contrato8.adicionaServico(new Baba(new GregorianCalendar(anoAtual,
+				mesAtual, diaAtual + 1), new GregorianCalendar(anoAtual,
+				mesAtual, diaAtual + 2)));
+		contrato8.adicionaServico(new ContaRestaurante(500));
+		
+		hotel.adicionaContrato(contrato8);
+		
+		Assert.assertEquals(
+				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
+				"[2, 2, 1]");
+		
+		hotel.removeContrato(contrato8);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
+				"[2, 2, 1]");
 	}
 
 	@Test
