@@ -124,8 +124,8 @@ public class Hotel implements Serializable {
 
 	/**
 	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
-	 * a lista de opinioes do hotel.
+	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do
+	 * contrato a lista de opinioes do hotel.
 	 * 
 	 * @param contrato
 	 *            O contrato a ser removido da lista.
@@ -274,15 +274,25 @@ public class Hotel implements Serializable {
 			throws NullPointerException {
 		verificaParametroNull(login);
 		verificaParametroNull(senha);
-		for (Conta conta : contasHotel) {
+		for (Conta conta : contasHotel)
 			if (conta.getLogin().equals(login)
-					&& conta.getSenha().equals(senha)) {
+					&& conta.getSenha().equals(senha))
 				return true;
-			}
-		}
+
 		return false;
 	}// pesquisaConta
-
+	
+	public Conta pesquisaConta(String login) {
+		if(login == null)
+			throw new NullPointerException();
+		for (Conta conta : contasHotel) 
+			if(conta.getLogin().equals(login))
+				return conta;
+		
+		return null;
+	}// pesquisaConta
+	
+	
 	/**
 	 * Retorna a lista de contratos em voga do hotel.
 	 * 
