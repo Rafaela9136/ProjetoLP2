@@ -131,10 +131,11 @@ public class Hotel implements Serializable {
 	 *            O contrato a ser removido da lista.
 	 * @return "true" se o contrato existia na lista de contratos e foi removido
 	 *         com sucesso.
-	 * @throws ContratoSemOpiniaoException 
-	 * @throws ContratoFechadoException 
+	 * @throws ContratoSemOpiniaoException
+	 * @throws ContratoFechadoException
 	 */
-	public boolean removeContrato(Contrato contrato) throws ContratoFechadoException, ContratoSemOpiniaoException {
+	public boolean removeContrato(Contrato contrato)
+			throws ContratoFechadoException, ContratoSemOpiniaoException {
 		boolean removido = contratos.remove(contrato);
 		if (removido) {
 			opinioes.add(contrato.getOpiniao());
@@ -519,10 +520,12 @@ public class Hotel implements Serializable {
 
 		for (int i = 0; i < quartosDesocupados.length; i++) {
 			quartosDesocupados[i] = this.quartosDesocupados[i];
-		}
-		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
-			quartosDesocupados[i] += quantASerSomada[i];
-		}
+		}// for
+		if (!contrato.getIsReserva()) {
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				quartosDesocupados[i] += quantASerSomada[i];
+			}// for
+		}// if
 		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosVelhos
 
@@ -595,7 +598,7 @@ public class Hotel implements Serializable {
 
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] = this.quartosDesocupados[i];
-		
+
 		atualizaContratosNaoReservas();
 		if (!contrato.getIsReserva()) {
 			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
