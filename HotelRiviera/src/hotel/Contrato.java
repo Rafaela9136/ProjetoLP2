@@ -100,12 +100,6 @@ public class Contrato implements Serializable {
 					.get(Calendar.DAY_OF_MONTH) == dataAtual
 				.get(Calendar.DAY_OF_MONTH)))
 			this.isReserva = true;
-		
-		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
-		dataCheckIn.set(Calendar.MINUTE, 0);
-		
-		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
-		dataCheckOut.set(Calendar.MINUTE, 59);
 
 		this.estrategia = estrategiaAAplicar(dataCheckIn, dataCheckOut);
 		this.hospedeTitular = hospedeTitular;
@@ -626,7 +620,14 @@ public class Contrato implements Serializable {
 
 		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
 		dataAtual.set(Calendar.MINUTE, 00);
-
+		
+		
+		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
+		dataCheckIn.set(Calendar.MINUTE, 0);
+		
+		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
+		dataCheckOut.set(Calendar.MINUTE, 59);
+		
 		if (dataCheckIn.compareTo(dataAtual) < 0
 				|| dataCheckOut.compareTo(dataCheckIn) < 0)
 			throw new DataInvalidaException();
