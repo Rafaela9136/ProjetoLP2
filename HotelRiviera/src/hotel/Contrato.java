@@ -100,6 +100,12 @@ public class Contrato implements Serializable {
 					.get(Calendar.DAY_OF_MONTH) == dataAtual
 				.get(Calendar.DAY_OF_MONTH)))
 			this.isReserva = true;
+		
+		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
+		dataCheckIn.set(Calendar.MINUTE, 0);
+		
+		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
+		dataCheckOut.set(Calendar.MINUTE, 59);
 
 		this.estrategia = estrategiaAAplicar(dataCheckIn, dataCheckOut);
 		this.hospedeTitular = hospedeTitular;
