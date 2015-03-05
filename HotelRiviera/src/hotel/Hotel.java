@@ -2,6 +2,8 @@ package hotel;
 
 import java.util.*;
 
+import excecoes.ContratoFechadoException;
+import excecoes.ContratoSemOpiniaoException;
 import excecoes.ExecutivosDuploOcupadosException;
 import excecoes.ExecutivosSimplesOcupadosException;
 import excecoes.ExecutivosTriploOcupadosException;
@@ -120,13 +122,43 @@ public class Hotel implements Serializable {
 
 	}// adicionaContrato
 
-	public void setContratosNaoReservas() {
+	/**
+	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
+	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
+	 * a lista de opinioes do hotel.
+	 * 
+	 * @param contrato
+	 *            O contrato a ser removido da lista.
+	 * @return "true" se o contrato existia na lista de contratos e foi removido
+	 *         com sucesso.
+	 * @throws ContratoSemOpiniaoException 
+	 * @throws ContratoFechadoException 
+	 */
+	public boolean removeContrato(Contrato contrato) throws ContratoFechadoException, ContratoSemOpiniaoException {
+		boolean removido = contratos.remove(contrato);
+		if (removido) {
+			opinioes.add(contrato.getOpiniao());
+			if (contrato.getDataCheckIn().before(Calendar.getInstance())) {
+				contrato.setIsAberto(false);
+				contratosRemovidos.add(contrato);
+			}// if
+			atualizaContratosNaoReservas();
+			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
+		}
+		return removido;
+	}// removeContrato
+
+	public void atualizaContratosNaoReservas() {
 		Calendar momentoAgr = Calendar.getInstance();
 		for (Contrato contrato : contratos)
 			if (contrato.getDataCheckIn().before(momentoAgr)
 					&& contrato.getDataCheckOut().after(momentoAgr))
 				contrato.setIsReserva(false);
 
+		for (Contrato contrato : contratosRemovidos)
+			if (contrato.getDataCheckIn().before(momentoAgr)
+					&& contrato.getDataCheckOut().after(momentoAgr))
+				contrato.setIsReserva(false);
 	}// setContratosNaoReservas
 
 	/**
@@ -170,26 +202,6 @@ public class Hotel implements Serializable {
 	public int[] getArrayQuartosDesocupados() {
 		return quartosDesocupados;
 	}// getArrayQuartosDesocupado
-
-	/**
-	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
-	 * a lista de opinioes do hotel.
-	 * 
-	 * @param contrato
-	 *            O contrato a ser removido da lista.
-	 * @return "true" se o contrato existia na lista de contratos e foi removido
-	 *         com sucesso.
-	 */
-	public boolean removeContrato(Contrato contrato) {
-		boolean removido = contratos.remove(contrato);
-		if (removido) {
-			opinioes.add(contrato.getOpiniao());
-			contratosRemovidos.add(contrato);
-			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
-		}
-		return removido;
-	}// removeContrato
 
 	/**
 	 * Adiciona uma nova conta para login a lista de contas dos funcionarios do
@@ -583,9 +595,12 @@ public class Hotel implements Serializable {
 
 		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
 			quartosDesocupados[i] = this.quartosDesocupados[i];
-
-		for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
-			quartosDesocupados[i] -= quantASerRetirada[i];
+		
+		atualizaContratosNaoReservas();
+		if (!contrato.getIsReserva()) {
+			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++)
+				quartosDesocupados[i] -= quantASerRetirada[i];
+		}// if
 		return quartosDesocupados;
 	}// atualizaQuantQuartosParaContratosNovos
 

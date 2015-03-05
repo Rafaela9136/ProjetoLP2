@@ -224,7 +224,7 @@ public class Contrato implements Serializable {
 	 */
 	public void setIsAberto(boolean estado) throws ContratoFechadoException,
 			ContratoSemOpiniaoException {
-		if (!isAberto)
+		if (!isAberto && estado)
 			throw new ContratoFechadoException();
 
 		if (!estado && opiniao == null)
