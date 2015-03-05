@@ -429,7 +429,13 @@ public class AtualizacaoContrato extends JPanel {
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
-			Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			try {
+				Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			} catch (ContratoSemOpiniaoException e) {
+				JOptionPane.showMessageDialog(null,"Para remover um contrato voce precisa adicionar uma opiniao.");
+			} catch (ContratoFechadoException e) {
+				JOptionPane.showMessageDialog(null,"Verifique o metodo removeContrato");
+			}
 	}
 
 	private void hospedeDadosPrincipais(JPanel panelNovoContrato)
