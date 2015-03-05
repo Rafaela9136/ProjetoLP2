@@ -61,7 +61,7 @@ public class Acoes extends JPanel {
 	private JTable tabela;
 
 	// Variaveis para criacao do contrato
-	private List<String> acompanhantes;
+	private List<String> acompanhantes = new ArrayList<String>();
 	private Quarto quarto;
 	private Hospede hospede;
 	private String[] colunas;
@@ -304,6 +304,8 @@ public class Acoes extends JPanel {
 	}
 
 	private void criaHospede() {
+		acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes
+				.getText().split(",")));
 		try {
 			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 				hospede = new Hospede(textFieldNome.getText(),
@@ -402,8 +404,6 @@ public class Acoes extends JPanel {
 		textAreaAcompanhantes.setLineWrap(true);
 		textAreaAcompanhantes.setBounds(180, 313, 530, 53);
 		panelNovoContrato.add(textAreaAcompanhantes);
-		acompanhantes = Conector.transformaVetor(textAreaAcompanhantes
-				.getText().split(","));
 	}
 
 	private void hospedeEndereco(JPanel panelNovoContrato) {
