@@ -417,7 +417,7 @@ public class Hotel implements Serializable {
 			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
 					contrato.getDataCheckOut(), mes)) {
 				quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
-				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+				for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++) {
 					estatisticas[i] += quantOutrosServicos[i];
 				}// for
 			}// if
