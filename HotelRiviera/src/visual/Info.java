@@ -3,7 +3,6 @@ package visual;
 import hotel.*;
 
 import java.awt.Color;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -117,17 +116,14 @@ public class Info extends JPanel {
 		comboBox.setBounds(129, 98, 144, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBox.getSelectedItem().equals("Servicos adicionais"))
-					GeradorDeGrafico.mudaTela("servicoGeral");
-				else
-					GeradorDeGrafico.mudaTela("quartoGeral");
+				GeradorDeGrafico.setaDatasetSimples((String) comboBox.getSelectedItem());
 			}
 		});
-		estatistica.add(comboBox);	
-
-		GeradorDeGrafico graficos = new GeradorDeGrafico();
-		graficos.setBounds(47, 156, 658, 350);
-		estatistica.add(graficos);
+		estatistica.add(comboBox);
+		
+		GeradorDeGrafico grafico = new GeradorDeGrafico();
+		grafico.setBounds(47, 154, 674, 341);
+		estatistica.add(grafico);
 	}// painelEstatistica
 	
 	private void panelOpinioes(JPanel panel) {
