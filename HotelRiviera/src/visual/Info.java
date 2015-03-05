@@ -141,7 +141,7 @@ public class Info extends JPanel {
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(47, 72, 266, 24);
-		textPane.setText("Selecione o tipo de visao que deseja ter:");
+		textPane.setText("Selecione o tipo de visao que deseja ter: ");
 		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		panelOpinioes.add(textPane);
 		
