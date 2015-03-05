@@ -113,11 +113,21 @@ public class Hotel implements Serializable {
 			SuitesPresidenciaisOcupadasException {
 		if (contrato == null) {
 			throw new NullPointerException();
-		}
-		quartosDesocupados = atualizaQuantQuartosParaContratosNovos(contrato);
+		}// if
+		if (!contrato.getIsReserva())
+			quartosDesocupados = atualizaQuantQuartosParaContratosNovos(contrato);
 		contratos.add(contrato);
 
 	}// adicionaContrato
+
+	public void setContratosNaoReservas() {
+		Calendar momentoAgr = Calendar.getInstance();
+		for (Contrato contrato : contratos)
+			if (contrato.getDataCheckIn().before(momentoAgr)
+					&& contrato.getDataCheckOut().after(momentoAgr))
+				contrato.setIsReserva(false);
+
+	}// setContratosNaoReservas
 
 	/**
 	 * Retorna a lista de opinioes do Hotel.
@@ -339,7 +349,7 @@ public class Hotel implements Serializable {
 		int[] estatisticas = new int[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		for (Contrato contrato : contratos) {
-			if(contrato.getIsReserva())
+			if (contrato.getIsReserva())
 				continue;
 			quantQuartos = quantidadeDeQuartos(contrato);
 			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
@@ -414,7 +424,7 @@ public class Hotel implements Serializable {
 		int[] estatisticas = new int[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 		for (Contrato contrato : contratos) {
-			if(contrato.getIsReserva())
+			if (contrato.getIsReserva())
 				continue;
 			quantOutrosServicos = quantidadeDeOutrosServicos(contrato);
 			for (int i = 0; i < QUANT_OUTROS_SERVICOS; i++)
