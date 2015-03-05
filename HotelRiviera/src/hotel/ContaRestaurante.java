@@ -27,11 +27,12 @@ public class ContaRestaurante implements Servico, Serializable {
 
 	@Override
 	public String toString() {
-		return "ContaRestaurante" 
+		return "\nConta do Restaurante" 
 				+ "\nValor: " + valor 
 				+ "\nData: " + data.get(Calendar.DAY_OF_MONTH)
 				+ "/" + (data.get(Calendar.MONTH) + 1)
-				+ "/" + data.get(Calendar.YEAR);
+				+ "/" + data.get(Calendar.YEAR)
+				+ "\n";
 	}
 
 	@Override

@@ -562,9 +562,11 @@ public class Contrato implements Serializable {
 	}// toStringOpiniao
 	
 	private String toStringAcompanhantes() {
+		if(acompanhantes.isEmpty())
+			return "Nao ha acompanhantes";
 		String acompanhantesFormatados = "";
 		for (int i = 0; i < acompanhantes.size(); i++) {
-			acompanhantesFormatados += "\n" + acompanhantes.get(i);
+			acompanhantesFormatados += ("\n" + acompanhantes.get(i));
 		}// for
 		return acompanhantesFormatados;
 	}// toStringAcompanhantes
