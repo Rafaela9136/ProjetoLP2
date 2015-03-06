@@ -66,6 +66,7 @@ public class Acoes extends JPanel {
 	private Hospede hospede;
 	private String[] colunas;
 	private static Contrato contratoPesquisado;
+	private static String contratosListados;
 
 	/**
 	 * Create the panel.
@@ -304,8 +305,7 @@ public class Acoes extends JPanel {
 	}
 
 	private void criaHospede() {
-		acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes
-				.getText().split(",")));
+		acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes.getText().split(",")));
 		try {
 			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 				hospede = new Hospede(textFieldNome.getText(),
@@ -608,6 +608,7 @@ public class Acoes extends JPanel {
 		btnAtualizarTabela.setBounds(47, 115, 135, 25);
 		btnAtualizarTabela.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				contratosListados = "atualiza";
 				atualizaTabela();
 		}});
 		panelPesquisarContrato.add(btnAtualizarTabela);
@@ -616,6 +617,7 @@ public class Acoes extends JPanel {
 		btnPesquisarContrato.setBounds(600, 113, 135, 25);
 		btnPesquisarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				contratosListados = "pesquisa";
 				pesquisaTabela();
 			}
 		});
@@ -628,10 +630,17 @@ public class Acoes extends JPanel {
 		btnAtualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
-				if (selecionaContrato(linha, Main.getHotel().getContratos())) {
+				List<Contrato> contratos = new ArrayList<Contrato>();
+				if(contratosListados.equals("atualiza"))
+					contratos = Main.getHotel().getContratos();
+				if(contratosListados.equals("pesquisa"))
+					contratos = Main.getHotel().pesquisaContrato(textFieldPesquisa.getText());
+
+				if (selecionaContrato(linha, contratos)) {
 					layout.show(panel, "atualizaContrato");
 					AtualizacaoContrato.setaInfoGerais();
 				}
+				
 			}
 		});
 		panelPesquisarContrato.add(btnAtualizarContrato);

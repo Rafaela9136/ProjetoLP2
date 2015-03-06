@@ -65,7 +65,6 @@ public class AtualizacaoContrato extends JPanel {
 	 * @throws ParseException
 	 */
 	public AtualizacaoContrato() throws ParseException {
-		setBorder(new LineBorder(new Color(51, 0, 0), 3));
 		inicializa();
 
 		barraDeTarefas();
@@ -76,6 +75,7 @@ public class AtualizacaoContrato extends JPanel {
 	}
 
 	private void inicializa() {
+		setBorder(new LineBorder(new Color(51, 0, 0), 3));
 		setBackground(Color.WHITE);
 		setBounds(228, 12, 764, 612);
 	}
