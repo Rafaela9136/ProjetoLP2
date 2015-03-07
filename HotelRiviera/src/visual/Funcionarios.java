@@ -148,8 +148,10 @@ public class Funcionarios extends JPanel {
 				}
 				if(getContaPesquisada() == null)
 					JOptionPane.showMessageDialog(null,"Conta nao encontrada!");
-				else if(getContaPesquisada() != null)
-					layout.show(panel, "atualizacaoConta");
+				else if(getContaPesquisada() != null){
+					layout.show(panel, "atualizaConta");
+					AtualizacaoConta.setaInfoGerais();
+				}
 			}
 		});
 		panelPesquisa.add(btnAtualizarConta);
