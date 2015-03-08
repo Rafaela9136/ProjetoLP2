@@ -149,7 +149,7 @@ public class Hotel implements Serializable {
 		return removido;
 	}// removeContrato
 
-	public void atualizaContratosNaoReservas() {
+	private void atualizaContratosNaoReservas() {
 		Calendar momentoAgr = Calendar.getInstance();
 		for (Contrato contrato : contratos)
 			if (contrato.getDataCheckIn().before(momentoAgr)
@@ -405,13 +405,13 @@ public class Hotel implements Serializable {
 	 *             Se o valor do mes passado como parametro for invalido (menor
 	 *             que um).
 	 */
-	public double[] getEstatisticaOutrosServicos(int mes)
+	public int[] getEstatisticaOutrosServicos(int mes)
 			throws MesInvalidoException {
 		if (mes < 1 || mes > 12) {
 			throw new MesInvalidoException();
 		}// if
 		mes--;
-		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
+		int[] estatisticas = new int[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 
 		for (Contrato contrato : contratos) {

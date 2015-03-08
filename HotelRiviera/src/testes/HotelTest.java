@@ -177,7 +177,7 @@ public class HotelTest {
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		hotel.adicionaContrato(contrato6);
 		try {
 			hotel.removeContrato(contrato6);
@@ -239,8 +239,15 @@ public class HotelTest {
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
+
 		try {
 			hotel.pesquisaConta("user", null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		try {
+			hotel.pesquisaConta(null);
 		} catch (NullPointerException e) {
 			Assert.assertTrue(true);
 		}
@@ -249,7 +256,12 @@ public class HotelTest {
 				"Nome completo usuario", TipoFuncionario.BALCONISTA);
 		Assert.assertFalse(hotel.pesquisaConta(conta.getLogin(),
 				conta.getSenha()));
+
 		hotel.adicionaConta(conta);
+
+		Assert.assertEquals(hotel.pesquisaConta(conta.getLogin()), conta);
+		Assert.assertEquals(hotel.pesquisaConta("fdsifbd"), null);
+
 		Assert.assertTrue(hotel.pesquisaConta(conta.getLogin(),
 				conta.getSenha()));
 		Assert.assertFalse(hotel.pesquisaConta(conta.getLogin(),
@@ -393,17 +405,17 @@ public class HotelTest {
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(contrato7.getDataCheckIn().get(
 						Calendar.MONTH) + 1)), "[1, 0, 0, 0, 0, 1, 0]");
-		
+
 		hotel.adicionaContrato(contrato6);
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(contrato7.getDataCheckIn().get(
 						Calendar.MONTH) + 1)), "[1, 0, 0, 0, 1, 1, 0]");
-		
+
 		hotel.adicionaContrato(contrato5);
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(contrato7.getDataCheckIn().get(
 						Calendar.MONTH) + 1)), "[1, 0, 0, 0, 1, 1, 0]");
-		
+
 		hotel.removeContrato(contrato5);
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaQuartos(contrato7.getDataCheckIn().get(
@@ -438,10 +450,9 @@ public class HotelTest {
 			ExecutivosDuploOcupadosException,
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException, ContratoFechadoException,
-			ContratoSemOpiniaoException {
-		hotel.removeContrato(contrato1);
-		hotel.removeContrato(contrato2);
-		hotel.removeContrato(contrato3);
+			ContratoSemOpiniaoException, NullPointerException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
 
 		Assert.assertEquals(
 				hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES
@@ -468,7 +479,7 @@ public class HotelTest {
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[5, 15, 20, 5, 15, 20, 5]");
 
-		hotel.adicionaContrato(contrato1);
+		hotel.adicionaContrato(contrato8);
 		Assert.assertEquals(
 				hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_SIMPLES
 						.ordinal()), 4);
@@ -476,40 +487,51 @@ public class HotelTest {
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[4, 15, 20, 5, 15, 20, 5]");
 
-		hotel.adicionaContrato(contrato2);
+		hotel.adicionaContrato(contrato7);
+		Assert.assertEquals(
+				hotel.getQuartosDesocupados(IndexQuartos.LUXO_TRIPLO.ordinal()),
+				19);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 15, 20, 5, 15, 19, 5]");
+
+		hotel.adicionaContrato(contrato4);
 		Assert.assertEquals(hotel
-				.getQuartosDesocupados(IndexQuartos.LUXO_SIMPLES.ordinal()), 4);
+				.getQuartosDesocupados(IndexQuartos.EXECUTIVO_DUPLO.ordinal()),
+				14);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
-				"[4, 15, 20, 4, 15, 20, 5]");
+				"[4, 14, 20, 5, 15, 19, 5]");
 
-		hotel.adicionaContrato(contrato3);
-		Assert.assertEquals(hotel
-				.getQuartosDesocupados(IndexQuartos.SUITE_PRESIDENCIAL
-						.ordinal()), 4);
+		hotel.adicionaContrato(contrato6);
+		Assert.assertEquals(
+				hotel.getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()),
+				14);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
-				"[4, 15, 20, 4, 15, 20, 4]");
+				"[4, 14, 20, 5, 14, 19, 5]");
 
-		hotel.adicionaContrato(contrato5);
+		contrato6.inicializaOpiniao(nota, comentario);
+		hotel.removeContrato(contrato6);
 		Assert.assertEquals(
-				hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO
-						.ordinal()), 19);
-		Assert.assertEquals(
-				Arrays.toString(hotel.getArrayQuartosDesocupados()),
-				"[4, 15, 19, 4, 15, 20, 4]");
-
-		hotel.removeContrato(contrato5);
-		Assert.assertEquals(
-				hotel.getQuartosDesocupados(IndexQuartos.EXECUTIVO_TRIPLO
-						.ordinal()), 20);
+				hotel.getQuartosDesocupados(IndexQuartos.LUXO_DUPLO.ordinal()),
+				15);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
-				"[4, 15, 20, 4, 15, 20, 4]");
+				"[4, 14, 20, 5, 15, 19, 5]");
 
 		hotel.removeContrato(contrato1);
-		hotel.removeContrato(contrato2);
-		hotel.removeContrato(contrato3);
+		Assert.assertEquals(
+				Arrays.toString(hotel.getArrayQuartosDesocupados()),
+				"[4, 14, 20, 5, 15, 19, 5]");
+
+		contrato8.inicializaOpiniao(nota, comentario);
+		hotel.removeContrato(contrato8);
+		contrato7.inicializaOpiniao(nota, comentario);
+		hotel.removeContrato(contrato7);
+		contrato4.inicializaOpiniao(nota, comentario);
+		hotel.removeContrato(contrato4);
+
 		Assert.assertEquals(
 				Arrays.toString(hotel.getArrayQuartosDesocupados()),
 				"[5, 15, 20, 5, 15, 20, 5]");
@@ -524,19 +546,21 @@ public class HotelTest {
 			ExecutivosDuploOcupadosException,
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException, ValorNegativoException,
-			ContratoFechadoException, ContratoSemOpiniaoException {
-		contrato4
-				.adicionaServico(new Carro(TipoCarro.LUXO,
-						new GregorianCalendar(2016, Calendar.OCTOBER, 15),
-						new GregorianCalendar(2016, Calendar.OCTOBER, 18),
-						false, true));
-		contrato4.adicionaServico(new Baba(new GregorianCalendar(2016,
-				Calendar.OCTOBER, 15), new GregorianCalendar(2016,
-				Calendar.OCTOBER, 18)));
+			ContratoFechadoException, ContratoSemOpiniaoException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
+		contrato4.adicionaServico(new Carro(TipoCarro.LUXO,
+				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 1),
+				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 2), false,
+				true));
+		contrato4.adicionaServico(new Baba(new GregorianCalendar(anoAtual,
+				mesAtual, diaAtual + 1), new GregorianCalendar(anoAtual,
+				mesAtual, diaAtual + 2)));
 		hotel.adicionaContrato(contrato4);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
 				"[1, 1, 0]");
+		contrato4.inicializaOpiniao(nota, comentario);
 		hotel.removeContrato(contrato4);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
@@ -557,6 +581,7 @@ public class HotelTest {
 				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
 				"[2, 2, 1]");
 
+		contrato8.inicializaOpiniao(nota, comentario);
 		hotel.removeContrato(contrato8);
 		Assert.assertEquals(
 				Arrays.toString(hotel.getEstatisticaOutrosServicos()),
@@ -572,7 +597,9 @@ public class HotelTest {
 			ExecutivosDuploOcupadosException,
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException, ValorNegativoException,
-			ContratoFechadoException, ContratoSemOpiniaoException {
+			ContratoFechadoException, ContratoSemOpiniaoException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
 		try {
 			hotel.getEstatisticaOutrosServicos(0);
 		} catch (MesInvalidoException e) {
@@ -586,13 +613,11 @@ public class HotelTest {
 
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaOutrosServicos(Calendar.NOVEMBER + 1)),
-				"[0.0, 0.0, 0.0]");
+				"[0, 0, 0]");
 		Assert.assertEquals(Arrays.toString(hotel
-				.getEstatisticaOutrosServicos(Calendar.JULY + 1)),
-				"[0.0, 0.0, 0.0]");
+				.getEstatisticaOutrosServicos(Calendar.JULY + 1)), "[0, 0, 0]");
 		Assert.assertEquals(Arrays.toString(hotel
-				.getEstatisticaOutrosServicos(Calendar.APRIL + 1)),
-				"[0.0, 0.0, 0.0]");
+				.getEstatisticaOutrosServicos(Calendar.APRIL + 1)), "[0, 0, 0]");
 
 		contrato8.adicionaServico(new Carro(TipoCarro.EXECUTIVO,
 				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 1),
@@ -607,12 +632,12 @@ public class HotelTest {
 
 		hotel.adicionaContrato(contrato8);
 		Assert.assertEquals(Arrays.toString(hotel
-				.getEstatisticaOutrosServicos(mesAtual + 1)), "[1.0, 1.0, 1.0]");
+				.getEstatisticaOutrosServicos(mesAtual + 1)), "[1, 1, 1]");
 
+		contrato8.inicializaOpiniao(nota, comentario);
 		hotel.removeContrato(contrato8);
-		System.out.println(Arrays.toString(hotel
-				.getEstatisticaOutrosServicos(mesAtual + 1)));
-		// Assert.assertEquals(Arrays.toString(hotel
-		// .getEstatisticaOutrosServicos(mesAtual + 1)), "[1.0, 1.0, 1.0]");
+
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaOutrosServicos(mesAtual + 1)), "[1, 1, 1]");
 	}
 }
