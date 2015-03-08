@@ -492,19 +492,22 @@ public class Hotel implements Serializable {
 	 * Pesquisa um contrato em aberto no hotel pelo nome do titular ou de um
 	 * hospede acompanhante.
 	 * 
-	 * @param text
+	 * @param nome
 	 *            Um String que representa o nome do titular ou de um
 	 *            acompanhante.
 	 * @return Uma lista com os contratos encontrados.
 	 */
-	public List<Contrato> pesquisaContrato(String text) {
+	public List<Contrato> pesquisaContrato(String nome) {
+		if (nome == null) {
+			throw new NullPointerException();
+		}
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
 		for (Contrato contrato : getContratos()) {
-			if (contrato.getHospedeTitular().getNome().equals(text))
+			if (contrato.getHospedeTitular().getNome().equals(nome))
 				contratosEncontrados.add(contrato);
 			for (String acompanhante : contrato.getAcompanhantes()) {
-				if (acompanhante.equals(text)) {
+				if (acompanhante.equals(nome)) {
 					contratosEncontrados.add(contrato);
 				}// if
 			}// for

@@ -165,13 +165,15 @@ public class HotelTest {
 	}
 
 	@Test
-	public void testaAdicionaRemoveContrato()
+	public void testaAdicionaRemovePesquisaContrato()
 			throws ExecutivosDuploOcupadosException,
 			LuxosSimplesOcupadosException, LuxosDuploOcupadosException,
 			LuxosTriploOcupadosException, ExecutivosSimplesOcupadosException,
 			ExecutivosTriploOcupadosException,
 			SuitesPresidenciaisOcupadasException, ContratoFechadoException,
-			ContratoSemOpiniaoException {
+			ContratoSemOpiniaoException, NullPointerException,
+			NotaInvalidaException, EstouroDeCaracteresException,
+			ComentarioVazioException {
 		try {
 			hotel.adicionaContrato(null);
 		} catch (NullPointerException e) {
@@ -185,7 +187,31 @@ public class HotelTest {
 			Assert.assertTrue(true);
 		}
 
+		try {
+			hotel.pesquisaContrato(null);
+		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
+
+		Assert.assertTrue(hotel.pesquisaContrato(
+				contrato1.getHospedeTitular().getNome()).contains(contrato1));
+		Assert.assertTrue(hotel.pesquisaContrato(
+				contrato1.getAcompanhantes().get(0)).contains(contrato2));
+
 		Assert.assertFalse(hotel.removeContrato(null));
+
+		hotel.adicionaContrato(contrato8);
+		Assert.assertTrue(hotel.getContratos().contains(contrato8));
+		contrato8.inicializaOpiniao(nota, comentario);
+		Assert.assertTrue(hotel.removeContrato(contrato8));
+		Assert.assertFalse(hotel.getContratos().contains(contrato8));
+		Assert.assertTrue(hotel.getContratosRemovidos().contains(contrato8));
+
+		hotel.adicionaContrato(contrato5);
+		Assert.assertTrue(hotel.getContratos().contains(contrato5));
+		hotel.removeContrato(contrato5);
+		Assert.assertFalse(hotel.getContratos().contains(contrato5));
+		Assert.assertFalse(hotel.getContratosRemovidos().contains(contrato5));
 
 		Assert.assertTrue(hotel.getContratos().contains(contrato1));
 		Assert.assertTrue(hotel.getContratos().contains(contrato2));
