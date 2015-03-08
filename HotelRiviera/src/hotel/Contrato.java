@@ -90,16 +90,7 @@ public class Contrato implements Serializable {
 		verificaServicosValido(servicos);
 		verificaDatasValidas(dataCheckIn, dataCheckOut);
 
-		Calendar dataAtual = new GregorianCalendar();
-		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
-		dataAtual.set(Calendar.MINUTE, 00);
-
-		if (!(dataCheckIn.get(Calendar.YEAR) == dataAtual.get(Calendar.YEAR)
-				&& dataCheckIn.get(Calendar.MONTH) == dataAtual
-						.get(Calendar.MONTH) && dataCheckIn
-					.get(Calendar.DAY_OF_MONTH) == dataAtual
-				.get(Calendar.DAY_OF_MONTH)))
-			this.isReserva = true;
+		verificaSeEhReserva(dataCheckIn);
 
 		this.estrategia = estrategiaAAplicar(dataCheckIn, dataCheckOut);
 		this.hospedeTitular = hospedeTitular;
@@ -110,6 +101,19 @@ public class Contrato implements Serializable {
 		this.servicos = servicos;
 
 	}// Construtor
+
+	private void verificaSeEhReserva(Calendar dataCheckIn) {
+		Calendar dataAtual = new GregorianCalendar();
+		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
+		dataAtual.set(Calendar.MINUTE, 00);
+
+		if (!(dataCheckIn.get(Calendar.YEAR) == dataAtual.get(Calendar.YEAR)
+				&& dataCheckIn.get(Calendar.MONTH) == dataAtual
+						.get(Calendar.MONTH) && dataCheckIn
+					.get(Calendar.DAY_OF_MONTH) == dataAtual
+				.get(Calendar.DAY_OF_MONTH)))
+			this.isReserva = true;
+	}
 
 	/**
 	 * Recupera a informacao sobre o contrato que diz se ele esta aberto ou nao.
