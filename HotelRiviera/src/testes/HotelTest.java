@@ -665,5 +665,13 @@ public class HotelTest {
 
 		Assert.assertEquals(Arrays.toString(hotel
 				.getEstatisticaOutrosServicos(mesAtual + 1)), "[1, 1, 1]");
+
+		contrato5.adicionaServico(new Baba(new GregorianCalendar(proxAno,
+				Calendar.DECEMBER, 30), new GregorianCalendar(proxAno + 1,
+				Calendar.JANUARY, 1)));
+		hotel.adicionaContrato(contrato5);
+		Assert.assertEquals(Arrays.toString(hotel
+				.getEstatisticaOutrosServicos(Calendar.DECEMBER + 1)),
+				"[1, 0, 0]");
 	}
 }

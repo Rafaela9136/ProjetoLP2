@@ -627,6 +627,7 @@ public class HospedeTest {
 			CPFInvalidoException, DataInvalidaException, StringVaziaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
+		Assert.assertFalse(hospede1.equals(null));
 		Hospede hospede1 = new Hospede("Romario", data1, cartao1);
 		Hospede hospede2 = new Hospede(hospede1.getNome(),
 				hospede1.getDataNascimento(), hospede1.getCartaoDeCredito());
