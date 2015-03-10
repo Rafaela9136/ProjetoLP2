@@ -51,7 +51,7 @@ public class Info extends JPanel {
 	private static JTextArea textArea;
 	private static String[][] dados;
 	private static JFreeChart chart;
-	private static DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	private static JPanel estatistica;
 	
 	/**
 	 * Create the panel.
@@ -86,7 +86,7 @@ public class Info extends JPanel {
 	}
 
 	private void panelEstatistica() {
-		JPanel estatistica = new JPanel();
+		estatistica = new JPanel();
 		estatistica.setBackground(Color.WHITE);
 		panel.add(estatistica, "estatistica");
 		estatistica.setLayout(null);
@@ -137,45 +137,52 @@ public class Info extends JPanel {
 		comboBoxVisao.setBounds(319, 97, 144, 24);
 		estatistica.add(comboBoxVisao);
 		
-		//Cria o gráfico
+		//Cria o grafico
+		DefaultCategoryDataset dataset = estatQuartoGeral();
+
+		desenhaGrafico(estatistica, dataset);
+	}// painelEstatistica
+
+	private static void desenhaGrafico(JPanel estatistica, DefaultCategoryDataset dataset) {
 		chart = createBarChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setBounds(47, 154, 674, 341);
 		estatistica.add(chartPanel);
-	}// painelEstatistica
+	}
 	
 	private static void setaDataset(String tipo){
+		DefaultCategoryDataset dataset;
 		if(tipo.equals("Servicos adicionais")){
-			dataset.clear();
 			dataset = estatServicosAdicionaisGeral();
+			desenhaGrafico(estatistica, dataset);
 		}
 		else{
-			dataset.clear();
 			dataset = estatQuartoGeral();
+			
+			desenhaGrafico(estatistica, dataset);
 		}
-		
-		chart = createBarChart(dataset);
 	}
 	
 	private void setaDatasetEspecifico(String tipo, int mes){
+		DefaultCategoryDataset dataset;
 		
 		if (tipo.equals("Servicos adicionais")) {
-			dataset.clear();
 			try {
 				dataset = estatServicosAdicionaisMensal(mes);
+				
+				desenhaGrafico(estatistica, dataset);
 			} catch (MesInvalidoException e) {
 				JOptionPane.showMessageDialog(null, "Algo esta errado!");
 			}
 		} else{
-			dataset.clear();
 			try {
 				dataset = estatQuartoMensal(mes);
+				
+				desenhaGrafico(estatistica, dataset);
 			} catch (MesInvalidoException e) {
 				JOptionPane.showMessageDialog(null, "Algo esta errado!");
 			}
 		}
-		
-		chart = createBarChart(dataset);
 	}
 	
 	private static DefaultCategoryDataset estatQuartoGeral() {
