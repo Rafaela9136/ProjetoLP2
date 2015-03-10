@@ -113,68 +113,50 @@ public class ContratoTest {
 
 	@Test
 	public void testCriaContrato() throws ContratoSemQuartoException,
-			DataInvalidaException {
+			DataInvalidaException, NomeInvalidoException {
 		try {
 			contrato1 = new Contrato(null, acompanhantes, dataCheckIn,
 					dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, null, dataCheckIn,
 					dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado ");
 		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes, null,
 					dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, null, servicos);
-			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, null);
-			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		dataCheckIn.set(Calendar.MONTH, dataCheckOut.get(Calendar.MONTH) + 1);
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		Calendar dataAnteriorCheckIn = new GregorianCalendar(
 				dataCheckIn.get(Calendar.YEAR),
@@ -184,12 +166,9 @@ public class ContratoTest {
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataAnteriorCheckIn, dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		Calendar dataPosteriorCheckOut = new GregorianCalendar(
 				dataCheckOut.get(Calendar.YEAR),
@@ -199,24 +178,18 @@ public class ContratoTest {
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataPosteriorCheckOut, servicos);
-			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		Calendar dataCheckIn = new GregorianCalendar(2015, Calendar.FEBRUARY, 6);
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, this.servicos);
-			Assert.fail("Deveria ter lancado DataInvalidaException");
 		} catch (DataInvalidaException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		this.dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH),
@@ -227,24 +200,18 @@ public class ContratoTest {
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		servicos.add(baba);
 
 		try {
 			contrato1 = new Contrato(hospedeTitular, acompanhantes,
 					dataCheckIn, dataCheckOut, servicos);
-			Assert.fail("Deveria ter lancado ContratoSemQuartoException");
 		} catch (ContratoSemQuartoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		servicos.remove(0);
 
@@ -253,73 +220,63 @@ public class ContratoTest {
 	@Test
 	public void testAdicionaServico() throws AddQuartoContratoException,
 			NullPointerException, ServicoInvalidoException,
-			DataInvalidaException, ContratoSemQuartoException, NomeInvalidoException {
+			DataInvalidaException, ContratoSemQuartoException,
+			NomeInvalidoException {
 		try {
 			contrato1.adicionaServico(quarto5);
-			Assert.fail("Deveria ter lancado AddQuartoContratoException");
 		} catch (AddQuartoContratoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		try {
 			contrato1.adicionaServico(null);
-			Assert.fail("Deveria ter lancado NullPointerException");
 		} catch (NullPointerException e) {
+			Assert.assertTrue(true);
+		}
 
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-
-		Calendar dataCheckIn = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
-				momentoAgr.get(Calendar.MONTH),
+		Calendar dataCheckIn = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR), momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
 
 		Carro carro = new Carro(TipoCarro.EXECUTIVO, dataCheckIn, dataCheckOut,
 				isTanqueCheio, isAssegurado);
-		
-		Calendar dataCheckIn2 = new GregorianCalendar(momentoAgr.get(Calendar.YEAR),
-				momentoAgr.get(Calendar.MONTH),
+
+		Calendar dataCheckIn2 = new GregorianCalendar(
+				momentoAgr.get(Calendar.YEAR), momentoAgr.get(Calendar.MONTH),
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 2);
-		
+
 		Calendar dataCheckOut2 = new GregorianCalendar(
 				momentoAgr.get(Calendar.YEAR),
 				momentoAgr.get(Calendar.MONTH) + 1,
 				momentoAgr.get(Calendar.DAY_OF_MONTH) + 6);
-		
-		Quarto suitePresidencial = new SuitePresidencial(dataCheckIn2, dataCheckOut2);
-		
+
+		Quarto suitePresidencial = new SuitePresidencial(dataCheckIn2,
+				dataCheckOut2);
+
 		List<String> acomp = new ArrayList<String>();
-		
+
 		List<Servico> servs = new ArrayList<Servico>();
-		
+
 		servs.add(suitePresidencial);
-		
-		Contrato contr = new Contrato(hospedeTitular, acomp, dataCheckIn2, dataCheckOut2, servicos);
-		
+
+		Contrato contr = new Contrato(hospedeTitular, acomp, dataCheckIn2,
+				dataCheckOut2, servicos);
+
 		try {
 			contr.adicionaServico(carro);
-			Assert.fail("Deveria ter lancado ServicoInvalidException");
 		} catch (ServicoInvalidoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-
+			Assert.assertTrue(true);
+		}
 
 		carro = new Carro(TipoCarro.EXECUTIVO, this.dataCheckIn, dataCheckOut2,
 				isTanqueCheio, isAssegurado);
 
 		try {
 			contrato1.adicionaServico(carro);
-			Assert.fail("Deveria ter lancado ServicoInvalidoException");
 		} catch (ServicoInvalidoException e) {
+			Assert.assertTrue(true);
+		}
 
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
-		
 		contrato1.adicionaServico(this.carro);
 		Assert.assertTrue(contrato1.getServicos()
 				.get(contrato1.getServicos().size() - 1).equals(this.carro));
@@ -344,12 +301,9 @@ public class ContratoTest {
 
 		try {
 			contrato1.removeServico(quarto1);
-			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
 		} catch (RemocaoInvalidaException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Deveria ter lancado RemocaoInvalidaException");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 	}// testRemoveServico
 
@@ -395,24 +349,18 @@ public class ContratoTest {
 		final boolean ABERTO = true;
 		try {
 			contrato1.setIsAberto(FECHADO);
-			Assert.fail("Deveria ter lancado ContratoSemOpiniaoException");
 		} catch (ContratoSemOpiniaoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 
 		contrato1.inicializaOpiniao(6, "Eh meio paia o hotel");
 		contrato1.setIsAberto(FECHADO);
 
 		try {
 			contrato1.setIsAberto(ABERTO);
-			Assert.fail("Deveria ter lancado ContratoFechadoException");
 		} catch (ContratoFechadoException e) {
-
-		} catch (Exception e) {
-			Assert.fail("Nao deveria ter lancado essa excecao");
-		}// try-catch
+			Assert.assertTrue(true);
+		}
 	}// testSetIsAberto
 
 	@Test

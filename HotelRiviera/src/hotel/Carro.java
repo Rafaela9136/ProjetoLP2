@@ -163,7 +163,7 @@ public class Carro implements Servico, Serializable {
 			preco += VALOR_DO_SEGURO;
 		return preco;
 	}
-	
+
 	@Override
 	public String getNome() {
 		return "Carro";
@@ -214,14 +214,28 @@ public class Carro implements Servico, Serializable {
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "SERVICO CARRO" + FIM_LINHA
+		return "SERVICO CARRO"
+				+ FIM_LINHA
 				+ "Tipo: "
-				+ tipoDeCarro.getTipoNome() + FIM_LINHA
-				+ "Adicionais: " + Arrays.toString(adicionais.toArray()) + FIM_LINHA
-				+ "Preco Total: R$ " + getPreco() + FIM_LINHA
-				+ "Duracao: " + getNumeroDeDias() + " dias" + FIM_LINHA
-				+ "Data Inicio: " + new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm").format(getDataCheckIn().getTime()) + FIM_LINHA
-				+ "Data Termino: " + new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm").format(getDataCheckOut().getTime());
+				+ tipoDeCarro.getTipoNome()
+				+ FIM_LINHA
+				+ "Adicionais: "
+				+ Arrays.toString(adicionais.toArray())
+				+ FIM_LINHA
+				+ "Preco Total: R$ "
+				+ getPreco()
+				+ FIM_LINHA
+				+ "Duracao: "
+				+ getNumeroDeDias()
+				+ " dias"
+				+ FIM_LINHA
+				+ "Data Inicio: "
+				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
+						.format(getDataCheckIn().getTime())
+				+ FIM_LINHA
+				+ "Data Termino: "
+				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
+						.format(getDataCheckOut().getTime());
 	}
 
 	/**
@@ -258,7 +272,7 @@ public class Carro implements Servico, Serializable {
 				&& getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
 				&& getIsAssegurado() == outroCarro.getIsAssegurado()
 				&& getPreco() == outroCarro.getPreco()
-				&& getDataCheckIn().equals(outroCarro.getDataCheckIn()) && getDataCheckOut()
-				.equals(outroCarro.getDataCheckOut()));
+				&& getDataCheckIn().equals(outroCarro.getDataCheckIn()) 
+				&& getDataCheckOut().equals(outroCarro.getDataCheckOut()));
 	}
 }
