@@ -125,8 +125,8 @@ public class Hotel implements Serializable {
 
 	/**
 	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
-	 * a lista de opinioes do hotel.
+	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do
+	 * contrato a lista de opinioes do hotel.
 	 * 
 	 * @param contrato
 	 *            O contrato a ser removido da lista.
@@ -150,7 +150,7 @@ public class Hotel implements Serializable {
 		return removido;
 	}// removeContrato
 
-	public void atualizaContratosNaoReservas() {
+	private void atualizaContratosNaoReservas() {
 		Calendar momentoAgr = Calendar.getInstance();
 		for (Contrato contrato : contratos)
 			if (contrato.getDataCheckIn().before(momentoAgr)
@@ -275,13 +275,22 @@ public class Hotel implements Serializable {
 			throws NullPointerException {
 		verificaParametroNull(login);
 		verificaParametroNull(senha);
-		for (Conta conta : contasHotel) {
+		for (Conta conta : contasHotel)
 			if (conta.getLogin().equals(login)
-					&& conta.getSenha().equals(senha)) {
+					&& conta.getSenha().equals(senha))
 				return true;
-			}
-		}
+
 		return false;
+	}// pesquisaConta
+
+	public Conta pesquisaConta(String login) {
+		if (login == null)
+			throw new NullPointerException();
+		for (Conta conta : contasHotel)
+			if (conta.getLogin().equals(login))
+				return conta;
+
+		return null;
 	}// pesquisaConta
 
 	/**
@@ -332,8 +341,10 @@ public class Hotel implements Serializable {
 		int[] estatisticas = new int[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		for (Contrato contrato : contratos) {
-			if (verificaMesEmPeriodoDeContrato(contrato.getDataCheckIn(),
-					contrato.getDataCheckOut(), mes)) {
+			if (!contrato.getIsReserva()
+					&& verificaMesEmPeriodoDeContrato(
+							contrato.getDataCheckIn(),
+							contrato.getDataCheckOut(), mes)) {
 				quantQuartos = quantidadeDeQuartos(contrato);
 				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
 					estatisticas[i] += quantQuartos[i];
@@ -363,12 +374,12 @@ public class Hotel implements Serializable {
 		int[] estatisticas = new int[QUANT_TIPOS_DE_QUARTOS];
 		int[] quantQuartos;
 		for (Contrato contrato : contratos) {
-			if (contrato.getIsReserva())
-				continue;
-			quantQuartos = quantidadeDeQuartos(contrato);
-			for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
-				estatisticas[i] += quantQuartos[i];
-			}// for
+			if (!contrato.getIsReserva()) {
+				quantQuartos = quantidadeDeQuartos(contrato);
+				for (int i = 0; i < QUANT_TIPOS_DE_QUARTOS; i++) {
+					estatisticas[i] += quantQuartos[i];
+				}// for
+			}
 		}// for
 
 		for (Contrato contrato : contratosRemovidos) {
@@ -395,13 +406,13 @@ public class Hotel implements Serializable {
 	 *             Se o valor do mes passado como parametro for invalido (menor
 	 *             que um).
 	 */
-	public double[] getEstatisticaOutrosServicos(int mes)
+	public int[] getEstatisticaOutrosServicos(int mes)
 			throws MesInvalidoException {
 		if (mes < 1 || mes > 12) {
 			throw new MesInvalidoException();
 		}// if
 		mes--;
-		double[] estatisticas = new double[QUANT_OUTROS_SERVICOS];
+		int[] estatisticas = new int[QUANT_OUTROS_SERVICOS];
 		int[] quantOutrosServicos;
 
 		for (Contrato contrato : contratos) {
@@ -496,19 +507,22 @@ public class Hotel implements Serializable {
 	 * Pesquisa um contrato em aberto no hotel pelo nome do titular ou de um
 	 * hospede acompanhante.
 	 * 
-	 * @param text
+	 * @param nome
 	 *            Um String que representa o nome do titular ou de um
 	 *            acompanhante.
 	 * @return Uma lista com os contratos encontrados.
 	 */
-	public List<Contrato> pesquisaContrato(String text) {
+	public List<Contrato> pesquisaContrato(String nome) {
+		if (nome == null) {
+			throw new NullPointerException();
+		}
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
 		for (Contrato contrato : getContratos()) {
-			if (contrato.getHospedeTitular().getNome().equals(text))
+			if (contrato.getHospedeTitular().getNome().equals(nome))
 				contratosEncontrados.add(contrato);
 			for (String acompanhante : contrato.getAcompanhantes()) {
-				if (acompanhante.equals(text)) {
+				if (acompanhante.equals(nome)) {
 					contratosEncontrados.add(contrato);
 				}// if
 			}// for

@@ -3,6 +3,8 @@ package visual;
 import hotel.*;
 
 import java.awt.Color;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,6 +22,15 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+
+import excecoes.MesInvalidoException;
 
 public class Info extends JPanel {
 
@@ -39,6 +50,8 @@ public class Info extends JPanel {
 	private static DefaultTableModel model;
 	private static JTextArea textArea;
 	private static String[][] dados;
+	private static JFreeChart chart;
+	private static DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 	
 	/**
 	 * Create the panel.
@@ -91,6 +104,17 @@ public class Info extends JPanel {
 		txtpnSelecioneOTipo.setBounds(47, 65, 266, 24);
 		estatistica.add(txtpnSelecioneOTipo);
 		
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
+		comboBox.setBounds(129, 98, 144, 24);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setaDataset((String) comboBox.getSelectedItem());
+				
+			}
+		});
+		estatistica.add(comboBox);
+		
 		comboBoxMes = new JComboBox<String>();
 		comboBoxMes.setModel(new DefaultComboBoxModel<String>(new String[] {"Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}));
 		comboBoxMes.setBounds(506, 97, 144, 24);
@@ -103,6 +127,8 @@ public class Info extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxVisao.getSelectedItem().equals("Mensal")) {
 					comboBoxMes.setEnabled(true);
+					setaDatasetEspecifico((String) comboBox.getSelectedItem(), comboBoxMes.getSelectedIndex() + 1);
+					
 				} else {
 					comboBoxMes.setEnabled(false);
 				}
@@ -111,20 +137,101 @@ public class Info extends JPanel {
 		comboBoxVisao.setBounds(319, 97, 144, 24);
 		estatistica.add(comboBoxVisao);
 		
-		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
-		comboBox.setBounds(129, 98, 144, 24);
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				GeradorDeGrafico.setaDatasetSimples((String) comboBox.getSelectedItem());
-			}
-		});
-		estatistica.add(comboBox);
-		
-		GeradorDeGrafico grafico = new GeradorDeGrafico();
-		grafico.setBounds(47, 154, 674, 341);
-		estatistica.add(grafico);
+		//Cria o gráfico
+		chart = createBarChart(dataset);
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setBounds(47, 154, 674, 341);
+		estatistica.add(chartPanel);
 	}// painelEstatistica
+	
+	private static void setaDataset(String tipo){
+		if(tipo.equals("Servicos adicionais")){
+			dataset.clear();
+			dataset = estatServicosAdicionaisGeral();
+		}
+		else{
+			dataset.clear();
+			dataset = estatQuartoGeral();
+		}
+		
+		chart = createBarChart(dataset);
+	}
+	
+	private void setaDatasetEspecifico(String tipo, int mes){
+		
+		if (tipo.equals("Servicos adicionais")) {
+			dataset.clear();
+			try {
+				dataset = estatServicosAdicionaisMensal(mes);
+			} catch (MesInvalidoException e) {
+				JOptionPane.showMessageDialog(null, "Algo esta errado!");
+			}
+		} else{
+			dataset.clear();
+			try {
+				dataset = estatQuartoMensal(mes);
+			} catch (MesInvalidoException e) {
+				JOptionPane.showMessageDialog(null, "Algo esta errado!");
+			}
+		}
+		
+		chart = createBarChart(dataset);
+	}
+	
+	private static DefaultCategoryDataset estatQuartoGeral() {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_SIMPLES.ordinal()], "Luxo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_DUPLO.ordinal()], "Luxo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_TRIPLO.ordinal()], "Luxo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()], "Executivo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_DUPLO.ordinal()], "Executivo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()], "Executivo Triplo", "");
+		return dataset;
+	}
+	
+	private static DefaultCategoryDataset estatQuartoMensal(int mes) throws MesInvalidoException  {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.LUXO_SIMPLES.ordinal()], "Luxo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.LUXO_DUPLO.ordinal()], "Luxo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.LUXO_TRIPLO.ordinal()], "Luxo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()], "Executivo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.EXECUTIVO_DUPLO.ordinal()], "Executivo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos(mes)[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()], "Executivo Triplo", "");
+		return dataset;
+	}
+	
+	private static DefaultCategoryDataset estatServicosAdicionaisGeral() {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.BABA.ordinal()], "Baba", "1970");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CARRO.ordinal()], "Automoveis", "1970");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos()[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()], "Restaurante", "1970");
+		
+		return dataset;
+	}
+	
+	private static DefaultCategoryDataset estatServicosAdicionaisMensal(int mes) throws MesInvalidoException {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos(mes)[IndexOutrosServicos.BABA.ordinal()], "Baba", "");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos(mes)[IndexOutrosServicos.CARRO.ordinal()], "Automoveis", "");
+		dataset.addValue(Main.getHotel().getEstatisticaOutrosServicos(mes)[IndexOutrosServicos.CONTA_RESTAURANTE.ordinal()], "Restaurante", "");
+		
+		return dataset;
+	}
+	
+	private static JFreeChart createBarChart(CategoryDataset dataset) {
+		JFreeChart chart = ChartFactory.createBarChart3D(
+				null, // Titulo
+				"Servico", // Eixo X
+				"Quantidade", // Eixo Y
+				dataset, // Dados para o grafico
+				PlotOrientation.VERTICAL, // Orientacao do grafico
+				true, false, false); // exibir: legendas, tooltips, url
+		return chart;
+	}
 	
 	private void panelOpinioes(JPanel panel) {
 		JPanel panelOpinioes = new JPanel();

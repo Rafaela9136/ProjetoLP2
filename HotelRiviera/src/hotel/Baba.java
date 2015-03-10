@@ -167,11 +167,13 @@ public class Baba implements Servico, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "SERVICO BABYSITTER\n" + "Preco Total: R$ " + getPreco()
-				+ "\nDuracao: " + getNumeroDeHoras() + " horas"
-				+ "\nData Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime())
-				+ "\nData Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime())
-				+ "\nOBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "SERVICO BABYSITTER" + FIM_LINHA 
+				+ "Preco Total: R$ " + getPreco() + FIM_LINHA
+				+ "Duracao: " + getNumeroDeHoras() + " horas" + FIM_LINHA
+				+ "Data Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime()) + FIM_LINHA
+				+ "Data Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime()) + FIM_LINHA
+				+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
 	@Override
@@ -198,13 +200,13 @@ public class Baba implements Servico, Serializable {
 		}
 		Baba outra = (Baba) obj;
 		return (getPreco() == outra.getPreco() 
-				&& getDataCheckIn().equals(outra.getDataCheckIn()) && getDataCheckOut()
-				.equals(outra.getDataCheckOut()));
+				&& getDataCheckIn().equals(outra.getDataCheckIn()) 
+				&& getDataCheckOut().equals(outra.getDataCheckOut()));
 	}
-	
+
 	@Override
 	public String getNome() {
 		return "Baba";
 	}// getNome
-	
+
 }

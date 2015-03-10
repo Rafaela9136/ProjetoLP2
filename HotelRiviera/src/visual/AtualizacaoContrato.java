@@ -65,7 +65,6 @@ public class AtualizacaoContrato extends JPanel {
 	 * @throws ParseException
 	 */
 	public AtualizacaoContrato() throws ParseException {
-		setBorder(new LineBorder(new Color(51, 0, 0), 3));
 		inicializa();
 
 		barraDeTarefas();
@@ -76,6 +75,7 @@ public class AtualizacaoContrato extends JPanel {
 	}
 
 	private void inicializa() {
+		setBorder(new LineBorder(new Color(51, 0, 0), 3));
 		setBackground(Color.WHITE);
 		setBounds(228, 12, 764, 612);
 	}
@@ -401,7 +401,7 @@ public class AtualizacaoContrato extends JPanel {
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				removeContrato();
-				Acoes.selecionaTela("vazio");
+				Acoes.selecionaTela("pesquisaContrato");
 			}
 		});
 		fecharContrato.add(btnConfirmar);
@@ -429,7 +429,13 @@ public class AtualizacaoContrato extends JPanel {
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
-			Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			try {
+				Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
+			} catch (ContratoSemOpiniaoException e) {
+				JOptionPane.showMessageDialog(null,"Para remover um contrato voce precisa adicionar uma opiniao.");
+			} catch (ContratoFechadoException e) {
+				JOptionPane.showMessageDialog(null,"Verifique o metodo removeContrato");
+			}
 	}
 
 	private void hospedeDadosPrincipais(JPanel panelNovoContrato)

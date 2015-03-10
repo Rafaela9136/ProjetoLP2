@@ -7,6 +7,10 @@ import java.util.List;
 
 public class Conector implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1416930223875857500L;
 	private static List<String> lista = new ArrayList<String>();
 
 	public static TiposDeQuarto selecionaTipoQuarto(Object estilo) {
@@ -16,6 +20,14 @@ public class Conector implements Serializable {
 			return TiposDeQuarto.DUPLO;
 		if (estilo.equals("Triplo"))
 			return TiposDeQuarto.TRIPLO;
+		return null;
+	}
+	
+	public static TipoFuncionario selecionaTipoFuncionario(Object estilo) {
+		if (estilo.equals("Gerente"))
+			return TipoFuncionario.GERENTE;
+		if (estilo.equals("Balconista"))
+			return TipoFuncionario.BALCONISTA;
 		return null;
 	}
 

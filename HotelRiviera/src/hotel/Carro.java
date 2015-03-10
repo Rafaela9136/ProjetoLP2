@@ -208,28 +208,20 @@ public class Carro implements Servico, Serializable {
 	 */
 	@Override
 	public String toString() {
+		final String FIM_LINHA = System.getProperty("line.separator");
 		List<String> adicionais = new ArrayList<String>();
 		if (isTanqueCheio)
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "SERVICO CARRO"
-				+ "\nTipo: "
-				+ tipoDeCarro.getTipoNome()
-				+ "\n"
-				+ "Adicionais: "
-				+ Arrays.toString(adicionais.toArray())
-				+ "\nPreco Total: R$ "
-				+ getPreco()
-				+ "\nDuracao: "
-				+ getNumeroDeDias()
-				+ " dias"
-				+ "\nData Inicio: "
-				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
-						.format(getDataCheckIn().getTime())
-				+ "\nData Termino: "
-				+ new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm")
-						.format(getDataCheckOut().getTime());
+		return "SERVICO CARRO" + FIM_LINHA
+				+ "Tipo: "
+				+ tipoDeCarro.getTipoNome() + FIM_LINHA
+				+ "Adicionais: " + Arrays.toString(adicionais.toArray()) + FIM_LINHA
+				+ "Preco Total: R$ " + getPreco() + FIM_LINHA
+				+ "Duracao: " + getNumeroDeDias() + " dias" + FIM_LINHA
+				+ "Data Inicio: " + new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm").format(getDataCheckIn().getTime()) + FIM_LINHA
+				+ "Data Termino: " + new SimpleDateFormat("dd/MM/yyyy 'as' HH:mm").format(getDataCheckOut().getTime());
 	}
 
 	/**
