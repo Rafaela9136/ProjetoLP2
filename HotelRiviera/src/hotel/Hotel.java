@@ -2,6 +2,7 @@ package hotel;
 
 import java.util.*;
 
+import excecoes.AnoInvalidoException;
 import excecoes.ContratoFechadoException;
 import excecoes.ContratoSemOpiniaoException;
 import excecoes.ExecutivosDuploOcupadosException;
@@ -453,6 +454,20 @@ public class Hotel implements Serializable {
 
 		return estatisticas;
 	}// getEstatisticaGeralOutrosServicos
+	
+	public double[] getFaturamento(int ano) throws AnoInvalidoException {
+		Calendar dataAtual = Calendar.getInstance();
+		if(ano > dataAtual.get(Calendar.YEAR))
+			throw new AnoInvalidoException();
+		double[] faturamentoMensal = new double[12];
+		for (int i = 0; i < faturamentoMensal.length; i++) {
+			for (Contrato contrato : contratosRemovidos) {
+				if(contrato.getDataCheckOut().get(Calendar.MONTH) == i)
+					faturamentoMensal[i] += contrato.calculaValorTotalServicosComEstrategia();
+			}// for
+		}// for
+		return faturamentoMensal;
+	}// getFaturamento
 
 	/**
 	 * Informa os servicos contratados (com excecao dos quartos alugados) em um
