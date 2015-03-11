@@ -285,10 +285,10 @@ public class Acoes extends JPanel {
 					layout.show(panel, "vazio");
 				} catch (NullPointerException e1) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
-				} catch (ContratoSemQuartoException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Adicione pelo menos um quarto!");
 				} catch (DataInvalidaException e1) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+				} catch (ContratoSemQuartoException e1) {
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Adicione pelo menos um quarto!");
 				} catch (NomeInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
 				} finally {

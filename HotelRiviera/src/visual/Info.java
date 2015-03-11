@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -50,8 +51,12 @@ public class Info extends JPanel {
 	private static DefaultTableModel model;
 	private static JTextArea textArea;
 	private static String[][] dados;
-	private static JFreeChart chart;
 	private static JPanel estatistica;
+	
+	private static JFreeChart chart; 
+	//Plot plot; 
+	private static ChartPanel chartPanel; 
+	private static CategoryDataset dataset;
 	
 	/**
 	 * Create the panel.
@@ -105,12 +110,19 @@ public class Info extends JPanel {
 		estatistica.add(txtpnSelecioneOTipo);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais", "Faturamento"}));
 		comboBox.setBounds(129, 98, 144, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setaDataset((String) comboBox.getSelectedItem());
-				
+				try {
+					update();
+				} catch (MesInvalidoException e1) {
+					JOptionPane.showMessageDialog(null, "Algo esta errado!");
+				}
+				if(comboBox.getSelectedItem().equals("Faturamento")){
+					comboBoxVisao.setEnabled(false);
+					comboBoxMes.setEnabled(false);
+				}
 			}
 		});
 		estatistica.add(comboBox);
@@ -119,6 +131,15 @@ public class Info extends JPanel {
 		comboBoxMes.setModel(new DefaultComboBoxModel<String>(new String[] {"Janeiro", "Fevereiro", "Mar\u00E7o", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"}));
 		comboBoxMes.setBounds(506, 97, 144, 24);
 		comboBoxMes.setEnabled(false);
+		comboBoxMes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					update();
+				} catch (MesInvalidoException e1) {
+					JOptionPane.showMessageDialog(null, "Algo esta errado!");
+				}
+			}
+		});
 		estatistica.add(comboBoxMes);
 		
 		comboBoxVisao = new JComboBox<String>();
@@ -126,9 +147,7 @@ public class Info extends JPanel {
 		comboBoxVisao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxVisao.getSelectedItem().equals("Mensal")) {
-					comboBoxMes.setEnabled(true);
-					setaDatasetEspecifico((String) comboBox.getSelectedItem(), comboBoxMes.getSelectedIndex() + 1);
-					
+					comboBoxMes.setEnabled(true);					
 				} else {
 					comboBoxMes.setEnabled(false);
 				}
@@ -145,47 +164,45 @@ public class Info extends JPanel {
 
 	private static void desenhaGrafico(JPanel estatistica, DefaultCategoryDataset dataset) {
 		chart = createBarChart(dataset);
-		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel = new ChartPanel(chart);
 		chartPanel.setBounds(47, 154, 674, 341);
 		estatistica.add(chartPanel);
-	}
-	
-	private static void setaDataset(String tipo){
-		DefaultCategoryDataset dataset;
-		if(tipo.equals("Servicos adicionais")){
-			dataset = estatServicosAdicionaisGeral();
-			desenhaGrafico(estatistica, dataset);
-		}
-		else{
-			dataset = estatQuartoGeral();
-			
-			desenhaGrafico(estatistica, dataset);
-		}
-	}
-	
-	private void setaDatasetEspecifico(String tipo, int mes){
-		DefaultCategoryDataset dataset;
 		
-		if (tipo.equals("Servicos adicionais")) {
-			try {
-				dataset = estatServicosAdicionaisMensal(mes);
-				
-				desenhaGrafico(estatistica, dataset);
-			} catch (MesInvalidoException e) {
-				JOptionPane.showMessageDialog(null, "Algo esta errado!");
-			}
-		} else{
-			try {
-				dataset = estatQuartoMensal(mes);
-				
-				desenhaGrafico(estatistica, dataset);
-			} catch (MesInvalidoException e) {
-				JOptionPane.showMessageDialog(null, "Algo esta errado!");
-			}
+	}
+
+	
+	private static void update() throws MesInvalidoException {
+		if(comboBox.getSelectedItem().equals("Servicos adicionais")){
+			if(comboBoxVisao.getSelectedItem().equals("Mensal"))
+				dataset = estatServicosAdicionaisMensal(comboBoxMes.getSelectedIndex() + 1);
+			dataset = estatServicosAdicionaisGeral();
+		} if(comboBox.getSelectedItem().equals("Faturamento")){
+			dataset = estatFaturamentoAnual();
 		}
+		if(!comboBox.getSelectedItem().equals("Servicos adicionais")){
+			if(comboBoxVisao.getSelectedItem().equals("Mensal"))
+				dataset = estatQuartoMensal(comboBoxMes.getSelectedIndex() + 1);
+			dataset = estatQuartoGeral();
+		}
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        plot.setDataset(dataset);
+    }
+
+	// Seta informacoes dos graficos
+	private static DefaultCategoryDataset estatQuartoGeral() {
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_SIMPLES.ordinal()], "Luxo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_DUPLO.ordinal()], "Luxo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.LUXO_TRIPLO.ordinal()], "Luxo Triplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_SIMPLES.ordinal()], "Executivo Simples", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_DUPLO.ordinal()], "Executivo Duplo", "");
+		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.EXECUTIVO_TRIPLO.ordinal()], "Executivo Triplo", "");
+		return dataset;
 	}
 	
-	private static DefaultCategoryDataset estatQuartoGeral() {
+	private static DefaultCategoryDataset estatFaturamentoAnual() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
 		dataset.addValue(Main.getHotel().getEstatisticaQuartos()[IndexQuartos.SUITE_PRESIDENCIAL.ordinal()], "Presidencial", "");
@@ -239,6 +256,7 @@ public class Info extends JPanel {
 				true, false, false); // exibir: legendas, tooltips, url
 		return chart;
 	}
+	//*
 	
 	private void panelOpinioes(JPanel panel) {
 		JPanel panelOpinioes = new JPanel();
@@ -279,8 +297,13 @@ public class Info extends JPanel {
 		textArea.setBounds(47, 122, 672, 464);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(47, 107, 671, 466);
+		scrollPane.setBounds(47, 107, 671, 437);
 		panelOpinioes.add(scrollPane);
+		
+		JTextPane txtpnAMediaDe = new JTextPane();
+		txtpnAMediaDe.setText("A media de avaliacao atual do hotel e" + "aqui vai o metodo q pega as medias das notas");
+		txtpnAMediaDe.setBounds(153, 550, 565, 34);
+		panelOpinioes.add(txtpnAMediaDe);
 	
 	}
 
