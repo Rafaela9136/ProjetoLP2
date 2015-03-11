@@ -10,7 +10,6 @@ import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
 import excecoes.NumeroInvalidoException;
 import excecoes.StringInvalidaException;
-import excecoes.StringVaziaException;
 
 /**
  * Classe que representa um Hospede do Hotel. Ao ser criado, caso seja
@@ -77,7 +76,7 @@ public class Hospede implements Serializable {
 	public Hospede(String nome, Calendar dataNascimento, String pais,
 			Estado estado, String cidade, String logradouro, String numero,
 			String cpf, String cartaoDeCredito) throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		verificaStringApenasLetras(nome);
@@ -128,9 +127,8 @@ public class Hospede implements Serializable {
 	 */
 	public Hospede(String nome, Calendar dataNascimento, String cartaoDeCredito)
 			throws NullPointerException, CPFInvalidoException,
-			DataInvalidaException, StringVaziaException,
-			CartaoInvalidoException, StringInvalidaException,
-			NumeroInvalidoException {
+			DataInvalidaException, CartaoInvalidoException,
+			StringInvalidaException, NumeroInvalidoException {
 		this(nome, dataNascimento, SET_NAO_MORA_NO_BRASIL, Estado.XX,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL,
 				SET_NAO_MORA_NO_BRASIL, SET_NAO_MORA_NO_BRASIL, cartaoDeCredito);
@@ -159,7 +157,7 @@ public class Hospede implements Serializable {
 	 *             letras.
 	 */
 	public void setNome(String nome) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringInvalidaException {
 		verificaStringApenasLetras(nome);
 		this.nome = nome;
 	}
@@ -211,7 +209,7 @@ public class Hospede implements Serializable {
 	 *             Se a string passada possuir caracteres que nao sejam letras.
 	 */
 	public void setPais(String pais) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringInvalidaException {
 		verificaStringApenasLetras(pais);
 		this.pais = pais;
 	}
@@ -261,7 +259,7 @@ public class Hospede implements Serializable {
 	 *             letras.
 	 */
 	public void setCidade(String novaCidade) throws NullPointerException,
-			StringVaziaException, StringInvalidaException {
+			StringInvalidaException {
 		verificaStringApenasLetras(novaCidade);
 		this.cidade = novaCidade;
 	}
@@ -288,9 +286,7 @@ public class Hospede implements Serializable {
 	 *             Se a string tiver caracteres que nao sejam letras.
 	 */
 	public void setLogradouro(String novoLogradouro)
-			throws NullPointerException, StringVaziaException,
-			StringInvalidaException {
-		verificaStringApenasLetras(novoLogradouro);
+			throws NullPointerException, StringInvalidaException {
 		this.logradouro = novoLogradouro;
 	}
 
@@ -316,7 +312,7 @@ public class Hospede implements Serializable {
 	 *             Se o novo numero possuir caracteres que nao sejam numeros.
 	 */
 	public void setNumero(String novoNumero) throws NullPointerException,
-			StringVaziaException, NumeroInvalidoException {
+			NumeroInvalidoException {
 		verificaNumero(novoNumero);
 		this.numero = novoNumero;
 	}
@@ -344,7 +340,7 @@ public class Hospede implements Serializable {
 	 *             Se o novo cpf for uma string vazia.
 	 */
 	public void setCpf(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException {
+			CPFInvalidoException {
 		verificaCpf(cpf);
 		this.cpf = cpf;
 	}
@@ -372,8 +368,7 @@ public class Hospede implements Serializable {
 	 *             Se o novo numero for uma string vazia.
 	 */
 	public void setCartaoDeCredito(String novoCartao)
-			throws NullPointerException, CartaoInvalidoException,
-			StringVaziaException {
+			throws NullPointerException, CartaoInvalidoException {
 		verificaCartao(novoCartao);
 		this.cartaoDeCredito = novoCartao;
 	}
@@ -390,41 +385,40 @@ public class Hospede implements Serializable {
 			throw new NullPointerException();
 	}
 
-	private void verificaStringVazia(String str) throws StringVaziaException {
-		if (str.trim().isEmpty()) {
-			throw new StringVaziaException();
-		}
-	}
-
 	private void verificaStringApenasLetras(String string)
-			throws NullPointerException, StringVaziaException,
-			StringInvalidaException {
+			throws NullPointerException, StringInvalidaException {
 		verificaParametroNulo(string);
-		verificaStringVazia(string);
+		if (string.isEmpty())
+			throw new StringInvalidaException();
 		if (!string.matches("[a-zA-Z\\s]+"))
 			throw new StringInvalidaException();
 	}
 
 	private void verificaCpf(String cpf) throws NullPointerException,
-			CPFInvalidoException, StringVaziaException {
+			CPFInvalidoException {
 		verificaParametroNulo(cpf);
-		verificaStringVazia(cpf);
+
+		if (cpf.isEmpty())
+			throw new CPFInvalidoException();
+
 		if (!cpf.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}"))
 			throw new CPFInvalidoException();
 	}
 
 	private void verificaCartao(String cartao) throws NullPointerException,
-			CartaoInvalidoException, StringVaziaException {
+			CartaoInvalidoException {
 		verificaParametroNulo(cartao);
-		verificaStringVazia(cartao);
+		if (cartao.isEmpty())
+			throw new CartaoInvalidoException();
 		if (!cartao.matches("\\d{4}.\\d{4}.\\d{4}.\\d{4}"))
 			throw new CartaoInvalidoException();
 	}
 
 	private void verificaNumero(String numero) throws NullPointerException,
-			StringVaziaException {
+			NumeroInvalidoException {
 		verificaParametroNulo(numero);
-		verificaStringVazia(numero);
+		if (numero.isEmpty())
+			throw new NumeroInvalidoException();
 	}
 
 	/**
