@@ -61,7 +61,7 @@ public class Acoes extends JPanel {
 	private JTable tabela;
 
 	// Variaveis para criacao do contrato
-	private List<String> acompanhantes = new ArrayList<String>();
+//	private List<String> acompanhantes = new ArrayList<String>();
 	private Quarto quarto;
 	private Hospede hospede;
 	private String[] colunas;
@@ -264,6 +264,11 @@ public class Acoes extends JPanel {
 				criaHospede();
 
 				try {
+					List<String> acompanhantes = new ArrayList<String>();
+					acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes.getText().split(",")));
+					for (String acompanhante : acompanhantes) {
+						System.out.println(acompanhante);
+					}
 					contrato = new Contrato(hospede, acompanhantes,
 							Conector.transformaData(formattedTextFieldCheckIn.getText()),
 							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
@@ -305,7 +310,6 @@ public class Acoes extends JPanel {
 	}
 
 	private void criaHospede() {
-		acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes.getText().split(",")));
 		try {
 			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 				hospede = new Hospede(textFieldNome.getText(),
