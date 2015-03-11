@@ -274,11 +274,11 @@ public class Info extends JPanel {
 		txtpnOpiniesDosClientes.setEditable(false);
 		panelOpinioes.add(txtpnOpiniesDosClientes);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(47, 72, 266, 24);
-		textPane.setText("Selecione o tipo de visao que deseja ter: ");
-		textPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		panelOpinioes.add(textPane);
+		JTextPane txtpnSelecioneOTipo_1 = new JTextPane();
+		txtpnSelecioneOTipo_1.setBounds(47, 72, 266, 24);
+		txtpnSelecioneOTipo_1.setText("Selecione o tipo de visao que deseja ter: ");
+		txtpnSelecioneOTipo_1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		panelOpinioes.add(txtpnSelecioneOTipo_1);
 		
 		comboBoxSelecao = new JComboBox<String>();
 		comboBoxSelecao.setBounds(314, 74, 144, 22);
@@ -300,13 +300,14 @@ public class Info extends JPanel {
 		textArea.setBounds(47, 122, 672, 464);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(47, 107, 671, 437);
+		scrollPane.setBounds(47, 107, 671, 447);
 		panelOpinioes.add(scrollPane);
 		
 		JTextPane txtpnAMediaDe = new JTextPane();
+		txtpnAMediaDe.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnAMediaDe.setEditable(false);
 		txtpnAMediaDe.setText("A media de avaliacao atual do hotel e " + Double.toString((Main.getHotel().getMediaOpinioes())));
-		txtpnAMediaDe.setBounds(153, 550, 565, 34);
+		txtpnAMediaDe.setBounds(420, 566, 298, 24);
 		panelOpinioes.add(txtpnAMediaDe);
 	
 	}
