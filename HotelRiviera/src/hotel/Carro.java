@@ -214,7 +214,7 @@ public class Carro implements Servico, Serializable {
 			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
 		if (isAssegurado)
 			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "\nCarro " + tipoDeCarro.getNome()
+		return "Carro " + tipoDeCarro.getNome()
 				+ FIM_LINHA
 				+ "Adicionais: "
 				+ Arrays.toString(adicionais.toArray())

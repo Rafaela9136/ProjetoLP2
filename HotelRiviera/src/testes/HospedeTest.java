@@ -12,9 +12,9 @@ import org.junit.Test;
 import excecoes.CPFInvalidoException;
 import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
+import excecoes.NomeInvalidoException;
 import excecoes.NumeroInvalidoException;
 import excecoes.StringInvalidaException;
-import excecoes.StringVaziaException;
 
 public class HospedeTest {
 
@@ -29,7 +29,7 @@ public class HospedeTest {
 
 	@Before
 	public void CriaObjetos() throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		hospede1 = new Hospede("Joao", data1, "Brasil", Estado.PB,
@@ -41,7 +41,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaCriaHospede() throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		try {
@@ -52,7 +52,7 @@ public class HospedeTest {
 
 		try {
 			new Hospede("", data2, cartao3);
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -94,7 +94,7 @@ public class HospedeTest {
 
 		try {
 			new Hospede("Nome", data1, "");
-		} catch (StringVaziaException e) {
+		} catch (CartaoInvalidoException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -115,7 +115,7 @@ public class HospedeTest {
 		try {
 			new Hospede("Eu", data1, "brasil", Estado.PR, "", "rua qualquer",
 					"123", cpf1, cartao3);
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -129,7 +129,7 @@ public class HospedeTest {
 		try {
 			new Hospede("nome valido", data3, "Brasil", Estado.PB, "CG", "",
 					"12", cpf1, cartao2);
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -143,7 +143,7 @@ public class HospedeTest {
 		try {
 			new Hospede("Marta", data1, "Brasil", Estado.MA, "Sao Luis",
 					"rua valida", "", cpf1, cartao3);
-		} catch (StringVaziaException e) {
+		} catch (NumeroInvalidoException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -171,7 +171,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetNome() throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		Assert.assertEquals(hospede1.getNome(), "Joao");
@@ -187,7 +187,7 @@ public class HospedeTest {
 		}
 		try {
 			hosp.setNome(" ");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 		Assert.assertEquals(hosp.getNome(), "Jose");
@@ -204,7 +204,7 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetDataNascimento() throws NullPointerException,
-			DataInvalidaException, CPFInvalidoException, StringVaziaException,
+			DataInvalidaException, CPFInvalidoException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		Assert.assertEquals(hospede1.getDataNascimento(), data1);
@@ -270,15 +270,15 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetPais() throws NullPointerException,
-			StringInvalidaException, StringVaziaException,
-			CPFInvalidoException, CartaoInvalidoException {
+			StringInvalidaException, CPFInvalidoException,
+			CartaoInvalidoException {
 		Assert.assertEquals(hospede1.getPais(), "Brasil");
 		Assert.assertEquals(hospede2.getPais(), "Brasil");
 		Assert.assertEquals(hospede3.getPais(), "--");
 
 		try {
 			hospede1.setPais("");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -300,7 +300,7 @@ public class HospedeTest {
 
 		try {
 			hospede1.setPais("    ");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 	}
@@ -335,16 +335,15 @@ public class HospedeTest {
 	}
 
 	@Test
-	public void testaGetSetCidade() throws StringVaziaException,
-			StringInvalidaException, CPFInvalidoException,
-			CartaoInvalidoException, NullPointerException {
+	public void testaGetSetCidade() throws StringInvalidaException,
+			CPFInvalidoException, CartaoInvalidoException, NullPointerException {
 		Assert.assertEquals(hospede1.getCidade(), "Campina Grande");
 		Assert.assertEquals(hospede2.getCidade(), "Natal");
 		Assert.assertEquals(hospede3.getCidade(), "--");
 
 		try {
 			hospede1.setCidade("");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -356,7 +355,7 @@ public class HospedeTest {
 
 		try {
 			hospede3.setCidade("     ");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -373,7 +372,7 @@ public class HospedeTest {
 	@Test
 	public void testaGetSetLogradouro() throws NullPointerException,
 			StringInvalidaException, CPFInvalidoException,
-			CartaoInvalidoException, StringVaziaException {
+			CartaoInvalidoException {
 		Assert.assertEquals(hospede1.getLogradouro(), "Rua Borborema");
 		Assert.assertEquals(hospede2.getLogradouro(), "Rua Suassuna");
 		Assert.assertEquals(hospede3.getLogradouro(), "--");
@@ -386,7 +385,7 @@ public class HospedeTest {
 
 		try {
 			hospede2.setLogradouro("");
-		} catch (StringVaziaException e) {
+		} catch (StringInvalidaException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -404,9 +403,8 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetNumero() throws NullPointerException,
-			StringVaziaException, CPFInvalidoException,
-			CartaoInvalidoException, StringInvalidaException,
-			NumeroInvalidoException {
+			CPFInvalidoException, CartaoInvalidoException,
+			StringInvalidaException, NumeroInvalidoException {
 		Assert.assertEquals(hospede1.getNumero(), "234");
 		Assert.assertEquals(hospede2.getNumero(), "123");
 		Assert.assertEquals(hospede3.getNumero(), "--");
@@ -425,7 +423,7 @@ public class HospedeTest {
 
 		try {
 			hospede2.setNumero("   ");
-		} catch (StringVaziaException e) {
+		} catch (NumeroInvalidoException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -451,14 +449,14 @@ public class HospedeTest {
 
 	@Test
 	public void testaGetSetCpf() throws NullPointerException,
-			CPFInvalidoException, StringVaziaException {
+			CPFInvalidoException {
 		Assert.assertEquals(hospede1.getCpf(), "231.574.344-30");
 		Assert.assertEquals(hospede2.getCpf(), "321.654.987-61");
 		Assert.assertEquals(hospede3.getCpf(), "--");
 
 		try {
 			hospede1.setCpf(" ");
-		} catch (StringVaziaException e) {
+		} catch (CPFInvalidoException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -502,8 +500,7 @@ public class HospedeTest {
 	}
 
 	@Test
-	public void testaGetSetCartao() throws CartaoInvalidoException,
-			StringVaziaException {
+	public void testaGetSetCartao() throws CartaoInvalidoException {
 		Assert.assertEquals(hospede1.getCartaoDeCredito(),
 				"5624.9842.3156.6251");
 		Assert.assertEquals(hospede2.getCartaoDeCredito(),
@@ -519,7 +516,7 @@ public class HospedeTest {
 
 		try {
 			hospede1.setCartaoDeCredito("");
-		} catch (StringVaziaException e) {
+		} catch (CartaoInvalidoException e) {
 			Assert.assertTrue(true);
 		}
 
@@ -541,12 +538,6 @@ public class HospedeTest {
 			Assert.assertTrue(true);
 		}
 
-		try {
-			hospede3.setCartaoDeCredito("2346-1245-6235-1092");
-		} catch (CartaoInvalidoException e) {
-			Assert.assertTrue(true);
-		}
-
 		hospede1.setCartaoDeCredito("8542.2310.6210.8462");
 		Assert.assertEquals(hospede1.getCartaoDeCredito(),
 				"8542.2310.6210.8462");
@@ -560,71 +551,105 @@ public class HospedeTest {
 
 	@Test
 	public void testaToString() throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
-		Assert.assertEquals(hospede1.toString(), "HOSPEDE" + "\nNome: Joao"
-				+ "\nData de Nascimento: 20/03/1980" + "\nPais: Brasil"
-				+ "\nEstado: PB" + "\nCidade: Campina Grande"
-				+ "\nEndereco: Rua Borborema, 234" + "\nCPF: 231.574.344-30"
-				+ "\nCartao de Credito: 5624.9842.3156.6251");
-		Assert.assertEquals(hospede2.toString(), "HOSPEDE" + "\nNome: Jose"
-				+ "\nData de Nascimento: 13/10/1974" + "\nPais: Brasil"
-				+ "\nEstado: RN" + "\nCidade: Natal"
-				+ "\nEndereco: Rua Suassuna, 123" + "\nCPF: 321.654.987-61"
-				+ "\nCartao de Credito: 6032.1574.8219.4203");
-		Assert.assertEquals(hospede3.toString(), "HOSPEDE" + "\nNome: Mohammed"
-				+ "\nData de Nascimento: 05/12/1987" + "\nPais: --"
-				+ "\nEstado: XX" + "\nCidade: --" + "\nEndereco: --, --"
-				+ "\nCPF: --" + "\nCartao de Credito: 2320.1684.9726.2164");
+		final String FIM_LINHA = System.getProperty("line.separator");
+		Assert.assertEquals(hospede1.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Joao" + FIM_LINHA
+				+ "Data de Nascimento: 20/03/1980" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: PB" + FIM_LINHA
+				+ "Cidade: Campina Grande" + FIM_LINHA
+				+ "Endereco: Rua Borborema, 234" + FIM_LINHA
+				+ "CPF: 231.574.344-30" + FIM_LINHA
+				+ "Cartao de Credito: 5624.9842.3156.6251");
+		Assert.assertEquals(hospede2.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Jose" + FIM_LINHA
+				+ "Data de Nascimento: 13/10/1974" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: RN" + FIM_LINHA
+				+ "Cidade: Natal" + FIM_LINHA
+				+ "Endereco: Rua Suassuna, 123" + FIM_LINHA
+				+ "CPF: 321.654.987-61" + FIM_LINHA
+				+ "Cartao de Credito: 6032.1574.8219.4203");
+		Assert.assertEquals(hospede3.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Mohammed" + FIM_LINHA
+				+ "Data de Nascimento: 05/12/1987" + FIM_LINHA
+				+ "Pais: --" + FIM_LINHA
+				+ "Estado: XX" + FIM_LINHA
+				+ "Cidade: --" + FIM_LINHA
+				+ "Endereco: --, --" + FIM_LINHA
+				+ "CPF: --" + FIM_LINHA
+				+ "Cartao de Credito: 2320.1684.9726.2164");
 
 		Hospede novoHospede = new Hospede("Paula", new GregorianCalendar(1990,
 				Calendar.JULY, 3), "Brasil", Estado.MA, "Sao Luis",
 				"Rua Antonio Melo", "621", "245.613.203-70",
 				"5136.8452.1302.9764");
 
-		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + "\nNome: Paula"
-				+ "\nData de Nascimento: 03/07/1990" + "\nPais: Brasil"
-				+ "\nEstado: MA" + "\nCidade: Sao Luis"
-				+ "\nEndereco: Rua Antonio Melo, 621" + "\nCPF: 245.613.203-70"
-				+ "\nCartao de Credito: 5136.8452.1302.9764");
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Paula" + FIM_LINHA
+				+ "Data de Nascimento: 03/07/1990" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: MA" + FIM_LINHA
+				+ "Cidade: Sao Luis" + FIM_LINHA
+				+ "Endereco: Rua Antonio Melo, 621" + FIM_LINHA
+				+ "CPF: 245.613.203-70" + FIM_LINHA
+				+ "Cartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setNome("Paula Ramalho");
 
-		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
-				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Sao Luis"
-				+ "\nEndereco: Rua Antonio Melo, 621" + "\nCPF: 245.613.203-70"
-				+ "\nCartao de Credito: 5136.8452.1302.9764");
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Paula Ramalho" + FIM_LINHA
+				+ "Data de Nascimento: 03/07/1990" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: MA" + FIM_LINHA
+				+ "Cidade: Sao Luis" + FIM_LINHA
+				+ "Endereco: Rua Antonio Melo, 621" + FIM_LINHA 
+				+ "CPF: 245.613.203-70" + FIM_LINHA
+				+ "Cartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setCidade("Algodao");
 		novoHospede.setLogradouro("Rua Morais");
 		novoHospede.setNumero("83");
-		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
-				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
-				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-70"
-				+ "\nCartao de Credito: 5136.8452.1302.9764");
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Paula Ramalho" + FIM_LINHA
+				+ "Data de Nascimento: 03/07/1990" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: MA" + FIM_LINHA
+				+ "Cidade: Algodao" + FIM_LINHA
+				+ "Endereco: Rua Morais, 83" + FIM_LINHA
+				+ "CPF: 245.613.203-70" + FIM_LINHA
+				+ "Cartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setCpf("245.613.203-60");
-		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
-				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
-				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-60"
-				+ "\nCartao de Credito: 5136.8452.1302.9764");
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Paula Ramalho" + FIM_LINHA
+				+ "Data de Nascimento: 03/07/1990" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: MA" + FIM_LINHA
+				+ "Cidade: Algodao" + FIM_LINHA
+				+ "Endereco: Rua Morais, 83" + FIM_LINHA
+				+ "CPF: 245.613.203-60" + FIM_LINHA
+				+ "Cartao de Credito: 5136.8452.1302.9764");
 
 		novoHospede.setCartaoDeCredito("1364.2403.8492.3746");
-		Assert.assertEquals(novoHospede.toString(), "HOSPEDE"
-				+ "\nNome: Paula Ramalho" + "\nData de Nascimento: 03/07/1990"
-				+ "\nPais: Brasil" + "\nEstado: MA" + "\nCidade: Algodao"
-				+ "\nEndereco: Rua Morais, 83" + "\nCPF: 245.613.203-60"
-				+ "\nCartao de Credito: 1364.2403.8492.3746");
+		Assert.assertEquals(novoHospede.toString(), "HOSPEDE" + FIM_LINHA
+				+ "Nome: Paula Ramalho" + FIM_LINHA
+				+ "Data de Nascimento: 03/07/1990" + FIM_LINHA
+				+ "Pais: Brasil" + FIM_LINHA
+				+ "Estado: MA" + FIM_LINHA
+				+ "Cidade: Algodao" + FIM_LINHA
+				+ "Endereco: Rua Morais, 83" + FIM_LINHA
+				+ "CPF: 245.613.203-60" + FIM_LINHA
+				+ "Cartao de Credito: 1364.2403.8492.3746");
 
 	}
 
 	@Test
 	public void testaEquals() throws NullPointerException,
-			CPFInvalidoException, DataInvalidaException, StringVaziaException,
+			CPFInvalidoException, DataInvalidaException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException {
 		Assert.assertFalse(hospede1.equals(null));
@@ -632,8 +657,10 @@ public class HospedeTest {
 		Hospede hospede2 = new Hospede(hospede1.getNome(),
 				hospede1.getDataNascimento(), hospede1.getCartaoDeCredito());
 		Assert.assertEquals(hospede1.getNome(), hospede2.getNome());
-		Assert.assertEquals(hospede1.getDataNascimento(), hospede2.getDataNascimento());
-		Assert.assertEquals(hospede1.getCartaoDeCredito(), hospede2.getCartaoDeCredito());
+		Assert.assertEquals(hospede1.getDataNascimento(),
+				hospede2.getDataNascimento());
+		Assert.assertEquals(hospede1.getCartaoDeCredito(),
+				hospede2.getCartaoDeCredito());
 		Assert.assertTrue(hospede1.equals(hospede2));
 
 		hospede1.setPais("Brasil");
@@ -655,11 +682,11 @@ public class HospedeTest {
 		hospede1.setNumero("134");
 		hospede1.setCpf("642.513.748-13");
 		Assert.assertFalse(hospede1.equals(hospede2));
-		
+
 		hospede2.setLogradouro(hospede1.getLogradouro());
 		hospede2.setCpf(hospede1.getCpf());
 		Assert.assertFalse(hospede1.equals(hospede2));
-		
+
 		hospede2.setNumero(hospede1.getNumero());
 		Assert.assertTrue(hospede1.equals(hospede2));
 		Assert.assertEquals(hospede1.toString(), hospede2.toString());

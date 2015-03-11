@@ -39,7 +39,6 @@ import excecoes.NumeroInvalidoException;
 import excecoes.SenhaInvalidaException;
 import excecoes.ServicoInvalidoException;
 import excecoes.StringInvalidaException;
-import excecoes.StringVaziaException;
 import excecoes.SuitesPresidenciaisOcupadasException;
 import excecoes.ValorNegativoException;
 
@@ -59,7 +58,7 @@ public class HotelTest {
 	@Before
 	public void criaObjetos() throws NullPointerException, CamaExtraException,
 			DataInvalidaException, ContratoSemQuartoException,
-			NomeInvalidoException, CPFInvalidoException, StringVaziaException,
+			NomeInvalidoException, CPFInvalidoException,
 			CartaoInvalidoException, StringInvalidaException,
 			NumeroInvalidoException, LoginInvalidoException,
 			SenhaInvalidaException, NomeCompletoInvalidoException,

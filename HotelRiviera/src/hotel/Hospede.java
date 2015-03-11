@@ -287,6 +287,7 @@ public class Hospede implements Serializable {
 	 */
 	public void setLogradouro(String novoLogradouro)
 			throws NullPointerException, StringInvalidaException {
+		verificaStringApenasLetras(novoLogradouro);
 		this.logradouro = novoLogradouro;
 	}
 
@@ -376,49 +377,48 @@ public class Hospede implements Serializable {
 	private void verificaData(Calendar dataNascimento)
 			throws DataInvalidaException {
 		verificaParametroNulo(dataNascimento);
-		if (dataNascimento.after(new GregorianCalendar()))
+		if (dataNascimento.after(new GregorianCalendar())) {
 			throw new DataInvalidaException();
+		}
 	}
 
 	private void verificaParametroNulo(Object parametro) {
-		if (parametro == null)
+		if (parametro == null) {
 			throw new NullPointerException();
+		}
 	}
 
 	private void verificaStringApenasLetras(String string)
 			throws NullPointerException, StringInvalidaException {
 		verificaParametroNulo(string);
-		if (string.isEmpty())
+		if (string.trim().isEmpty() || !string.matches("[a-zA-Z\\s]+")) {
 			throw new StringInvalidaException();
-		if (!string.matches("[a-zA-Z\\s]+"))
-			throw new StringInvalidaException();
+		}
 	}
 
 	private void verificaCpf(String cpf) throws NullPointerException,
 			CPFInvalidoException {
 		verificaParametroNulo(cpf);
-
-		if (cpf.isEmpty())
+		if (cpf.trim().isEmpty() 
+				|| !cpf.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}")) {
 			throw new CPFInvalidoException();
-
-		if (!cpf.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}"))
-			throw new CPFInvalidoException();
+		}
 	}
 
 	private void verificaCartao(String cartao) throws NullPointerException,
 			CartaoInvalidoException {
 		verificaParametroNulo(cartao);
-		if (cartao.isEmpty())
+		if (cartao.isEmpty() || !cartao.matches("\\d{4}.\\d{4}.\\d{4}.\\d{4}")) {
 			throw new CartaoInvalidoException();
-		if (!cartao.matches("\\d{4}.\\d{4}.\\d{4}.\\d{4}"))
-			throw new CartaoInvalidoException();
+		}
 	}
 
 	private void verificaNumero(String numero) throws NullPointerException,
 			NumeroInvalidoException {
 		verificaParametroNulo(numero);
-		if (numero.isEmpty())
+		if (numero.trim().isEmpty() || !numero.matches("[0-9]+")) {
 			throw new NumeroInvalidoException();
+		}
 	}
 
 	/**
@@ -428,15 +428,16 @@ public class Hospede implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "HOSPEDE\n"
-				+ "Nome: "
-				+ getNome()
-				+ "\nData de Nascimento: "
-				+ new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento
-						.getTime()) + "\nPais: " + getPais() + "\nEstado: "
-				+ getEstado() + "\nCidade: " + getCidade() + "\nEndereco: "
-				+ getLogradouro() + ", " + getNumero() + "\nCPF: " + getCpf()
-				+ "\nCartao de Credito: " + getCartaoDeCredito();
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "HOSPEDE" + FIM_LINHA
+				+ "Nome: " + getNome() + FIM_LINHA
+				+ "Data de Nascimento: " + new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getTime()) + FIM_LINHA
+				+ "Pais: " + getPais() + FIM_LINHA
+				+ "Estado: " + getEstado() + FIM_LINHA
+				+ "Cidade: " + getCidade() + FIM_LINHA
+				+ "Endereco: " + getLogradouro() + ", " + getNumero() + FIM_LINHA
+				+ "CPF: " + getCpf() + FIM_LINHA
+				+ "Cartao de Credito: " + getCartaoDeCredito();
 	}
 
 	/**

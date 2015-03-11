@@ -28,22 +28,18 @@ import excecoes.NumeroInvalidoException;
 import excecoes.RemocaoInvalidaException;
 import excecoes.ServicoInvalidoException;
 import excecoes.StringInvalidaException;
-import excecoes.StringVaziaException;
 import excecoes.ValorNegativoException;
 
 public class ContratoTest {
 	public static final boolean NAO_TEM_CAMA_EXTRA = false;
 	public static final boolean TEM_CAMA_EXTRA = true;
 
-	private Contrato contrato1;
-	private Contrato contrato2;
+	private Contrato contrato1, contrato2;
 
 	private Hospede hospedeTitular;
 	private Calendar dataNascimento;
 	private List<String> acompanhantes = new ArrayList<String>();
-	private Calendar dataCheckIn;
-	private Calendar dataCheckOut;
-	private Calendar momentoAgr;
+	private Calendar dataCheckIn, dataCheckOut, momentoAgr;
 	private List<Servico> servicos;
 	private Baba baba;
 
@@ -51,19 +47,14 @@ public class ContratoTest {
 	private boolean isTanqueCheio;
 	private boolean isAssegurado;
 
-	private Quarto quarto1;
-	private Quarto quarto2;
-	private Quarto quarto3;
-	private Quarto quarto4;
-	private Quarto quarto5;
+	private Quarto quarto1, quarto2, quarto3, quarto4, quarto5;
 
 	@Before
 	public void criaObjetos() throws NullPointerException,
 			CPFInvalidoException, ContratoSemQuartoException,
-			DataInvalidaException, NomeVazioException, StringVaziaException,
-			CartaoInvalidoException, CamaExtraException,
-			StringInvalidaException, NumeroInvalidoException,
-			NomeInvalidoException {
+			DataInvalidaException, NomeVazioException, CartaoInvalidoException,
+			CamaExtraException, StringInvalidaException,
+			NumeroInvalidoException, NomeInvalidoException {
 		dataNascimento = Calendar.getInstance();
 		hospedeTitular = new Hospede("Ricardo vidaloka", dataNascimento,
 				"0123.4567.8999.9999");
@@ -367,9 +358,8 @@ public class ContratoTest {
 	public void testEquals() throws NullPointerException,
 			ContratoSemQuartoException, DataInvalidaException,
 			CPFInvalidoException, AddQuartoContratoException,
-			StringVaziaException, CartaoInvalidoException,
-			StringInvalidaException, NumeroInvalidoException,
-			NomeInvalidoException {
+			CartaoInvalidoException, StringInvalidaException,
+			NumeroInvalidoException, NomeInvalidoException {
 		dataCheckIn = new GregorianCalendar(2015, Calendar.MAY, 15);
 		dataCheckOut = new GregorianCalendar(2015, Calendar.MAY, 20);
 		contrato1 = new Contrato(hospedeTitular, acompanhantes, dataCheckIn,
