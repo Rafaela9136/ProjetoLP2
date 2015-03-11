@@ -273,7 +273,7 @@ public class Acoes extends JPanel {
 							| ExecutivosTriploOcupadosException
 							| SuitesPresidenciaisOcupadasException e1) {
 						JOptionPane.showMessageDialog(null,
-								"Algo esta errado. Quarto indisponivel!");
+								"Algo está errado. Quarto indisponível!");
 					}
 
 					JOptionPane.showMessageDialog(null,
@@ -282,22 +282,22 @@ public class Acoes extends JPanel {
 					layout.show(panel, "vazio");
 				} catch (NullPointerException e1) {
 					JOptionPane.showMessageDialog(null,
-							"Algo esta errado. Verifique os campos!");
+							"Algo está errado. Verifique os campos!");
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(null,
 							"Todos os campos deve ser preenchidos!");
 				} catch (DataInvalidaException e1) {
 					JOptionPane.showMessageDialog(null,
-							"Algo esta errado. Verifique as datas!");
+							"Algo está errado. Verifique as datas!");
 				} catch (ContratoSemQuartoException e1) {
 					JOptionPane.showMessageDialog(null,
-							"Algo esta errado. Adicione pelo menos um quarto!");
+							"Algo está errado. Adicione pelo menos um quarto!");
 				} catch (NomeInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,
-							"Algo esta errado. Nome invalido!");
+							"Algo está errado. Nome inválido!");
 				} catch (CamaExtraException e2) {
 					JOptionPane.showMessageDialog(null,
-							"Esse quarto nao permite cama extra!");
+							"Esse quarto não permite cama extra!");
 				} catch (CPFInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,
 							"Preencha corretamente o CPF!");
@@ -306,17 +306,17 @@ public class Acoes extends JPanel {
 							"Verifique os dados do hospede!");
 				} catch (NumeroInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,
-							"Verifique o numero da sua residencia!");
+							"Verifique o número da sua residência!");
 				} catch (CartaoInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,
-							"Preencha corretamente o numero do cartao!");
+							"Preencha corretamente o número do cartão!");
 				} finally {
 					try {
 						if (contrato != null)
 							novoContrato();
 					} catch (ParseException e1) {
 						JOptionPane
-								.showMessageDialog(null, "Algo esta errado!");
+								.showMessageDialog(null, "Algo está errado!");
 					}
 				}
 			}

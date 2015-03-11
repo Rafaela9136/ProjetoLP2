@@ -231,7 +231,7 @@ public class Funcionarios extends JPanel {
 		textFieldNome.setColumns(10);
 		
 		JTextPane txtpnTipoDeFuncionario = new JTextPane();
-		txtpnTipoDeFuncionario.setText("Tipo de funcionario:");
+		txtpnTipoDeFuncionario.setText("Tipo de funcionário:");
 		txtpnTipoDeFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTipoDeFuncionario.setEditable(false);
 		txtpnTipoDeFuncionario.setBounds(46, 112, 129, 27);
@@ -280,13 +280,13 @@ public class Funcionarios extends JPanel {
 					
 					Main.getHotel().adicionaConta(conta);
 				} catch (LoginInvalidoException e1) {
-					JOptionPane.showMessageDialog(null,"Login invalido!");
+					JOptionPane.showMessageDialog(null,"Login inválido!");
 				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
+					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
 				} catch (SenhaInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,"Senha invalida!");
+					JOptionPane.showMessageDialog(null,"Senha inválida!");
 				} catch (NomeCompletoInvalidoException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
+					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome inválido!");
 				} catch (LoginExistenteException e1) {
 					JOptionPane.showMessageDialog(null,"Login existente!");
 				} finally {

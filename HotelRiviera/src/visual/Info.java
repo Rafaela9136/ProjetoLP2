@@ -98,14 +98,14 @@ public class Info extends JPanel {
 		
 		JTextPane txtpnEstatisticas = new JTextPane();
 		txtpnEstatisticas.setBounds(47, 24, 166, 24);
-		txtpnEstatisticas.setText("Estatisticas");
+		txtpnEstatisticas.setText("Estatísticas");
 		txtpnEstatisticas.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		txtpnEstatisticas.setEditable(false);
 		estatistica.add(txtpnEstatisticas);
 		
 		JTextPane txtpnSelecioneOTipo = new JTextPane();
 		txtpnSelecioneOTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtpnSelecioneOTipo.setText("Selecione o tipo de visao que deseja ter:");
+		txtpnSelecioneOTipo.setText("Selecione o tipo de visão que deseja ter:");
 		txtpnSelecioneOTipo.setBounds(47, 65, 266, 24);
 		estatistica.add(txtpnSelecioneOTipo);
 		
@@ -117,7 +117,7 @@ public class Info extends JPanel {
 				try {
 					update();
 				} catch (MesInvalidoException e1) {
-					JOptionPane.showMessageDialog(null, "Algo esta errado!");
+					JOptionPane.showMessageDialog(null, "Algo está errado!");
 				}
 				if(comboBox.getSelectedItem().equals("Faturamento")){
 					comboBoxVisao.setEnabled(false);
@@ -269,19 +269,19 @@ public class Info extends JPanel {
 		
 		JTextPane txtpnOpiniesDosClientes = new JTextPane();
 		txtpnOpiniesDosClientes.setBounds(47, 24, 185, 24);
-		txtpnOpiniesDosClientes.setText("Opinioes dos hospedes");
+		txtpnOpiniesDosClientes.setText("Opiniões dos hóspedes");
 		txtpnOpiniesDosClientes.setFont(new Font("Dialog", Font.PLAIN, 15));
 		txtpnOpiniesDosClientes.setEditable(false);
 		panelOpinioes.add(txtpnOpiniesDosClientes);
 		
 		JTextPane txtpnSelecioneOTipo_1 = new JTextPane();
-		txtpnSelecioneOTipo_1.setBounds(47, 72, 266, 24);
-		txtpnSelecioneOTipo_1.setText("Selecione o tipo de visao que deseja ter: ");
+		txtpnSelecioneOTipo_1.setBounds(47, 72, 283, 24);
+		txtpnSelecioneOTipo_1.setText("Selecione o tipo de visão que deseja ter: ");
 		txtpnSelecioneOTipo_1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		panelOpinioes.add(txtpnSelecioneOTipo_1);
 		
 		comboBoxSelecao = new JComboBox<String>();
-		comboBoxSelecao.setBounds(314, 74, 144, 22);
+		comboBoxSelecao.setBounds(335, 74, 144, 22);
 		comboBoxSelecao.setModel(new DefaultComboBoxModel<String>(new String[] {"Mais recentes", "Por notas"}));
 		comboBoxSelecao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -306,7 +306,7 @@ public class Info extends JPanel {
 		JTextPane txtpnAMediaDe = new JTextPane();
 		txtpnAMediaDe.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnAMediaDe.setEditable(false);
-		txtpnAMediaDe.setText("A media de avaliacao atual do hotel e " + Double.toString((Main.getHotel().getMediaOpinioes())));
+		txtpnAMediaDe.setText("A média de avaliação atual do hotel é 0.0");
 		txtpnAMediaDe.setBounds(420, 566, 298, 24);
 		panelOpinioes.add(txtpnAMediaDe);
 	
@@ -340,7 +340,7 @@ public class Info extends JPanel {
 		JTextPane txtpnInformacoesDosServicos = new JTextPane();
 		txtpnInformacoesDosServicos.setEditable(false);
 		txtpnInformacoesDosServicos.setFont(new Font("Dialog", Font.PLAIN, 15));
-		txtpnInformacoesDosServicos.setText("Informacoes dos servicos");
+		txtpnInformacoesDosServicos.setText("Informações dos serviços");
 		txtpnInformacoesDosServicos.setBounds(47, 24, 209, 31);
 		panelServicos.add(txtpnInformacoesDosServicos);
 		
@@ -364,13 +364,13 @@ public class Info extends JPanel {
 		txtpnAluguelDeCarro.setText("Aluguel de carro:");
 		txtpnAluguelDeCarro.setFont(new Font("Dialog", Font.PLAIN, 13));
 		txtpnAluguelDeCarro.setEditable(false);
-		txtpnAluguelDeCarro.setBounds(47, 385, 127, 23);
+		txtpnAluguelDeCarro.setBounds(47, 387, 127, 23);
 		panelServicos.add(txtpnAluguelDeCarro);
 		
 		JTextPane txtpnOValor = new JTextPane();
 		txtpnOValor.setEditable(false);
 		txtpnOValor.setFont(new Font("Dialog", Font.PLAIN, 11));
-		txtpnOValor.setText("* Taxa unica. O valor desse servico e adicionado ao montante total a ser pago uma unica vez.");
+		txtpnOValor.setText("* Taxa única. O valor desse serviço é adicionado ao montante total a ser pago uma única vez.");
 		txtpnOValor.setBounds(47, 533, 682, 23);
 		panelServicos.add(txtpnOValor);
 		

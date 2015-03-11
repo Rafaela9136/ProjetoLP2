@@ -103,7 +103,7 @@ public class Login extends JFrame {
 				frame.setVisible(true);
 				dispose();
 			} catch (Exception e1) {
-				JOptionPane.showMessageDialog(null, "Algo esta errado!");
+				JOptionPane.showMessageDialog(null, "Algo está errado!");
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Login e/ou senha incorreto!");

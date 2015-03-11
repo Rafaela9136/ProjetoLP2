@@ -169,7 +169,7 @@ public class Principal extends JFrame implements WindowListener{
 		});
 		panelInfo.add(btnOpinies);
 		
-		JButton btnEstatisticas = new JButton("Estatisticas");
+		JButton btnEstatisticas = new JButton("Estatísticas");
 		btnEstatisticas.setBounds(12, 178, 204, 49);
 		btnEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,7 +190,7 @@ public class Principal extends JFrame implements WindowListener{
 					try {
 						Main.salvaHotel();
 					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(null,"Algo esta errado!");
+						JOptionPane.showMessageDialog(null,"Algo está errado!");
 					}
 					System.exit(0);
 				}

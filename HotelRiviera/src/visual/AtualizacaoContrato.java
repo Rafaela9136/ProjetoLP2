@@ -87,7 +87,7 @@ public class AtualizacaoContrato extends JPanel {
 		add(toolBar);
 
 		JButton btnEditarDados = new JButton(
-				"  Editar dados do hospede titular ");
+				"  Editar dados do hóspede titular ");
 		btnEditarDados.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnEditarDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +96,7 @@ public class AtualizacaoContrato extends JPanel {
 			}
 		});
 
-		JButton btnInformacoesGerais = new JButton(" Informacoes gerais ");
+		JButton btnInformacoesGerais = new JButton(" Informações gerais ");
 		btnInformacoesGerais.setFont(new Font("Dialog", Font.PLAIN, 14));
 		toolBar.add(btnInformacoesGerais);
 		btnInformacoesGerais.addActionListener(new ActionListener() {
@@ -108,7 +108,7 @@ public class AtualizacaoContrato extends JPanel {
 		toolBar.add(btnEditarDados);
 
 		JButton btnEditarServicos = new JButton(
-				" Adicionar e remover servicos ");
+				" Adicionar e remover serviços ");
 		btnEditarServicos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnEditarServicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,7 +218,7 @@ public class AtualizacaoContrato extends JPanel {
 		});
 		editarServicos.add(btnAtualizarTabela);
 
-		JButton btnCancelarServico = new JButton("Cancelar servico");
+		JButton btnCancelarServico = new JButton("Cancelar serviço");
 		btnCancelarServico.setBounds(598, 288, 135, 25);
 		btnCancelarServico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -235,7 +235,7 @@ public class AtualizacaoContrato extends JPanel {
 
 		JTextPane txtpnAdicionarServicos = new JTextPane();
 		txtpnAdicionarServicos.setEditable(false);
-		txtpnAdicionarServicos.setText("Adicionar servicos");
+		txtpnAdicionarServicos.setText("Adicionar serviços");
 		txtpnAdicionarServicos.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		txtpnAdicionarServicos.setBounds(28, 335, 172, 32);
 		editarServicos.add(txtpnAdicionarServicos);
@@ -347,7 +347,7 @@ public class AtualizacaoContrato extends JPanel {
 	private boolean removeServico(int linha) throws RemocaoInvalidaException {
 		for (int i = 0; i < Acoes.getContratoPesquisado().getServicos().size(); i++) {
 			if (i == linha) {
-				if(JOptionPane.showConfirmDialog(null,"Deseja cancelar esse servico?")==JOptionPane.OK_OPTION){
+				if(JOptionPane.showConfirmDialog(null,"Deseja cancelar esse serviço?")==JOptionPane.OK_OPTION){
 					Acoes.getContratoPesquisado().removeServico(
 							Acoes.getContratoPesquisado().getServicos().get(i));
 				}
@@ -366,14 +366,14 @@ public class AtualizacaoContrato extends JPanel {
 		JTextPane txtpnOpiniaoDoHospede = new JTextPane();
 		txtpnOpiniaoDoHospede.setEditable(false);
 		txtpnOpiniaoDoHospede.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		txtpnOpiniaoDoHospede.setText("Opiniao do hospede");
+		txtpnOpiniaoDoHospede.setText("Opinião do hóspede");
 		txtpnOpiniaoDoHospede.setBounds(28, 24, 172, 32);
 		fecharContrato.add(txtpnOpiniaoDoHospede);
 
 		JTextPane txtpnComentario = new JTextPane();
 		txtpnComentario.setEditable(false);
 		txtpnComentario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtpnComentario.setText("Comentario:");
+		txtpnComentario.setText("Comentário:");
 		txtpnComentario.setBounds(28, 68, 138, 22);
 		fecharContrato.add(txtpnComentario);
 
@@ -385,7 +385,7 @@ public class AtualizacaoContrato extends JPanel {
 
 		JTextPane txtpnAvaliacao = new JTextPane();
 		txtpnAvaliacao.setEditable(false);
-		txtpnAvaliacao.setText("Avaliacao:");
+		txtpnAvaliacao.setText("Avaliação:");
 		txtpnAvaliacao.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnAvaliacao.setBounds(526, 254, 81, 22);
 		fecharContrato.add(txtpnAvaliacao);
@@ -413,26 +413,26 @@ public class AtualizacaoContrato extends JPanel {
 					Conector.trasformaNota((String) comboBoxNota
 							.getSelectedItem()), textArea.getText());
 		} catch (ComentarioVazioException | NullPointerException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campor!");
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campo!");
 		} catch (NotaInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique a nota!");
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique a nota!");
 		} catch (EstouroDeCaracteresException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Ocorreu estouro de caracteres!");
+			JOptionPane.showMessageDialog(null,"Algo está errado. Ocorreu estouro de carácteres!");
 		}
 
 		try {
 			Acoes.getContratoPesquisado().setIsAberto(false);
 		} catch (ContratoFechadoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado!");
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		} catch (ContratoSemOpiniaoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Tente novamente!");
+			JOptionPane.showMessageDialog(null,"Algo está errado. Tente novamente!");
 		}
 		
 		if(JOptionPane.showConfirmDialog(null,"Deseja fechar este contrato?")==JOptionPane.OK_OPTION)
 			try {
 				Main.getHotel().removeContrato(Acoes.getContratoPesquisado());
 			} catch (ContratoSemOpiniaoException e) {
-				JOptionPane.showMessageDialog(null,"Para remover um contrato voce precisa adicionar uma opiniao.");
+				JOptionPane.showMessageDialog(null,"Para remover um contrato você precisa adicionar uma opinião.");
 			} catch (ContratoFechadoException e) {
 				JOptionPane.showMessageDialog(null,"Verifique o metodo removeContrato");
 			}
@@ -690,7 +690,7 @@ public class AtualizacaoContrato extends JPanel {
 			Acoes.getContratoPesquisado().adicionaAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
 					.getText().split(",")));
 		} catch (NomeInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os nomes!");
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
 		};
 	}
 

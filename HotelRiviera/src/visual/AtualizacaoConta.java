@@ -58,7 +58,7 @@ public class AtualizacaoConta extends JPanel {
 		toolBar.setBounds(0, 0, 764, 32);
 		add(toolBar);
 		
-		JButton btnInformacoesGerais = new JButton(" Informacoes gerais ");
+		JButton btnInformacoesGerais = new JButton(" Informações gerais ");
 		btnInformacoesGerais.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		btnInformacoesGerais.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +108,7 @@ public class AtualizacaoConta extends JPanel {
 		textFieldNome.setColumns(10);
 		
 		JTextPane txtpnTipoDeFuncionario = new JTextPane();
-		txtpnTipoDeFuncionario.setText("Tipo de funcionario:");
+		txtpnTipoDeFuncionario.setText("Tipo de funcionário:");
 		txtpnTipoDeFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTipoDeFuncionario.setEditable(false);
 		txtpnTipoDeFuncionario.setBounds(46, 85, 123, 24);
@@ -164,12 +164,12 @@ public class AtualizacaoConta extends JPanel {
 					try {
 						Main.getHotel().removeConta(textFieldLogin.getText());
 					} catch (NullPointerException e1) {
-						JOptionPane.showMessageDialog(null,"Algo esta errado!");
+						JOptionPane.showMessageDialog(null,"Algo está errado!");
 					} catch (ListaVaziaException e1) {
-						JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as contas existentes!");
+						JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as contas existentes!");
 					}
 					
-					JOptionPane.showMessageDialog(null,"Conta excluida com sucesso!");
+					JOptionPane.showMessageDialog(null,"Conta excluída com sucesso!");
 					Funcionarios.selecionaTela("pesquisa");
 				}
 			}
@@ -188,17 +188,17 @@ public class AtualizacaoConta extends JPanel {
 		try {
 			Funcionarios.getContaPesquisada().setNomeCompleto(textFieldNome.getText());
 		} catch (NomeCompletoInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
+			JOptionPane.showMessageDialog(null,"Nome inválido!");
 		}
 		try {
 			Funcionarios.getContaPesquisada().setLogin(textFieldLogin.getText());
 		} catch (LoginInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Login invalido!");
+			JOptionPane.showMessageDialog(null,"Login inválido!");
 		}
 		try {
 			Funcionarios.getContaPesquisada().setSenha(String.valueOf(passwordField.getPassword()));
 		} catch (SenhaInvalidaException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Senha invalida!");
+			JOptionPane.showMessageDialog(null,"Senha inválida!");
 		}
 		Funcionarios.getContaPesquisada().setTipo(Conector.selecionaTipoFuncionario(comboBoxFuncionario.getSelectedItem()));
 	}
