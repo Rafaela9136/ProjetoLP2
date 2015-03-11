@@ -171,9 +171,10 @@ public class Hotel implements Serializable {
 	public List<Opiniao> getOpinioes() {
 		return opinioes;
 	}// getOpinioes
-	
+
 	/**
 	 * Calcula a media das notas da opinioes.
+	 * 
 	 * @return A media das opinioes.
 	 */
 	public double getMediaOpinioes() {
@@ -181,7 +182,7 @@ public class Hotel implements Serializable {
 		for (Opiniao opiniao : opinioes)
 			media += opiniao.getNota();
 
-		return  opinioes.isEmpty() ? 0 : media / opinioes.size();
+		return opinioes.isEmpty() ? 0 : media / opinioes.size();
 	}// getMediaOpinioes
 
 	/**
@@ -477,7 +478,7 @@ public class Hotel implements Serializable {
 
 		return estatisticas;
 	}// getEstatisticaGeralOutrosServicos
-
+	//kk
 	public double[] getFaturamento(int ano) throws AnoInvalidoException {
 		Calendar dataAtual = Calendar.getInstance();
 		if (ano > dataAtual.get(Calendar.YEAR))
@@ -485,7 +486,8 @@ public class Hotel implements Serializable {
 		double[] faturamentoMensal = new double[12];
 		for (int i = 0; i < faturamentoMensal.length; i++) {
 			for (Contrato contrato : contratosRemovidos) {
-				if (contrato.getDataCheckOut().get(Calendar.MONTH) == i)
+				if (contrato.getDataCheckOut().get(Calendar.MONTH) == i
+						&& contrato.getDataCheckOut().get(Calendar.YEAR) == ano)
 					faturamentoMensal[i] += contrato
 							.calculaValorTotalServicosComEstrategia();
 			}// for

@@ -181,7 +181,7 @@ public class Carro implements Servico, Serializable {
 		long tempoFinal = getDataCheckOut().getTimeInMillis();
 		numDeDias = (int) Math
 				.round(((tempoFinal - tempoInicial) / MILISSEGUNDOS_EM_UM_DIA));
-		return numDeDias;
+		return numDeDias != 0 ? numDeDias : 1;
 	}
 
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
