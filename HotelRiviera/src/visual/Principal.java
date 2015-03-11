@@ -80,14 +80,14 @@ public class Principal extends JFrame implements WindowListener{
 	private void funcionarios(JTabbedPane tabbedPane) {
 		JPanel panelFuncionarios = new JPanel();
 		panelFuncionarios.setBorder(new LineBorder(new Color(51, 0, 0), 2));
-		tabbedPane.addTab("Funcionarios", null, panelFuncionarios, null);
+		tabbedPane.addTab("Funcionários", null, panelFuncionarios, null);
 		panelFuncionarios.setLayout(null);
 		
 		Funcionarios panel = new Funcionarios();
 		panel.setBounds(228, 12, 764, 612);
 		panelFuncionarios.add(panel);
 		
-		JButton btnCadastroFunc = new JButton("Cadastrar funcionario");
+		JButton btnCadastroFunc = new JButton("Cadastrar funcionário");
 		btnCadastroFunc.setBounds(12, 37, 204, 49);
 		btnCadastroFunc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +96,7 @@ public class Principal extends JFrame implements WindowListener{
 		});
 		panelFuncionarios.add(btnCadastroFunc);
 		
-		JButton btnPesquisarFuncionario = new JButton("Pesquisar funcionario");
+		JButton btnPesquisarFuncionario = new JButton("Pesquisar funcionário");
 		btnPesquisarFuncionario.setBounds(12, 109, 204, 49);
 		btnPesquisarFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,6 +165,7 @@ public class Principal extends JFrame implements WindowListener{
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("opinioes");
 				Info.opinioesRecentes();
+				Info.setMediaOpinioes();
 			}
 		});
 		panelInfo.add(btnOpinies);
