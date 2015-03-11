@@ -125,8 +125,8 @@ public class Hotel implements Serializable {
 
 	/**
 	 * Remove um contrato da lista de contratos do hotel e o adiciona na lista
-	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do
-	 * contrato a lista de opinioes do hotel.
+	 * de contratos removidos. Tamb�m adiciona a opiniao do cliente do contrato
+	 * a lista de opinioes do hotel.
 	 * 
 	 * @param contrato
 	 *            O contrato a ser removido da lista.
@@ -146,7 +146,7 @@ public class Hotel implements Serializable {
 			}// if
 			atualizaContratosNaoReservas();
 			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
-		}
+		}// if
 		return removido;
 	}// removeContrato
 
@@ -170,7 +170,19 @@ public class Hotel implements Serializable {
 	 */
 	public List<Opiniao> getOpinioes() {
 		return opinioes;
-	}
+	}// getOpinioes
+	
+	/**
+	 * Calcula a media das notas da opinioes.
+	 * @return A media das opinioes.
+	 */
+	public double getMediaOpinioes() {
+		double media = 0;
+		for (Opiniao opiniao : opinioes)
+			media += opiniao.getNota();
+
+		return  opinioes.isEmpty() ? 0 : media / opinioes.size();
+	}// getMediaOpinioes
 
 	/**
 	 * Adiciona uma Opiniao a lista de opinioes do Hotel.
@@ -465,16 +477,17 @@ public class Hotel implements Serializable {
 
 		return estatisticas;
 	}// getEstatisticaGeralOutrosServicos
-	
+
 	public double[] getFaturamento(int ano) throws AnoInvalidoException {
 		Calendar dataAtual = Calendar.getInstance();
-		if(ano > dataAtual.get(Calendar.YEAR))
+		if (ano > dataAtual.get(Calendar.YEAR))
 			throw new AnoInvalidoException();
 		double[] faturamentoMensal = new double[12];
 		for (int i = 0; i < faturamentoMensal.length; i++) {
 			for (Contrato contrato : contratosRemovidos) {
-				if(contrato.getDataCheckOut().get(Calendar.MONTH) == i)
-					faturamentoMensal[i] += contrato.calculaValorTotalServicosComEstrategia();
+				if (contrato.getDataCheckOut().get(Calendar.MONTH) == i)
+					faturamentoMensal[i] += contrato
+							.calculaValorTotalServicosComEstrategia();
 			}// for
 		}// for
 		return faturamentoMensal;
