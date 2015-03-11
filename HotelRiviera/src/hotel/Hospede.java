@@ -422,11 +422,9 @@ public class Hospede implements Serializable {
 	}
 
 	private void verificaNumero(String numero) throws NullPointerException,
-			NumeroInvalidoException, StringVaziaException {
+			StringVaziaException {
 		verificaParametroNulo(numero);
 		verificaStringVazia(numero);
-		if (!numero.matches("[0-9]+"))
-			throw new NumeroInvalidoException();
 	}
 
 	/**
@@ -436,13 +434,15 @@ public class Hospede implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "HOSPEDE\n" 
-				+ "Nome: " + getNome() 
-				+ "\nData de Nascimento: " + new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getTime())
-				+ "\nPais: "+ getPais() + "\nEstado: " + getEstado() + "\nCidade: "
-				+ getCidade() + "\nEndereco: " + getLogradouro() + ", "
-				+ getNumero() + "\nCPF: " + getCpf() + "\nCartao de Credito: "
-				+ getCartaoDeCredito();
+		return "HOSPEDE\n"
+				+ "Nome: "
+				+ getNome()
+				+ "\nData de Nascimento: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento
+						.getTime()) + "\nPais: " + getPais() + "\nEstado: "
+				+ getEstado() + "\nCidade: " + getCidade() + "\nEndereco: "
+				+ getLogradouro() + ", " + getNumero() + "\nCPF: " + getCpf()
+				+ "\nCartao de Credito: " + getCartaoDeCredito();
 	}
 
 	/**

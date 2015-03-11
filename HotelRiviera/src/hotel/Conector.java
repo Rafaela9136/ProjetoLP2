@@ -11,7 +11,6 @@ public class Conector implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1416930223875857500L;
-	private static List<String> lista = new ArrayList<String>();
 
 	public static TiposDeQuarto selecionaTipoQuarto(Object estilo) {
 		if (estilo.equals("Simples"))
@@ -52,7 +51,7 @@ public class Conector implements Serializable {
 		return null;
 	}
 
-	public static Calendar transformaData(String data) {
+	public static Calendar transformaData(String data) throws NumberFormatException {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
 		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
@@ -65,7 +64,7 @@ public class Conector implements Serializable {
 		return novaData;
 	}
 
-	public static Calendar transformaDataHora(String data, String hora) {
+	public static Calendar transformaDataHora(String data, String hora) throws NumberFormatException {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
 		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
@@ -75,11 +74,12 @@ public class Conector implements Serializable {
 		return c;
 	}
 
-	public static float transformaFloat(String num) {
+	public static float transformaFloat(String num) throws NumberFormatException {
 		return Float.parseFloat(num);
 	}
 
 	public static List<String> transformaVetor(String[] args) {
+		List<String> lista = new ArrayList<String>();
 		for (int i = 0; i < args.length; i++) {
 			lista.add(args[i]);
 		}

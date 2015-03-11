@@ -61,7 +61,7 @@ public class Acoes extends JPanel {
 	private JTable tabela;
 
 	// Variaveis para criacao do contrato
-//	private List<String> acompanhantes = new ArrayList<String>();
+	// private List<String> acompanhantes = new ArrayList<String>();
 	private Quarto quarto;
 	private Hospede hospede;
 	private String[] colunas;
@@ -209,43 +209,62 @@ public class Acoes extends JPanel {
 
 		if (comboBoxQuarto.getSelectedItem().equals("Presidencial")) {
 			try {
-				quarto = new SuitePresidencial(Conector.transformaData(formattedTextFieldCheckIn.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut.getText()));
+				quarto = new SuitePresidencial(
+						Conector.transformaData(formattedTextFieldCheckIn
+								.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut
+								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
-			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique os campos!");
+			} catch (DataInvalidaException | NumberFormatException e) {
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique as datas!");
 			}
-		}
+		}// if
 		if (comboBoxQuarto.getSelectedItem().equals("Executivo")) {
 			try {
 				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
-						Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()),
-						Conector.transformaData(formattedTextFieldCheckIn.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut.getText()));
+						Conector.selecionaTipoQuarto(comboBoxQuartoT
+								.getSelectedItem()),
+						Conector.transformaData(formattedTextFieldCheckIn
+								.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut
+								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Nao e possivel adicionar mais camas!");
-			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+				JOptionPane
+						.showMessageDialog(null,
+								"Algo esta errado. Nao e possivel adicionar mais camas!");
+			} catch (DataInvalidaException | NumberFormatException e) {
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique as datas!");
 			}
-		}
+		}// if
 		if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
 			try {
 				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
-						Conector.selecionaTipoQuarto(comboBoxQuartoT.getSelectedItem()),
-						Conector.transformaData(formattedTextFieldCheckIn.getText()),
-						Conector.transformaData(formattedTextFieldCheckOut.getText()));
+						Conector.selecionaTipoQuarto(comboBoxQuartoT
+								.getSelectedItem()),
+						Conector.transformaData(formattedTextFieldCheckIn
+								.getText()),
+						Conector.transformaData(formattedTextFieldCheckOut
+								.getText()));
 				servicos.add(quarto);
 			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique os campos!");
 			} catch (CamaExtraException e1) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Nao e possivel adicionar mais camas!");
+				JOptionPane
+						.showMessageDialog(null,
+								"Algo esta errado. Nao e possivel adicionar mais camas!");
 			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+				JOptionPane.showMessageDialog(null,
+						"Algo esta errado. Verifique as datas!");
 			}
 		}
 	}
@@ -265,13 +284,15 @@ public class Acoes extends JPanel {
 
 				try {
 					List<String> acompanhantes = new ArrayList<String>();
-					acompanhantes.addAll(Conector.transformaVetor(textAreaAcompanhantes.getText().split(",")));
-					for (String acompanhante : acompanhantes) {
-						System.out.println(acompanhante);
-					}
+					acompanhantes.addAll(Conector
+							.transformaVetor(textAreaAcompanhantes.getText()
+									.split(",")));
+
 					contrato = new Contrato(hospede, acompanhantes,
-							Conector.transformaData(formattedTextFieldCheckIn.getText()),
-							Conector.transformaData(formattedTextFieldCheckOut.getText()), servicos);
+							Conector.transformaData(formattedTextFieldCheckIn
+									.getText()), Conector
+									.transformaData(formattedTextFieldCheckOut
+											.getText()), servicos);
 
 					try {
 						Main.getHotel().adicionaContrato(contrato);
@@ -282,26 +303,33 @@ public class Acoes extends JPanel {
 							| ExecutivosSimplesOcupadosException
 							| ExecutivosTriploOcupadosException
 							| SuitesPresidenciaisOcupadasException e1) {
-						JOptionPane.showMessageDialog(null,"Algo esta errado. Quarto indisponivel!");
+						JOptionPane.showMessageDialog(null,
+								"Algo esta errado. Quarto indisponivel!");
 					}
 
-					JOptionPane.showMessageDialog(null,"Contrato criado com sucesso!");
+					JOptionPane.showMessageDialog(null,
+							"Contrato criado com sucesso!");
 
 					layout.show(panel, "vazio");
 				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Verifique os campos!");
 				} catch (DataInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Verifique as datas!");
 				} catch (ContratoSemQuartoException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Adicione pelo menos um quarto!");
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Adicione pelo menos um quarto!");
 				} catch (NomeInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome invalido!");
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Nome invalido!");
 				} finally {
 					try {
-						if(contrato != null)
+						if (contrato != null)
 							novoContrato();
 					} catch (ParseException e1) {
-						JOptionPane.showMessageDialog(null,"Algo esta errado!");
+						JOptionPane
+								.showMessageDialog(null, "Algo esta errado!");
 					}
 				}
 			}
@@ -313,10 +341,11 @@ public class Acoes extends JPanel {
 		try {
 			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
 				hospede = new Hospede(textFieldNome.getText(),
-						Conector.transformaData(formattedTextFieldData.getText()),
+						Conector.transformaData(formattedTextFieldData
+								.getText()),
 						(String) comboBoxPaises.getSelectedItem(),
-						Conector.selecionaEstado((String) comboBoxEstados.getSelectedItem()), 
-						textFieldCidade.getText(),
+						Conector.selecionaEstado((String) comboBoxEstados
+								.getSelectedItem()), textFieldCidade.getText(),
 						textFieldLogradouro.getText(),
 						textFieldNumero.getText(),
 						formattedTextFieldCPF.getText(),
@@ -325,19 +354,29 @@ public class Acoes extends JPanel {
 				hospede = new Hospede(textFieldNome.getText(),
 						Conector.transformaData(formattedTextFieldData
 								.getText()), formattedTextFieldCartao.getText());
+
 			}
 		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique os campos!");
+		} catch (NumberFormatException e1) {
+			JOptionPane.showMessageDialog(null,
+					"Todos os campos abertos devem ser preenchidos.");
 		} catch (CPFInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique o numero do CPF!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique o numero do CPF!");
 		} catch (DataInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique as datas!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique as datas!");
 		} catch (CartaoInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique o numero do cartao!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique o numero do cartao!");
 		} catch (StringVaziaException | StringInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os nomes!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique os nomes!");
 		} catch (NumeroInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique seu numero!");
+			JOptionPane.showMessageDialog(null,
+					"Algo esta errado. Verifique seu numero!");
 		}
 	}// **
 
@@ -614,7 +653,8 @@ public class Acoes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				contratosListados = "atualiza";
 				atualizaTabela();
-		}});
+			}
+		});
 		panelPesquisarContrato.add(btnAtualizarTabela);
 
 		JButton btnPesquisarContrato = new JButton("Pesquisar");
@@ -635,16 +675,17 @@ public class Acoes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
 				List<Contrato> contratos = new ArrayList<Contrato>();
-				if(contratosListados.equals("atualiza"))
+				if (contratosListados.equals("atualiza"))
 					contratos = Main.getHotel().getContratos();
-				if(contratosListados.equals("pesquisa"))
-					contratos = Main.getHotel().pesquisaContrato(textFieldPesquisa.getText());
+				if (contratosListados.equals("pesquisa"))
+					contratos = Main.getHotel().pesquisaContrato(
+							textFieldPesquisa.getText());
 
 				if (selecionaContrato(linha, contratos)) {
 					layout.show(panel, "atualizaContrato");
 					AtualizacaoContrato.setaInfoGerais();
 				}
-				
+
 			}
 		});
 		panelPesquisarContrato.add(btnAtualizarContrato);
@@ -678,21 +719,26 @@ public class Acoes extends JPanel {
 		panelPesquisarContrato.add(scroll);
 	}
 
-	private void pesquisaTabela(){
-		String[][] dados = new String[Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).size()][2];
+	private void pesquisaTabela() {
+		String[][] dados = new String[Main.getHotel()
+				.pesquisaContrato(textFieldPesquisa.getText()).size()][2];
 		int cont = 0;
-		for (int i = 0; i < Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).size(); i++) {
-				dados[cont][0] = Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i)
-						.getHospedeTitular().getNome();
-				if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i).getIsAberto())
-					dados[cont][1] = "Aberto";
-				if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText()).get(i).getIsReserva())
-					dados[cont][1] = "Reserva";
-				cont++;
+		for (int i = 0; i < Main.getHotel()
+				.pesquisaContrato(textFieldPesquisa.getText()).size(); i++) {
+			dados[cont][0] = Main.getHotel()
+					.pesquisaContrato(textFieldPesquisa.getText()).get(i)
+					.getHospedeTitular().getNome();
+			if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText())
+					.get(i).getIsAberto())
+				dados[cont][1] = "Aberto";
+			if (Main.getHotel().pesquisaContrato(textFieldPesquisa.getText())
+					.get(i).getIsReserva())
+				dados[cont][1] = "Reserva";
+			cont++;
 		}// for
 
 		if (cont == 0) {
-			JOptionPane.showMessageDialog(null,"Contrato nao encontrado!");
+			JOptionPane.showMessageDialog(null, "Contrato nao encontrado!");
 		}
 
 		model = new DefaultTableModel(dados, colunas);
@@ -702,8 +748,8 @@ public class Acoes extends JPanel {
 	private void atualizaTabela() {
 		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
 		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
-			dados[i][0] = Main.getHotel().getContratos().get(i).getHospedeTitular()
-					.getNome();
+			dados[i][0] = Main.getHotel().getContratos().get(i)
+					.getHospedeTitular().getNome();
 			if (Main.getHotel().getContratos().get(i).getIsAberto())
 				dados[i][1] = "Aberto";
 			if (Main.getHotel().getContratos().get(i).getIsReserva())
