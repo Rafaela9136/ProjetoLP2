@@ -205,26 +205,18 @@ public class Acoes extends JPanel {
 		panelNovoContrato.add(formattedTextFieldCheckOut);
 	}
 
-	private void criaQuarto(List<Servico> servicos) {
+	private void criaQuarto(List<Servico> servicos) throws NumberFormatException, NullPointerException,
+	DataInvalidaException, CamaExtraException {
 
 		if (comboBoxQuarto.getSelectedItem().equals("Presidencial")) {
-			try {
 				quarto = new SuitePresidencial(
 						Conector.transformaData(formattedTextFieldCheckIn
 								.getText()),
 						Conector.transformaData(formattedTextFieldCheckOut
 								.getText()));
 				servicos.add(quarto);
-			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique os campos!");
-			} catch (DataInvalidaException | NumberFormatException e) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique as datas!");
-			}
 		}// if
 		if (comboBoxQuarto.getSelectedItem().equals("Executivo")) {
-			try {
 				quarto = new QuartoExecutivo(rdbtnCamaExtra.isSelected(),
 						Conector.selecionaTipoQuarto(comboBoxQuartoT
 								.getSelectedItem()),
@@ -233,20 +225,8 @@ public class Acoes extends JPanel {
 						Conector.transformaData(formattedTextFieldCheckOut
 								.getText()));
 				servicos.add(quarto);
-			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique os campos!");
-			} catch (CamaExtraException e1) {
-				JOptionPane
-						.showMessageDialog(null,
-								"Algo esta errado. Nao e possivel adicionar mais camas!");
-			} catch (DataInvalidaException | NumberFormatException e) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique as datas!");
-			}
 		}// if
 		if (comboBoxQuarto.getSelectedItem().equals("Luxo")) {
-			try {
 				quarto = new QuartoLuxo(rdbtnCamaExtra.isSelected(),
 						Conector.selecionaTipoQuarto(comboBoxQuartoT
 								.getSelectedItem()),
@@ -255,17 +235,6 @@ public class Acoes extends JPanel {
 						Conector.transformaData(formattedTextFieldCheckOut
 								.getText()));
 				servicos.add(quarto);
-			} catch (NullPointerException e1) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique os campos!");
-			} catch (CamaExtraException e1) {
-				JOptionPane
-						.showMessageDialog(null,
-								"Algo esta errado. Nao e possivel adicionar mais camas!");
-			} catch (DataInvalidaException e) {
-				JOptionPane.showMessageDialog(null,
-						"Algo esta errado. Verifique as datas!");
-			}
 		}
 	}
 
@@ -279,10 +248,10 @@ public class Acoes extends JPanel {
 				List<Servico> servicos = new ArrayList<Servico>();
 				Contrato contrato = null;
 
-				criaQuarto(servicos);
-				criaHospede();
-
 				try {
+					criaQuarto(servicos);
+					criaHospede();
+					
 					List<String> acompanhantes = new ArrayList<String>();
 					acompanhantes.addAll(Conector
 							.transformaVetor(textAreaAcompanhantes.getText()
@@ -314,6 +283,9 @@ public class Acoes extends JPanel {
 				} catch (NullPointerException e1) {
 					JOptionPane.showMessageDialog(null,
 							"Algo esta errado. Verifique os campos!");
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Todos os campos deve ser preenchidos!");
 				} catch (DataInvalidaException e1) {
 					JOptionPane.showMessageDialog(null,
 							"Algo esta errado. Verifique as datas!");
@@ -323,6 +295,21 @@ public class Acoes extends JPanel {
 				} catch (NomeInvalidoException e2) {
 					JOptionPane.showMessageDialog(null,
 							"Algo esta errado. Nome invalido!");
+				} catch (CamaExtraException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Esse quarto nao permite cama extra!");
+				} catch (CPFInvalidoException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Preencha corretamente o CPF!");
+				} catch (StringInvalidaException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Verifique os dados do hospede!");
+				} catch (NumeroInvalidoException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Verifique o numero da sua residencia!");
+				} catch (CartaoInvalidoException e2) {
+					JOptionPane.showMessageDialog(null,
+							"Preencha corretamente o numero do cartao!");
 				} finally {
 					try {
 						if (contrato != null)
@@ -337,46 +324,21 @@ public class Acoes extends JPanel {
 		panelNovoContrato.add(btnConfirmar);
 	}
 
-	private void criaHospede() {
-		try {
-			if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
-				hospede = new Hospede(textFieldNome.getText(),
-						Conector.transformaData(formattedTextFieldData
-								.getText()),
-						(String) comboBoxPaises.getSelectedItem(),
-						Conector.selecionaEstado((String) comboBoxEstados
-								.getSelectedItem()), textFieldCidade.getText(),
-						textFieldLogradouro.getText(),
-						textFieldNumero.getText(),
-						formattedTextFieldCPF.getText(),
-						formattedTextFieldCartao.getText());
-			} else {
-				hospede = new Hospede(textFieldNome.getText(),
-						Conector.transformaData(formattedTextFieldData
-								.getText()), formattedTextFieldCartao.getText());
+	private void criaHospede() throws NumberFormatException, NullPointerException, CPFInvalidoException, DataInvalidaException, CartaoInvalidoException, StringInvalidaException, NumeroInvalidoException {
+		if (comboBoxPaises.getSelectedItem().equals("Brasil")) {
+			hospede = new Hospede(textFieldNome.getText(),
+					Conector.transformaData(formattedTextFieldData.getText()),
+					(String) comboBoxPaises.getSelectedItem(),
+					Conector.selecionaEstado((String) comboBoxEstados
+							.getSelectedItem()), textFieldCidade.getText(),
+					textFieldLogradouro.getText(), textFieldNumero.getText(),
+					formattedTextFieldCPF.getText(),
+					formattedTextFieldCartao.getText());
+		} else {
+			hospede = new Hospede(textFieldNome.getText(),
+					Conector.transformaData(formattedTextFieldData.getText()),
+					formattedTextFieldCartao.getText());
 
-			}
-		} catch (NullPointerException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique os campos!");
-		} catch (NumberFormatException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Todos os campos abertos devem ser preenchidos.");
-		} catch (CPFInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique o numero do CPF!");
-		} catch (DataInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique as datas!");
-		} catch (CartaoInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique o numero do cartao!");
-		} catch (StringVaziaException | StringInvalidaException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique os nomes!");
-		} catch (NumeroInvalidoException e1) {
-			JOptionPane.showMessageDialog(null,
-					"Algo esta errado. Verifique seu numero!");
 		}
 	}// **
 

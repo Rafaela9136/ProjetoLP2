@@ -158,7 +158,7 @@ public class AtualizacaoContrato extends JPanel {
 
 				} catch (NullPointerException e1) {
 					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
-				} catch (StringVaziaException | StringInvalidaException e1) {
+				} catch (StringInvalidaException e1) {
 					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
 				} catch (NumeroInvalidoException e1) {
 					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o número!");
@@ -662,8 +662,7 @@ public class AtualizacaoContrato extends JPanel {
 				.getHospedeTitular().getEstado());
 	}
 
-	private void atualizaDados() throws NullPointerException,
-			StringVaziaException, StringInvalidaException,
+	private void atualizaDados() throws NullPointerException, StringInvalidaException,
 			NumeroInvalidoException, CPFInvalidoException,
 			CartaoInvalidoException {
 		Acoes.getContratoPesquisado().getHospedeTitular()

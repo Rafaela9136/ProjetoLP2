@@ -122,6 +122,9 @@ public class Info extends JPanel {
 				if(comboBox.getSelectedItem().equals("Faturamento")){
 					comboBoxVisao.setEnabled(false);
 					comboBoxMes.setEnabled(false);
+				} else {
+					comboBoxVisao.setEnabled(true);
+					comboBoxMes.setEnabled(true);
 				}
 			}
 		});
@@ -301,7 +304,8 @@ public class Info extends JPanel {
 		panelOpinioes.add(scrollPane);
 		
 		JTextPane txtpnAMediaDe = new JTextPane();
-		txtpnAMediaDe.setText("A media de avaliacao atual do hotel e" + "aqui vai o metodo q pega as medias das notas");
+		txtpnAMediaDe.setEditable(false);
+		txtpnAMediaDe.setText("A media de avaliacao atual do hotel e " + Double.toString((Main.getHotel().getMediaOpinioes())));
 		txtpnAMediaDe.setBounds(153, 550, 565, 34);
 		panelOpinioes.add(txtpnAMediaDe);
 	
