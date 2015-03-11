@@ -91,14 +91,17 @@ public class Conta implements Serializable {
 		if (!nomeCompleto.contains(" "))
 			throw new NomeCompletoInvalidoException();
 	}// verificaNomeCompletoValido
-	
+
 	@Override
 	public String toString() {
-		return "\nConta" + "\nNome Completo: " + getNomeCompleto()
-				+ "\nTipo do Funcionario: " + getTipo().getNome() + "\nLogin: "
-				+ getLogin() + "\nSenha: " + getSenha();
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "Conta" + FIM_LINHA
+				+ "Nome Completo: " + getNomeCompleto() + FIM_LINHA
+				+ "Tipo do Funcionario: " + getTipo().getNome() + FIM_LINHA
+				+ "Login: " + getLogin() + FIM_LINHA
+				+ "Senha: " + getSenha();
 	}// toString
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
