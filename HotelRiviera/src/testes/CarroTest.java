@@ -299,7 +299,7 @@ public class CarroTest {
 			DataInvalidaException {
 		final String FIM_LINHA = System.getProperty("line.separator");
 		Assert.assertEquals(carro1.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro1.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro1.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]"
 				+ FIM_LINHA + "Preco Total: R$ " + carro1.getPreco()
 				+ FIM_LINHA + "Duracao: " + carro1.getNumeroDeDias() + " dias"
@@ -308,7 +308,7 @@ public class CarroTest {
 		carro1.setDataCheckIn(new GregorianCalendar(proxAno, Calendar.JUNE, 17,
 				20, 16));
 		Assert.assertEquals(carro1.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro1.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro1.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]"
 				+ FIM_LINHA + "Preco Total: R$ " + carro1.getPreco()
 				+ FIM_LINHA + "Duracao: " + carro1.getNumeroDeDias() + " dias"
@@ -317,7 +317,7 @@ public class CarroTest {
 		carro1.setDataCheckOut(new GregorianCalendar(proxAno, Calendar.JULY,
 				15, 14, 53));
 		Assert.assertEquals(carro1.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro1.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro1.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Tanque cheio = R$150.0, Seguro = R$100.0]"
 				+ FIM_LINHA + "Preco Total: R$ " + carro1.getPreco()
 				+ FIM_LINHA + "Duracao: " + carro1.getNumeroDeDias() + " dias"
@@ -325,7 +325,7 @@ public class CarroTest {
 				+ "Data Termino: 15/07/2016 as 14:53");
 
 		Assert.assertEquals(carro3.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro3.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro3.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Seguro = R$100.0]" + FIM_LINHA
 				+ "Preco Total: R$ " + carro3.getPreco() + FIM_LINHA
 				+ "Duracao: " + carro3.getNumeroDeDias() + " dias" + FIM_LINHA
@@ -336,14 +336,14 @@ public class CarroTest {
 		carro3.setDataCheckIn(new GregorianCalendar(proxAno, Calendar.JULY, 3,
 				10, 10));
 		Assert.assertEquals(carro3.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro3.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro3.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Seguro = R$100.0]" + FIM_LINHA
 				+ "Preco Total: R$ " + carro3.getPreco() + FIM_LINHA
 				+ "Duracao: " + carro3.getNumeroDeDias() + " dias" + FIM_LINHA
 				+ "Data Inicio: 03/07/2016 as 10:10" + FIM_LINHA
 				+ "Data Termino: 29/07/2016 as 09:30");
 		Assert.assertEquals(carro2.toString(), "SERVICO CARRO" + FIM_LINHA
-				+ "Tipo: " + carro2.getTipoDeCarro().getTipoNome() + FIM_LINHA
+				+ "Tipo: " + carro2.getTipoDeCarro().getNome() + FIM_LINHA
 				+ "Adicionais: [Tanque cheio = R$150.0]" + FIM_LINHA
 				+ "Preco Total: R$ " + carro2.getPreco() + FIM_LINHA
 				+ "Duracao: " + carro2.getNumeroDeDias() + " dias" + FIM_LINHA

@@ -574,6 +574,14 @@ public class Contrato implements Serializable {
 		}// for
 		return acompanhantesFormatados;
 	}// toStringAcompanhantes
+	
+	private String toStringServicos() {
+		String servicosFormatados = "";
+		for (Servico servico : servicos) 
+			servicosFormatados += "\n" + servico;
+		
+		return servicosFormatados;
+	}// toStringServicos
 
 	@Override
 	public String toString() {
@@ -583,7 +591,7 @@ public class Contrato implements Serializable {
 				+ "\n\nAcompanhantes: "
 				+ toStringAcompanhantes()
 				+ "\n\nServicos: \n"
-				+ servicos
+				+ toStringServicos()
 				+ "\n\nOpiniao: "
 				+ toStringOpiniao()
 				+ "\nCheckIn: "

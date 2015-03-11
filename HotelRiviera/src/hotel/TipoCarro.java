@@ -13,7 +13,7 @@ public enum TipoCarro implements Serializable {
 		this.preco = preco;
 	}
 
-	public String getTipoNome() {
+	public String getNome() {
 		return nome;
 	}
 	
