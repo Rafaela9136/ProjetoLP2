@@ -1,6 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -208,19 +209,22 @@ public class Carro implements Servico, Serializable {
 	 */
 	@Override
 	public String toString() {
+		DecimalFormat formatovalor = new DecimalFormat("R$ #,##0.00");
 		final String FIM_LINHA = System.getProperty("line.separator");
 		List<String> adicionais = new ArrayList<String>();
 		if (isTanqueCheio)
-			adicionais.add("Tanque cheio = R$" + VALOR_TANQUE_CHEIO);
+			adicionais.add("Tanque cheio = "
+					+ formatovalor.format(VALOR_TANQUE_CHEIO));
 		if (isAssegurado)
-			adicionais.add("Seguro = R$" + VALOR_DO_SEGURO);
-		return "Carro " + tipoDeCarro.getNome()
+			adicionais.add("Seguro = " + formatovalor.format(VALOR_DO_SEGURO));
+		return "Carro "
+				+ tipoDeCarro.getNome()
 				+ FIM_LINHA
 				+ "Adicionais: "
 				+ Arrays.toString(adicionais.toArray())
 				+ FIM_LINHA
-				+ "Preco Total: R$ "
-				+ getPreco()
+				+ "Preco Total: "
+				+ formatovalor.format(getPreco())
 				+ FIM_LINHA
 				+ "Duracao: "
 				+ getNumeroDeDias()
@@ -269,7 +273,7 @@ public class Carro implements Servico, Serializable {
 				&& getIsTanqueCheio() == outroCarro.getIsTanqueCheio()
 				&& getIsAssegurado() == outroCarro.getIsAssegurado()
 				&& getPreco() == outroCarro.getPreco()
-				&& getDataCheckIn().equals(outroCarro.getDataCheckIn()) 
-				&& getDataCheckOut().equals(outroCarro.getDataCheckOut()));
+				&& getDataCheckIn().equals(outroCarro.getDataCheckIn()) && getDataCheckOut()
+				.equals(outroCarro.getDataCheckOut()));
 	}
 }

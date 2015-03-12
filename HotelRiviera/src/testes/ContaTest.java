@@ -149,18 +149,47 @@ public class ContaTest {
 		final String FIM_LINHA = System.getProperty("line.separator");
 		Assert.assertEquals(conta1.toString(), "Conta" + FIM_LINHA
 				+ "Nome Completo: " + conta1.getNomeCompleto() + FIM_LINHA
-				+ "Tipo do Funcionario: " + conta1.getTipo().getNome() + FIM_LINHA 
-				+ "Login: " + conta1.getLogin() + FIM_LINHA
+				+ "Tipo do Funcionario: " + conta1.getTipo().getNome()
+				+ FIM_LINHA + "Login: " + conta1.getLogin() + FIM_LINHA
 				+ "Senha: " + conta1.getSenha());
 		Assert.assertEquals(conta2.toString(), "Conta" + FIM_LINHA
 				+ "Nome Completo: " + conta2.getNomeCompleto() + FIM_LINHA
-				+ "Tipo do Funcionario: " + conta2.getTipo().getNome() + FIM_LINHA 
-				+ "Login: " + conta2.getLogin() + FIM_LINHA
+				+ "Tipo do Funcionario: " + conta2.getTipo().getNome()
+				+ FIM_LINHA + "Login: " + conta2.getLogin() + FIM_LINHA
 				+ "Senha: " + conta2.getSenha());
 		Assert.assertEquals(conta3.toString(), "Conta" + FIM_LINHA
 				+ "Nome Completo: " + conta3.getNomeCompleto() + FIM_LINHA
-				+ "Tipo do Funcionario: " + conta3.getTipo().getNome() + FIM_LINHA 
-				+ "Login: " + conta3.getLogin() + FIM_LINHA
+				+ "Tipo do Funcionario: " + conta3.getTipo().getNome()
+				+ FIM_LINHA + "Login: " + conta3.getLogin() + FIM_LINHA
 				+ "Senha: " + conta3.getSenha());
 	}
+
+	@Test
+	public void testaEquals() throws LoginInvalidoException,
+			SenhaInvalidaException, NomeCompletoInvalidoException {
+		Assert.assertFalse(conta1.equals(null));
+		Assert.assertFalse(conta1.equals(conta2));
+		Assert.assertFalse(conta2.equals(conta1));
+		conta2.setLogin(conta1.getLogin());
+		Assert.assertFalse(conta1.equals(conta2));
+		conta2.setSenha(conta1.getSenha());
+		Assert.assertFalse(conta1.equals(conta2));
+		conta2.setNomeCompleto(conta1.getNomeCompleto());
+		Assert.assertFalse(conta1.equals(conta2));
+		conta2.setTipo(conta1.getTipo());
+		Assert.assertTrue(conta1.equals(conta2));
+		Assert.assertTrue(conta2.equals(conta1));
+
+		Conta conta4 = new Conta(conta3.getLogin(), conta3.getSenha(),
+				conta3.getNomeCompleto(), conta3.getTipo());
+		Assert.assertTrue(conta4.equals(conta3));
+		conta4.setSenha("senha85467rd");
+		Assert.assertFalse(conta4.equals(conta3));
+		conta3.setLogin("login612df5f");
+		Assert.assertFalse(conta4.equals(conta3));
+		conta3.setLogin(conta4.getLogin());
+		conta4.setSenha(conta3.getSenha());
+		Assert.assertTrue(conta4.equals(conta3));
+	}
+
 }

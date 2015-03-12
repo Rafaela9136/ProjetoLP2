@@ -1,23 +1,29 @@
 package hotel;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import excecoes.ValorNegativoException;
 
 /**
+ * Classe referente a um servico de restaurante do hotel que pode ser oferecido
+ * ao hospede e ter seu valor adicionado na conta.
  * 
- * @author Grupinho da alegria
- * @version Final.
+ * @author Grupo
+ * @version 1.0
  *
  */
 public class ContaRestaurante implements Servico, Serializable {
 	private Calendar data;
 	private double valor;
-	
+
 	/**
-	 * @param valor Valor da conta.
-	 * @throws ValorNegativoException Excecao Lancada quando o valor a ser estabelecido e negativo.
+	 * @param valor
+	 *            Valor da conta.
+	 * @throws ValorNegativoException
+	 *             Excecao Lancada quando o valor a ser estabelecido e negativo.
 	 */
 	public ContaRestaurante(double valor) throws ValorNegativoException {
 		verificaValorValido(valor);
@@ -26,13 +32,38 @@ public class ContaRestaurante implements Servico, Serializable {
 	}// Construtor
 
 	@Override
+	public Calendar getDataCheckIn() {
+		return data;
+	}// getDataCheckIn
+
+	@Override
+	public Calendar getDataCheckOut() {
+		return data;
+	}// getDataCheckOut
+
+	@Override
+	public double getPreco() {
+		return valor;
+	}// getValor
+
+	@Override
+	public String getNome() {
+		return "Conta do Restaurante";
+	}// getNome
+
+	private void verificaValorValido(double valor)
+			throws ValorNegativoException {
+		if (valor < 0)
+			throw new ValorNegativoException();
+	}// verificaValorValido
+
+	@Override
 	public String toString() {
-		return "\nConta do Restaurante" 
-				+ "\nValor: " + valor 
-				+ "\nData: " + data.get(Calendar.DAY_OF_MONTH)
-				+ "/" + (data.get(Calendar.MONTH) + 1)
-				+ "/" + data.get(Calendar.YEAR)
-				+ "\n";
+		DecimalFormat formatovalor = new DecimalFormat("R$ #,##0.00");
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "Conta do Restaurante" + FIM_LINHA + "Valor: "
+				+ formatovalor.format(valor) + FIM_LINHA + "Data: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(data.getTime());
 	}
 
 	@Override
@@ -48,48 +79,11 @@ public class ContaRestaurante implements Servico, Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
+		if (!(obj instanceof ContaRestaurante)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ContaRestaurante other = (ContaRestaurante) obj;
-		if (data == null) {
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (Double.doubleToLongBits(valor) != Double
-				.doubleToLongBits(other.valor))
-			return false;
-		return true;
+		}
+		ContaRestaurante outra = (ContaRestaurante) obj;
+		return getPreco() == outra.getPreco();
 	}
-
-	private void verificaValorValido(double valor)
-			throws ValorNegativoException {
-		if (valor < 0)
-			throw new ValorNegativoException();
-	}// verificaValorValido
-	
-	@Override
-	public Calendar getDataCheckIn() {
-		return data;
-	}// getDataCheckIn
-	
-	@Override
-	public Calendar getDataCheckOut() {
-		return data;
-	}// getDataCheckOut
-
-	@Override
-	public double getPreco() {
-		return valor;
-	}// getValor
-	
-	@Override
-	public String getNome() {
-		return "Conta do Restaurante";
-	}// getNome
 
 }// ContaRestaurante

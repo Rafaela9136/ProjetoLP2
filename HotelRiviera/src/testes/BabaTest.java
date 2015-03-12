@@ -67,13 +67,6 @@ public class BabaTest {
 		} catch (DataInvalidaException e) {
 			Assert.assertTrue(true);
 		}
-
-		try {
-			new Baba(new GregorianCalendar(), new GregorianCalendar(proxAno,
-					Calendar.FEBRUARY, 5));
-		} catch (DataInvalidaException e) {
-			Assert.assertTrue(true);
-		}
 	}
 
 	@Test
@@ -247,19 +240,37 @@ public class BabaTest {
 	@Test
 	public void testaToString() {
 		final String FIM_LINHA = System.getProperty("line.separator");
-		Assert.assertEquals(baba1.toString(), "SERVICO BABYSITTER" + FIM_LINHA
-				+ "Preco Total: R$ " + baba1.getPreco() + FIM_LINHA
-				+ "Duracao: " + baba1.getNumeroDeHoras() + " horas" + FIM_LINHA
-				+ "Data Inicio: 31/12/2016 22:00" + FIM_LINHA
-				+ "Data Termino: 01/01/2017 07:00" + FIM_LINHA
-				+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.");
+		Assert.assertEquals(
+				baba1.toString(),
+				"SERVICO BABYSITTER"
+						+ FIM_LINHA
+						+ "Preco Total: R$ 450,00"
+						+ FIM_LINHA
+						+ "Duracao: "
+						+ baba1.getNumeroDeHoras()
+						+ " horas"
+						+ FIM_LINHA
+						+ "Data Inicio: 31/12/2016 22:00"
+						+ FIM_LINHA
+						+ "Data Termino: 01/01/2017 07:00"
+						+ FIM_LINHA
+						+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.");
 
-		Assert.assertEquals(baba2.toString(), "SERVICO BABYSITTER" + FIM_LINHA
-				+ "Preco Total: R$ " + baba2.getPreco() + FIM_LINHA
-				+ "Duracao: " + baba2.getNumeroDeHoras() + " horas" + FIM_LINHA
-				+ "Data Inicio: 20/06/2016 13:00" + FIM_LINHA
-				+ "Data Termino: 21/06/2016 19:00" + FIM_LINHA
-				+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.");
+		Assert.assertEquals(
+				baba2.toString(),
+				"SERVICO BABYSITTER"
+						+ FIM_LINHA
+						+ "Preco Total: R$ 1.100,00"
+						+ FIM_LINHA
+						+ "Duracao: "
+						+ baba2.getNumeroDeHoras()
+						+ " horas"
+						+ FIM_LINHA
+						+ "Data Inicio: 20/06/2016 13:00"
+						+ FIM_LINHA
+						+ "Data Termino: 21/06/2016 19:00"
+						+ FIM_LINHA
+						+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.");
 	}
 
 	@Test

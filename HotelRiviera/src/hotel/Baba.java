@@ -1,6 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -151,12 +152,14 @@ public class Baba implements Servico, Serializable {
 
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
 			throws NullPointerException, DataInvalidaException {
-		if (dataInicio == null || dataTermino == null)
+		Calendar dataAtual = new GregorianCalendar();
+		if (dataInicio == null || dataTermino == null) {
 			throw new NullPointerException();
-		if (dataInicio.equals(dataTermino)
-				|| dataInicio.before(new GregorianCalendar())
-				|| dataTermino.before(dataInicio))
+		}
+		if (dataInicio.equals(dataTermino) || dataInicio.before(dataAtual)
+				|| dataTermino.before(dataInicio)) {
 			throw new DataInvalidaException();
+		}
 	}
 
 	/**
@@ -167,12 +170,24 @@ public class Baba implements Servico, Serializable {
 	 */
 	@Override
 	public String toString() {
+		DecimalFormat formatovalor = new DecimalFormat("R$ #,##0.00");
 		final String FIM_LINHA = System.getProperty("line.separator");
-		return "SERVICO BABYSITTER" + FIM_LINHA 
-				+ "Preco Total: R$ " + getPreco() + FIM_LINHA
-				+ "Duracao: " + getNumeroDeHoras() + " horas" + FIM_LINHA
-				+ "Data Inicio: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn.getTime()) + FIM_LINHA
-				+ "Data Termino: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut.getTime()) + FIM_LINHA
+		return "SERVICO BABYSITTER"
+				+ FIM_LINHA
+				+ "Preco Total: "
+				+ formatovalor.format(getPreco())
+				+ FIM_LINHA
+				+ "Duracao: "
+				+ getNumeroDeHoras()
+				+ " horas"
+				+ FIM_LINHA
+				+ "Data Inicio: "
+				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckIn
+						.getTime())
+				+ FIM_LINHA
+				+ "Data Termino: "
+				+ new SimpleDateFormat("dd/MM/yyyy HH:mm").format(dataCheckOut
+						.getTime()) + FIM_LINHA
 				+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
@@ -184,7 +199,7 @@ public class Baba implements Servico, Serializable {
 				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
 		result = prime * result
 				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
-		return result;	
+		return result;
 	}
 
 	/**
@@ -199,9 +214,9 @@ public class Baba implements Servico, Serializable {
 			return false;
 		}
 		Baba outra = (Baba) obj;
-		return (getPreco() == outra.getPreco() 
-				&& getDataCheckIn().equals(outra.getDataCheckIn()) 
-				&& getDataCheckOut().equals(outra.getDataCheckOut()));
+		return (getPreco() == outra.getPreco()
+				&& getDataCheckIn().equals(outra.getDataCheckIn()) && getDataCheckOut()
+				.equals(outra.getDataCheckOut()));
 	}
 
 	@Override

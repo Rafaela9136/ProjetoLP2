@@ -59,8 +59,9 @@ public class Conta implements Serializable {
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}// getNomeCompleto
-	
-	public void setNomeCompleto(String nomeCompleto) throws NomeCompletoInvalidoException {
+
+	public void setNomeCompleto(String nomeCompleto)
+			throws NomeCompletoInvalidoException {
 		verificaNomeCompletoValido(nomeCompleto);
 		this.nomeCompleto = nomeCompleto;
 	}// setNomeCompleto
@@ -69,7 +70,7 @@ public class Conta implements Serializable {
 		if (param == null)
 			throw new NullPointerException();
 	}
-	
+
 	private void verificaLoginValido(String login)
 			throws LoginInvalidoException, NullPointerException {
 		verificaParametroNulo(login);
@@ -95,11 +96,10 @@ public class Conta implements Serializable {
 	@Override
 	public String toString() {
 		final String FIM_LINHA = System.getProperty("line.separator");
-		return "Conta" + FIM_LINHA
-				+ "Nome Completo: " + getNomeCompleto() + FIM_LINHA
-				+ "Tipo do Funcionario: " + getTipo().getNome() + FIM_LINHA
-				+ "Login: " + getLogin() + FIM_LINHA
-				+ "Senha: " + getSenha();
+		return "Conta" + FIM_LINHA + "Nome Completo: " + getNomeCompleto()
+				+ FIM_LINHA + "Tipo do Funcionario: " + getTipo().getNome()
+				+ FIM_LINHA + "Login: " + getLogin() + FIM_LINHA + "Senha: "
+				+ getSenha();
 	}// toString
 
 	@Override
@@ -116,8 +116,9 @@ public class Conta implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Conta))
+		if (!(obj instanceof Conta)) {
 			return false;
+		}
 		Conta outraConta = (Conta) obj;
 		return getNomeCompleto().equals(outraConta.getNomeCompleto())
 				&& getLogin().equals(outraConta.getLogin())
@@ -126,26 +127,28 @@ public class Conta implements Serializable {
 	}// equals
 
 	// Para reiniciar o arquivo das contas
-//	public static void main(String[] args) throws FileNotFoundException,
-//			IOException, LoginInvalidoException, NullPointerException,
-//			SenhaInvalidaException, NomeCompletoInvalidoException, ClassNotFoundException {
-//		List<Conta> contas = new ArrayList<Conta>();
-//		Conta gerente = new Conta("gerente", "prog2ufcg", "Gerente do Hotel",
-//				TipoFuncionario.GERENTE);
-//		contas.add(gerente);
-//		ObjectOutputStream out = new ObjectOutputStream(
-//				new BufferedOutputStream(
-//						new FileOutputStream("contasHotel.dat")));
-//		out.writeObject(contas);
-//		out.close();
-//		
-//		
-//		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream("contasHotel.dat")));
-//		List<Conta> contasLidas = (List<Conta>) in.readObject();
-//		in.close();
-//		for (Conta conta : contasLidas) {
-//			System.out.println(conta);
-//		}// for
-//	}// main
+	// public static void main(String[] args) throws FileNotFoundException,
+	// IOException, LoginInvalidoException, NullPointerException,
+	// SenhaInvalidaException, NomeCompletoInvalidoException,
+	// ClassNotFoundException {
+	// List<Conta> contas = new ArrayList<Conta>();
+	// Conta gerente = new Conta("gerente", "prog2ufcg", "Gerente do Hotel",
+	// TipoFuncionario.GERENTE);
+	// contas.add(gerente);
+	// ObjectOutputStream out = new ObjectOutputStream(
+	// new BufferedOutputStream(
+	// new FileOutputStream("contasHotel.dat")));
+	// out.writeObject(contas);
+	// out.close();
+	//
+	//
+	// ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new
+	// FileInputStream("contasHotel.dat")));
+	// List<Conta> contasLidas = (List<Conta>) in.readObject();
+	// in.close();
+	// for (Conta conta : contasLidas) {
+	// System.out.println(conta);
+	// }// for
+	// }// main
 
 }// Conta
