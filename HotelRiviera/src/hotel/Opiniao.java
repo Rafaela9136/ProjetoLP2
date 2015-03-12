@@ -1,6 +1,7 @@
 package hotel;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import excecoes.ComentarioVazioException;
@@ -97,6 +98,20 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 
 	}// verificaComentarioValido
 
+	@Override
+	public int compareTo(Opiniao outraOpiniao) {
+		if (outraOpiniao == null) {
+			throw new NullPointerException();
+		}
+		else if (getNota() > outraOpiniao.getNota()) {
+			return 1;
+		}
+		else if (getNota() < outraOpiniao.getNota()) {
+			return -1;
+		}
+		return 0;
+	}
+	
 	/**
 	 * Retorna uma representacao em string da opiniao dada, com seu comentario e
 	 * nota.
@@ -105,9 +120,11 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Opiniao: \nComentario: '" + getComentario() + "'\nNota: "
-				+ getNota() + "\nData: " + data.get(Calendar.DAY_OF_MONTH) + "/"
-				+ (data.get(Calendar.MONTH)+ 1) + "/" + data.get(Calendar.YEAR);
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "Opiniao: " + FIM_LINHA
+				+ "Comentario: '" + getComentario() + "'" + FIM_LINHA
+				+ "Nota: " + (int) getNota() + FIM_LINHA + "Data: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(data.getTime());
 	}
 
 	@Override
@@ -129,25 +146,13 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof Opiniao))
+		if (!(obj instanceof Opiniao)) {
 			return false;
+		}
 		Opiniao outra = (Opiniao) obj;
 		return getNota() == outra.getNota()
 				&& getComentario().equals(outra.getComentario())
 				&& getData().equals(outra.getData());
-	}
-	
-
-	@Override
-	public int compareTo(Opiniao outraOpiniao) {
-		if(outraOpiniao == null)
-			throw new NullPointerException();
-		
-		if(getNota() > outraOpiniao.getNota())
-			return 1;
-		if(getNota() < outraOpiniao.getNota())
-			return -1;
-		return 0;
 	}
 
 }// Opiniao

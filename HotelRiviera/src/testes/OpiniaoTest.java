@@ -2,6 +2,7 @@ package testes;
 
 import hotel.Opiniao;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.junit.Assert;
@@ -72,6 +73,7 @@ public class OpiniaoTest {
 
 	@Test
 	public void testEquals() throws Exception {
+		Assert.assertFalse(opiniao.equals(null));
 		Opiniao opiniao2;
 		opiniao2 = new Opiniao("Rafaela Lacerda de Araujo, 114110483", 5);
 		Assert.assertFalse(opiniao.equals(opiniao2));
@@ -85,21 +87,20 @@ public class OpiniaoTest {
 	public void testToString() throws NullPointerException,
 			NotaInvalidaException, EstouroDeCaracteresException,
 			ComentarioVazioException {
+		final String FIM_LINHA = System.getProperty("line.separator");
 		Calendar momentoAgr = Calendar.getInstance();
 		Assert.assertEquals(
 				opiniao.toString(),
-				"Opiniao: "
-						+ "\nComentario: 'Programacao II Universidade Federal de Campina Grande'"
-						+ "\nNota: 1.0"
-						+ "\nData: " + momentoAgr.get(Calendar.DAY_OF_MONTH)
-						+ "/" + momentoAgr.get(Calendar.MONTH)
-						+ "/" + momentoAgr.get(Calendar.YEAR));
+				"Opiniao: " + FIM_LINHA
+						+ "Comentario: 'Programacao II Universidade Federal de Campina Grande'" + FIM_LINHA
+						+ "Nota: 1" + FIM_LINHA
+						+ "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(opiniao.getData().getTime()));
 		Opiniao opiniao2 = new Opiniao("Muito bom, gostei bastante!", 10);
-		Assert.assertEquals(opiniao2.toString(), "Opiniao: "
-				+ "\nComentario: 'Muito bom, gostei bastante!'"
-				+ "\nNota: 10.0"
-				+ "\nData: " + momentoAgr.get(Calendar.DAY_OF_MONTH)
-				+ "/" + momentoAgr.get(Calendar.MONTH)
-				+ "/" + momentoAgr.get(Calendar.YEAR));
+		Assert.assertEquals(
+				opiniao2.toString(),
+				"Opiniao: " + FIM_LINHA
+						+ "Comentario: 'Muito bom, gostei bastante!'" + FIM_LINHA
+						+ "Nota: 10" + FIM_LINHA
+						+ "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(opiniao2.getData().getTime()));
 	}
 }
