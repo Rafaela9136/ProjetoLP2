@@ -433,6 +433,7 @@ public class AtualizacaoContrato extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				removeContrato();
 				Acoes.selecionaTela("pesquisaContrato");
+				Acoes.atualizaTabela();
 			}
 		});
 		fecharContrato.add(btnConfirmar);

@@ -57,14 +57,14 @@ public class Acoes extends JPanel {
 	private JRadioButton rdbtnCamaExtra;
 	private JTextArea textAreaAcompanhantes;
 	private JTextField textFieldPesquisa;
-	private DefaultTableModel model;
-	private JTable tabela;
+	private static DefaultTableModel model;
+	private static JTable tabela;
 
 	// Variaveis para criacao do contrato
 	// private List<String> acompanhantes = new ArrayList<String>();
 	private Quarto quarto;
 	private Hospede hospede;
-	private String[] colunas;
+	private static String[] colunas;
 	private static Contrato contratoPesquisado;
 	private static String contratosListados;
 
@@ -631,6 +631,7 @@ public class Acoes extends JPanel {
 		colunas = new String[] { "Nome do hospede", "Situacao do contrato" };
 
 		tabela = new JTable();
+		tabela.setCellSelectionEnabled(true);
 		tabela.setRowSelectionAllowed(true);
 		tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		model = new DefaultTableModel(new String[0][2], colunas);
@@ -667,7 +668,7 @@ public class Acoes extends JPanel {
 		tabela.setModel(model);
 	}
 
-	private void atualizaTabela() {
+	static void atualizaTabela() {
 		String[][] dados = new String[Main.getHotel().getContratos().size()][2];
 		for (int i = 0; i < Main.getHotel().getContratos().size(); i++) {
 			dados[i][0] = Main.getHotel().getContratos().get(i)
@@ -763,5 +764,6 @@ public class Acoes extends JPanel {
 							.showMessageDialog(null, "Algo está errado!");
 				}
 			}
+			atualizaTabela();
 	}
 }
