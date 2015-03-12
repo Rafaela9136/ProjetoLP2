@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Essas estrategias possuem uma porcentagem que será adicionada no preco do contrato. A estrategia escolhida para determinado contrato
+ * depende das suas datas de checkIn e checkOut.
+ * @author Grupinho da Alegria
+ *
+ */
 public enum Estrategias implements Serializable {
 	SAO_JOAO_PREMIUM("Sao Joao Premium +50%", 23, 29, Calendar.JUNE,
 			Calendar.JUNE, 1.5, Calendar.getInstance().get(Calendar.YEAR)),
@@ -29,19 +35,35 @@ public enum Estrategias implements Serializable {
 		this.dataFinal = new GregorianCalendar(anoFinal, mesFim, diaFim, 23, 59);
 		this.porcentagem = porcentagem;
 	}// Construtor
-
+	
+	/**
+	 * Recupera o nome da estrategia.
+	 * @return Nome da estrategia.
+	 */
 	public String getNomeEstrategia() {
 		return nomeEstrategia;
 	}
-
+	
+	/**
+	 * Recupera a data inicial da estrategia.
+	 * @return Data inicial da estrategia.
+	 */
 	public Calendar getDataInicial() {
 		return dataInicial;
 	}
 
+	/**
+	 * Recupera a data final da estrategia
+	 * @return Data final da estrategia.
+	 */
 	public Calendar getDataFinal() {
 		return dataFinal;
 	}
 
+	/**
+	 * Recupera a porcentagem da estrategia.
+	 * @return Porcetagem da estrategia.
+	 */
 	public double getPorcentagem() {
 		return porcentagem;
 	}
