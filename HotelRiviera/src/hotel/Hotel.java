@@ -77,7 +77,7 @@ public class Hotel implements Serializable {
 		for (int i = 0; i < index.length; i++) {
 			quartosDesocupados[i] = index[i].getQuantidade();
 		}// for
-	}// Construtor
+	}// Construtorr
 
 	/**
 	 * Adiciona um novo contrato a lista de contratos.
