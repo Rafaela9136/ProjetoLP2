@@ -107,6 +107,7 @@ public class Login extends JFrame {
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "Login e/ou senha incorreto!");
+			passwordField.setText("");
 		}//if
 	}// verificaLogin
 		
