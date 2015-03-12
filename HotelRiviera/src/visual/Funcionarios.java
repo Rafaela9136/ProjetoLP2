@@ -273,29 +273,25 @@ public class Funcionarios extends JPanel {
 		btnConfirmar.setBounds(600, 574, 135, 25);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Conta conta = null;
-				try {
-					conta = new Conta(textFieldLogin.getText(), String.valueOf(passwordField.getPassword()), textFieldNome.getText(),
-							Conector.selecionaTipoFuncionario(comboBoxFuncionario.getSelectedItem()));
-					
-					Main.getHotel().adicionaConta(conta);
-				} catch (LoginInvalidoException e1) {
-					JOptionPane.showMessageDialog(null,"Login inválido!");
-				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
-				} catch (SenhaInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,"Senha inválida!");
-				} catch (NomeCompletoInvalidoException e1) {
-					JOptionPane.showMessageDialog(null,"Algo esta errado. Nome inválido!");
-				} catch (LoginExistenteException e1) {
-					JOptionPane.showMessageDialog(null,"Login existente!");
-				} finally {
-					if(conta != null)
-						panelCadastro();
-				}
-				
-				layout.show(panel, "vazio");
-				JOptionPane.showMessageDialog(null,"Conta criada com sucesso!");
+				criaConta();
+			}
+		});
+		
+		textFieldLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criaConta();
+			}
+		});
+		
+		textFieldNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criaConta();
+			}
+		});
+		
+		passwordField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				criaConta();
 			}
 		});
 		panelCadastro.add(btnConfirmar);
@@ -303,5 +299,31 @@ public class Funcionarios extends JPanel {
 	
 	static void selecionaTela(String tela){
 		layout.show(panel, tela);
+	}
+	
+	private void criaConta() {
+		Conta conta = null;
+		try {
+			conta = new Conta(textFieldLogin.getText(), String.valueOf(passwordField.getPassword()), textFieldNome.getText(),
+					Conector.selecionaTipoFuncionario(comboBoxFuncionario.getSelectedItem()));
+			
+			Main.getHotel().adicionaConta(conta);
+			layout.show(panel, "vazio");
+			JOptionPane.showMessageDialog(null,"Conta criada com sucesso!");
+		} catch (LoginInvalidoException e1) {
+			JOptionPane.showMessageDialog(null,"Login inválido!");
+		} catch (NullPointerException e1) {
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os campos!");
+		} catch (SenhaInvalidaException e1) {
+			JOptionPane.showMessageDialog(null,"Senha inválida!");
+		} catch (NomeCompletoInvalidoException e1) {
+			JOptionPane.showMessageDialog(null,"Algo esta errado. Nome inválido!");
+		} catch (LoginExistenteException e1) {
+			JOptionPane.showMessageDialog(null,"Login existente!");
+		} finally {
+			if(conta != null)
+				panelCadastro();
+		}
+		
 	}
 }
