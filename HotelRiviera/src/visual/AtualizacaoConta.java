@@ -99,7 +99,7 @@ public class AtualizacaoConta extends JPanel {
 		txtpnNomeCompleto.setEditable(false);
 		txtpnNomeCompleto.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnNomeCompleto.setText("Nome completo:");
-		txtpnNomeCompleto.setBounds(47, 38, 104, 24);
+		txtpnNomeCompleto.setBounds(47, 38, 122, 24);
 		editarDados.add(txtpnNomeCompleto);
 		
 		textFieldNome = new JTextField();
@@ -108,7 +108,7 @@ public class AtualizacaoConta extends JPanel {
 		textFieldNome.setColumns(10);
 		
 		JTextPane txtpnTipoDeFuncionario = new JTextPane();
-		txtpnTipoDeFuncionario.setText("Tipo de funcionário:");
+		txtpnTipoDeFuncionario.setText("Funcionário:");
 		txtpnTipoDeFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTipoDeFuncionario.setEditable(false);
 		txtpnTipoDeFuncionario.setBounds(46, 85, 123, 24);

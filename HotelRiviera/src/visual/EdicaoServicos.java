@@ -68,7 +68,7 @@ public class EdicaoServicos extends JPanel {
 		
 		edicaoCarro(dataMask);
 		
-		edicaoFrigobar();
+//		edicaoFrigobar();
 		
 		// painel que permanece
 		JPanel vazio = new JPanel();
@@ -82,24 +82,24 @@ public class EdicaoServicos extends JPanel {
 		setLayout(null);
 	}
 	
-	private void edicaoFrigobar() {
-		JPanel frigobar = new JPanel();
-		frigobar.setBackground(Color.WHITE);
-		panel.add(frigobar, "frigobar");
-		frigobar.setLayout(null);
-		
-		JTextPane txtpnTotalDaConta = new JTextPane();
-		txtpnTotalDaConta.setEditable(false);
-		txtpnTotalDaConta.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtpnTotalDaConta.setText("Total da conta:");
-		txtpnTotalDaConta.setBounds(0, 11, 101, 23);
-		frigobar.add(txtpnTotalDaConta);
-		
-		textField = new JTextField();
-		textField.setBounds(107, 14, 134, 21);
-		frigobar.add(textField);
-		textField.setColumns(10);
-	}
+//	private void edicaoFrigobar() {
+//		JPanel frigobar = new JPanel();
+//		frigobar.setBackground(Color.WHITE);
+//		panel.add(frigobar, "frigobar");
+//		frigobar.setLayout(null);
+//		
+//		JTextPane txtpnTotalDaConta = new JTextPane();
+//		txtpnTotalDaConta.setEditable(false);
+//		txtpnTotalDaConta.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+//		txtpnTotalDaConta.setText("Total da conta:");
+//		txtpnTotalDaConta.setBounds(0, 11, 101, 23);
+//		frigobar.add(txtpnTotalDaConta);
+//		
+//		textField = new JTextField();
+//		textField.setBounds(107, 14, 134, 21);
+//		frigobar.add(textField);
+//		textField.setColumns(10);
+//	}
 
 	private void edicaoCarro(final MaskFormatter dataMask) {
 		JPanel carro = new JPanel();
@@ -235,10 +235,10 @@ public class EdicaoServicos extends JPanel {
 		return conta;
 	}
 	
-	static double geraContaFrigobar(){
-		Double conta = Double.valueOf(textField.getText());
-		return conta;
-	}
+//	static double geraContaFrigobar(){
+//		Double conta = Double.valueOf(textField.getText());
+//		return conta;
+//	}
 	
 	static Baba contrataBaba(){
 		

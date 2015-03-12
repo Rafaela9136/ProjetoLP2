@@ -275,22 +275,22 @@ public class AtualizacaoContrato extends JPanel {
 		btnConfirmar_1.setBounds(598, 547, 135, 25);
 		btnConfirmar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox.getSelectedItem().equals("frigobar"))
-					editaServicos();
-				else{
-					try {
-						criaObjetosServicos();
-						JOptionPane.showMessageDialog(null,
-								"Servico adicionado com sucesso!");
-					} catch (AddQuartoContratoException e2) {
-						JOptionPane.showMessageDialog(null, "Algo esta errado!");
-					} catch (NullPointerException e3) {
-						JOptionPane.showMessageDialog(null,
-								"Algo esta errado. Verifique os campos!");
-					} catch (ServicoInvalidoException e4) {
-						JOptionPane.showMessageDialog(null,
-								"Algo esta errado. Verifique os servicos!");
-					}
+//				if (comboBox.getSelectedItem().equals("frigobar"))
+//					editaServicos();
+//				else{
+//				}
+				try {
+					criaObjetosServicos();
+					JOptionPane.showMessageDialog(null,
+							"Servico adicionado com sucesso!");
+				} catch (AddQuartoContratoException e2) {
+					JOptionPane.showMessageDialog(null, "Algo esta errado!");
+				} catch (NullPointerException e3) {
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Verifique os campos!");
+				} catch (ServicoInvalidoException e4) {
+					JOptionPane.showMessageDialog(null,
+							"Algo esta errado. Verifique os servicos!");
 				}
 			}
 		});
@@ -322,27 +322,27 @@ public class AtualizacaoContrato extends JPanel {
 
 	}
 	
-	private void editaServicos(){
-		double conta = EdicaoServicos.geraContaFrigobar();
-		List<Servico> servicos = Acoes.getContratoPesquisado().getServicos();
-		Quarto quarto = (Quarto) servicos.remove(1);
-		try {
-			quarto.somaPrecoFrigobar(conta);
-		} catch (ValorNegativoException e) {
-			JOptionPane.showMessageDialog(null,"O valor do frigobar não pode ser negativo!");
-		}
-		servicos.add(quarto);
-		
-		try {
-			Acoes.getContratoPesquisado().setServicos(servicos);
-		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado!");
-		} catch (ContratoSemQuartoException e) {
-			JOptionPane.showMessageDialog(null,"O contrato deve ter pelo menos um quarto entre os serviços!");
-		} catch (DataInvalidaException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
-		}
-	}
+//	private void editaServicos(){
+//		double conta = EdicaoServicos.geraContaFrigobar();
+//		List<Servico> servicos = Acoes.getContratoPesquisado().getServicos();
+//		Quarto quarto = (Quarto) servicos.remove(1);
+//		try {
+//			quarto.somaPrecoFrigobar(conta);
+//		} catch (ValorNegativoException e) {
+//			JOptionPane.showMessageDialog(null,"O valor do frigobar não pode ser negativo!");
+//		}
+//		servicos.add(quarto);
+//		
+//		try {
+//			Acoes.getContratoPesquisado().setServicos(servicos);
+//		} catch (NullPointerException e) {
+//			JOptionPane.showMessageDialog(null,"Algo está errado!");
+//		} catch (ContratoSemQuartoException e) {
+//			JOptionPane.showMessageDialog(null,"O contrato deve ter pelo menos um quarto entre os serviços!");
+//		} catch (DataInvalidaException e) {
+//			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
+//		}
+//	}
 
 	private void desenhaTabela(JPanel editarServicos) {
 		colunas = new String[] { "Servico", "Custo" };
