@@ -28,6 +28,10 @@ import excecoes.ServicoInvalidoException;
  * @version 2.0
  */
 public class Contrato implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final boolean CONTRATO_ABERTO = true;
 	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;
 
@@ -324,6 +328,10 @@ public class Contrato implements Serializable {
 		return acompanhantes.remove(acompanhante);
 	}// removeAcompanhante
 
+	public void setAcompanhantes(List<String> acompanhantes) {
+		this.acompanhantes = acompanhantes;
+	}// setAcompanhantes
+	
 	/**
 	 * Metodo responsavel por adicionar novos servicos na lista de servicos do
 	 * contrato.

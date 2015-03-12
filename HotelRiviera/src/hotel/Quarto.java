@@ -12,6 +12,10 @@ import excecoes.ValorNegativoException;
  */
 public abstract class Quarto implements Servico, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";
 	private boolean camaExtra;
 	private Frigobar frigobar;

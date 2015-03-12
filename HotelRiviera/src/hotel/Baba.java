@@ -19,6 +19,10 @@ import excecoes.DataInvalidaException;
  *
  */
 public class Baba implements Servico, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final double VALOR_HORA = 25;
 	public static final double VALOR_HORA_DOBRADA = 50;
 	public static final int INICIO_HORA_DOBRADA = 18; // entre 18h e 7h o preco

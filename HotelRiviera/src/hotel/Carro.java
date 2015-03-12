@@ -22,6 +22,10 @@ import excecoes.DataInvalidaException;
  *
  */
 public class Carro implements Servico, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final double VALOR_TANQUE_CHEIO = 150;
 	public static final double VALOR_DO_SEGURO = 100;
 	public static final double MILISSEGUNDOS_EM_UM_DIA = 86400000;

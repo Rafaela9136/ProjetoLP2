@@ -15,6 +15,10 @@ import excecoes.SenhaInvalidaException;
  * 
  */
 public class Conta implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final int TAMANHO_MINIMO_LOGIN = 6;
 	public static final int TAMANHO_MINIMO_SENHA = 6;
 

@@ -16,6 +16,10 @@ import excecoes.ValorNegativoException;
  *
  */
 public class ContaRestaurante implements Servico, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Calendar data;
 	private double valor;
 

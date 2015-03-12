@@ -15,6 +15,10 @@ import excecoes.NotaInvalidaException;
  * @version 1.0
  */
 public class Opiniao implements Comparable<Opiniao>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final float NOTA_MAX = 10;
 	public static final float NOTA_MIN = 0;
 

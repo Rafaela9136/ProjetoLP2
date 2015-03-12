@@ -1,6 +1,5 @@
 package hotel;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.CamaExtraException;
@@ -13,6 +12,10 @@ import excecoes.DataInvalidaException;
  */
 public class QuartoLuxo extends Quarto {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final double DIARIA_LUXO_SIMPLES = 520.0;
 	public static final double DIARIA_LUXO_DUPLO = 570.0;
 	public static final double DIARIA_LUXO_TRIPLO = 620.0;

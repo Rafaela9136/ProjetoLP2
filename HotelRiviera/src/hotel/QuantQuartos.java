@@ -9,6 +9,10 @@ public enum QuantQuartos implements Serializable {
 	private int quantidade;
 	
 	private QuantQuartos(int quantidade) {
-	
+		this.quantidade = quantidade;
 	}// Construtor
+	
+	public int getQuantidade() {
+		return quantidade;
+	}// getQuantidade
 }// QuantQuartos

@@ -24,6 +24,10 @@ import excecoes.StringInvalidaException;
  */
 public class Hospede implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String SET_NAO_MORA_NO_BRASIL = "--";
 	public static final boolean NAO_BRASILEIRO = false;
 

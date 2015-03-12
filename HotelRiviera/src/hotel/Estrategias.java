@@ -6,15 +6,15 @@ import java.util.GregorianCalendar;
 
 public enum Estrategias implements Serializable {
 	SAO_JOAO_PREMIUM("Sao Joao Premium +50%", 23, 29, Calendar.JUNE,
-			Calendar.JUNE, 1.5, Calendar.getInstance().YEAR),
+			Calendar.JUNE, 1.5, Calendar.getInstance().get(Calendar.YEAR)),
 	SAO_JOAO("Sao Joao +10%", 23, 29, Calendar.JUNE, Calendar.JUNE, 1.1,
-			Calendar.getInstance().YEAR),
+			Calendar.getInstance().get(Calendar.YEAR)),
 	NATAL_REVEILLON("Natal/Reveillon 20%", 15, 5, Calendar.DECEMBER, Calendar.JANUARY,
-			1.2, Calendar.getInstance().YEAR + 1),
-	AGOSTO("Mes Agosto -20%", 1, 31, Calendar.AUGUST, Calendar.AUGUST, 0.8, Calendar.getInstance().YEAR),
+			1.2, Calendar.getInstance().get(Calendar.YEAR) + 1),
+	AGOSTO("Mes Agosto -20%", 1, 31, Calendar.AUGUST, Calendar.AUGUST, 0.8, Calendar.getInstance().get(Calendar.YEAR)),
 	// O mes de agosto inteiro e de baixa estacao (20% de desconto).
 	DEFAULT("Sem estrategia +0%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
-			0, Calendar.getInstance().YEAR);
+			0, Calendar.getInstance().get(Calendar.YEAR));
 
 	private String nomeEstrategia;
 	private Calendar dataInicial;
@@ -24,7 +24,7 @@ public enum Estrategias implements Serializable {
 	private Estrategias(String nomeEstrategia, int diaInicio, int diaFim,
 			int mesInicio, int mesFim, double porcentagem, int anoFinal) {
 		this.nomeEstrategia = nomeEstrategia;
-		this.dataInicial = new GregorianCalendar(Calendar.getInstance().YEAR,
+		this.dataInicial = new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR),
 				mesInicio, diaInicio);
 		this.dataFinal = new GregorianCalendar(anoFinal, mesFim, diaFim, 23, 59);
 		this.porcentagem = porcentagem;

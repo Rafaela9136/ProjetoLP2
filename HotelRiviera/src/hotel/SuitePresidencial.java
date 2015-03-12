@@ -1,8 +1,6 @@
 package hotel;
 
-import java.io.Serializable;
 import java.util.Calendar;
-
 import excecoes.DataInvalidaException;
 
 /**
@@ -12,6 +10,10 @@ import excecoes.DataInvalidaException;
  */
 public class SuitePresidencial extends Quarto {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final static boolean TEM_CAMA_EXTRA = false;
 	public final static double DIARIA_SUITE_PRESIDENCIAL = 1200.0;
 	public final static int MAX_HOSPEDES = 4;
