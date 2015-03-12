@@ -106,19 +106,6 @@ public class Contrato implements Serializable {
 
 	}// Construtor
 
-	private void verificaSeEhReserva(Calendar dataCheckIn) {
-		Calendar dataAtual = new GregorianCalendar();
-		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
-		dataAtual.set(Calendar.MINUTE, 00);
-
-		if (!(dataCheckIn.get(Calendar.YEAR) == dataAtual.get(Calendar.YEAR)
-				&& dataCheckIn.get(Calendar.MONTH) == dataAtual
-						.get(Calendar.MONTH) && dataCheckIn
-					.get(Calendar.DAY_OF_MONTH) == dataAtual
-				.get(Calendar.DAY_OF_MONTH)))
-			this.isReserva = true;
-	}
-
 	/**
 	 * Recupera a informacao sobre o contrato que diz se ele esta aberto ou nao.
 	 * 
@@ -211,16 +198,43 @@ public class Contrato implements Serializable {
 		return hospedeTitular;
 	}// getHospedeTitular
 
+	/**
+	 * Estabelece um novo hospede titular.
+	 * 
+	 * @param hospedeTitular
+	 *            Novo hospede a ser estabelecido.
+	 * @throws NullPointerException
+	 *             Excecao lancada caso o parametro passado nao tenha sido
+	 *             inicializado.
+	 */
 	public void setHospedeTitular(Hospede hospedeTitular)
 			throws NullPointerException {
 		if (hospedeTitular == null)
 			throw new NullPointerException();
 		this.hospedeTitular = hospedeTitular;
 	}// setHospedeTitular
-	
-	public void setServicos(List<Servico> servicos) throws NullPointerException {
+
+	/**
+	 * Estabelce uma nova lista de servicos.
+	 * 
+	 * @param servicos
+	 *            Nova lista a ser estabelecida.
+	 * @throws NullPointerException
+	 *             Excecao lancada caso o parametro passado nao tenha sido
+	 *             inicializado.
+	 * @throws ContratoSemQuartoException
+	 *             Excecao lancada caso o parametro passado nao possua um
+	 *             quarto.
+	 * @throws DataInvalidaException
+	 *             Excecao lancada caso algum dos servicos tenha uma data que
+	 *             nao esteja entre as datas de checkIn e checkOut do contrato.
+	 */
+	public void setServicos(List<Servico> servicos)
+			throws NullPointerException, ContratoSemQuartoException,
+			DataInvalidaException {
+		verificaServicosValido(servicos);
 		this.servicos = servicos;
-	}
+	}// setServicos
 
 	/**
 	 * Estabelece um valor ao atributo que diz se o contrato esta aberto ou nao.
@@ -331,7 +345,7 @@ public class Contrato implements Serializable {
 	public void setAcompanhantes(List<String> acompanhantes) {
 		this.acompanhantes = acompanhantes;
 	}// setAcompanhantes
-	
+
 	/**
 	 * Metodo responsavel por adicionar novos servicos na lista de servicos do
 	 * contrato.
@@ -422,7 +436,7 @@ public class Contrato implements Serializable {
 	 *         depois da data de checkOut ele pagara a diaria dos dias que ele
 	 *         passou no hotel mais um dia.
 	 */
-	private int getNumeroDeDias(Calendar dataSaida) throws NullPointerException {
+	public int getNumeroDeDias(Calendar dataSaida) throws NullPointerException {
 		if (dataSaida == null)
 			throw new NullPointerException();
 
@@ -569,16 +583,16 @@ public class Contrato implements Serializable {
 			return false;
 		return true;
 	}// equals
-	
+
 	private String toStringOpiniao() {
-		if(opiniao == null)
+		if (opiniao == null)
 			return "--";
-		
+
 		return opiniao.toString();
 	}// toStringOpiniao
-	
+
 	private String toStringAcompanhantes() {
-		if(acompanhantes.isEmpty())
+		if (acompanhantes.isEmpty())
 			return "Nao ha acompanhantes";
 		String acompanhantesFormatados = " ";
 		for (int i = 0; i < acompanhantes.size(); i++) {
@@ -586,12 +600,12 @@ public class Contrato implements Serializable {
 		}// for
 		return acompanhantesFormatados;
 	}// toStringAcompanhantes
-	
+
 	private String toStringServicos() {
 		String servicosFormatados = "";
-		for (Servico servico : servicos) 
+		for (Servico servico : servicos)
 			servicosFormatados += "\n" + servico;
-		
+
 		return servicosFormatados;
 	}// toStringServicos
 
@@ -646,14 +660,13 @@ public class Contrato implements Serializable {
 
 		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
 		dataAtual.set(Calendar.MINUTE, 00);
-		
-		
+
 		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
 		dataCheckIn.set(Calendar.MINUTE, 0);
-		
+
 		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
 		dataCheckOut.set(Calendar.MINUTE, 59);
-		
+
 		if (dataCheckIn.compareTo(dataAtual) < 0
 				|| dataCheckOut.compareTo(dataCheckIn) < 0)
 			throw new DataInvalidaException();
@@ -707,5 +720,18 @@ public class Contrato implements Serializable {
 		if (acompanhantes == null)
 			throw new NullPointerException();
 	}// verificaAcompananteValido
+
+	private void verificaSeEhReserva(Calendar dataCheckIn) {
+		Calendar dataAtual = new GregorianCalendar();
+		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
+		dataAtual.set(Calendar.MINUTE, 00);
+
+		if (!(dataCheckIn.get(Calendar.YEAR) == dataAtual.get(Calendar.YEAR)
+				&& dataCheckIn.get(Calendar.MONTH) == dataAtual
+						.get(Calendar.MONTH) && dataCheckIn
+					.get(Calendar.DAY_OF_MONTH) == dataAtual
+				.get(Calendar.DAY_OF_MONTH)))
+			this.isReserva = true;
+	}// verificaSeEhReserva
 
 }// Contrato

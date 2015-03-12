@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import excecoes.ValorNegativoException;
 
+/**
+ * 
+ * @author Grupinho da Alegria
+ *
+ */
 public class Frigobar implements Serializable {
 
 	/**
@@ -35,17 +40,26 @@ public class Frigobar implements Serializable {
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return Nome da Classe
+	 */
 	public String getNome() {
 		return "Frigobar";
 	}// getNome
-
+	
+	/**
+	 * Recuepra a conta do frigobar.
+	 * @return  Returna a conta do frigobar.
+	 */
 	public double getPreco() {
 		return preco;
 	}// getPreco
 	/**
-	 * @see nothing Metodo responsavel por somar algum valor ao preco do frigobar. E possivel somar valores negativos
+	 * Metodo responsavel por somar algum valor ao preco do frigobar. E possivel somar valores negativos
 	 * para que caso o usuario adicione algum valor errado ele possa consertar.
-	 * @param valor Valor a ser somado
+	 * 
+	 * @param valor Valor a ser somado.
 	 * @throws ValorNegativoException Lanca excecao quando a soma do preco e o valor e menor que zero.
 	 */
 	public void somaPreco(double valor) throws ValorNegativoException {

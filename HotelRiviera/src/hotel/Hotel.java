@@ -22,8 +22,8 @@ import excecoes.SuitesPresidenciaisOcupadasException;
 import java.io.*;
 
 /**
- * A classe Hotel guarda informa��es sobre contratos, quartos dispon�veis,
- * opini�es de clientes e login dos funcion�rios do hotel Rivieira
+ * A classe Hotel guarda informacoes sobre contratos, quartos disponiveis,
+ * opinioes de clientes e login dos funcionarios do hotel Rivieira
  * 
  */
 public class Hotel implements Serializable {
@@ -300,7 +300,7 @@ public class Hotel implements Serializable {
 		if (login == null)
 			throw new NullPointerException();
 		for (Conta conta : contasHotel)
-			if (conta.getLogin().toLowerCase().contains(login.toLowerCase()))
+			if (conta.getLogin().equals(login))
 				return conta;
 
 		return null;
@@ -535,10 +535,10 @@ public class Hotel implements Serializable {
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
 		for (Contrato contrato : getContratos()) {
-			if (contrato.getHospedeTitular().getNome().toLowerCase().contains(nome.toLowerCase()))
+			if (contrato.getHospedeTitular().getNome().equals(nome))
 				contratosEncontrados.add(contrato);
 			for (String acompanhante : contrato.getAcompanhantes()) {
-				if (acompanhante.toLowerCase().contains(nome.toLowerCase())) {
+				if (acompanhante.equals(nome)) {
 					contratosEncontrados.add(contrato);
 				}// if
 			}// for
