@@ -6,9 +6,11 @@ import java.util.Calendar;
 import excecoes.DataInvalidaException;
 import excecoes.ValorNegativoException;
 
-/*
- * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e presidencial.
+/**
+ *  * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e presidencial.
  * Quartos do tipo executivo e luxo existem nas categorias simples, duplo e triplo.
+ * @author Grupinho da Alegria.
+ *
  */
 public abstract class Quarto implements Servico, Serializable {
 
@@ -82,6 +84,12 @@ public abstract class Quarto implements Servico, Serializable {
 		return camaExtra;
 	}
 	
+	/**
+	 * Metodo utilizado para somar um valor na conta do frigobar contido no quarto. E possivel passar um valor negativo como parametro.
+	 * @param valor Valor a ser somado
+	 * @throws ValorNegativoException Se a conta do frigobar somado com o valor passado como paramtro ficar negativo esta
+	 * excecao sera lancada.
+	 */
 	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
 		frigobar.somaPreco(valor);
 	}

@@ -136,6 +136,7 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 				&& getComentario().equals(outra.getComentario())
 				&& getData().equals(outra.getData());
 	}
+	
 
 	@Override
 	public int compareTo(Opiniao outraOpiniao) {

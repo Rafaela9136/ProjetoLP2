@@ -41,7 +41,7 @@ public class Frigobar implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Recupera o noem da classe.
 	 * @return Nome da Classe
 	 */
 	public String getNome() {
