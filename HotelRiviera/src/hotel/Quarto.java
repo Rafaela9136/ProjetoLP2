@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import excecoes.DataInvalidaException;
+import excecoes.ValorNegativoException;
 
 /*
  * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e presidencial.
@@ -75,6 +76,10 @@ public abstract class Quarto implements Servico, Serializable {
 	 */
 	public boolean isCamaExtra() {
 		return camaExtra;
+	}
+	
+	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
+		frigobar.somaPreco(valor);
 	}
 
 	/**

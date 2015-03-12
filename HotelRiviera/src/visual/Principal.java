@@ -180,6 +180,15 @@ public class Principal extends JFrame implements WindowListener{
 		panelInfo.add(btnEstatisticas);
 		
 		botaoSair(panelInfo);
+		
+		JButton btnFaturamento = new JButton("Faturamento");
+		btnFaturamento.setBounds(12, 248, 204, 49);
+		btnFaturamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Info.selecionaTela("faturamento");
+			}
+		});
+		panelInfo.add(btnFaturamento);
 	}
 
 	private void botaoSair(JPanel panel) {

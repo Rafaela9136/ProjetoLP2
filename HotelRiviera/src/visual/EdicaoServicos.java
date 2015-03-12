@@ -68,7 +68,9 @@ public class EdicaoServicos extends JPanel {
 		
 		edicaoCarro(dataMask);
 		
-		// pinel que permanece
+		edicaoFrigobar();
+		
+		// painel que permanece
 		JPanel vazio = new JPanel();
 		vazio.setBackground(Color.WHITE);
 		panel.add(vazio, "vazio");
@@ -78,6 +80,25 @@ public class EdicaoServicos extends JPanel {
 		setBackground(Color.WHITE);
 		setBounds(28, 391, 705, 145);
 		setLayout(null);
+	}
+	
+	private void edicaoFrigobar() {
+		JPanel frigobar = new JPanel();
+		frigobar.setBackground(Color.WHITE);
+		panel.add(frigobar, "frigobar");
+		frigobar.setLayout(null);
+		
+		JTextPane txtpnTotalDaConta = new JTextPane();
+		txtpnTotalDaConta.setEditable(false);
+		txtpnTotalDaConta.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtpnTotalDaConta.setText("Total da conta:");
+		txtpnTotalDaConta.setBounds(0, 11, 101, 23);
+		frigobar.add(txtpnTotalDaConta);
+		
+		textField = new JTextField();
+		textField.setBounds(107, 14, 134, 21);
+		frigobar.add(textField);
+		textField.setColumns(10);
 	}
 
 	private void edicaoCarro(final MaskFormatter dataMask) {
@@ -194,7 +215,7 @@ public class EdicaoServicos extends JPanel {
 		txtpnTotalDaConta.setEditable(false);
 		txtpnTotalDaConta.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTotalDaConta.setText("Total da conta:");
-		txtpnTotalDaConta.setBounds(0, 11, 99, 23);
+		txtpnTotalDaConta.setBounds(0, 11, 101, 23);
 		restaurante.add(txtpnTotalDaConta);
 		
 		textField = new JTextField();
@@ -211,6 +232,11 @@ public class EdicaoServicos extends JPanel {
 		} catch (NumberFormatException | ValorNegativoException e) {
 			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique o valor da conta!");
 		}
+		return conta;
+	}
+	
+	static double geraContaFrigobar(){
+		Double conta = Double.valueOf(textField.getText());
 		return conta;
 	}
 	

@@ -31,7 +31,11 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import excecoes.AnoInvalidoException;
 import excecoes.MesInvalidoException;
+
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class Info extends JPanel {
 
@@ -47,10 +51,14 @@ public class Info extends JPanel {
 	private static JComboBox<String> comboBox;
 	private static JComboBox<String> comboBoxSelecao;
 	private static String[] colunas;
+	private static String[] colunasFaturamento;
 	private static JTable tabela;
+	private static JTable tabelaFaturamento;
 	private static DefaultTableModel model;
+	private static DefaultTableModel modelFaturamento;
 	private static JTextArea textArea;
 	private static String[][] dados;
+	private static String[][] dadosFaturamento;
 	private static JPanel estatistica;
 	static JTextPane txtpnAMediaDe;
 	
@@ -58,6 +66,7 @@ public class Info extends JPanel {
 	//Plot plot; 
 	private static ChartPanel chartPanel; 
 	private static CategoryDataset dataset;
+	private static JTextField textFieldAno;
 	
 	/**
 	 * Create the panel.
@@ -83,6 +92,8 @@ public class Info extends JPanel {
 		layout.show(panel, "vazio");
 		
 		panelEstatistica();
+		
+		panelFaturamento();
 	}// Construtor
 	
 	private void inicializa() {
@@ -125,6 +136,11 @@ public class Info extends JPanel {
 		comboBoxVisao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxVisao.getSelectedItem().equals("Mensal")) {
+					try {
+						updateMensal();
+					} catch (MesInvalidoException e1) {
+						JOptionPane.showMessageDialog(null,"Algo está errado!");
+					}
 					comboBoxMes.setEnabled(true);					
 				} else {
 					comboBoxMes.setEnabled(false);
@@ -135,18 +151,11 @@ public class Info extends JPanel {
 		estatistica.add(comboBoxVisao);
 		
 		comboBox = new JComboBox<String>();
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Faturamento", "Quartos", "Servicos adicionais"}));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Quartos", "Servicos adicionais"}));
 		comboBox.setBounds(129, 98, 144, 24);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				update();
-				if(comboBox.getSelectedItem().equals("Faturamento")){
-					comboBoxVisao.setEnabled(false);
-					comboBoxMes.setEnabled(false);
-				} else {
-					comboBoxVisao.setEnabled(true);
-					comboBoxMes.setEnabled(true);
-				}
 			}
 		});
 		estatistica.add(comboBox);
@@ -155,14 +164,74 @@ public class Info extends JPanel {
 		DefaultCategoryDataset dataset = estatFaturamentoGeral();
 
 		desenhaGrafico(estatistica, dataset);
+
 	}// painelEstatistica
+
+	private void panelFaturamento() {
+		JPanel panelFaturamento = new JPanel();
+		panelFaturamento.setBackground(Color.WHITE);
+		panel.add(panelFaturamento, "faturamento");
+		
+		JTextPane txtpnFaturamento = new JTextPane();
+		txtpnFaturamento.setBounds(47, 24, 166, 24);
+		txtpnFaturamento.setText("Faturamento mensal");
+		txtpnFaturamento.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		txtpnFaturamento.setEditable(false);
+		panelFaturamento.add(txtpnFaturamento);
+		
+		JTextPane txtpnTipo = new JTextPane();
+		txtpnTipo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		txtpnTipo.setText("Escolha o ano:");
+		txtpnTipo.setBounds(47, 65, 105, 24);
+		panelFaturamento.add(txtpnTipo);
+		
+		colunasFaturamento = new String[]{"Mês", "Faturamento" };
+		 
+		tabelaFaturamento = new JTable();
+		modelFaturamento = new DefaultTableModel(dadosFaturamento , colunasFaturamento );
+		panelFaturamento.setLayout(null);
+		tabelaFaturamento.setModel(modelFaturamento);
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(57, 130, 651, 280);
+		scroll.setViewportView(tabelaFaturamento);
+		panelFaturamento.add(scroll);
+		
+		textFieldAno = new JTextField();
+		textFieldAno.setBounds(164, 65, 134, 21);
+		panelFaturamento.add(textFieldAno);
+		textFieldAno.setColumns(10);
+		
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setBounds(573, 98, 135, 25);
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					atualizaTabelaFaturamento();
+				} catch (NumberFormatException | AnoInvalidoException e1) {
+					JOptionPane.showMessageDialog(null, "Digite um ano válido!");
+				}
+			}
+		});		
+		panelFaturamento.add(btnConfirmar);
+	}
+	
+	static void atualizaTabelaFaturamento() throws NumberFormatException, AnoInvalidoException{
+		dadosFaturamento = new String[MesesDoAno.values().length][2];
+		
+		for (int i = 0; i < MesesDoAno.values().length; i++) {
+			dadosFaturamento[i][0] = MesesDoAno.values()[i].getNome();
+			dadosFaturamento[i][1] = String.valueOf((Main.getHotel().getFaturamento(Integer.parseInt((textFieldAno.getText())))[i]));
+		}
+		
+		modelFaturamento = new DefaultTableModel(dadosFaturamento, colunasFaturamento);
+		tabelaFaturamento.setModel(modelFaturamento);
+	}
 
 	private static void desenhaGrafico(JPanel estatistica, DefaultCategoryDataset dataset) {
 		chart = createBarChart(dataset);
 		chartPanel = new ChartPanel(chart);
 		chartPanel.setBounds(47, 154, 674, 341);
-		estatistica.add(chartPanel);
-		
+		estatistica.add(chartPanel);		
 	}
 
 	
@@ -183,10 +252,7 @@ public class Info extends JPanel {
 			if(comboBoxVisao.getSelectedItem().equals("Mensal")){
 				dataset = estatServicosAdicionaisMensal(comboBoxMes.getSelectedIndex() + 1);
 			}
-		} if(comboBox.getSelectedItem().equals("Faturamento")){
-			dataset = estatFaturamentoGeral();
-		}
-		if(!comboBox.getSelectedItem().equals("Servicos adicionais")){
+		} if(!comboBox.getSelectedItem().equals("Servicos adicionais")){
 			if(comboBoxVisao.getSelectedItem().equals("Mensal")){
 				dataset = estatQuartoMensal(comboBoxMes.getSelectedIndex() + 1);
 			}

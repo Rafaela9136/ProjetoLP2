@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -249,12 +250,14 @@ public class AtualizacaoContrato extends JPanel {
 
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Baba", "Carro", "Restaurante" }));
+				"Baba", "Carro", "Frigobar", "Restaurante" }));
 		comboBox.setBounds(140, 374, 141, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedItem().equals("Baba"))
 					EdicaoServicos.selecionaTela("baba");
+				if(comboBox.getSelectedItem().equals("Frigobar"))
+					EdicaoServicos.selecionaTela("frigobar");
 				if (comboBox.getSelectedItem().equals("Restaurante"))
 					EdicaoServicos.selecionaTela("restaurante");
 				if (comboBox.getSelectedItem().equals("Carro"))
@@ -272,7 +275,23 @@ public class AtualizacaoContrato extends JPanel {
 		btnConfirmar_1.setBounds(598, 547, 135, 25);
 		btnConfirmar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				criaObjetosServicos();
+				if (comboBox.getSelectedItem().equals("frigobar"))
+					editaServicos();
+				else{
+					try {
+						criaObjetosServicos();
+						JOptionPane.showMessageDialog(null,
+								"Servico adicionado com sucesso!");
+					} catch (AddQuartoContratoException e2) {
+						JOptionPane.showMessageDialog(null, "Algo esta errado!");
+					} catch (NullPointerException e3) {
+						JOptionPane.showMessageDialog(null,
+								"Algo esta errado. Verifique os campos!");
+					} catch (ServicoInvalidoException e4) {
+						JOptionPane.showMessageDialog(null,
+								"Algo esta errado. Verifique os servicos!");
+					}
+				}
 			}
 		});
 		editarServicos.add(btnConfirmar_1);
@@ -290,7 +309,7 @@ public class AtualizacaoContrato extends JPanel {
 		fechaContrato();
 	}
 
-	private void criaObjetosServicos() {
+	private void criaObjetosServicos() throws AddQuartoContratoException, NullPointerException, ServicoInvalidoException {
 		Servico servico = null;
 		if (comboBox.getSelectedItem().equals("Baba"))
 			servico = EdicaoServicos.contrataBaba();
@@ -298,19 +317,23 @@ public class AtualizacaoContrato extends JPanel {
 			servico = EdicaoServicos.alugaCarro();
 		if (comboBox.getSelectedItem().equals("Restaurante"))
 			servico = EdicaoServicos.geraContaRestaurante();
+		
+		Acoes.getContratoPesquisado().adicionaServico(servico);
 
+	}
+	
+	private void editaServicos(){
+		double conta = EdicaoServicos.geraContaFrigobar();
+		List<Servico> servicos = Acoes.getContratoPesquisado().getServicos();
+		Quarto quarto = (Quarto) servicos.remove(1);
 		try {
-			Acoes.getContratoPesquisado().adicionaServico(servico);
-
-			JOptionPane.showMessageDialog(null,"Servico adicionado com sucesso!");
-		} catch (AddQuartoContratoException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado!");
-		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os campos!");
-		} catch (ServicoInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo esta errado. Verifique os servicos!");
+			quarto.somaPrecoFrigobar(conta);
+		} catch (ValorNegativoException e) {
+			JOptionPane.showMessageDialog(null,"O valor do frigobar não pode ser negativo!");
 		}
-
+		servicos.add(quarto);
+		
+		Acoes.getContratoPesquisado().setServicos(servicos);
 	}
 
 	private void desenhaTabela(JPanel editarServicos) {

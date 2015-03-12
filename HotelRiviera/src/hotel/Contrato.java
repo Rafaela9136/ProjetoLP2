@@ -213,6 +213,10 @@ public class Contrato implements Serializable {
 			throw new NullPointerException();
 		this.hospedeTitular = hospedeTitular;
 	}// setHospedeTitular
+	
+	public void setServicos(List<Servico> servicos) throws NullPointerException {
+		this.servicos = servicos;
+	}
 
 	/**
 	 * Estabelece um valor ao atributo que diz se o contrato esta aberto ou nao.
