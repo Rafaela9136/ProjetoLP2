@@ -69,7 +69,7 @@ public class Hotel implements Serializable {
 		opinioes = new ArrayList<Opiniao>();
 		contasHotel = new ArrayList<Conta>();
 
-		contasHotel.add(new Conta("gerente", "euamorafael", "Rafael Klynger",
+		contasHotel.add(new Conta("gerente", "prog2ufcg", "Rafael Klynger",
 				TipoFuncionario.GERENTE));
 
 		IndexQuartos[] index = IndexQuartos.values();
@@ -143,7 +143,7 @@ public class Hotel implements Serializable {
 			if (contrato.getDataCheckIn().before(Calendar.getInstance())) {
 				contrato.setIsAberto(false);
 				contratosRemovidos.add(contrato);
-			}// if
+			}// if 
 			atualizaContratosNaoReservas();
 			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
 		}// if
