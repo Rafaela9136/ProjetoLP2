@@ -244,83 +244,34 @@ public class Acoes extends JPanel {
 		btnConfirmar.setBounds(600, 574, 135, 25);
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				List<Servico> servicos = new ArrayList<Servico>();
-				Contrato contrato = null;
-
-				try {
-					criaQuarto(servicos);
-					criaHospede();
-					
-					List<String> acompanhantes = new ArrayList<String>();
-					acompanhantes.addAll(Conector
-							.transformaVetor(textAreaAcompanhantes.getText()
-									.split(",")));
-
-					contrato = new Contrato(hospede, acompanhantes,
-							Conector.transformaData(formattedTextFieldCheckIn
-									.getText()), Conector
-									.transformaData(formattedTextFieldCheckOut
-											.getText()), servicos);
-
-					try {
-						Main.getHotel().adicionaContrato(contrato);
-					} catch (ExecutivosDuploOcupadosException
-							| LuxosSimplesOcupadosException
-							| LuxosDuploOcupadosException
-							| LuxosTriploOcupadosException
-							| ExecutivosSimplesOcupadosException
-							| ExecutivosTriploOcupadosException
-							| SuitesPresidenciaisOcupadasException e1) {
-						JOptionPane.showMessageDialog(null,
-								"Algo está errado. Quarto indisponível!");
-					}
-
-					JOptionPane.showMessageDialog(null,
-							"Contrato criado com sucesso!");
-
-					layout.show(panel, "vazio");
-				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null,
-							"Algo está errado. Verifique os campos!");
-				} catch (NumberFormatException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Todos os campos deve ser preenchidos!");
-				} catch (DataInvalidaException e1) {
-					JOptionPane.showMessageDialog(null,
-							"Algo está errado. Verifique as datas!");
-				} catch (ContratoSemQuartoException e1) {
-					JOptionPane.showMessageDialog(null,
-							"Algo está errado. Adicione pelo menos um quarto!");
-				} catch (NomeInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Algo está errado. Nome inválido!");
-				} catch (CamaExtraException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Esse quarto não permite cama extra!");
-				} catch (CPFInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Preencha corretamente o CPF!");
-				} catch (StringInvalidaException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Verifique os dados do hospede!");
-				} catch (NumeroInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Verifique o número da sua residência!");
-				} catch (CartaoInvalidoException e2) {
-					JOptionPane.showMessageDialog(null,
-							"Preencha corretamente o número do cartão!");
-				} finally {
-					try {
-						if (contrato != null)
-							novoContrato();
-					} catch (ParseException e1) {
-						JOptionPane
-								.showMessageDialog(null, "Algo está errado!");
-					}
-				}
+				apertaBotaoConfirmar();
 			}
 		});
+		
+		textFieldNome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				apertaBotaoConfirmar();
+			}
+		});
+		
+		textFieldNumero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				apertaBotaoConfirmar();
+			}
+		});
+		
+		textFieldCidade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				apertaBotaoConfirmar();
+			}
+		});
+		
+		textFieldLogradouro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				apertaBotaoConfirmar();
+			}
+		});
+			
 		panelNovoContrato.add(btnConfirmar);
 	}
 
@@ -732,5 +683,83 @@ public class Acoes extends JPanel {
 	// metodo para selecionar a tela a que aparece
 	static void selecionaTela(String nomeDaTela) {
 		layout.show(panel, nomeDaTela);
+	}
+	
+	private void apertaBotaoConfirmar() {
+
+			List<Servico> servicos = new ArrayList<Servico>();
+			Contrato contrato = null;
+
+			try {
+				criaQuarto(servicos);
+				criaHospede();
+				
+				List<String> acompanhantes = new ArrayList<String>();
+				acompanhantes.addAll(Conector
+						.transformaVetor(textAreaAcompanhantes.getText()
+								.split(",")));
+
+				contrato = new Contrato(hospede, acompanhantes,
+						Conector.transformaData(formattedTextFieldCheckIn
+								.getText()), Conector
+								.transformaData(formattedTextFieldCheckOut
+										.getText()), servicos);
+
+				try {
+					Main.getHotel().adicionaContrato(contrato);
+				} catch (ExecutivosDuploOcupadosException
+						| LuxosSimplesOcupadosException
+						| LuxosDuploOcupadosException
+						| LuxosTriploOcupadosException
+						| ExecutivosSimplesOcupadosException
+						| ExecutivosTriploOcupadosException
+						| SuitesPresidenciaisOcupadasException e1) {
+					JOptionPane.showMessageDialog(null,
+							"Algo está errado. Quarto indisponível!");
+				}
+
+				JOptionPane.showMessageDialog(null,
+						"Contrato criado com sucesso!");
+
+				layout.show(panel, "vazio");
+			} catch (NullPointerException e1) {
+				JOptionPane.showMessageDialog(null,
+						"Algo está errado. Verifique os campos!");
+			} catch (NumberFormatException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Todos os campos deve ser preenchidos!");
+			} catch (DataInvalidaException e1) {
+				JOptionPane.showMessageDialog(null,
+						"Algo está errado. Verifique as datas!");
+			} catch (ContratoSemQuartoException e1) {
+				JOptionPane.showMessageDialog(null,
+						"Algo está errado. Adicione pelo menos um quarto!");
+			} catch (NomeInvalidoException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Algo está errado. Nome inválido!");
+			} catch (CamaExtraException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Esse quarto não permite cama extra!");
+			} catch (CPFInvalidoException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Preencha corretamente o CPF!");
+			} catch (StringInvalidaException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Verifique os dados do hospede!");
+			} catch (NumeroInvalidoException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Verifique o número da sua residência!");
+			} catch (CartaoInvalidoException e2) {
+				JOptionPane.showMessageDialog(null,
+						"Preencha corretamente o número do cartão!");
+			} finally {
+				try {
+					if (contrato != null)
+						novoContrato();
+				} catch (ParseException e1) {
+					JOptionPane
+							.showMessageDialog(null, "Algo está errado!");
+				}
+			}
 	}
 }
