@@ -97,18 +97,18 @@ public class Funcionarios extends JPanel {
 		textPanePesquisaContas.setText("Pesquisa de contas");
 		textPanePesquisaContas.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 		textPanePesquisaContas.setEditable(false);
-		textPanePesquisaContas.setBounds(46, 24, 131, 27);
+		textPanePesquisaContas.setBounds(46, 24, 194, 27);
 		panelPesquisa.add(textPanePesquisaContas);
 
 		JTextPane txtLoginSenha = new JTextPane();
 		txtLoginSenha.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtLoginSenha.setText("Nome ou login:");
-		txtLoginSenha.setBounds(47, 77, 97, 27);
+		txtLoginSenha.setBounds(47, 77, 113, 27);
 		panelPesquisa.add(txtLoginSenha);
 
 		textFieldPesquisa = new JTextField();
 		textFieldPesquisa.setColumns(10);
-		textFieldPesquisa.setBounds(154, 80, 581, 20);
+		textFieldPesquisa.setBounds(165, 80, 570, 20);
 		panelPesquisa.add(textFieldPesquisa);
 
 		JButton btnAtualizarTabela = new JButton("Atualizar tabela");

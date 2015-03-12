@@ -333,7 +333,18 @@ public class AtualizacaoContrato extends JPanel {
 		}
 		servicos.add(quarto);
 		
-		Acoes.getContratoPesquisado().setServicos(servicos);
+		try {
+			Acoes.getContratoPesquisado().setServicos(servicos);
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ContratoSemQuartoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DataInvalidaException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void desenhaTabela(JPanel editarServicos) {

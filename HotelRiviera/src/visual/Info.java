@@ -188,11 +188,13 @@ public class Info extends JPanel {
 		colunasFaturamento = new String[]{"Mês", "Faturamento" };
 		 
 		tabelaFaturamento = new JTable();
+		tabelaFaturamento.setEnabled(false);
 		modelFaturamento = new DefaultTableModel(dadosFaturamento , colunasFaturamento );
 		panelFaturamento.setLayout(null);
 		tabelaFaturamento.setModel(modelFaturamento);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(57, 130, 651, 273);
+		scroll.setEnabled(false);
+		scroll.setBounds(57, 130, 651, 277);
 		scroll.setViewportView(tabelaFaturamento);
 		panelFaturamento.add(scroll);
 		
@@ -472,7 +474,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 91, 682, 180);
+		scroll.setBounds(47, 91, 682, 172);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -505,7 +507,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 419, 682, 114);
+		scroll.setBounds(47, 419, 682, 109);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
@@ -523,7 +525,7 @@ public class Info extends JPanel {
 		panelServicos.setLayout(null);
 		tabela.setModel(model);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(47, 305, 682, 70);
+		scroll.setBounds(47, 305, 682, 68);
 		scroll.setViewportView(tabela);
 		panelServicos.add(scroll);
 	}
