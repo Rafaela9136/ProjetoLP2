@@ -336,14 +336,11 @@ public class AtualizacaoContrato extends JPanel {
 		try {
 			Acoes.getContratoPesquisado().setServicos(servicos);
 		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Algo está errado!");
 		} catch (ContratoSemQuartoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"O contrato deve ter pelo menos um quarto entre os serviços!");
 		} catch (DataInvalidaException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique as datas!");
 		}
 	}
 

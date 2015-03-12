@@ -162,46 +162,46 @@ public class EdicaoServicos extends JPanel {
 		txtpnDataInicial.setText("Data inicial:");
 		txtpnDataInicial.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataInicial.setEditable(false);
-		txtpnDataInicial.setBounds(0, 63, 82, 23);
+		txtpnDataInicial.setBounds(0, 12, 82, 23);
 		baba.add(txtpnDataInicial);
 		
 		JTextPane txtpnHoraInicial = new JTextPane();
 		txtpnHoraInicial.setText("Hora inicial:");
 		txtpnHoraInicial.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnHoraInicial.setEditable(false);
-		txtpnHoraInicial.setBounds(0, 98, 82, 23);
+		txtpnHoraInicial.setBounds(0, 47, 82, 23);
 		baba.add(txtpnHoraInicial);
 		
 		JTextPane txtpnDataFinal = new JTextPane();
 		txtpnDataFinal.setText("Data final:");
 		txtpnDataFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataFinal.setEditable(false);
-		txtpnDataFinal.setBounds(262, 63, 82, 23);
+		txtpnDataFinal.setBounds(262, 12, 82, 23);
 		baba.add(txtpnDataFinal);
 		
 		JTextPane txtpnHoraFinal = new JTextPane();
 		txtpnHoraFinal.setText("Hora final:");
 		txtpnHoraFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnHoraFinal.setEditable(false);
-		txtpnHoraFinal.setBounds(262, 98, 82, 23);
+		txtpnHoraFinal.setBounds(262, 47, 82, 23);
 		baba.add(txtpnHoraFinal);
 		
 		formattedTextField = new JFormattedTextField(dataMask);
-		formattedTextField.setBounds(107, 66, 139, 20);
+		formattedTextField.setBounds(107, 15, 139, 20);
 		baba.add(formattedTextField);
 		
 		formattedTextFieldFinal = new JFormattedTextField(dataMask);
-		formattedTextFieldFinal.setBounds(354, 66, 139, 20);
+		formattedTextFieldFinal.setBounds(354, 15, 139, 20);
 		baba.add(formattedTextFieldFinal);
 		
 		comboBoxHoraI = new JComboBox<String>();
 		comboBoxHoraI.setModel(new DefaultComboBoxModel<String>(new String[] {"01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"}));
-		comboBoxHoraI.setBounds(107, 98, 139, 20);
+		comboBoxHoraI.setBounds(107, 47, 139, 20);
 		baba.add(comboBoxHoraI);
 		
 		comboBoxHoraF = new JComboBox<String>();
 		comboBoxHoraF.setModel(new DefaultComboBoxModel<String>(new String[] {"01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "00:00"}));
-		comboBoxHoraF.setBounds(354, 98, 139, 20);
+		comboBoxHoraF.setBounds(354, 47, 139, 20);
 		baba.add(comboBoxHoraF);
 	}
 
