@@ -523,7 +523,6 @@ public class Contrato implements Serializable {
 			}// if
 			valor += servico.getPreco();
 		}// for
-
 		return valor * estrategia.getPorcentagem();
 	}// calculaValorTotalServicosComEstrategia
 

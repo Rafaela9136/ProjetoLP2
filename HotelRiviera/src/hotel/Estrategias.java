@@ -20,7 +20,7 @@ public enum Estrategias implements Serializable {
 	AGOSTO("Mes Agosto -20%", 1, 31, Calendar.AUGUST, Calendar.AUGUST, 0.8, Calendar.getInstance().get(Calendar.YEAR)),
 	// O mes de agosto inteiro e de baixa estacao (20% de desconto).
 	DEFAULT("Sem estrategia +0%", 1, 31, Calendar.JANUARY, Calendar.DECEMBER,
-			0, Calendar.getInstance().get(Calendar.YEAR));
+			1, Calendar.getInstance().get(Calendar.YEAR));
 
 	private String nomeEstrategia;
 	private Calendar dataInicial;

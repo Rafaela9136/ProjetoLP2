@@ -127,6 +127,11 @@ public class Info extends JPanel {
 		comboBoxMes.setEnabled(false);
 		comboBoxMes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					updateMensal();
+				} catch (MesInvalidoException e1) {
+					JOptionPane.showMessageDialog(null,"Algo está errado!");
+				}
 			}
 		});
 		estatistica.add(comboBoxMes);
@@ -136,11 +141,7 @@ public class Info extends JPanel {
 		comboBoxVisao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBoxVisao.getSelectedItem().equals("Mensal")) {
-					try {
-						updateMensal();
-					} catch (MesInvalidoException e1) {
-						JOptionPane.showMessageDialog(null,"Algo está errado!");
-					}
+					
 					comboBoxMes.setEnabled(true);					
 				} else {
 					comboBoxMes.setEnabled(false);
@@ -237,7 +238,7 @@ public class Info extends JPanel {
 	}
 
 	
-	private static void update(){
+	static void update(){
 		if(comboBox.getSelectedItem().equals("Quartos"))
 			dataset = estatQuartoGeral();
 		if(comboBox.getSelectedItem().equals("Servicos adicionais"))

@@ -175,6 +175,7 @@ public class Principal extends JFrame implements WindowListener{
 		btnEstatisticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Info.selecionaTela("estatistica");
+				Info.update();
 			}
 		});
 		panelInfo.add(btnEstatisticas);
