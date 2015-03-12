@@ -164,9 +164,25 @@ public abstract class Quarto implements Servico, Serializable {
 			Calendar dataCheckOut) throws DataInvalidaException,
 			NullPointerException {
 		Calendar dataAtual = new GregorianCalendar();
-		if (dataCheckIn == null || dataCheckOut == null)
+		
+		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
+		dataAtual.set(Calendar.MINUTE, 0);
+		dataAtual.set(Calendar.SECOND, 0);
+		dataAtual.set(Calendar.MILLISECOND, 0);
+
+		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
+		dataCheckIn.set(Calendar.MINUTE, 0);
+		dataCheckIn.set(Calendar.SECOND, 0);
+		dataCheckIn.set(Calendar.MILLISECOND, 0);
+
+		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
+		dataCheckOut.set(Calendar.MINUTE, 59);
+		
+		if (dataCheckIn == null || dataCheckOut == null) {
 			throw new NullPointerException();
-		if (dataCheckOut.before(dataCheckIn) || dataCheckIn.before(dataAtual))
+		}
+		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn)) {
 			throw new DataInvalidaException();
+		}
 	}// verificaDatasValidas
 }

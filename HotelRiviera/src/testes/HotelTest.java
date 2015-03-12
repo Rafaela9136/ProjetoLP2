@@ -150,13 +150,9 @@ public class HotelTest {
 				new GregorianCalendar(anoAtual, mesAtual, diaAtual + 3),
 				servicos7);
 
-		servicos8.add(new QuartoExecutivo(false, TiposDeQuarto.SIMPLES,
-				new GregorianCalendar(), new GregorianCalendar(anoAtual,
-						mesAtual, diaAtual + 4)));
+		servicos8.add(new QuartoExecutivo(false, TiposDeQuarto.SIMPLES, new GregorianCalendar(), new GregorianCalendar(anoAtual, mesAtual, diaAtual + 4)));
 		contrato8 = new Contrato(new Hospede("Pablo", new GregorianCalendar(
-				1990, Calendar.JUNE, 2), "5461.1320.8761.3490"), acompanhantes,
-				new GregorianCalendar(), new GregorianCalendar(anoAtual,
-						mesAtual, diaAtual + 4), servicos8);
+				1990, Calendar.JUNE, 2), "5461.1320.8761.3490"), acompanhantes,	new GregorianCalendar(), new GregorianCalendar(anoAtual, mesAtual, diaAtual + 4), servicos8);
 
 		hotel.adicionaContrato(contrato1);
 		hotel.adicionaContrato(contrato2);

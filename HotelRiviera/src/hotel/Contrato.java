@@ -660,16 +660,22 @@ public class Contrato implements Serializable {
 
 		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
 		dataAtual.set(Calendar.MINUTE, 0);
+		dataAtual.set(Calendar.SECOND, 0);
+		dataAtual.set(Calendar.MILLISECOND, 0);
 
 		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
 		dataCheckIn.set(Calendar.MINUTE, 0);
+		dataCheckIn.set(Calendar.SECOND, 0);
+		dataCheckIn.set(Calendar.MILLISECOND, 0);
 
 		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
 		dataCheckOut.set(Calendar.MINUTE, 59);
 
-		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn)) {
+		if (dataCheckIn.before(dataAtual))
 			throw new DataInvalidaException();
-		}
+		if (dataCheckOut.before(dataCheckIn))
+			throw new DataInvalidaException();
+		
 
 	}// verificaDataValida
 
