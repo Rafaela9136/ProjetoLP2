@@ -359,9 +359,9 @@ public class Acoes extends JPanel {
 
 		JTextPane txtpnDataDeNascimento = new JTextPane();
 		txtpnDataDeNascimento.setEditable(false);
-		txtpnDataDeNascimento.setText("Data de nascimento:");
+		txtpnDataDeNascimento.setText("Nascimento:");
 		txtpnDataDeNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-		txtpnDataDeNascimento.setBounds(47, 126, 127, 27);
+		txtpnDataDeNascimento.setBounds(47, 127, 135, 27);
 		panelNovoContrato.add(txtpnDataDeNascimento);
 
 		JTextPane txtpnNDoCarto = new JTextPane();

@@ -683,6 +683,14 @@ public class AtualizacaoContrato extends JPanel {
 				.getHospedeTitular().getPais());
 		comboBoxEstados.setSelectedItem(Acoes.getContratoPesquisado()
 				.getHospedeTitular().getEstado());
+		
+		String acompanhantes = "";
+		for (String string : Acoes.getContratoPesquisado().getAcompanhantes()) {
+			acompanhantes += string;
+			if(!string.equals(Acoes.getContratoPesquisado().getAcompanhantes().get(Acoes.getContratoPesquisado().getAcompanhantes().size() - 1)))
+				acompanhantes += ",";				
+		}
+		textAreaAcompanhantes.setText(acompanhantes);
 	}
 
 	private void atualizaDados() throws NullPointerException, StringInvalidaException,
@@ -709,12 +717,8 @@ public class AtualizacaoContrato extends JPanel {
 							Conector.selecionaEstado((String) comboBoxEstados
 									.getSelectedItem()));
 		}
-		try {
-			Acoes.getContratoPesquisado().adicionaAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
-					.getText().split(",")));
-		} catch (NomeInvalidoException e) {
-			JOptionPane.showMessageDialog(null,"Algo está errado. Verifique os nomes!");
-		};
+		Acoes.getContratoPesquisado().setAcompanhantes(Conector.transformaVetor(textAreaAcompanhantes
+				.getText().split(",")));;
 	}
 
 	public void limpaOpiniao() {

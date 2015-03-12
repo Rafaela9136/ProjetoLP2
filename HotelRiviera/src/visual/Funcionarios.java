@@ -234,7 +234,7 @@ public class Funcionarios extends JPanel {
 		txtpnTipoDeFuncionario.setText("Tipo de funcionário:");
 		txtpnTipoDeFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnTipoDeFuncionario.setEditable(false);
-		txtpnTipoDeFuncionario.setBounds(46, 112, 129, 27);
+		txtpnTipoDeFuncionario.setBounds(44, 112, 135, 27);
 		panelCadastro.add(txtpnTipoDeFuncionario);
 		
 		JTextPane txtpnLogin = new JTextPane();

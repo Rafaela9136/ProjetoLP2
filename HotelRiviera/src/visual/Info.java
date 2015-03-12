@@ -192,7 +192,7 @@ public class Info extends JPanel {
 		panelFaturamento.setLayout(null);
 		tabelaFaturamento.setModel(modelFaturamento);
 		JScrollPane scroll = new JScrollPane();
-		scroll.setBounds(57, 130, 651, 280);
+		scroll.setBounds(57, 130, 651, 273);
 		scroll.setViewportView(tabelaFaturamento);
 		panelFaturamento.add(scroll);
 		
@@ -511,7 +511,7 @@ public class Info extends JPanel {
 	}
 
 	private void tabelaBaba(JPanel panelServicos) {
-		String[] colunas = new String[]{"Servico babysitter","Valor"};
+		String[] colunas = new String[]{"Serviço babysitter","Valor"};
 		String[][] dados = new String[][]{
 				{"Babysitter (hora normal)", "R$ " + Double.toString(Baba.VALOR_HORA)},
 			    {"Babysitter (hora dobrada)", "R$ " + Double.toString(Baba.VALOR_HORA_DOBRADA)},
@@ -534,6 +534,6 @@ public class Info extends JPanel {
 	}
 
 	static void setMediaOpinioes() {
-		txtpnAMediaDe.setText("A média de avaliação atual do hotel é" + Double.toString((Main.getHotel().getMediaOpinioes())));
+		txtpnAMediaDe.setText("A média de avaliação atual do hotel é " + Double.toString((Main.getHotel().getMediaOpinioes())) + "!");
 	}
 }
