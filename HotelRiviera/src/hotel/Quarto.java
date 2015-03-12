@@ -1,14 +1,19 @@
 package hotel;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import excecoes.DataInvalidaException;
 import excecoes.ValorNegativoException;
 
 /**
- *  * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e presidencial.
- * Quartos do tipo executivo e luxo existem nas categorias simples, duplo e triplo.
+ * * Representa um quarto do hotel. Ha tres tipos de quartos: executivo, luxo e
+ * presidencial. Quartos do tipo executivo e luxo existem nas categorias
+ * simples, duplo e triplo.
+ * 
  * @author Grupinho da Alegria.
  *
  */
@@ -83,12 +88,16 @@ public abstract class Quarto implements Servico, Serializable {
 	public boolean isCamaExtra() {
 		return camaExtra;
 	}
-	
+
 	/**
-	 * Metodo utilizado para somar um valor na conta do frigobar contido no quarto. E possivel passar um valor negativo como parametro.
-	 * @param valor Valor a ser somado
-	 * @throws ValorNegativoException Se a conta do frigobar somado com o valor passado como paramtro ficar negativo esta
-	 * excecao sera lancada.
+	 * Metodo utilizado para somar um valor na conta do frigobar contido no
+	 * quarto. E possivel passar um valor negativo como parametro.
+	 * 
+	 * @param valor
+	 *            Valor a ser somado
+	 * @throws ValorNegativoException
+	 *             Se a conta do frigobar somado com o valor passado como
+	 *             paramtro ficar negativo esta excecao sera lancada.
 	 */
 	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
 		frigobar.somaPreco(valor);
@@ -121,10 +130,11 @@ public abstract class Quarto implements Servico, Serializable {
 				&& this.getDataCheckIn().equals(outro.getDataCheckIn()) && this
 				.getDataCheckOut().equals(outro.getDataCheckOut()));
 	}
-	
+
 	private String resultadoCamaExtra() {
-		if(camaExtra)
+		if (camaExtra) {
 			return "Sim";
+		}
 		return "Nao";
 	}// resultadoCamaExtra
 
@@ -133,27 +143,30 @@ public abstract class Quarto implements Servico, Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "\nCamaExtra: " + resultadoCamaExtra()
-				+ "\nFrigobar: " + frigobar.getPreco()
-				+ "\nData Inicial: " + dataCheckIn.get(Calendar.DAY_OF_MONTH)
-				+ "/" + (dataCheckIn.get(Calendar.MONTH) + 1)
-				+ "/" + dataCheckIn.get(Calendar.YEAR) 
-				+ "\nData Final: " + dataCheckOut.get(Calendar.DAY_OF_MONTH)
-				+ "/" + (dataCheckOut.get(Calendar.MONTH) + 1)
-				+ "/" + dataCheckOut.get(Calendar.YEAR);
+		DecimalFormat formatovalor = new DecimalFormat("R$ #,##0.00");
+		final String FIM_LINHA = System.getProperty("line.separator");
+		return "CamaExtra: "
+				+ resultadoCamaExtra()
+				+ FIM_LINHA
+				+ "Frigobar: "
+				+ formatovalor.format(frigobar.getPreco())
+				+ FIM_LINHA
+				+ "Data Inicial: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(dataCheckIn
+						.getTime())
+				+ FIM_LINHA
+				+ "Data Final: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(dataCheckOut
+						.getTime());
 	}
 
-	// adicionar testes referente a essas excecoes
 	private void verificaDatasValidas(Calendar dataCheckIn,
 			Calendar dataCheckOut) throws DataInvalidaException,
 			NullPointerException {
+		Calendar dataAtual = new GregorianCalendar();
 		if (dataCheckIn == null || dataCheckOut == null)
 			throw new NullPointerException();
-		if (dataCheckOut.before(dataCheckIn)
-				|| dataCheckIn.before(Calendar.getInstance()))
+		if (dataCheckOut.before(dataCheckIn) || dataCheckIn.before(dataAtual))
 			throw new DataInvalidaException();
 	}// verificaDatasValidas
-
-
-
 }

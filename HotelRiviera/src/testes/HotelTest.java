@@ -192,11 +192,6 @@ public class HotelTest {
 			Assert.assertTrue(true);
 		}
 
-		Assert.assertTrue(hotel.pesquisaContrato(
-				contrato1.getHospedeTitular().getNome()).contains(contrato1));
-		Assert.assertTrue(hotel.pesquisaContrato(
-				contrato1.getAcompanhantes().get(0)).contains(contrato2));
-
 		Assert.assertFalse(hotel.removeContrato(null));
 
 		hotel.adicionaContrato(contrato8);

@@ -658,8 +658,8 @@ public class Contrato implements Serializable {
 
 		Calendar dataAtual = Calendar.getInstance();
 
-		dataAtual.set(Calendar.HOUR_OF_DAY, 00);
-		dataAtual.set(Calendar.MINUTE, 00);
+		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
+		dataAtual.set(Calendar.MINUTE, 0);
 
 		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
 		dataCheckIn.set(Calendar.MINUTE, 0);
@@ -667,22 +667,24 @@ public class Contrato implements Serializable {
 		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
 		dataCheckOut.set(Calendar.MINUTE, 59);
 
-		if (dataCheckIn.compareTo(dataAtual) < 0
-				|| dataCheckOut.compareTo(dataCheckIn) < 0)
+		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn)) {
 			throw new DataInvalidaException();
+		}
 
 	}// verificaDataValida
 
 	private void verificaDataNull(Calendar data) throws NullPointerException {
-		if (data == null)
+		if (data == null) {
 			throw new NullPointerException();
+		}
 	}// verificaDataNull
 
 	private void verificaQuartoValido(Quarto quarto)
 			throws DataInvalidaException {
 		if (quarto.getDataCheckIn().before(dataCheckIn)
-				|| quarto.getDataCheckOut().after(dataCheckOut))
+				|| quarto.getDataCheckOut().after(dataCheckOut)) {
 			throw new DataInvalidaException();
+		}
 	}// verificaQuartoValido
 
 	private void verificaServicosValido(List<Servico> servicos)
