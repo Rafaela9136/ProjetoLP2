@@ -250,14 +250,14 @@ public class AtualizacaoContrato extends JPanel {
 
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Baba", "Carro", "Frigobar", "Restaurante" }));
+				"Baba", "Carro", "Restaurante" }));
 		comboBox.setBounds(140, 374, 141, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getSelectedItem().equals("Baba"))
 					EdicaoServicos.selecionaTela("baba");
-				if(comboBox.getSelectedItem().equals("Frigobar"))
-					EdicaoServicos.selecionaTela("frigobar");
+//				if(comboBox.getSelectedItem().equals("Frigobar"))
+//					EdicaoServicos.selecionaTela("frigobar");
 				if (comboBox.getSelectedItem().equals("Restaurante"))
 					EdicaoServicos.selecionaTela("restaurante");
 				if (comboBox.getSelectedItem().equals("Carro"))

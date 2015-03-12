@@ -162,28 +162,28 @@ public class EdicaoServicos extends JPanel {
 		txtpnDataInicial.setText("Data inicial:");
 		txtpnDataInicial.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataInicial.setEditable(false);
-		txtpnDataInicial.setBounds(0, 12, 82, 23);
+		txtpnDataInicial.setBounds(0, 12, 104, 23);
 		baba.add(txtpnDataInicial);
 		
 		JTextPane txtpnHoraInicial = new JTextPane();
 		txtpnHoraInicial.setText("Hora inicial:");
 		txtpnHoraInicial.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnHoraInicial.setEditable(false);
-		txtpnHoraInicial.setBounds(0, 47, 82, 23);
+		txtpnHoraInicial.setBounds(0, 47, 104, 23);
 		baba.add(txtpnHoraInicial);
 		
 		JTextPane txtpnDataFinal = new JTextPane();
 		txtpnDataFinal.setText("Data final:");
 		txtpnDataFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnDataFinal.setEditable(false);
-		txtpnDataFinal.setBounds(262, 12, 82, 23);
+		txtpnDataFinal.setBounds(262, 12, 90, 23);
 		baba.add(txtpnDataFinal);
 		
 		JTextPane txtpnHoraFinal = new JTextPane();
 		txtpnHoraFinal.setText("Hora final:");
 		txtpnHoraFinal.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtpnHoraFinal.setEditable(false);
-		txtpnHoraFinal.setBounds(262, 47, 82, 23);
+		txtpnHoraFinal.setBounds(262, 47, 90, 23);
 		baba.add(txtpnHoraFinal);
 		
 		formattedTextField = new JFormattedTextField(dataMask);
