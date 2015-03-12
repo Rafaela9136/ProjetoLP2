@@ -81,29 +81,69 @@ public class Conta implements Serializable {
 		this.login = login;
 	}// setLogin
 
+	/**
+	 * Retorna a senha da conta.
+	 * 
+	 * @return A senha da conta.
+	 */
 	public String getSenha() {
 		return senha;
 	}// getSenha
 
+	/**
+	 * Altera a senha da conta.
+	 * 
+	 * @param senha
+	 *            A nova senha.
+	 * @throws SenhaInvalidaException
+	 *             Se a senha passada for vazia ou tiver menos de 6 caracteres.
+	 */
 	public void setSenha(String senha) throws SenhaInvalidaException {
 		verificaSenhaValida(senha);
 		this.senha = senha;
 	}// setSenha
 
+	/**
+	 * Retorna o tipo do funcionario, podendo ser gerente ou recepcionista.
+	 * 
+	 * @return O tipo do funcionario da conta.
+	 */
 	public TipoFuncionario getTipo() {
 		return tipo;
 	}// getTipo
 
+	/**
+	 * Alterna o tipo da conta.
+	 * 
+	 * @param tipo
+	 *            O novo tipo.
+	 * @throws NullPointerException
+	 *             Se o parametro for null.
+	 */
 	public void setTipo(TipoFuncionario tipo) throws NullPointerException {
 		if (tipo == null)
 			throw new NullPointerException();
 		this.tipo = tipo;
 	}// setTipo
 
+	/**
+	 * Retorna o nome completo do funcionario.
+	 * 
+	 * @return O nome completo.
+	 */
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}// getNomeCompleto
 
+	/**
+	 * Altera o nome completo do usuario na conta.
+	 * 
+	 * @param nomeCompleto
+	 *            O novo nome.
+	 * @throws NomeCompletoInvalidoException
+	 *             Se o nome completo nao tiver espacos, ou seja, tiver apenas
+	 *             um nome.
+	 */
 	public void setNomeCompleto(String nomeCompleto)
 			throws NomeCompletoInvalidoException {
 		verificaNomeCompletoValido(nomeCompleto);
@@ -137,6 +177,11 @@ public class Conta implements Serializable {
 			throw new NomeCompletoInvalidoException();
 	}// verificaNomeCompletoValido
 
+	/**
+	 * Retorna uma representacao da conta em String.
+	 * 
+	 * @return Os dados da conta em String.
+	 */
 	@Override
 	public String toString() {
 		final String FIM_LINHA = System.getProperty("line.separator");
@@ -158,6 +203,11 @@ public class Conta implements Serializable {
 		return result;
 	}
 
+	/**
+	 * Verifica se duas contas sao iguais pelos seus atributos.
+	 * 
+	 * @return True se forem iguais ou False caso contrario.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Conta)) {
