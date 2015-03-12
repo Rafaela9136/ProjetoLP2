@@ -300,7 +300,7 @@ public class Hotel implements Serializable {
 		if (login == null)
 			throw new NullPointerException();
 		for (Conta conta : contasHotel)
-			if (conta.getLogin().equals(login))
+			if (conta.getLogin().toLowerCase().contains(login))
 				return conta;
 
 		return null;
@@ -535,10 +535,10 @@ public class Hotel implements Serializable {
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
 		for (Contrato contrato : getContratos()) {
-			if (contrato.getHospedeTitular().getNome().equals(nome))
+			if (contrato.getHospedeTitular().getNome().toLowerCase().contains(nome))
 				contratosEncontrados.add(contrato);
 			for (String acompanhante : contrato.getAcompanhantes()) {
-				if (acompanhante.equals(nome)) {
+				if (acompanhante.toLowerCase().contains(nome)) {
 					contratosEncontrados.add(contrato);
 				}// if
 			}// for

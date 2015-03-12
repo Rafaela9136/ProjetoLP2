@@ -627,6 +627,13 @@ public class Acoes extends JPanel {
 				pesquisaTabela();
 			}
 		});
+		
+		textFieldPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contratosListados = "pesquisa";
+				pesquisaTabela();
+			}
+		});
 		panelPesquisarContrato.add(btnPesquisarContrato);
 
 		geraTabela(panelPesquisarContrato);
