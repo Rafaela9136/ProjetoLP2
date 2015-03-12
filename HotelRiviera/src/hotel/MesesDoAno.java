@@ -9,7 +9,7 @@ public enum MesesDoAno {
 
 	private MesesDoAno(String nome) {
 		this.nome = nome;
-	}// Construtor
+	}// Construtorr
 
 	public String getNome() {
 		return nome;
