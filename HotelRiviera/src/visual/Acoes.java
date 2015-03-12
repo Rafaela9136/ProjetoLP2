@@ -595,9 +595,11 @@ public class Acoes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabela.getSelectedRow();
 				List<Contrato> contratos = new ArrayList<Contrato>();
-				if (contratosListados.equals("atualiza"))
+				if(contratosListados == null) 
+					JOptionPane.showMessageDialog(null, "Selecione um contrato");
+				else if (contratosListados.equals("atualiza"))
 					contratos = Main.getHotel().getContratos();
-				if (contratosListados.equals("pesquisa"))
+				else if (contratosListados.equals("pesquisa"))
 					contratos = Main.getHotel().pesquisaContrato(
 							textFieldPesquisa.getText());
 
