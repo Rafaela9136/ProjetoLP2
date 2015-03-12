@@ -1,14 +1,18 @@
 package hotel;
 
 /**
- * Enum conetendo os nomes dos meses do ano, e utilizada para mostrar o faturamento do hotel em um ano especifico.
- * @author Grupinho da Alegria
+ * Enum conetendo os nomes dos meses do ano, e utilizada para mostrar o
+ * faturamento do hotel em um ano especifico.
+ * 
+ * @author Grupo
+ * @version 1.0
  *
  */
 public enum MesesDoAno {
-	JANEIRO("Janeiro"), FEVEREIRO("Fevereiro"), MARCO("Marco"), ABRIL("Abril"), 
-	MAIO("Maio"), JUNHO("Junho"), JULHO("Julho"), AGOSTO("Agosto"), 
-	SETEMBRO("Setembro"), OUTUBRO("Outubro"), NOVEMBRO("Novembro"), DEZEMBRO("Dezembro");
+	JANEIRO("Janeiro"), FEVEREIRO("Fevereiro"), MARCO("Marco"), ABRIL("Abril"), MAIO(
+			"Maio"), JUNHO("Junho"), JULHO("Julho"), AGOSTO("Agosto"), SETEMBRO(
+			"Setembro"), OUTUBRO("Outubro"), NOVEMBRO("Novembro"), DEZEMBRO(
+			"Dezembro");
 
 	private String nome;
 
@@ -18,6 +22,7 @@ public enum MesesDoAno {
 
 	/**
 	 * Recupera o nome do mes.
+	 * 
 	 * @return Nome do mes
 	 */
 	public String getNome() {

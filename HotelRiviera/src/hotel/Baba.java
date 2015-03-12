@@ -195,17 +195,6 @@ public class Baba implements Servico, Serializable {
 				+ "OBS: Das 18h as 7h o valor do servico e cobrado em dobro.";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
-		result = prime * result
-				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
-		return result;
-	}
-
 	/**
 	 * Verifica se dois servicos de Babas sao iguais, apartir de suas datas e
 	 * precos.

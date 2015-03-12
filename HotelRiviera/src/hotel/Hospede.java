@@ -403,8 +403,7 @@ public class Hospede implements Serializable {
 	private void verificaCpf(String cpf) throws NullPointerException,
 			CPFInvalidoException {
 		verificaParametroNulo(cpf);
-		if (cpf.trim().isEmpty() 
-				|| !cpf.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}")) {
+		if (cpf.trim().isEmpty() || !cpf.matches("\\d{3}.\\d{3}.\\d{3}-\\d{2}")) {
 			throw new CPFInvalidoException();
 		}
 	}
@@ -433,37 +432,18 @@ public class Hospede implements Serializable {
 	@Override
 	public String toString() {
 		final String FIM_LINHA = System.getProperty("line.separator");
-		return "HOSPEDE" + FIM_LINHA
-				+ "Nome: " + getNome() + FIM_LINHA
-				+ "Data de Nascimento: " + new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento.getTime()) + FIM_LINHA
-				+ "Pais: " + getPais() + FIM_LINHA
-				+ "Estado: " + getEstado() + FIM_LINHA
-				+ "Cidade: " + getCidade() + FIM_LINHA
-				+ "Endereco: " + getLogradouro() + ", " + getNumero() + FIM_LINHA
-				+ "CPF: " + getCpf() + FIM_LINHA
-				+ "Cartao de Credito: " + getCartaoDeCredito();
-	}
-
-	/**
-	 * 
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((cartaoDeCredito == null) ? 0 : cartaoDeCredito.hashCode());
-		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result
-				+ ((dataNascimento == null) ? 0 : dataNascimento.hashCode());
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result
-				+ ((logradouro == null) ? 0 : logradouro.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
-		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
-		return result;
+		return "HOSPEDE"
+				+ FIM_LINHA
+				+ "Nome: "
+				+ getNome()
+				+ FIM_LINHA
+				+ "Data de Nascimento: "
+				+ new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento
+						.getTime()) + FIM_LINHA + "Pais: " + getPais()
+				+ FIM_LINHA + "Estado: " + getEstado() + FIM_LINHA + "Cidade: "
+				+ getCidade() + FIM_LINHA + "Endereco: " + getLogradouro()
+				+ ", " + getNumero() + FIM_LINHA + "CPF: " + getCpf()
+				+ FIM_LINHA + "Cartao de Credito: " + getCartaoDeCredito();
 	}
 
 	/**

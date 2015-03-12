@@ -195,18 +195,6 @@ public class Conta implements Serializable {
 				+ getSenha();
 	}// toString
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result
-				+ ((nomeCompleto == null) ? 0 : nomeCompleto.hashCode());
-		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
-		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
-		return result;
-	}
-
 	/**
 	 * Verifica se duas contas sao iguais pelos seus atributos.
 	 * 

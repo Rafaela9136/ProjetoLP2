@@ -24,8 +24,8 @@ import excecoes.ServicoInvalidoException;
  * informacoes, datas de comeco e fim do contrato, opiniao sobre o servico
  * prestado, entre outras coisas.
  * 
- * @author Grupinho da Alegria
- * @version 2.0
+ * @author Grupo
+ * @version 1.0
  */
 public class Contrato implements Serializable {
 	/**
@@ -527,29 +527,6 @@ public class Contrato implements Serializable {
 	}// calculaValorTotalServicosComEstrategia
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((acompanhantes == null) ? 0 : acompanhantes.hashCode());
-		result = prime * result
-				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
-		result = prime * result
-				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
-		result = prime * result + Float.floatToIntBits(despesasAdicionais);
-		result = prime * result
-				+ ((estrategia == null) ? 0 : estrategia.hashCode());
-		result = prime * result
-				+ ((hospedeTitular == null) ? 0 : hospedeTitular.hashCode());
-		result = prime * result + (isAberto ? 1231 : 1237);
-		result = prime * result + (isReserva ? 1231 : 1237);
-		result = prime * result + ((opiniao == null) ? 0 : opiniao.hashCode());
-		result = prime * result
-				+ ((servicos == null) ? 0 : servicos.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
 			return false;
@@ -674,7 +651,6 @@ public class Contrato implements Serializable {
 			throw new DataInvalidaException();
 		if (dataCheckOut.before(dataCheckIn))
 			throw new DataInvalidaException();
-		
 
 	}// verificaDataValida
 

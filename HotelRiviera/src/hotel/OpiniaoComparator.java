@@ -2,9 +2,12 @@ package hotel;
 
 import java.io.Serializable;
 import java.util.Comparator;
+
 /**
  * Comparador utilizado para ordenar a lista de opinioes na classe Hotel.
- * @author Grupinho da alegria.
+ * 
+ * @author Grupo
+ * @version 1.0
  *
  */
 public class OpiniaoComparator implements Comparator<Opiniao>, Serializable {
@@ -18,6 +21,5 @@ public class OpiniaoComparator implements Comparator<Opiniao>, Serializable {
 	public int compare(Opiniao opiniao, Opiniao outraOpiniao) {
 		return opiniao.compareTo(outraOpiniao);
 	}// compare
-	
 
 }// OpiniaoComparator

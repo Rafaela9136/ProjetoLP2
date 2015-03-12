@@ -21,7 +21,7 @@ public class Conector implements Serializable {
 			return TiposDeQuarto.TRIPLO;
 		return null;
 	}
-	
+
 	public static TipoFuncionario selecionaTipoFuncionario(Object estilo) {
 		if (estilo.equals("Gerente"))
 			return TipoFuncionario.GERENTE;
@@ -37,8 +37,8 @@ public class Conector implements Serializable {
 			return TipoCarro.LUXO;
 		return null;
 	}
-	
-	public static int trasformaNota(String object){
+
+	public static int trasformaNota(String object) {
 		int notaInt = Integer.parseInt(object);
 		return notaInt;
 	}
@@ -51,30 +51,37 @@ public class Conector implements Serializable {
 		return null;
 	}
 
-	public static Calendar transformaData(String data) throws NumberFormatException {
+	public static Calendar transformaData(String data)
+			throws NumberFormatException {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
-		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
+		c.set(Integer.parseInt(diaMesAno[2]),
+				Integer.parseInt(diaMesAno[1]) - 1,
 				Integer.parseInt(diaMesAno[0]));
 		return c;
 	}
-	
+
 	public static String transformaData(Calendar data) {
-		String novaData = (Integer.toString(Calendar.DAY_OF_MONTH) + "/" + Integer.toString(Calendar.MONTH + 1) + "/" + Integer.toString(Calendar.YEAR));
+		String novaData = (Integer.toString(Calendar.DAY_OF_MONTH) + "/"
+				+ Integer.toString(Calendar.MONTH + 1) + "/" + Integer
+				.toString(Calendar.YEAR));
 		return novaData;
 	}
 
-	public static Calendar transformaDataHora(String data, String hora) throws NumberFormatException {
+	public static Calendar transformaDataHora(String data, String hora)
+			throws NumberFormatException {
 		Calendar c = Calendar.getInstance();
 		String[] diaMesAno = data.split("/");
-		c.set(Integer.parseInt(diaMesAno[2]), Integer.parseInt(diaMesAno[1]) - 1,
+		c.set(Integer.parseInt(diaMesAno[2]),
+				Integer.parseInt(diaMesAno[1]) - 1,
 				Integer.parseInt(diaMesAno[0]));
 		String[] horaMin = hora.split(":");
 		c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaMin[0]));
 		return c;
 	}
 
-	public static float transformaFloat(String num) throws NumberFormatException {
+	public static float transformaFloat(String num)
+			throws NumberFormatException {
 		return Float.parseFloat(num);
 	}
 

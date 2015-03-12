@@ -6,6 +6,9 @@ import excecoes.DataInvalidaException;
 /**
  * Representa uma suite presidencial do hotel. As suites presidenciais nao
  * permitem cama extra como os outros quartos.
+ * 
+ * @author Grupo
+ * @version 1.0
  *
  */
 public class SuitePresidencial extends Quarto {
@@ -69,7 +72,5 @@ public class SuitePresidencial extends Quarto {
 	public String toString() {
 		return "\nSuite Presidencial: " + getPreco() + super.toString();
 	}
-	
-	
 
 }// SuitePresidencial

@@ -14,14 +14,12 @@ import excecoes.ValorNegativoException;
  * presidencial. Quartos do tipo executivo e luxo existem nas categorias
  * simples, duplo e triplo.
  * 
- * @author Grupinho da Alegria.
+ * @author Grupo
+ * @version 1.0
  *
  */
 public abstract class Quarto implements Servico, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public static final String DESCRICAO = "As acomodacoes do hotel sao todas novas, equipadas com TV LCD 42'', split, frigobar, cofre.";
 	private boolean camaExtra;
@@ -164,7 +162,7 @@ public abstract class Quarto implements Servico, Serializable {
 			Calendar dataCheckOut) throws DataInvalidaException,
 			NullPointerException {
 		Calendar dataAtual = new GregorianCalendar();
-		
+
 		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
 		dataAtual.set(Calendar.MINUTE, 0);
 		dataAtual.set(Calendar.SECOND, 0);
@@ -177,7 +175,7 @@ public abstract class Quarto implements Servico, Serializable {
 
 		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
 		dataCheckOut.set(Calendar.MINUTE, 59);
-		
+
 		if (dataCheckIn == null || dataCheckOut == null) {
 			throw new NullPointerException();
 		}

@@ -3,9 +3,12 @@ package hotel;
 import java.io.Serializable;
 
 /**
- * Enum contendo os indices do array que possui a quantidade de quartos desocupados. Possui tambem o nome dos quartos e
- * a quantidade que ha de cada quarto no hotel.
- * @author Grupinho da Alegria
+ * Enum contendo os indices do array que possui a quantidade de quartos
+ * desocupados. Possui tambem o nome dos quartos e a quantidade que ha de cada
+ * quarto no hotel.
+ * 
+ * @author Grupo
+ * @version 1.0
  *
  */
 public enum IndexQuartos implements Serializable {
@@ -21,17 +24,19 @@ public enum IndexQuartos implements Serializable {
 		this.quantidade = quantidade;
 		this.nome = nome;
 	}// construtor
-	
+
 	/**
 	 * Recupera a quantidade de quartos desse tipo no hotel.
+	 * 
 	 * @return Quantidade de quartos desse tipo no hotel.
 	 */
 	public int getQuantidade() {
 		return quantidade;
 	}// getQuantidade
-	
+
 	/**
 	 * Recupera o nome do quarto.
+	 * 
 	 * @return Nome do quarto.
 	 */
 	public String getNome() {

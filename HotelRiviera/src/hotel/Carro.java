@@ -244,25 +244,6 @@ public class Carro implements Servico, Serializable {
 	}
 
 	/**
-	 * 
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((dataCheckIn == null) ? 0 : dataCheckIn.hashCode());
-		result = prime * result
-				+ ((dataCheckOut == null) ? 0 : dataCheckOut.hashCode());
-		result = prime * result + (isAssegurado ? 1231 : 1237);
-		result = prime * result + (isTanqueCheio ? 1231 : 1237);
-		result = prime * result + numDeDias;
-		result = prime * result
-				+ ((tipoDeCarro == null) ? 0 : tipoDeCarro.hashCode());
-		return result;
-	}
-
-	/**
 	 * Mostra se dois servicos de aluguel de carro sao iguais, a partir do tipo,
 	 * se tem tanque cheio e/ou seguro, preco e datas de inicio e termino.
 	 * 

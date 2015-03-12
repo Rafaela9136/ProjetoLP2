@@ -23,7 +23,10 @@ import java.io.*;
 
 /**
  * A classe Hotel guarda informacoes sobre contratos, quartos disponiveis,
- * opinioes de clientes e login dos funcionarios do hotel Rivieira
+ * opinioes de clientes e login dos funcionarios do hotel Rivieira.
+ * 
+ * @author Grupo
+ * @version 1.0
  * 
  */
 public class Hotel implements Serializable {
@@ -143,7 +146,7 @@ public class Hotel implements Serializable {
 			if (contrato.getDataCheckIn().before(Calendar.getInstance())) {
 				contrato.setIsAberto(false);
 				contratosRemovidos.add(contrato);
-			}// if 
+			}// if
 			atualizaContratosNaoReservas();
 			quartosDesocupados = atualizaQuantQuartosParaContratosVelhos(contrato);
 		}// if
@@ -535,7 +538,8 @@ public class Hotel implements Serializable {
 		List<Contrato> contratosEncontrados = new ArrayList<Contrato>();
 
 		for (Contrato contrato : getContratos()) {
-			if (contrato.getHospedeTitular().getNome().toLowerCase().contains(nome.toLowerCase()))
+			if (contrato.getHospedeTitular().getNome().toLowerCase()
+					.contains(nome.toLowerCase()))
 				contratosEncontrados.add(contrato);
 			for (String acompanhante : contrato.getAcompanhantes()) {
 				if (acompanhante.toLowerCase().contains(nome.toLowerCase())) {

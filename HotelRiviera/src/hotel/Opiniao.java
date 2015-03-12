@@ -102,11 +102,9 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 	public int compareTo(Opiniao outraOpiniao) {
 		if (outraOpiniao == null) {
 			throw new NullPointerException();
-		}
-		else if (getNota() > outraOpiniao.getNota()) {
+		} else if (getNota() > outraOpiniao.getNota()) {
 			return 1;
-		}
-		else if (getNota() < outraOpiniao.getNota()) {
+		} else if (getNota() < outraOpiniao.getNota()) {
 			return -1;
 		}
 		return 0;
@@ -121,21 +119,10 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 	@Override
 	public String toString() {
 		final String FIM_LINHA = System.getProperty("line.separator");
-		return "Opiniao: " + FIM_LINHA
-				+ "Comentario: '" + getComentario() + "'" + FIM_LINHA
-				+ "Nota: " + (int) getNota() + FIM_LINHA + "Data: "
+		return "Opiniao: " + FIM_LINHA + "Comentario: '" + getComentario()
+				+ "'" + FIM_LINHA + "Nota: " + (int) getNota() + FIM_LINHA
+				+ "Data: "
 				+ new SimpleDateFormat("dd/MM/yyyy").format(data.getTime());
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((comentario == null) ? 0 : comentario.hashCode());
-		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + Float.floatToIntBits(nota);
-		return result;
 	}
 
 	/**

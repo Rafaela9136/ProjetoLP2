@@ -9,12 +9,12 @@ import excecoes.DataInvalidaException;
  * Representa um quarto do tipo executivo. Os quartos executivos podem ser
  * simples(1 hospede), duplo (2 hospedes) ou triplo (tres hospedes).
  * 
+ * @author Grupo
+ * @version 1.0
+ * 
  */
 public class QuartoExecutivo extends Quarto {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public static final double DIARIA_EXECUTIVO_SIMPLES = 360.0;
 	public static final double DIARIA_EXECUTIVO_DUPLO = 385.0;
@@ -35,15 +35,18 @@ public class QuartoExecutivo extends Quarto {
 	 * @param tipoDeQuarto
 	 *            indica o tipo de quarto (simples, duplo ou triplo). Cada tipo
 	 *            tem suas especificacoes.
-	 * @throws NullPointerException 
-	 * 			Excecao lancada quando algum dos parametros e null.
+	 * @throws NullPointerException
+	 *             Excecao lancada quando algum dos parametros e null.
 	 * 
-	 * @throws DataInvalidaException Excecao lancada quando uma das datas passadas como parametro e invalida.
+	 * @throws DataInvalidaException
+	 *             Excecao lancada quando uma das datas passadas como parametro
+	 *             e invalida.
 	 * 
 	 */
 	public QuartoExecutivo(boolean temCamaExtra, TiposDeQuarto tipoDeQuarto,
 			Calendar dataCheckIn, Calendar dataCheckOut)
-			throws NullPointerException, CamaExtraException, DataInvalidaException {
+			throws NullPointerException, CamaExtraException,
+			DataInvalidaException {
 		super(temCamaExtra, dataCheckIn, dataCheckOut);
 		if (tipoDeQuarto == null) {
 			throw new NullPointerException();
@@ -107,10 +110,11 @@ public class QuartoExecutivo extends Quarto {
 		return super.equals(outro)
 				&& this.tipoDeQuarto.equals(outro.getTipoDeQuarto());
 	}
-	
+
 	@Override
 	public String toString() {
-		return "\nQuarto Executivo " + tipoDeQuarto.getNome()+ ": " + getPreco() + super.toString();
+		return "\nQuarto Executivo " + tipoDeQuarto.getNome() + ": "
+				+ getPreco() + super.toString();
 	}
 
 }
