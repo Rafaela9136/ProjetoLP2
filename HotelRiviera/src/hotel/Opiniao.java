@@ -111,7 +111,7 @@ public class Opiniao implements Comparable<Opiniao>, Serializable {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Retorna uma representacao em string da opiniao dada, com seu comentario e
 	 * nota.

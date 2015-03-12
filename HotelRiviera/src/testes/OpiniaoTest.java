@@ -91,16 +91,26 @@ public class OpiniaoTest {
 		Calendar momentoAgr = Calendar.getInstance();
 		Assert.assertEquals(
 				opiniao.toString(),
-				"Opiniao: " + FIM_LINHA
-						+ "Comentario: 'Programacao II Universidade Federal de Campina Grande'" + FIM_LINHA
-						+ "Nota: 1" + FIM_LINHA
-						+ "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(opiniao.getData().getTime()));
+				"Opiniao: "
+						+ FIM_LINHA
+						+ "Comentario: 'Programacao II Universidade Federal de Campina Grande'"
+						+ FIM_LINHA
+						+ "Nota: 1"
+						+ FIM_LINHA
+						+ "Data: "
+						+ new SimpleDateFormat("dd/MM/yyyy").format(opiniao
+								.getData().getTime()));
 		Opiniao opiniao2 = new Opiniao("Muito bom, gostei bastante!", 10);
 		Assert.assertEquals(
 				opiniao2.toString(),
-				"Opiniao: " + FIM_LINHA
-						+ "Comentario: 'Muito bom, gostei bastante!'" + FIM_LINHA
-						+ "Nota: 10" + FIM_LINHA
-						+ "Data: " + new SimpleDateFormat("dd/MM/yyyy").format(opiniao2.getData().getTime()));
+				"Opiniao: "
+						+ FIM_LINHA
+						+ "Comentario: 'Muito bom, gostei bastante!'"
+						+ FIM_LINHA
+						+ "Nota: 10"
+						+ FIM_LINHA
+						+ "Data: "
+						+ new SimpleDateFormat("dd/MM/yyyy").format(opiniao2
+								.getData().getTime()));
 	}
 }
