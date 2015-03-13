@@ -258,6 +258,8 @@ public class Hotel implements Serializable {
 	 * @param conta
 	 *            A conta a ser removida.
 	 * @return True se a conta foi removida com sucesso ou False caso contrario.
+	 * @throws NullPointerException
+	 * 				Se o login for null
 	 * @throws ListaVaziaException
 	 *             Se a lista de contas do hotel estiver vazia.
 	 */

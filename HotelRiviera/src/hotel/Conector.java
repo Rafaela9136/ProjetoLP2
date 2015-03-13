@@ -5,6 +5,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Classe que serve para auxiliar na conexao da interface gráfica com a parte lógica
+ * do programa 
+ * @author Grupo
+ * @version 1.0
+ *
+ */
+
 public class Conector implements Serializable {
 
 	/**

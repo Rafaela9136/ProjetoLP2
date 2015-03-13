@@ -104,7 +104,7 @@ public abstract class Quarto implements Servico, Serializable {
 	 *            Valor a ser somado
 	 * @throws ValorNegativoException
 	 *             Se a conta do frigobar somado com o valor passado como
-	 *             paramtro ficar negativo esta excecao sera lancada.
+	 *             parametro ficar negativo esta excecao sera lancada.
 	 */
 	public void somaPrecoFrigobar(double valor) throws ValorNegativoException {
 		frigobar.somaPreco(valor);

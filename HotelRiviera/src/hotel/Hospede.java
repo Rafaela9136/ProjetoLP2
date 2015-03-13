@@ -65,8 +65,6 @@ public class Hospede implements Serializable {
 	 *             letras e caracteres que nao sejam numeros.
 	 * @throws DataInvalidaException
 	 *             Caso a data seja depois da data atual.
-	 * @throws StringVaziaException
-	 *             Caso a string seja vazia.
 	 * @throws CartaoInvalidoException
 	 *             Se o cartao nao seguir o padrao ####.####.####.#### ou conter
 	 *             letras e caracteres que nao sejam numeros.
@@ -120,8 +118,6 @@ public class Hospede implements Serializable {
 	 *             Se o cpf nao seguir o padrao ###.###.###-##
 	 * @throws DataInvalidaException
 	 *             Se a data ainda nao tiver ocorrido.
-	 * @throws StringVaziaException
-	 *             Se a string for vazia.
 	 * @throws CartaoInvalidoException
 	 *             Se o cartao nao seguir o padrao ####.####.####.####
 	 * @throws StringInvalidaException
@@ -154,8 +150,6 @@ public class Hospede implements Serializable {
 	 *            O novo nome do Hospede.
 	 * @throws NullPointerException
 	 *             Se o novo nome tiver valor nulo.
-	 * @throws StringVaziaException
-	 *             Se o nome for uma string vazia.
 	 * @throws StringInvalidaException
 	 *             Se o nome possuir numeros ou outros caracteres que nao sejam
 	 *             letras.
@@ -207,8 +201,6 @@ public class Hospede implements Serializable {
 	 *            O novo Pais.
 	 * @throws NullPointerException
 	 *             Se o objeto tiver valor nulo.
-	 * @throws StringVaziaException
-	 *             Se a string passada for vazia.
 	 * @throws StringInvalidaException
 	 *             Se a string passada possuir caracteres que nao sejam letras.
 	 */
@@ -256,8 +248,6 @@ public class Hospede implements Serializable {
 	 *            A nova cidade.
 	 * @throws NullPointerException
 	 *             Se a nova cidade tiver valor nulo.
-	 * @throws StringVaziaException
-	 *             Se a nova cidade for vazia.
 	 * @throws StringInvalidaException
 	 *             Se a string da nova cidade possuir caracteres que nao sao
 	 *             letras.
@@ -284,8 +274,6 @@ public class Hospede implements Serializable {
 	 *            O novo logradouro.
 	 * @throws NullPointerException
 	 *             Se a string tiver valor nulo.
-	 * @throws StringVaziaException
-	 *             Se a string for vazia.
 	 * @throws StringInvalidaException
 	 *             Se a string tiver caracteres que nao sejam letras.
 	 */
@@ -311,8 +299,6 @@ public class Hospede implements Serializable {
 	 *            O novo numero.
 	 * @throws NullPointerException
 	 *             Se o numero tiver valor nulo.
-	 * @throws StringVaziaException
-	 *             Se o numero for uma string vazia.
 	 * @throws NumeroInvalidoException
 	 *             Se o novo numero possuir caracteres que nao sejam numeros.
 	 */
@@ -341,8 +327,6 @@ public class Hospede implements Serializable {
 	 * @throws CPFInvalidoException
 	 *             Se o novo cpf nao seguir o padrao ###.###.###-## ou possuir
 	 *             caracteres que nao sejam numeros.
-	 * @throws StringVaziaException
-	 *             Se o novo cpf for uma string vazia.
 	 */
 	public void setCpf(String cpf) throws NullPointerException,
 			CPFInvalidoException {
@@ -369,8 +353,6 @@ public class Hospede implements Serializable {
 	 * @throws CartaoInvalidoException
 	 *             Se o novo numero nao seguir o padrao ####.####.####.#### ou
 	 *             possuir caracteres que nao sejam numeros.
-	 * @throws StringVaziaException
-	 *             Se o novo numero for uma string vazia.
 	 */
 	public void setCartaoDeCredito(String novoCartao)
 			throws NullPointerException, CartaoInvalidoException {
