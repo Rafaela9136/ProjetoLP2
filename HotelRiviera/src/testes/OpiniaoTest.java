@@ -3,7 +3,6 @@ package testes;
 import hotel.Opiniao;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -88,7 +87,6 @@ public class OpiniaoTest {
 			NotaInvalidaException, EstouroDeCaracteresException,
 			ComentarioVazioException {
 		final String FIM_LINHA = System.getProperty("line.separator");
-		Calendar momentoAgr = Calendar.getInstance();
 		Assert.assertEquals(
 				opiniao.toString(),
 				"Opiniao: "

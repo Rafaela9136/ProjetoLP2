@@ -12,7 +12,6 @@ import org.junit.Test;
 import excecoes.CPFInvalidoException;
 import excecoes.CartaoInvalidoException;
 import excecoes.DataInvalidaException;
-import excecoes.NomeInvalidoException;
 import excecoes.NumeroInvalidoException;
 import excecoes.StringInvalidaException;
 
