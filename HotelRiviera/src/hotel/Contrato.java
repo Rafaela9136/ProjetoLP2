@@ -104,6 +104,15 @@ public class Contrato implements Serializable {
 		this.acompanhantes = hospedesAcompanhantes;
 		this.servicos = servicos;
 
+		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
+		dataCheckIn.set(Calendar.MINUTE, 0);
+		dataCheckIn.set(Calendar.SECOND, 0);
+		dataCheckIn.set(Calendar.MILLISECOND, 0);
+
+		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
+		dataCheckOut.set(Calendar.MINUTE, 59);
+		dataCheckOut.set(Calendar.SECOND, 59);
+
 	}// Construtor
 
 	/**
@@ -633,24 +642,14 @@ public class Contrato implements Serializable {
 		verificaDataNull(dataCheckOut);
 
 		Calendar dataAtual = Calendar.getInstance();
-
 		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
 		dataAtual.set(Calendar.MINUTE, 0);
 		dataAtual.set(Calendar.SECOND, 0);
 		dataAtual.set(Calendar.MILLISECOND, 0);
 
-		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
-		dataCheckIn.set(Calendar.MINUTE, 0);
-		dataCheckIn.set(Calendar.SECOND, 0);
-		dataCheckIn.set(Calendar.MILLISECOND, 0);
-
-		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
-		dataCheckOut.set(Calendar.MINUTE, 59);
-
-		if (dataCheckIn.before(dataAtual))
+		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn)) {
 			throw new DataInvalidaException();
-		if (dataCheckOut.before(dataCheckIn))
-			throw new DataInvalidaException();
+		}
 
 	}// verificaDataValida
 

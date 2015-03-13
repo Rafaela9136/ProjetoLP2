@@ -301,33 +301,31 @@ public class ContratoTest {
 	@Test
 	public void testCalculaValorTotalServicos() throws ValorNegativoException,
 			NullPointerException, DataInvalidaException {
-		Assert.assertEquals(18000, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(21550, contrato1.calculaValorTotalServicos(), 0.5);
 
 		Calendar dataInicio = new GregorianCalendar(
-				momentoAgr.get(Calendar.YEAR), Calendar.MONTH,
-				Calendar.DAY_OF_MONTH + 1);
+				momentoAgr.get(Calendar.YEAR), momentoAgr.get(Calendar.MONTH),
+				momentoAgr.get(Calendar.DAY_OF_MONTH) + 1);
 
 		Calendar dataTermino = new GregorianCalendar(
 				dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH),
 				dataInicio.get(Calendar.DAY_OF_MONTH) + 5);
 
-		Carro carro2 = new Carro(TipoCarro.LUXO, dataInicio, dataTermino,
-				isTanqueCheio, isAssegurado);
+		servicos.add(new Carro(TipoCarro.LUXO, dataInicio, dataTermino,
+				isTanqueCheio, isAssegurado));
 
-		servicos.add(carro2);
-
-		Assert.assertEquals(18750, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(22300, contrato1.calculaValorTotalServicos(), 0.5);
 
 		Baba baba2 = new Baba(dataInicio, dataTermino);
 
 		servicos.add(baba2);
 
-		Assert.assertEquals(23375, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(26925, contrato1.calculaValorTotalServicos(), 0.5);
 		ContaRestaurante conta = new ContaRestaurante(1000);
 
 		servicos.add(conta);
 
-		Assert.assertEquals(24375, contrato1.calculaValorTotalServicos(), 0.5);
+		Assert.assertEquals(27925, contrato1.calculaValorTotalServicos(), 0.5);
 
 	}// testCalculaValorTotalServicos
 

@@ -42,6 +42,15 @@ public abstract class Quarto implements Servico, Serializable {
 		this.dataCheckOut = dataCheckOut;
 		this.camaExtra = camaExtra;
 		this.frigobar = new Frigobar();
+
+		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
+		dataCheckIn.set(Calendar.MINUTE, 0);
+		dataCheckIn.set(Calendar.SECOND, 0);
+		dataCheckIn.set(Calendar.MILLISECOND, 0);
+
+		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
+		dataCheckOut.set(Calendar.MINUTE, 59);
+		dataCheckOut.set(Calendar.SECOND, 59);
 	}// Construtor
 
 	/**
@@ -123,10 +132,10 @@ public abstract class Quarto implements Servico, Serializable {
 			return false;
 		}
 		Quarto outro = (Quarto) obj;
-		return (this.getPreco() == outro.getPreco()
-				&& this.isCamaExtra() == outro.isCamaExtra()
-				&& this.getDataCheckIn().equals(outro.getDataCheckIn()) && this
-				.getDataCheckOut().equals(outro.getDataCheckOut()));
+		return (getPreco() == outro.getPreco()
+				&& isCamaExtra() == outro.isCamaExtra()
+				&& getDataCheckIn().equals(outro.getDataCheckIn()) && getDataCheckOut()
+				.equals(outro.getDataCheckOut()));
 	}
 
 	private String resultadoCamaExtra() {
@@ -161,24 +170,16 @@ public abstract class Quarto implements Servico, Serializable {
 	private void verificaDatasValidas(Calendar dataCheckIn,
 			Calendar dataCheckOut) throws DataInvalidaException,
 			NullPointerException {
-		Calendar dataAtual = new GregorianCalendar();
+		if (dataCheckIn == null || dataCheckOut == null) {
+			throw new NullPointerException();
+		}
 
+		Calendar dataAtual = new GregorianCalendar();
 		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
 		dataAtual.set(Calendar.MINUTE, 0);
 		dataAtual.set(Calendar.SECOND, 0);
 		dataAtual.set(Calendar.MILLISECOND, 0);
 
-		dataCheckIn.set(Calendar.HOUR_OF_DAY, 0);
-		dataCheckIn.set(Calendar.MINUTE, 0);
-		dataCheckIn.set(Calendar.SECOND, 0);
-		dataCheckIn.set(Calendar.MILLISECOND, 0);
-
-		dataCheckOut.set(Calendar.HOUR_OF_DAY, 23);
-		dataCheckOut.set(Calendar.MINUTE, 59);
-
-		if (dataCheckIn == null || dataCheckOut == null) {
-			throw new NullPointerException();
-		}
 		if (dataCheckIn.before(dataAtual) || dataCheckOut.before(dataCheckIn)) {
 			throw new DataInvalidaException();
 		}

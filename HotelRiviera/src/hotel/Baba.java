@@ -52,6 +52,7 @@ public class Baba implements Servico, Serializable {
 		verificaData(dataCheckIn, dataCheckOut);
 		this.dataCheckIn = dataCheckIn;
 		this.dataCheckOut = dataCheckOut;
+		
 	}
 
 	/**
@@ -156,10 +157,16 @@ public class Baba implements Servico, Serializable {
 
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
 			throws NullPointerException, DataInvalidaException {
-		Calendar dataAtual = new GregorianCalendar();
 		if (dataInicio == null || dataTermino == null) {
 			throw new NullPointerException();
 		}
+		
+		Calendar dataAtual = new GregorianCalendar();
+		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
+		dataAtual.set(Calendar.MINUTE, 0);
+		dataAtual.set(Calendar.SECOND, 0);
+		dataAtual.set(Calendar.MILLISECOND, 0);
+		
 		if (dataInicio.equals(dataTermino) || dataInicio.before(dataAtual)
 				|| dataTermino.before(dataInicio)) {
 			throw new DataInvalidaException();

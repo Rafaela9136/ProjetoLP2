@@ -191,11 +191,20 @@ public class Carro implements Servico, Serializable {
 
 	private void verificaData(Calendar dataInicio, Calendar dataTermino)
 			throws NullPointerException, DataInvalidaException {
-		if (dataInicio == null || dataTermino == null)
+		if (dataInicio == null || dataTermino == null) {
 			throw new NullPointerException();
-		if (dataInicio.before(new GregorianCalendar())
-				|| dataTermino.before(dataInicio))
+		}
+		Calendar dataAtual = new GregorianCalendar();
+		dataAtual.set(Calendar.HOUR_OF_DAY, 0);
+		dataAtual.set(Calendar.MINUTE, 0);
+		dataAtual.set(Calendar.SECOND, 0);
+		dataAtual.set(Calendar.MILLISECOND, 0);
+
+		if (dataInicio.before(dataAtual))
 			throw new DataInvalidaException();
+		if (dataTermino.before(dataInicio)) {
+			throw new DataInvalidaException();
+		}
 	}
 
 	private void verificaTipo(TipoCarro tipoDeCarro)
